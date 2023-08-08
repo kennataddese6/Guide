@@ -1,8 +1,33 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
+import { useEffect } from 'react';
+import { ipcRenderer } from 'electron';
 import './App.css';
-
+//const { Notification } = require('electron');
 function Hello() {
+  const showNotification = () => {
+    console.log('hello I am clicked');
+    window.electron.ipcRenderer.sendMessage('show-notification', {
+      title: 'New Customer',
+      body: 'Abebe balcha to System Development and customization',
+    });
+  };
+  const handleNotificationClick = () => {
+    // Perform the app redirect here
+    // For example:
+    //window.location.href = '/path/to/redirect';
+    const currentPath = window.location.pathname;
+    window.location.href = currentPath;
+    console.log('i am clicked on this bar');
+
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <div>
       <div className="Hello">
@@ -22,6 +47,9 @@ function Hello() {
             Read our docs
           </button>
         </a>
+        <div>
+          <button onClick={showNotification}>Show Notification</button>
+        </div>
         <a
           href="https://github.com/sponsors/electron-react-boilerplate"
           target="_blank"

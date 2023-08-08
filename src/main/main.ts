@@ -9,12 +9,11 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { app, BrowserWindow, shell, ipcMain, Notification } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -29,6 +28,25 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+ipcMain.on('show-notification', (event, notificationData) => {
+  const { title, body } = notificationData;
+  const notification = new Notification({
+    title,
+    body,
+    silent: false, // Enable sound for the notification
+  });
+  notification.on('click', () => {
+    if (mainWindow!.isMinimized()) {
+      mainWindow!.restore();
+    } else {
+      mainWindow!.show();
+    }
+  });
+  notification.on('click', () => {
+    mainWindow!.webContents.send('notification-clicked');
+  });
+  notification.show();
 });
 
 if (process.env.NODE_ENV === 'production') {
