@@ -5,6 +5,10 @@ ws.addEventListener('open', function () {
 });
 
 ws.addEventListener('message', function (event) {
+  window.electron.ipcRenderer.sendMessage('show-notification', {
+    title: 'New Message',
+    body: event.data,
+  });
   console.log('Received message:', event.data);
 });
 
