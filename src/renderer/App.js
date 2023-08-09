@@ -1,10 +1,11 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { sendMessage } from 'renderer/webSocket';
 import './App.css';
-//const { Notification } = require('electron');
+import LobbyDashboard from './Components/pages/LobbyDasboard';
 function Hello() {
+  const [text, setText] = useState('');
   const showNotification = () => {
     console.log('hello I am clicked');
     window.electron.ipcRenderer.sendMessage('show-notification', {
@@ -22,7 +23,7 @@ function Hello() {
   };
   const sendMessages = () => {
     console.log('I am clicked');
-    sendMessage('Mr X to System Development and customization');
+    sendMessage(text);
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(
@@ -66,6 +67,12 @@ function Hello() {
           </button>
         </a>
         <button onClick={sendMessages}>Send Message</button>
+        <input
+          type="text"
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+        />
       </div>
     </div>
   );
@@ -76,6 +83,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Hello />} />
+        <Route path="/LobbyDasboard" element={<LobbyDashboard />} />
       </Routes>
     </Router>
   );
