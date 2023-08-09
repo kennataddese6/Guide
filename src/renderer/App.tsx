@@ -1,7 +1,7 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import { useEffect } from 'react';
-import { ipcRenderer } from 'electron';
+import { sendMessage } from 'main/webSocket';
 import './App.css';
 //const { Notification } = require('electron');
 function Hello() {
@@ -19,7 +19,12 @@ function Hello() {
     const currentPath = window.location.pathname;
     window.location.href = currentPath;
     console.log('i am clicked on this bar');
-
+  };
+  const sendMessages = () => {
+    console.log('I am clicked');
+    sendMessage(
+      'I another have sent a customer to System Development and customization'
+    );
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(
@@ -62,6 +67,7 @@ function Hello() {
             Donate
           </button>
         </a>
+        <button onClick={sendMessages}>Send Message</button>
       </div>
     </div>
   );
