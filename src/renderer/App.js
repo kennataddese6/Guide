@@ -1,4 +1,9 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import { useEffect, useState } from 'react';
 import { sendMessage } from 'renderer/webSocket';
@@ -6,6 +11,8 @@ import './App.css';
 import LobbyDashboard from './Components/pages/LobbyDasboard';
 function Hello() {
   const [text, setText] = useState('');
+  const navigate = useNavigate();
+
   const showNotification = () => {
     console.log('hello I am clicked');
     window.electron.ipcRenderer.sendMessage('show-notification', {
@@ -32,6 +39,9 @@ function Hello() {
     );
     return () => {};
   }, []);
+  const toLobbyDashboard = () => {
+    navigate('/LobbyDasboard');
+  };
   return (
     <div>
       <div className="Hello">
@@ -54,18 +64,13 @@ function Hello() {
         <div>
           <button onClick={showNotification}>Show Notification</button>
         </div>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+
+        <button type="button" onClick={toLobbyDashboard}>
+          <span role="img" aria-label="folded hands">
+            🙏
+          </span>
+          Donate
+        </button>
         <button onClick={sendMessages}>Send Message</button>
         <input
           type="text"
