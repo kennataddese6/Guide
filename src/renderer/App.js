@@ -22,7 +22,7 @@ function Hello() {
   };
   const sendMessages = () => {
     console.log('I am clicked');
-    sendMessage('SomeOne to System Development and customization');
+    sendMessage('Mr X to System Development and customization');
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(

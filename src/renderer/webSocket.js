@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 const ws = new WebSocket('ws://localhost:8080');
 
 ws.addEventListener('open', function () {
@@ -13,7 +14,11 @@ ws.addEventListener('message', function (event) {
 });
 
 const sendMessage = (message) => {
-  ws.send(message);
+  try {
+    ws.send(JSON.stringify(message));
+  } catch (error) {
+    console.log('An error has occured.server Disconnected');
+  }
 };
 
 export { sendMessage };
