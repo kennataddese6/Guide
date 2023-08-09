@@ -1,0 +1,43 @@
+.dashboard {
+  background-color: #fbfcfd;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.dashboard .div {
+  background-color: #fbfcfd;
+  border: 1px none;
+  height: 102vh;
+  position: relative;
+  width: 100vw;
+}
+.dashboard .navigation-example {
+  background-color: aqua;
+  height: 1086px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 256px;
+}
+.dashboard .overlap {
+  background-color: aqua;
+  height: 1086px;
+  position: relative;
+}
+.dashboard .navigation-elements {
+  background-color: aqua;
+  height: 1086px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 256px;
+}
+.dashboard .divider {
+  background-color: black; /* var(--gray-divider)  */
+  height: 1086px;
+  left: 255px;
+  position: relative;
+  width: 1px;
+}
