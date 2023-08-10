@@ -240,3 +240,139 @@
   top: 28px;
   white-space: nowrap;
 }
+
+.dashboard .overlap-4 {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #e5e5e5;
+  border-radius: 4px;
+  height: 140px;
+  left: 288px;
+  position: absolute;
+  top: 32px;
+  width: 156px;
+}
+
+.dashboard .img-3 {
+  height: 48px;
+  left: 53px;
+  position: absolute;
+  top: 19px;
+  width: 48px;
+}
+
+.dashboard .text-wrapper-14 {
+  color: black;
+  font-family: var(--regular-24px-font-family);
+  font-size: var(--regular-24px-font-size);
+  font-style: var(--regular-24px-font-style);
+  font-weight: var(--regular-24px-font-weight);
+  left: 23px;
+  letter-spacing: var(--regular-24px-letter-spacing);
+  line-height: var(--regular-24px-line-height);
+  position: absolute;
+  text-align: center;
+  top: 70px;
+  white-space: nowrap;
+  width: 108px;
+}
+
+.dashboard .text-wrapper-15 {
+  color: black;
+  font-family: var(--regular-12px-font-family);
+  font-size: var(--regular-12px-font-size);
+  font-style: var(--regular-12px-font-style);
+  font-weight: var(--regular-12px-font-weight);
+  height: 16px;
+  left: 23px;
+  letter-spacing: var(--regular-12px-letter-spacing);
+  line-height: var(--regular-12px-line-height);
+  position: absolute;
+  text-align: center;
+  top: 106px;
+  white-space: nowrap;
+  width: 108px;
+}
+.dashboard .overlap-5 {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #e5e5e5;
+  border-radius: 4px;
+  height: 140px;
+  left: 664px;
+  position: absolute;
+  top: 32px;
+  width: 156px;
+}
+.dashboard .overlap-6 {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #e5e5e5;
+  border-radius: 4px;
+  height: 140px;
+  left: 852px;
+  position: absolute;
+  top: 32px;
+  width: 156px;
+}
+
+.dashboard .overlap-7 {
+  background-color: gold;
+  border-radius: 4px;
+  box-shadow: 0px 6px 10px #00000024, 0px 1px 18px #0000001f,
+    0px 3px 5px #00000033;
+  height: 140px;
+  left: 476px;
+  position: absolute;
+  top: 32px;
+  width: 156px;
+}
+
+.dashboard .icon-action-2 {
+  height: 48px;
+  left: 54px;
+  position: absolute;
+  top: 20px;
+  width: 48px;
+}
+
+.dashboard .overlap-8 {
+  height: 35px;
+  left: 24px;
+  position: absolute;
+  top: 71px;
+  width: 108px;
+}
+
+.dashboard .text-wrapper-16 {
+  color: var(--white-high-emphasis);
+  font-family: var(--regular-24px-font-family);
+  font-size: var(--regular-24px-font-size);
+  font-style: var(--regular-24px-font-style);
+  font-weight: var(--regular-24px-font-weight);
+  left: 0;
+  letter-spacing: var(--regular-24px-letter-spacing);
+  line-height: var(--regular-24px-line-height);
+  position: absolute;
+  text-align: center;
+  top: 0;
+  white-space: nowrap;
+  width: 108px;
+}
+
+.dashboard .text-wrapper-17 {
+  color: var(--white-medium-emphasis);
+  font-family: var(--regular-12px-font-family);
+  font-size: var(--regular-12px-font-size);
+  font-style: var(--regular-12px-font-style);
+  font-weight: var(--regular-12px-font-weight);
+  height: 16px;
+  left: 24px;
+  letter-spacing: var(--regular-12px-letter-spacing);
+  line-height: var(--regular-12px-line-height);
+  position: absolute;
+  text-align: center;
+  top: 107px;
+  white-space: nowrap;
+  width: 108px;
+}
