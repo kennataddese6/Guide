@@ -28,7 +28,7 @@ const SideBar = () => {
               />
               <div className="divider-2" />
               <div className="icon-navigation">
-                <FiChevronDown style={{ color: 'black' }} />
+                <FiChevronDown style={{ color: 'white ' }} />
               </div>
               <div className="text-wrapper">Receptionist Name</div>
             </div>
