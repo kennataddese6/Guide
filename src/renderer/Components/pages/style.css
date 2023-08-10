@@ -41,3 +41,59 @@
   position: relative;
   width: 1px;
 }
+.dashboard .navigation-elements-2 {
+  background-color: purple; /* The image at the back      background-image: url(./header.avif);*/
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 144px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 255px;
+}
+.dashboard .avatar-man {
+  height: 40px;
+  left: 16px;
+  position: absolute;
+  top: 40px;
+  width: 40px;
+  /* Can add border radius to the image  border-radius: 40%;   */
+}
+
+.dashboard .divider-2 {
+  background-color: var(--gray-divider);
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 143px;
+  width: 255px;
+}
+.dashboard .icon-navigation {
+  height: 24px;
+  left: 215px;
+  position: absolute;
+  top: 105px;
+  width: 24px;
+}
+.dashboard .text-wrapper {
+  color: #000000de;
+  font-family: var(--medium-20px-font-family);
+  font-size: var(--medium-20px-font-size);
+  font-style: var(--medium-20px-font-style);
+  font-weight: var(--medium-20px-font-weight);
+  left: 16px;
+  letter-spacing: var(--medium-20px-letter-spacing);
+  line-height: var(--medium-20px-line-height);
+  position: absolute;
+  top: 103px;
+  white-space: nowrap;
+  width: 183px;
+}
+.dashboard .navigation-elements-3 {
+  background-color: yellow;
+  height: 76px;
+  left: 0;
+  position: absolute;
+  top: 365px;
+  width: 255px;
+}
