@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import './style.css';
-import { FaUser, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics } from 'react-icons/io';
+import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
+import { BiTask } from 'react-icons/bi';
+import { MdAssignment } from 'react-icons/md';
 const LobbyDashboard = () => {
   const navigate = useNavigate();
   const toHomepage = () => {
@@ -58,8 +60,27 @@ const LobbyDashboard = () => {
               />
               <div className="text-wrapper-2">Messages</div>
             </div>
+            <div className="navigation-elements-6">
+              <MdAssignment
+                className="iconSetting"
+                style={{ color: 'black' }}
+              />
+              <div className="text-wrapper-2">Register</div>
+            </div>
+          </div>
+          <div className="navigation-elements-7">
+            <FaUsers className="iconSetting" style={{ color: 'black' }} />
+            <div className="text-wrapper-2">Clients</div>
+          </div>
+          <div className="navigation-elements-8">
+            <IoIosNotifications
+              className="iconSetting"
+              style={{ color: 'black' }}
+            />
+            <div className="text-wrapper-2">Notifications</div>
           </div>
         </div>
+        <div className="divider-3" />
       </div>
     </div>
   );

@@ -150,7 +150,7 @@
   width: 255px;
 }
 .dashboard .overlap-group {
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 4px;
   height: 40px;
   left: 8px;
@@ -184,5 +184,37 @@
   left: 0;
   position: absolute;
   top: 204px;
+  width: 255px;
+}
+.dashboard .navigation-elements-6 {
+  background-color: red;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 252px;
+  width: 255px;
+}
+.dashboard .navigation-elements-7 {
+  background-color: violet;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 300px;
+  width: 255px;
+}
+.dashboard .navigation-elements-8 {
+  background-color: brown;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 449px;
+  width: 255px;
+}
+.dashboard .divider-3 {
+  background-color: red; /*   background-color: var(--gray-divider); */
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 352px;
   width: 255px;
 }
