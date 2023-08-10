@@ -1,18 +1,6 @@
-.dashboard {
-  background-color: #fbfcfd;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
 
-.dashboard .div {
-  background-color: #fbfcfd;
-  border: 1px none;
-  height: 103vh;
-  position: relative;
-  width: 100vw;
-}
+
+
 .dashboard .navigation-example {
   background-color: aqua;
   height: 1086px;
