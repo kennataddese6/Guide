@@ -4,6 +4,7 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
+import './Sidebar.css';
 
 const SideBar = () => {
   const navigate = useNavigate();

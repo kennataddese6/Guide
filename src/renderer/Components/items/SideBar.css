@@ -27,7 +27,7 @@
   position: relative;
 }
 .dashboard .navigation-elements {
-  background-color: aqua;
+  background-color: #ffffff;
   height: 1086px;
   left: 0;
   position: absolute;
@@ -35,7 +35,7 @@
   width: 256px;
 }
 .dashboard .divider {
-  background-color: black; /* var(--gray-divider)  */
+  background-color: rgb(248, 248, 248); /* var(--gray-divider)  */
   height: 1086px;
   left: 255px;
   position: relative;
@@ -57,7 +57,7 @@
   position: absolute;
   top: 40px;
   width: 40px;
-  border-radius: 40%;
+  border-radius: 50%;
   /* Can add border radius to the image  border-radius: 40%;   */
 }
 
@@ -69,6 +69,7 @@
   top: 143px;
   width: 255px;
 }
+
 .dashboard .icon-navigation {
   height: 24px;
   left: 215px;
@@ -91,15 +92,16 @@
   width: 183px;
 }
 .dashboard .navigation-elements-3 {
-  background-color: yellow;
   height: 76px;
   left: 0;
   position: absolute;
   top: 365px;
   width: 255px;
 }
+.dashboard .navigation-elements-4:hover {
+  background-color: violet;
+}
 .dashboard .navigation-elements-4 {
-  background-color: orange;
   height: 40px;
   left: 0;
   position: absolute;
@@ -127,8 +129,9 @@
   white-space: nowrap;
   width: 151px;
 }
+
 .dashboard .text-wrapper-3 {
-  color: var(--black-disabled);
+  color: black;
   font-family: var(--regular-14px-font-family);
   font-size: var(--regular-14px-font-size);
   font-style: var(--regular-14px-font-style);
@@ -142,20 +145,23 @@
   width: 223px;
 }
 .dashboard .overlap-group-wrapper {
-  background-color: green;
+  background-color: gold;
   height: 40px;
   left: 0;
   position: absolute;
   top: 156px;
   width: 255px;
 }
+
 .dashboard .overlap-group {
-  background-color: lightgreen;
   border-radius: 4px;
   height: 40px;
   left: 8px;
   position: relative;
   width: 239px;
+}
+.dashboard .overlap-group:hover {
+  background-color: violet;
 }
 .dashboard .icon-action {
   height: 24px;
@@ -179,39 +185,51 @@
   width: 151px;
 }
 .dashboard .navigation-elements-5 {
-  background-color: blue;
   height: 40px;
   left: 0;
   position: absolute;
   top: 204px;
   width: 255px;
 }
+.dashboard .navigation-elements-5:hover {
+  background-color: violet;
+}
 .dashboard .navigation-elements-6 {
-  background-color: red;
   height: 40px;
   left: 0;
   position: absolute;
   top: 252px;
   width: 255px;
 }
-.dashboard .navigation-elements-7 {
+.dashboard .navigation-elements-6:hover {
   background-color: violet;
+}
+.dashboard .navigation-elements-7 {
   height: 40px;
   left: 0;
   position: absolute;
   top: 300px;
   width: 255px;
 }
+.dashboard .navigation-elements-7:hover {
+  background-color: violet;
+}
 .dashboard .navigation-elements-8 {
-  background-color: brown;
   height: 40px;
   left: 0;
   position: absolute;
   top: 449px;
   width: 255px;
 }
+.dashboard .navigation-elements-8:hover {
+  background-color: violet;
+}
 .dashboard .divider-3 {
-  background-color: red; /*   background-color: var(--gray-divider); */
+  background-color: rgb(
+    180,
+    180,
+    180
+  ); /*   background-color: var(--gray-divider); */
   height: 1px;
   left: 0;
   position: absolute;
