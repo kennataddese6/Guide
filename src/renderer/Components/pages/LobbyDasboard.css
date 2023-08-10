@@ -252,7 +252,10 @@
   top: 32px;
   width: 156px;
 }
-
+.dashboard .overlap-4:hover {
+  background-color: violet;
+  transform: translateY(-5px); /* move element up by 5px */
+}
 .dashboard .img-3 {
   height: 48px;
   left: 53px;
@@ -304,6 +307,10 @@
   top: 32px;
   width: 156px;
 }
+.dashboard .overlap-5:hover {
+  background-color: violet;
+  transform: translateY(-5px); /* move element up by 5px */
+}
 .dashboard .overlap-6 {
   background-color: #ffffff;
   border: 1px solid;
@@ -314,6 +321,10 @@
   position: absolute;
   top: 32px;
   width: 156px;
+}
+.dashboard .overlap-6:hover {
+  background-color: violet;
+  transform: translateY(-5px); /* move element up by 5px */
 }
 
 .dashboard .overlap-7 {
@@ -327,7 +338,10 @@
   top: 32px;
   width: 156px;
 }
-
+.dashboard .overlap-7:hover {
+  background-color: violet;
+  transform: translateY(-5px); /* move element up by 5px */
+}
 .dashboard .icon-action-2 {
   height: 48px;
   left: 54px;
