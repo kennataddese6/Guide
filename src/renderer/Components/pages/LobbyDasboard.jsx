@@ -1,4 +1,5 @@
 import SideBar from '../items/SideBar';
+import Navbar from '../items/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
@@ -68,28 +69,7 @@ const LobbyDashboard = () => {
           </div>
           <div className="text-wrapper-13">New Clients</div>
         </div>
-        <div className="overlap-4">
-          <FaUsers className="img-3" style={{ color: 'black' }} />
-          <div className="text-wrapper-14">128</div>
-          <div className="text-wrapper-15">Clients</div>
-        </div>
-        <div className="overlap-5">
-          <IoIosNotifications className="img-3" style={{ color: 'black' }} />
-          <div className="text-wrapper-14">2</div>
-          <div className="text-wrapper-15">Notifications</div>
-        </div>
-        <div className="overlap-6">
-          <FiAlertCircle className="img-3" style={{ color: 'black' }} />
-          <div className="text-wrapper-14">4</div>
-          <div className="text-wrapper-15">Reports</div>
-        </div>
-        <div className="overlap-7">
-          <BiTask className="img-3" style={{ color: 'black' }} />
-          <div className="overlap-8">
-            <div className="text-wrapper-16">32</div>
-          </div>
-          <div className="text-wrapper-17">Completed tasks</div>
-        </div>
+        <Navbar />
       </div>
     </div>
   );
