@@ -57,6 +57,7 @@
   position: absolute;
   top: 40px;
   width: 40px;
+  border-radius: 40%;
   /* Can add border radius to the image  border-radius: 40%;   */
 }
 
@@ -95,5 +96,93 @@
   left: 0;
   position: absolute;
   top: 365px;
+  width: 255px;
+}
+.dashboard .navigation-elements-4 {
+  background-color: orange;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 36px;
+  width: 255px;
+}
+.dashboard .iconSetting {
+  height: 24px;
+  left: 16px;
+  position: absolute;
+  top: 8px;
+  width: 24px;
+}
+.dashboard .text-wrapper-2 {
+  color: #000000de;
+  font-family: var(--medium-14px-font-family);
+  font-size: var(--medium-14px-font-size);
+  font-style: var(--medium-14px-font-style);
+  font-weight: var(--medium-14px-font-weight);
+  left: 72px;
+  letter-spacing: var(--medium-14px-letter-spacing);
+  line-height: var(--medium-14px-line-height);
+  position: absolute;
+  top: 10px;
+  white-space: nowrap;
+  width: 151px;
+}
+.dashboard .text-wrapper-3 {
+  color: var(--black-disabled);
+  font-family: var(--regular-14px-font-family);
+  font-size: var(--regular-14px-font-size);
+  font-style: var(--regular-14px-font-style);
+  font-weight: var(--regular-14px-font-weight);
+  left: 16px;
+  letter-spacing: var(--regular-14px-letter-spacing);
+  line-height: var(--regular-14px-line-height);
+  position: absolute;
+  top: -1px;
+  white-space: nowrap;
+  width: 223px;
+}
+.dashboard .overlap-group-wrapper {
+  background-color: green;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 156px;
+  width: 255px;
+}
+.dashboard .overlap-group {
+  background-color: lightblue;
+  border-radius: 4px;
+  height: 40px;
+  left: 8px;
+  position: relative;
+  width: 239px;
+}
+.dashboard .icon-action {
+  height: 24px;
+  left: 8px;
+  position: absolute;
+  top: 8px;
+  width: 24px;
+}
+.dashboard .text-wrapper-4 {
+  color: var(--mainblue-500);
+  font-family: var(--medium-14px-font-family);
+  font-size: var(--medium-14px-font-size);
+  font-style: var(--medium-14px-font-style);
+  font-weight: var(--medium-14px-font-weight);
+  left: 64px;
+  letter-spacing: var(--medium-14px-letter-spacing);
+  line-height: var(--medium-14px-line-height);
+  position: absolute;
+  top: 10px;
+  white-space: nowrap;
+  width: 151px;
+}
+.dashboard .navigation-elements-5 {
+  background-color: blue;
+  height: 40px;
+  left: 0;
+  position: absolute;
+  top: 204px;
   width: 255px;
 }

@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import { FaUser, FaEnvelope } from 'react-icons/fa';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
+import { IoMdAnalytics } from 'react-icons/io';
 const LobbyDashboard = () => {
   const navigate = useNavigate();
   const toHomepage = () => {
@@ -28,7 +29,35 @@ const LobbyDashboard = () => {
               </div>
               <div className="text-wrapper">Receptionist Name</div>
             </div>
-            <div className="navigation-elements-3"> </div>
+            <div className="navigation-elements-3">
+              {' '}
+              <div className="navigation-elements-4">
+                <FiSettings
+                  className="iconSetting"
+                  style={{ color: 'black' }}
+                />
+                <div className="text-wrapper-2">Main Settings</div>
+              </div>
+              <div className="text-wrapper-3">Settings</div>
+            </div>
+            <div className="overlap-group-wrapper">
+              {' '}
+              <div className="overlap-group">
+                {' '}
+                <IoMdAnalytics
+                  className="icon-action"
+                  style={{ color: 'black' }}
+                />{' '}
+                <div className="text-wrapper-4">Dashboard</div>
+              </div>
+            </div>
+            <div className="navigation-elements-5">
+              <FiMessageSquare
+                className="iconSetting"
+                style={{ color: 'black' }}
+              />
+              <div className="text-wrapper-2">Messages</div>
+            </div>
           </div>
         </div>
       </div>
