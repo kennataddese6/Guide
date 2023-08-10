@@ -39,7 +39,7 @@
 .dashboard .cards-elevation {
   background-color: #ffffff;
   border: 1px solid;
-  border-color: #000000;
+  border-color: #e5e5e5;
   height: 334px;
   left: 1029px;
   position: absolute;
@@ -63,7 +63,7 @@
 .dashboard .overlap-2 {
   background-color: #ffffff;
   border: 1px solid;
-  border-color: black;
+  border-color: #e5e5e5;
   border-radius: 4px;
   height: 334px;
   left: 1031px;
@@ -73,7 +73,6 @@
 }
 
 .dashboard .comments-elements {
-  background-color: lightblue;
   height: 40px;
   left: 21px;
   position: absolute;
@@ -131,4 +130,113 @@
   position: absolute;
   top: 10px;
   width: 20px;
+}
+.dashboard .comments-elements-2 {
+  height: 40px;
+  left: 21px;
+  position: absolute;
+  top: 131px;
+  width: 312px;
+}
+
+.dashboard .text-wrapper-9 {
+  color: #000000de;
+  font-family: var(--medium-14px-font-family);
+  font-size: var(--medium-14px-font-size);
+  font-style: var(--medium-14px-font-style);
+  font-weight: var(--medium-14px-font-weight);
+  left: 56px;
+  letter-spacing: var(--medium-14px-letter-spacing);
+  line-height: var(--medium-14px-line-height);
+  position: absolute;
+  top: 2px;
+  white-space: nowrap;
+  width: 220px;
+}
+
+.dashboard .text-wrapper-10 {
+  color: #000000de;
+  font-family: var(--regular-12px-font-family);
+  font-size: var(--regular-12px-font-size);
+  font-style: var(--regular-12px-font-style);
+  font-weight: var(--regular-12px-font-weight);
+  left: 56px;
+  letter-spacing: var(--regular-12px-letter-spacing);
+  line-height: var(--regular-12px-line-height);
+  position: absolute;
+  top: 24px;
+  white-space: nowrap;
+  width: 220px;
+}
+.dashboard .comments-elements-3 {
+  height: 40px;
+  left: 21px;
+  position: absolute;
+  top: 196px;
+  width: 312px;
+}
+
+.dashboard .text-wrapper-11 {
+  color: #192a3e;
+  font-family: var(--medium-14px-font-family);
+  font-size: var(--medium-14px-font-size);
+  font-style: var(--medium-14px-font-style);
+  font-weight: var(--medium-14px-font-weight);
+  left: 56px;
+  letter-spacing: var(--medium-14px-letter-spacing);
+  line-height: var(--medium-14px-line-height);
+  position: absolute;
+  top: 2px;
+  white-space: nowrap;
+  width: 220px;
+}
+
+.dashboard .comments-elements-4 {
+  height: 40px;
+  left: 21px;
+  position: absolute;
+  top: 260px;
+  width: 312px;
+}
+
+.dashboard .text-wrapper-12 {
+  color: black;
+  font-family: var(--medium-14px-font-family);
+  font-size: var(--medium-14px-font-size);
+  font-style: var(--medium-14px-font-style);
+  font-weight: var(--medium-14px-font-weight);
+  left: 56px;
+  letter-spacing: var(--medium-14px-letter-spacing);
+  line-height: var(--medium-14px-line-height);
+  position: absolute;
+  top: 2px;
+  white-space: nowrap;
+  width: 220px;
+}
+
+.dashboard .text-wrapper-13 {
+  color: #000000de;
+  font-family: var(--medium-20px-font-family);
+  font-size: var(--medium-20px-font-size);
+  font-style: var(--medium-20px-font-style);
+  font-weight: var(--medium-20px-font-weight);
+  left: 23px;
+  letter-spacing: var(--medium-20px-letter-spacing);
+  line-height: var(--medium-20px-line-height);
+  position: absolute;
+  top: 14px;
+  white-space: nowrap;
+}
+.dashboard .text-wrapper-13 {
+  color: #000000de;
+  font-family: var(--medium-20px-font-family);
+  font-size: var(--medium-20px-font-size);
+  font-style: var(--medium-20px-font-style);
+  font-weight: var(--medium-20px-font-weight);
+  left: 35px;
+  letter-spacing: var(--medium-20px-letter-spacing);
+  line-height: var(--medium-20px-line-height);
+  position: absolute;
+  top: 28px;
+  white-space: nowrap;
 }

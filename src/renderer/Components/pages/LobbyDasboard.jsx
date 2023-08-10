@@ -35,6 +35,37 @@ const LobbyDashboard = () => {
             </div>
             <FiMoreVertical className="icon-navigation-more" />
           </div>
+          <div className="comments-elements-2">
+            <img
+              className="img-2"
+              alt="Avatar man"
+              src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
+            />
+            <div className="text-wrapper-9">George Fields</div>
+            <div className="text-wrapper-10">New York, NY</div>
+            <FiMoreVertical className="icon-navigation-more" />
+          </div>
+          <div className="comments-elements-3">
+            <img
+              className="img-2"
+              alt="Avatar man"
+              src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
+            />
+            <div className="text-wrapper-11">Jones Dermot</div>
+            <div className="text-wrapper-10">San Francisco, CA</div>
+            <FiMoreVertical className="icon-navigation-more" />
+          </div>
+          <div className="comments-elements-4">
+            <img
+              className="img-2"
+              alt="Avatar woman"
+              src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
+            />
+            <div className="text-wrapper-12">Jane Doe</div>
+            <div className="text-wrapper-10">New York, NY</div>
+            <FiMoreVertical className="icon-navigation-more" />
+          </div>
+          <div className="text-wrapper-13">New Clients</div>  
         </div>
       </div>
     </div>
