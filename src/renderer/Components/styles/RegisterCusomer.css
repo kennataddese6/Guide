@@ -332,7 +332,6 @@
 .container {
   width: 720px;
   height: 770px;
-  border: 1px solid;
   border-radius: 5px;
   margin: auto;
 }

@@ -9,7 +9,7 @@ import { MdAssignment } from 'react-icons/md';
 import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
-
+import RegisterCustomer from './RegisterCustomer';
 const LobbyDashboard = () => {
   const navigate = useNavigate();
   const toHomepage = () => {
@@ -20,7 +20,7 @@ const LobbyDashboard = () => {
       <div className="div">
         <SideBar index={1} />
         <div className="div-wrapper">
-          <div className="text-wrapper-5">Cient Registeration</div>
+          <RegisterCustomer   />
         </div>
         <div className="cards-elevation">
           <div className="text-wrapper-6">Sent Clients</div>

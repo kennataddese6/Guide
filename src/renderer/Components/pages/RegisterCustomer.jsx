@@ -5,8 +5,6 @@ const RegisterCustomer = () => {
     <>
       <div className="dashboard">
         <div className="div">
-          <SideBar index={3} />
-          <h1>Register Page</h1>
           <div className="container">
             <div className="rectangle-parent">
               <div className="frame-child" />
@@ -133,7 +131,7 @@ const RegisterCustomer = () => {
                 id="upload"
               />
 
-              <button className="submit">SUBMIT</button>
+              <button className="submit">Submit</button>
               <div className="ellipse-div" />
               <input className="frame-child11" type="radio" required />
               <input className="frame-child12" type="radio" required />
