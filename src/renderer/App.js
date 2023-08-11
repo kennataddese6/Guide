@@ -10,6 +10,8 @@ import { sendMessage } from 'renderer/webSocket';
 import './App.css';
 import LobbyDashboard from './Components/pages/LobbyDasboard';
 import Messages from './Components/pages/Messages';
+import './Components/styles/SideBar.css';
+
 function Hello() {
   const [text, setText] = useState('');
   const navigate = useNavigate();

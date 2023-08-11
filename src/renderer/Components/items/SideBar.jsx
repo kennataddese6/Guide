@@ -4,9 +4,9 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
-import '../styles/SideBar.css';
 
-const SideBar = () => {
+const SideBar = ({ index }) => {
+  console.log('this is the index', index);
   const navigate = useNavigate();
   const toHomepage = () => {
     navigate('/');
@@ -53,14 +53,16 @@ const SideBar = () => {
               <div className="text-wrapper-4">Dashboard</div>
             </div>
           </div>
-          <div className="navigation-elements-5">
+          <div
+            className="navigation-elements-5"
+            style={{ backgroundColor: 'gold' }}
+            onClick={toMessages}
+          >
             <FiMessageSquare
               className="iconSetting"
               style={{ color: 'black' }}
             />
-            <div className="text-wrapper-2" onClick={toMessages}>
-              Messages
-            </div>
+            <div className="text-wrapper-2">Messages</div>
           </div>
           <div className="navigation-elements-6">
             <MdAssignment className="iconSetting" style={{ color: 'black' }} />
