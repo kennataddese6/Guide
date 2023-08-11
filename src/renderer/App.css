@@ -3,20 +3,12 @@
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
 body {
-  position: relative;
-  color: white;
-  height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
+  background-color: rgb(252, 246, 246);
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 button {
