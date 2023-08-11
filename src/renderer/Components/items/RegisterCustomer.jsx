@@ -118,14 +118,6 @@ const RegisterCustomer = () => {
               <div className="pre-request">
                 <p className="first-name1">Pre-request</p>
               </div>
-              <input className="frame-child9" type="text" />
-              <input
-                className="frame-child10"
-                type="text"
-                required
-                id="upload"
-              />
-
               <button className="submit">Submit</button>
               <div className="ellipse-div" />
               <input className="frame-child11" type="radio" required />
