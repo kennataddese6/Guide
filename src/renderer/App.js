@@ -7,7 +7,7 @@ import {
 import icon from '../../assets/icon.svg';
 import { useEffect, useState } from 'react';
 import { sendMessage } from 'renderer/webSocket';
-import './App.css';
+//import './App.css';
 import LobbyDashboard from './Components/pages/LobbyDasboard';
 function Hello() {
   const [text, setText] = useState('');

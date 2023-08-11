@@ -1,17 +1,25 @@
-.dashboard {
-  background-color: #000000;
+body {
+  background-color: green;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
 }
-.dashboard .div {
-  background-color: white;
+
+/* .dashboard {
+  background-color: green;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+} */
+/* .dashboard .div {
+  background-color: rgb(0, 0, 0);
   border: 1px none;
   height: 103vh;
   position: relative;
   width: 100vw;
-}
+} */
 .dashboard .div-wrapper {
   background-color: white;
   border: 1px solid;
