@@ -18,7 +18,7 @@ const LobbyDashboard = () => {
   return (
     <div className="dashboard">
       <div className="div">
-        <SideBar />
+        <SideBar index={1} />
         <div className="div-wrapper">
           <div className="text-wrapper-5">Cient Registeration</div>
         </div>

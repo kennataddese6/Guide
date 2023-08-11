@@ -4,11 +4,10 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
-
 const SideBar = ({ index }) => {
-  console.log('this is the index', index);
+  const SideBarIndex = index;
   const navigate = useNavigate();
-  const toHomepage = () => {
+  const toLobbyDashboard = () => {
     navigate('/LobbyDasboard');
   };
   const toMessages = () => {
@@ -42,7 +41,11 @@ const SideBar = ({ index }) => {
             </div>
             <div className="text-wrapper-3">Settings</div>
           </div>
-          <div className="overlap-group-wrapper" onClick={toHomepage}>
+          <div
+            className="overlap-group-wrapper"
+            onClick={toLobbyDashboard}
+            style={{ backgroundColor: SideBarIndex === 1 ? 'gold' : '' }}
+          >
             {' '}
             <div className="overlap-group">
               {' '}
@@ -55,14 +58,16 @@ const SideBar = ({ index }) => {
           </div>
           <div
             className="navigation-elements-5"
-            style={{ backgroundColor: 'gold' }}
+            style={{ backgroundColor: SideBarIndex === 2 ? 'gold' : '' }}
             onClick={toMessages}
           >
-            <FiMessageSquare
-              className="iconSetting"
-              style={{ color: 'black' }}
-            />
-            <div className="text-wrapper-2">Messages</div>
+            <div className="overlap-group">
+              <FiMessageSquare
+                className="icon-action"
+                style={{ color: 'black' }}
+              />
+              <div className="text-wrapper-4">Messages</div>
+            </div>
           </div>
           <div className="navigation-elements-6">
             <MdAssignment className="iconSetting" style={{ color: 'black' }} />
