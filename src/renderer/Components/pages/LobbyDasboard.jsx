@@ -67,7 +67,7 @@ const LobbyDashboard = () => {
             <div className="text-wrapper-10">Legal Issue</div>
             <FiMoreVertical className="icon-navigation-more" />
           </div>
-          <div className="text-wrapper-13">New Clients</div>
+          <div className="text-wrapper-13">Waiting Clients</div>
         </div>
         <Navbar />
       </div>

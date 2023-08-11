@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { sendMessage } from 'renderer/webSocket';
 import './App.css';
 import LobbyDashboard from './Components/pages/LobbyDasboard';
+import Messages from './Components/pages/Messages';
 function Hello() {
   const [text, setText] = useState('');
   const navigate = useNavigate();
@@ -89,6 +90,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/LobbyDasboard" element={<LobbyDashboard />} />
+        <Route path="/Messages" element={<Messages />} />
       </Routes>
     </Router>
   );

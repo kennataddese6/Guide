@@ -11,6 +11,9 @@ const SideBar = () => {
   const toHomepage = () => {
     navigate('/');
   };
+  const toMessages = () => {
+    navigate('/Messages');
+  };
   return (
     <div className="div">
       <div className="navigation-example">
@@ -55,7 +58,9 @@ const SideBar = () => {
               className="iconSetting"
               style={{ color: 'black' }}
             />
-            <div className="text-wrapper-2">Messages</div>
+            <div className="text-wrapper-2" onClick={toMessages}>
+              Messages
+            </div>
           </div>
           <div className="navigation-elements-6">
             <MdAssignment className="iconSetting" style={{ color: 'black' }} />
