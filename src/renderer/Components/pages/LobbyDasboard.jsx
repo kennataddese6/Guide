@@ -23,7 +23,7 @@ const LobbyDashboard = () => {
           <div className="text-wrapper-5">Cient Registeration</div>
         </div>
         <div className="cards-elevation">
-          <div className="text-wrapper-6">New Clients</div>
+          <div className="text-wrapper-6">Sent Clients</div>
         </div>
         <div className="overlap-2">
           <div className="comments-elements">
