@@ -44,7 +44,7 @@ const LobbyDashboard = () => {
               src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
             />
             <div className="text-wrapper-9">George Fields</div>
-            <div className="text-wrapper-10">New York, NY</div>
+            <div className="text-wrapper-10">Human Resouces</div>
             <FiMoreVertical className="icon-navigation-more" />
           </div>
           <div className="comments-elements-3">
@@ -54,7 +54,7 @@ const LobbyDashboard = () => {
               src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
             />
             <div className="text-wrapper-11">Jones Dermot</div>
-            <div className="text-wrapper-10">San Francisco, CA</div>
+            <div className="text-wrapper-10">Finance</div>
             <FiMoreVertical className="icon-navigation-more" />
           </div>
           <div className="comments-elements-4">
@@ -64,7 +64,7 @@ const LobbyDashboard = () => {
               src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
             />
             <div className="text-wrapper-12">Jane Doe</div>
-            <div className="text-wrapper-10">New York, NY</div>
+            <div className="text-wrapper-10">Legal Issue</div>
             <FiMoreVertical className="icon-navigation-more" />
           </div>
           <div className="text-wrapper-13">New Clients</div>
