@@ -9,7 +9,7 @@ const SideBar = ({ index }) => {
   console.log('this is the index', index);
   const navigate = useNavigate();
   const toHomepage = () => {
-    navigate('/');
+    navigate('/LobbyDasboard');
   };
   const toMessages = () => {
     navigate('/Messages');
@@ -42,7 +42,7 @@ const SideBar = ({ index }) => {
             </div>
             <div className="text-wrapper-3">Settings</div>
           </div>
-          <div className="overlap-group-wrapper">
+          <div className="overlap-group-wrapper" onClick={toHomepage}>
             {' '}
             <div className="overlap-group">
               {' '}
