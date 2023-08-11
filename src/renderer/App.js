@@ -1,10 +1,18 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 import icon from '../../assets/icon.svg';
-import { useEffect } from 'react';
-import { ipcRenderer } from 'electron';
+import { useEffect, useState } from 'react';
+import { sendMessage } from 'renderer/webSocket';
 import './App.css';
-//const { Notification } = require('electron');
+import LobbyDashboard from './Components/pages/LobbyDasboard';
 function Hello() {
+  const [text, setText] = useState('');
+  const navigate = useNavigate();
+
   const showNotification = () => {
     console.log('hello I am clicked');
     window.electron.ipcRenderer.sendMessage('show-notification', {
@@ -19,7 +27,10 @@ function Hello() {
     const currentPath = window.location.pathname;
     window.location.href = currentPath;
     console.log('i am clicked on this bar');
-
+  };
+  const sendMessages = () => {
+    console.log('I am clicked');
+    sendMessage(text);
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(
@@ -28,6 +39,9 @@ function Hello() {
     );
     return () => {};
   }, []);
+  const toLobbyDashboard = () => {
+    navigate('/LobbyDasboard');
+  };
   return (
     <div>
       <div className="Hello">
@@ -50,18 +64,20 @@ function Hello() {
         <div>
           <button onClick={showNotification}>Show Notification</button>
         </div>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+
+        <button type="button" onClick={toLobbyDashboard}>
+          <span role="img" aria-label="folded hands">
+            🙏
+          </span>
+          Donate
+        </button>
+        <button onClick={sendMessages}>Send Message</button>
+        <input
+          type="text"
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+        />
       </div>
     </div>
   );
@@ -72,6 +88,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Hello />} />
+        <Route path="/LobbyDasboard" element={<LobbyDashboard />} />
       </Routes>
     </Router>
   );
