@@ -20,8 +20,6 @@ const RegisterCustomer = () => {
                 className="frame-inner"
                 type="text"
                 placeholder="First Name"
-                maxLength={3}
-                minLength={10}
                 required
                 id="firstName"
               />
@@ -33,8 +31,6 @@ const RegisterCustomer = () => {
                   className="rectangle-input"
                   type="text"
                   placeholder="Last Name"
-                  maxLength={3}
-                  minLength={10}
                   required
                   id="lastName"
                 />
@@ -44,7 +40,6 @@ const RegisterCustomer = () => {
                 className="frame-child1"
                 type="tel"
                 placeholder="Phone"
-                minLength={10}
                 required
                 id="phone"
               />

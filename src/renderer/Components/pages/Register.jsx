@@ -5,7 +5,7 @@ const Register = () => {
     <>
       <div className="dashboard">
         <div className="div">
-          <SideBar />
+          <SideBar index={3} />
           <RegisterCustomer />
         </div>
       </div>
