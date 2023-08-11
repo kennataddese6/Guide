@@ -13,6 +13,9 @@ const SideBar = ({ index }) => {
   const toMessages = () => {
     navigate('/Messages');
   };
+  const toRegisterCustomer = () => {
+    navigate('/RegisterCustomer');
+  };
   return (
     <div className="div">
       <div className="navigation-example">
@@ -69,7 +72,7 @@ const SideBar = ({ index }) => {
               <div className="text-wrapper-4">Messages</div>
             </div>
           </div>
-          <div className="navigation-elements-6">
+          <div className="navigation-elements-6" onClick={toRegisterCustomer}>
             <MdAssignment className="iconSetting" style={{ color: 'black' }} />
             <div className="text-wrapper-2">Register</div>
           </div>
