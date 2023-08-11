@@ -79,7 +79,28 @@
   position: absolute;
   top: 208px;
   width: 360px;
+  overflow-y: scroll;
 }
+/* width */
+.overlap-2::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.overlap-2::-webkit-scrollbar-track {
+  background: #e59bd1;
+}
+
+/* Handle */
+.overlap-2::-webkit-scrollbar-thumb {
+  background: #c737a1;
+}
+
+/* Handle on hover */
+.overlap-2::-webkit-scrollbar-thumb:hover {
+  background: black !important;
+}
+
 
 .dashboard .comments-elements {
   height: 40px;
