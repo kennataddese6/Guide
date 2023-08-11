@@ -72,7 +72,11 @@ const SideBar = ({ index }) => {
               <div className="text-wrapper-4">Messages</div>
             </div>
           </div>
-          <div className="navigation-elements-6" onClick={toRegisterCustomer}>
+          <div
+            className="navigation-elements-6"
+            onClick={toRegisterCustomer}
+            style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
+          >
             <MdAssignment className="iconSetting" style={{ color: 'black' }} />
             <div className="text-wrapper-2">Register</div>
           </div>
