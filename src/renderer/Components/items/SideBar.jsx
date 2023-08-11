@@ -14,7 +14,7 @@ const SideBar = ({ index }) => {
     navigate('/Messages');
   };
   const toRegisterCustomer = () => {
-    navigate('/RegisterCustomer');
+    navigate('/Register');
   };
   return (
     <div className="div">

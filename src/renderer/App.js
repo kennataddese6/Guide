@@ -12,6 +12,7 @@ import LobbyDashboard from './Components/pages/LobbyDasboard';
 import Messages from './Components/pages/Messages';
 import './Components/styles/SideBar.css';
 import RegisterCustomer from './Components/items/RegisterCustomer';
+import Register from './Components/pages/Register';
 function Hello() {
   const [text, setText] = useState('');
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ export default function App() {
         <Route path="/" element={<Hello />} />
         <Route path="/LobbyDasboard" element={<LobbyDashboard />} />
         <Route path="/Messages" element={<Messages />} />
-        <Route path="/RegisterCustomer" element={<RegisterCustomer />} />
+        <Route path="/Register" element={<Register />} />
       </Routes>
     </Router>
   );
