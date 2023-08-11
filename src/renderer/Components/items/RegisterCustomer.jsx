@@ -1,4 +1,4 @@
-import SideBar from '../items/SideBar';
+import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
 const RegisterCustomer = () => {
   return (

@@ -11,7 +11,7 @@ import './App.css';
 import LobbyDashboard from './Components/pages/LobbyDasboard';
 import Messages from './Components/pages/Messages';
 import './Components/styles/SideBar.css';
-import RegisterCustomer from './Components/pages/RegisterCustomer';
+import RegisterCustomer from './Components/items/RegisterCustomer';
 function Hello() {
   const [text, setText] = useState('');
   const navigate = useNavigate();
