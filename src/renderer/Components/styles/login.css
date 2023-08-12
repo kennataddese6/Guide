@@ -1,4 +1,3 @@
-
 .group-child {
   position: absolute;
   top: 0;
@@ -17,7 +16,7 @@
   height: 33.58px;
 }
 .email,
-.group-item {
+.login-item {
   position: absolute;
   left: 0;
 }
@@ -27,7 +26,7 @@
   width: 40px;
   height: 17.88px;
 }
-.group-item {
+.login-item {
   border: 0;
   font-family: var(--font-inter);
   font-size: 15.94px;
@@ -37,8 +36,8 @@
   height: 46.87px;
 }
 
-.group-item:hover{
-  box-shadow: .3px .2px 4px;
+.login-item:hover {
+  box-shadow: 0.3px 0.2px 4px;
   border-radius: 5px;
 }
 .email-parent,
@@ -65,12 +64,12 @@
   text-align: left;
   display: inline-block;
   height: 17.88px;
-  border: 2px ;
+  border: 2px;
 }
-button:hover{
-  opacity: .8;
+button:hover {
+  opacity: 0.8;
 }
-.rectangle-group {
+.rectangle-group-login {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -120,15 +119,8 @@ button:hover{
   text-align: left;
   font-size: 15.94px;
 }
-.login,
-.rectangle-parent {
-  width: 498.13px;
-  height: 500px;
-  background-color: white;
-  margin: auto ;
-  border-radius: 10px;
-}
-.container{
+
+.container {
   margin-top: 100px;
 }
 
