@@ -1,0 +1,146 @@
+
+.group-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9.96px;
+  background-color: var(--color-white);
+  width: 498.13px;
+  height: 551px;
+}
+.welcome-back {
+  position: absolute;
+  top: 39.36px;
+  left: 142.29px;
+  display: inline-block;
+  width: 210px;
+  height: 33.58px;
+}
+.email,
+.group-item {
+  position: absolute;
+  left: 0;
+}
+.email {
+  top: 0;
+  display: inline-block;
+  width: 40px;
+  height: 17.88px;
+}
+.group-item {
+  border: 0;
+  font-family: var(--font-inter);
+  font-size: 15.94px;
+  background-color: transparent;
+  top: 27.19px;
+  width: 418.43px;
+  height: 46.87px;
+}
+
+.group-item:hover{
+  box-shadow: .3px .2px 4px;
+  border-radius: 5px;
+}
+.email-parent,
+.group-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 418.43px;
+  height: 74.06px;
+}
+.group-inner {
+  border-radius: 9.96px;
+  background: linear-gradient(91.94deg, gold, gold);
+  height: 56.25px;
+}
+.log-in {
+  position: absolute;
+  top: 19.69px;
+  left: 185.3px;
+  font-size: 15.94px;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  height: 17.88px;
+  border: 2px ;
+}
+button:hover{
+  opacity: .8;
+}
+.rectangle-group {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 218.43px;
+  left: 0;
+  width: 418.43px;
+  height: 56.25px;
+}
+.frogot-password,
+.password {
+  position: absolute;
+  display: inline-block;
+  height: 17.88px;
+}
+.frogot-password {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 89.06px;
+  left: 281.94px;
+  font-size: 15.94px;
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: left;
+  width: 136px;
+}
+.password {
+  top: 0;
+  left: 0;
+  width: 74px;
+}
+.frogot-password-parent,
+.group-parent {
+  position: absolute;
+  top: 92.81px;
+  left: 0;
+  width: 418.43px;
+  height: 106.94px;
+}
+.group-parent {
+  top: 102.33px;
+  left: 39.85px;
+  height: 274.67px;
+  text-align: left;
+  font-size: 15.94px;
+}
+.login,
+.rectangle-parent {
+  width: 498.13px;
+  height: 500px;
+  background-color: white;
+  margin: auto ;
+  border-radius: 10px;
+}
+.container{
+  margin-top: 100px;
+}
+
+.rectangle-parent {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.login {
+  position: relative;
+  text-align: center;
+  font-size: 27.9px;
+  color: var(--color-black);
+  font-family: var(--font-inter);
+}
