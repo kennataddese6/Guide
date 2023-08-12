@@ -15,45 +15,48 @@ const Login = () => {
     console.log(data) */
   };
   return (
-    <div className="container">
-      <div className="login">
-        <div className="rectangle-parent-login">
-          <div className="group-child" />
+    <div className="mainContainer">
+      {' '}
+      <div className="container">
+        <div className="login">
+          <div className="rectangle-parent-login">
+            <div className="group-child" />
 
-          <b className="welcome-back">Welcome back!</b>
-          <form action="#" className="group-parent">
-            <div className="email-parent">
-              <div className="email">Email</div>
-              <input
-                className="login-item"
-                type="email"
-                placeholder="Enter your email"
-                required
-                id="email"
-                name="email"
-              />
-            </div>
-            <button onClick={handleLogin} className="rectangle-group-login">
-              <div className="group-inner" />
-              <div className="log-in">Log In</div>
-            </button>
-            <div className="frogot-password-parent">
-              <Link to="forgot-password" className="frogot-password">
-                Frogot Password?
-              </Link>
+            <b className="welcome-back">Welcome back!</b>
+            <form action="#" className="group-parent">
               <div className="email-parent">
-                <div className="password">Password</div>
+                <div className="email">Email</div>
                 <input
                   className="login-item"
-                  type="password"
-                  placeholder="Enter password"
+                  type="email"
+                  placeholder="Enter your email"
                   required
-                  id="password"
-                  name="password"
+                  id="email"
+                  name="email"
                 />
               </div>
-            </div>
-          </form>
+              <button onClick={handleLogin} className="rectangle-group-login">
+                <div className="group-inner" />
+                <div className="log-in">Log In</div>
+              </button>
+              <div className="frogot-password-parent">
+                <Link to="forgot-password" className="frogot-password">
+                  Frogot Password?
+                </Link>
+                <div className="email-parent">
+                  <div className="password">Password</div>
+                  <input
+                    className="login-item"
+                    type="password"
+                    placeholder="Enter password"
+                    required
+                    id="password"
+                    name="password"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

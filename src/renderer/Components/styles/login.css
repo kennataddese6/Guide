@@ -1,11 +1,23 @@
+.mainContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 1920px;
+  height: 997px;
+  background-image: url('https://img.freepik.com/premium-vector/network-connection-background-abstract-style_23-2148875738.jpg');
+  background-size: cover;
+}
+
 .group-child {
   position: absolute;
   top: 0;
   left: 0;
   border-radius: 9.96px;
-  background-color: var(--color-white);
+  background-color: white;
   width: 498.13px;
   height: 551px;
+  opacity: 0.6;
 }
 .welcome-back {
   position: absolute;
@@ -40,6 +52,7 @@
   box-shadow: 0.3px 0.2px 4px;
   border-radius: 5px;
 }
+
 .email-parent,
 .group-inner {
   position: absolute;
