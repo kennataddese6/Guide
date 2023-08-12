@@ -17,7 +17,7 @@ const Login = () => {
   return (
     <div className="container">
       <div className="login">
-        <div className="rectangle-parent">
+        <div className="rectangle-parent-login">
           <div className="group-child" />
 
           <b className="welcome-back">Welcome back!</b>

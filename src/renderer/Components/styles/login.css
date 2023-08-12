@@ -124,10 +124,9 @@ button:hover {
   margin-top: 100px;
 }
 
-.rectangle-parent {
+.rectangle-parent-login {
   position: absolute;
-  top: 0;
-  left: 0;
+  margin: 90px;
 }
 .login {
   position: relative;
