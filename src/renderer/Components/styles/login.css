@@ -17,7 +17,7 @@
   border-radius: 9.96px;
   background-color: white;
   opacity: 0.6;
-  width: 60%;
+  width: 90%;
   height: 70%;
   border-radius: 3%;
   display: flex;
@@ -25,16 +25,63 @@
   align-items: center;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 200px) and (max-width: 280px) {
+  /* your styles here */
   .group-child {
-    width: 80%;
-  }
+    width: 70%;
+    height: 40%;
+}
+}
+@media screen and (min-width: 290px) and (max-width: 380px) {
+  /* your styles here */
+  .group-child {
+    width: 60%;
+    height: 40%;
+}
+}
+@media screen and (min-width: 380px) and (max-width: 500px) {
+  /* your styles here */
+  .group-child {
+    width: 70%;
+    height: 40%;
+}
+}
+@media screen and (min-width: 500px) and (max-width: 699px) {
+  /* your styles here */
+  .group-child {
+    width: 60%;
+    height: 50%;
+}
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 700px) and (max-width: 800px) {
+  /* your styles here */
+  .group-child {
+    width: 60%;
+    height: 50%;
+}
+}
+@media screen and (min-width: 800px) and (max-width: 922px) {
+  /* your styles here */
+  .group-child {
+    width: 50%;
+    height: 50%;
+}
+}
+
+@media screen and (min-width: 932px) and (max-width: 1200px) {
+  /* your styles here */
   .group-child {
     width: 30%;
-  }
+    height: 50%;
+}
+}
+@media screen and (min-width: 1201px) and (max-width: 1600px) {
+  /* your styles here */
+  .group-child {
+    width: 25%;
+    height: 50%;
+}
 }
 .profileCircle {
   width: 23%;
