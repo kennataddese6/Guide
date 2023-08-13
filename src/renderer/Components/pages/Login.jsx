@@ -24,7 +24,7 @@ const Login = () => {
       {' '}
       <div className="group-child">
         {' '}
-        <div className="profileCircle" onClick={handleLogin}>
+        <div className="profileCircle" >
           <FaUser className="userIcon" />
         </div>
         <div className ='inputContainer'>
@@ -35,7 +35,7 @@ const Login = () => {
     <FiLock className='passwordIcon'/>
     <input type='password' className='passwordID' placeholder='Password' />
     </div>
-    <button  className='loginbutton' >Sign In</button>
+    <button  className='loginbutton' onClick={handleLogin}>Sign In</button>
         <div />
       </div>
     </div>
