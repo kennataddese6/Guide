@@ -1,6 +1,9 @@
 import '../styles/login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
+import { FiLock, FiUnlock } from 'react-icons/fi';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,6 +27,14 @@ const Login = () => {
         <div className="profileCircle" onClick={handleLogin}>
           <FaUser className="userIcon" />
         </div>
+        <div className ='inputContainer'>
+    <MdEmail className='EmailIcon' />
+    <input type='text' className='EmailID' placeholder='Email ID' />
+    </div>
+    <div className='passwordContainer'>
+    <FiLock className='passwordIcon'/>
+    <input type='password' className='passwordID' placeholder='Password' />
+    </div>
         <div />
       </div>
     </div>
