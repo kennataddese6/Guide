@@ -141,3 +141,15 @@ position: relative;
   font-size: 1.2rem;
   left: 0.1rem;
  }
+.loginbutton {
+  background-color: purple;
+  color: white;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 80%;
+  width: 60%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

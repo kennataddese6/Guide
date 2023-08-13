@@ -35,6 +35,7 @@ const Login = () => {
     <FiLock className='passwordIcon'/>
     <input type='password' className='passwordID' placeholder='Password' />
     </div>
+    <button  className='loginbutton' >Sign In</button>
         <div />
       </div>
     </div>
