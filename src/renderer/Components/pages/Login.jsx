@@ -12,11 +12,12 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
 
   const handleLogin = (e) => {
-    if (email === 'kennataddese6@gmail.com' && password === 'Whereareyou6') {
-      navigate('/LobbyDasboard');
+    navigate('/LobbyDasboard');
+
+    /*     if (email === 'kennataddese6@gmail.com' && password === 'Whereareyou6') {
     } else {
       setIsError(true);
-    }
+    } */
   };
 
   return (
