@@ -1,6 +1,7 @@
 import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
-const RegisterCustomer = () => {
+const RegisterCustomer = ({ role }) => {
+  console.log('this is the registered person', role);
   return (
     <>
       <div className="dashboard">

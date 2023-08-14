@@ -6,7 +6,7 @@ const Register = () => {
       <div className="dashboard">
         <div className="div">
           <SideBar index={3} />
-          <RegisterCustomer />
+          <RegisterCustomer role="Receptionist" />
         </div>
       </div>
     </>

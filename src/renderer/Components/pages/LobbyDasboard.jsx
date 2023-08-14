@@ -20,7 +20,7 @@ const LobbyDashboard = () => {
       <div className="div">
         <SideBar index={1} />
         <div className="div-wrapper">
-          <RegisterCustomer />
+          <RegisterCustomer role="Customer" />
         </div>
         <div className="cards-elevation">
           <div className="text-wrapper-6">Sent Clients</div>
