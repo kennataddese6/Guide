@@ -2,12 +2,26 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+html {
+  display: flex;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
 body {
-  background-color: rgb(252, 246, 246);
+  background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 99%;
+  width: 100%;
+  height: 99%;
+}
+#root {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 100%;
 }
 

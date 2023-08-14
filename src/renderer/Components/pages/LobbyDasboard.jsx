@@ -17,7 +17,6 @@ const LobbyDashboard = () => {
   };
   return (
     <div className="dashboard">
-      <div className="div">
         <SideBar index={1} />
         <div className="div-wrapper">
           <RegisterCustomer role="Customer" />
@@ -71,7 +70,6 @@ const LobbyDashboard = () => {
           <div className="text-wrapper-13">Waiting Clients</div>
         </div>
         <Navbar />
-      </div>
     </div>
   );
 };

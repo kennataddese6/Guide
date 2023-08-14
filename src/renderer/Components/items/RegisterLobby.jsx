@@ -3,7 +3,27 @@ const RegisterLobby = () => {
   return (
     <>
       <div className="LobbyContainer">
-        <h1>Register Lobby</h1>
+        <div className="frame">
+          <div className="div">
+            <div className="register-employee">Register Employee</div>
+
+            <input className="firstNameInput" type="text" />
+            <input className="phoneInput" type="text" />
+            <div className="overlap-group">
+              <input className="lastNameInput" type="text" />
+            </div>
+            <div className="text-wrapper">Email</div>
+            <input className="emailInput" type="text" />
+            <div className="text-wrapper-4">First Name</div>
+            <div className="text-wrapper-3">Last Name</div>
+            <div className="text-wrapper-2">Phone Number</div>
+            <div className="text-wrapper-5">Floor Number</div>
+            <input className="floorNumberInput" type="number" />
+            <div className="submitButton">
+              <div className="text-wrapper-6">Submit</div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
