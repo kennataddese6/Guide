@@ -30,28 +30,28 @@
   .group-child {
     width: 80%;
     height: 40%;
-}
+  }
 }
 @media screen and (min-width: 290px) and (max-width: 380px) {
   /* your styles here */
   .group-child {
     width: 70%;
     height: 40%;
-}
+  }
 }
 @media screen and (min-width: 380px) and (max-width: 500px) {
   /* your styles here */
   .group-child {
     width: 70%;
     height: 40%;
-}
+  }
 }
 @media screen and (min-width: 500px) and (max-width: 699px) {
   /* your styles here */
   .group-child {
     width: 60%;
     height: 50%;
-}
+  }
 }
 
 @media screen and (min-width: 700px) and (max-width: 800px) {
@@ -59,14 +59,14 @@
   .group-child {
     width: 60%;
     height: 40%;
-}
+  }
 }
 @media screen and (min-width: 800px) and (max-width: 922px) {
   /* your styles here */
   .group-child {
     width: 50%;
     height: 40%;
-}
+  }
 }
 
 @media screen and (min-width: 932px) and (max-width: 1200px) {
@@ -74,14 +74,14 @@
   .group-child {
     width: 30%;
     height: 50%;
+  }
 }
-}
-@media screen and (min-width: 1201px) and (max-width: 1600px) {
+@media screen and (min-width: 1201px) and (max-width: 2000px) {
   /* your styles here */
   .group-child {
     width: 28%;
     height: 50%;
-}
+  }
 }
 .profileCircle {
   width: 23%;
@@ -109,7 +109,7 @@
   margin-bottom: 30px;
   padding-left: 35px;
 }
-.passwordID{
+.passwordID {
   border: none;
   border-bottom: 2px solid #9e9e9e;
   outline: none;
@@ -120,36 +120,50 @@
 .EmailID:focus {
   border-bottom: 2px solid #26a69a;
 }
+.passwordID:focus {
+  border-bottom: 2px solid #26a69a;
+}
 
 .EmailIcon {
-position: absolute;
-color: purple;
-font-size: 1.2rem;
-left: 0.1rem;
-}
-
-.inputContainer{
-position: relative;
-}
-.passwordContainer{
-  position: absolute;
-  top: 58%;
-  }
-.passwordIcon{
   position: absolute;
   color: purple;
   font-size: 1.2rem;
   left: 0.1rem;
- }
+}
+
+.inputContainer {
+  position: relative;
+}
+.passwordContainer {
+  position: absolute;
+  top: 58%;
+}
+.passwordIcon {
+  position: absolute;
+  color: purple;
+  font-size: 1.2rem;
+  left: 0.1rem;
+}
 .loginbutton {
   background-color: purple;
   color: white;
   font-size: 0.8rem;
   position: absolute;
-  top: 80%;
-  width: 60%;
+  top: 75%;
+  width: 50%;
   height: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.forgotpassword {
+  color: #9e9e9e;
+  display: flex;
+  margin-top: -13%;
+  justify-content: end;
+  align-items: end;
+}
+.forgotpassword:hover{
+color: purple;
+}
+

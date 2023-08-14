@@ -4,7 +4,6 @@ import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FiLock, FiUnlock } from 'react-icons/fi';
 
-
 const Login = () => {
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -24,18 +23,25 @@ const Login = () => {
       {' '}
       <div className="group-child">
         {' '}
-        <div className="profileCircle" >
+        <div className="profileCircle">
           <FaUser className="userIcon" />
         </div>
-        <div className ='inputContainer'>
-    <MdEmail className='EmailIcon' />
-    <input type='text' className='EmailID' placeholder='Email ID' />
-    </div>
-    <div className='passwordContainer'>
-    <FiLock className='passwordIcon'/>
-    <input type='password' className='passwordID' placeholder='Password' />
-    </div>
-    <button  className='loginbutton' onClick={handleLogin}>Sign In</button>
+        <div className="inputContainer">
+          <MdEmail className="EmailIcon" />
+          <input type="text" className="EmailID" placeholder="Email ID" />
+        </div>
+        <div className="passwordContainer">
+          <FiLock className="passwordIcon" />
+          <input
+            type="password"
+            className="passwordID"
+            placeholder="Password"
+          />
+          <h5 className="forgotpassword">Forgot password?</h5>
+        </div>
+        <button className="loginbutton" onClick={handleLogin}>
+          Sign In
+        </button>
         <div />
       </div>
     </div>
