@@ -1,6 +1,9 @@
 import '../styles/RegisterLobby.css';
+import { register } from '../../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 const RegisterLobby = () => {
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -13,6 +16,14 @@ const RegisterLobby = () => {
     console.log('first name:', email);
     console.log('first name:', phoneNumber);
     console.log('first name:', floorNumber);
+    const userData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      floorNumber: floorNumber,
+    };
+    dispatch(register(userData));
   };
 
   return (

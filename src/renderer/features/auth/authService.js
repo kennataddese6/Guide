@@ -3,6 +3,7 @@ const API_URL = '/api/users/';
 
 // Register Users
 const register = async (userData) => {
+  console.log('here is the messsage in authService');
   const response = await axios.post(API_URL, userData);
 
   if (response.data) {
