@@ -3,21 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FiLock, FiUnlock } from 'react-icons/fi';
-
+import { useState, useEffect } from 'react';
 const Login = () => {
   const navigate = useNavigate();
-  const handleChange = (e) => {
-    console.log();
-  };
-  const handleLogin = (e) => {
-    navigate('/LobbyDasboard');
-    /*     e.preventDefault();
-    const form = document.querySelector('.group-parent')
-    const formData = new FormData(form);
-    const data =[...formData.entries()]
 
-    console.log(data) */
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  const handleLogin = (e) => {
+    if (email === 'kennataddese6@gmail.com' && password === 'Whereareyou6') {
+      navigate('/LobbyDasboard');
+    } else {
+      setIsError(true);
+    }
   };
+
   return (
     <div className="mainContainer">
       {' '}
@@ -28,7 +29,14 @@ const Login = () => {
         </div>
         <div className="inputContainer">
           <MdEmail className="EmailIcon" />
-          <input type="text" className="EmailID" placeholder="Email ID" />
+          <input
+            type="text"
+            className="EmailID"
+            placeholder="Email ID"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
         </div>
         <div className="passwordContainer">
           <FiLock className="passwordIcon" />
@@ -36,12 +44,20 @@ const Login = () => {
             type="password"
             className="passwordID"
             placeholder="Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           <h5 className="forgotpassword">Forgot password?</h5>
         </div>
         <button className="loginbutton" onClick={handleLogin}>
           Sign In
         </button>
+        {isError ? (
+          <p className="invalidCredentials"> Invalid Username or Password.</p>
+        ) : (
+          <p className="invalidCredentials"> </p>
+        )}
         <div />
       </div>
     </div>

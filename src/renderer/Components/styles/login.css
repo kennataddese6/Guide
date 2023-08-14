@@ -31,12 +31,24 @@
     width: 80%;
     height: 40%;
   }
+  .forgotpassword {
+    font-size: 30%;
+  }
+  .invalidCredentials{
+    font-size: 75%;
+  }
 }
 @media screen and (min-width: 290px) and (max-width: 380px) {
   /* your styles here */
   .group-child {
     width: 70%;
     height: 40%;
+  }
+  .forgotpassword {
+    font-size: 30%;
+  }
+  .invalidCredentials{
+    font-size: 75%;
   }
 }
 @media screen and (min-width: 380px) and (max-width: 500px) {
@@ -163,7 +175,12 @@
   justify-content: end;
   align-items: end;
 }
-.forgotpassword:hover{
-color: purple;
+.forgotpassword:hover {
+  color: purple;
 }
 
+.invalidCredentials {
+  position: absolute;
+  top: 85%;
+  color: red;
+}
