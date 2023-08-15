@@ -1,7 +1,9 @@
 import '../styles/RegisterLobby.css';
 import { register } from '../../features/auth/authSlice';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { MdCheckCircle } from 'react-icons/md';
+import { reset } from '../../features/auth/authSlice';
 const RegisterLobby = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState('');
@@ -9,7 +11,8 @@ const RegisterLobby = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
-
+  const [message, setMessage] = useState(false);
+  const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
@@ -17,6 +20,12 @@ const RegisterLobby = () => {
     setPhoneNumber('');
     setFloorNumber('');
   };
+  useEffect(() => {
+    if (isSuccess) {
+      setMessage(true);
+    }
+    dispatch(reset());
+  }, [isSuccess]);
   const handleSubmit = () => {
     const userData = {
       firstName: firstName,
@@ -87,6 +96,22 @@ const RegisterLobby = () => {
             <div className="submitButton" onClick={handleSubmit}>
               <div className="text-wrapper-6">Submit</div>
             </div>
+            {message ? (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '85%',
+                  color: 'green',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <MdCheckCircle color="green" />
+                <h4> Success</h4>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
