@@ -24,10 +24,12 @@ const RegisterLobby = () => {
   };
   useEffect(() => {
     if (isSuccess) {
+      setErrorMessage(false);
       console.log('the operation has succeded');
       setSuccessMessage(true);
     }
     if (isError) {
+      setSuccessMessage(false);
       setErrorMessage(true);
     }
     dispatch(reset());
