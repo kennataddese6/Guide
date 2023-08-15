@@ -81,7 +81,7 @@ const RegisterLobby = () => {
 
             <input
               className="phoneInput"
-              type="text"
+              type="number"
               value={phoneNumber}
               onChange={(e) => {
                 setPhoneNumber(e.target.value);

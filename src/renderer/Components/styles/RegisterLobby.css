@@ -57,6 +57,17 @@
   top: 340px;
   width: 136px;
 }
+/* For Chrome, Safari, Edge, Opera */
+.phoneInput::-webkit-outer-spin-button,
+.phoneInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+.phoneInput {
+  -moz-appearance: textfield;
+}
 
 .frame .overlap-group {
   background-position: 50% 50%;
