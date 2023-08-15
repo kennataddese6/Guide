@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/auth/authSlice';
+import { MdCancel, MdError } from 'react-icons/md';
 const RegisterLobby = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState('');
@@ -11,7 +12,8 @@ const RegisterLobby = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
-  const [message, setMessage] = useState(false);
+  const [SuccessMessage, setSuccessMessage] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState(false);
   const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
   const resetInputs = () => {
     setFirstName('');
@@ -22,10 +24,14 @@ const RegisterLobby = () => {
   };
   useEffect(() => {
     if (isSuccess) {
-      setMessage(true);
+      console.log('the operation has succeded');
+      setSuccessMessage(true);
+    }
+    if (isError) {
+      setErrorMessage(true);
     }
     dispatch(reset());
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
   const handleSubmit = () => {
     const userData = {
       firstName: firstName,
@@ -96,7 +102,7 @@ const RegisterLobby = () => {
             <div className="submitButton" onClick={handleSubmit}>
               <div className="text-wrapper-6">Submit</div>
             </div>
-            {message ? (
+            {SuccessMessage ? (
               <div
                 style={{
                   position: 'absolute',
@@ -108,6 +114,23 @@ const RegisterLobby = () => {
               >
                 <MdCheckCircle color="green" />
                 <h4> Success</h4>
+              </div>
+            ) : (
+              ''
+            )}
+
+            {ErrorMessage ? (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '85%',
+                  color: 'red',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <MdCancel color="red" />
+                <h4> Error. Something went wrong</h4>
               </div>
             ) : (
               ''
