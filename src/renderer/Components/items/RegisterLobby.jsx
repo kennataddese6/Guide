@@ -10,12 +10,14 @@ const RegisterLobby = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
 
+  const resetInputs = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhoneNumber('');
+    setFloorNumber('');
+  };
   const handleSubmit = () => {
-    console.log('first name:', firstName);
-    console.log('first name:', lastName);
-    console.log('first name:', email);
-    console.log('first name:', phoneNumber);
-    console.log('first name:', floorNumber);
     const userData = {
       firstName: firstName,
       lastName: lastName,
@@ -24,6 +26,7 @@ const RegisterLobby = () => {
       floorNumber: floorNumber,
     };
     dispatch(register(userData));
+    resetInputs();
   };
 
   return (
@@ -35,6 +38,7 @@ const RegisterLobby = () => {
             <input
               className="firstNameInput"
               type="text"
+              value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
@@ -43,6 +47,7 @@ const RegisterLobby = () => {
               <input
                 className="lastNameInput"
                 type="text"
+                value={lastName}
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
@@ -51,6 +56,7 @@ const RegisterLobby = () => {
             <input
               className="emailInput"
               type="text"
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -59,6 +65,7 @@ const RegisterLobby = () => {
             <input
               className="phoneInput"
               type="text"
+              value={phoneNumber}
               onChange={(e) => {
                 setPhoneNumber(e.target.value);
               }}
@@ -72,6 +79,7 @@ const RegisterLobby = () => {
             <input
               className="floorNumberInput"
               type="number"
+              value={floorNumber}
               onChange={(e) => {
                 setFloorNumber(e.target.value);
               }}
