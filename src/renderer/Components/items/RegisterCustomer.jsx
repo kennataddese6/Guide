@@ -1,7 +1,7 @@
 import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
@@ -16,9 +16,19 @@ const RegisterCustomer = ({ role }) => {
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   //console.log('this is the registered person', role);
-
+  const { isLoading, isError, isSuccess } = useSelector(
+    (state) => state.customer
+  );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (isSuccess) {
+      setSuccessMessage(true);
+    }
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isSuccess, isError]);
   const handleSubmit = () => {
     const customerData = {
       firstName: firstName,

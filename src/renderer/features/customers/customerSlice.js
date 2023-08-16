@@ -12,10 +12,10 @@ const initialState = {
 // Register Customer
 export const registerCustomer = createAsyncThunk(
   'customer/registerCustomer',
-  async (user, thunkAPI) => {
+  async (customer, thunkAPI) => {
     try {
-      console.log('here is the meeage in Customer slice', user);
-      return await CustomerService.RegisterCustomer(user);
+      console.log('here is the meeage in Customer slice', customer);
+      return await CustomerService.RegisterCustomer(customer);
     } catch (error) {
       const message =
         (error.response &&
@@ -48,13 +48,13 @@ export const CustomerSlice = createSlice({
       .addCase(registerCustomer.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.customer = action.payload;
       })
       .addCase(registerCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.user = null;
+        state.customer = null;
       });
   },
 });
