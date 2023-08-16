@@ -48,13 +48,12 @@ export const CustomerSlice = createSlice({
       .addCase(registerCustomer.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.customer = action.payload;
+        state.message = action.payload;
       })
       .addCase(registerCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.customer = null;
       });
   },
 });

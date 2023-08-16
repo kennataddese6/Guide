@@ -70,6 +70,8 @@
   white-space: nowrap;
 }
 .dashboard .overlap-2 {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid;
   border-color: #e5e5e5;
@@ -100,42 +102,34 @@
 .overlap-2::-webkit-scrollbar-thumb:hover {
   background: black !important;
 }
-
 .dashboard .comments-elements {
-  height: 40px;
-  left: 21px;
-  position: absolute;
-  top: 75px;
-  width: 312px;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  margin-top: 10px;
 }
+
 .dashboard .img-2 {
   height: 38px;
-  left: 0;
-  position: absolute;
-  top: 0;
   width: 38px;
   border-radius: 50%;
+  margin-right: 10px;
 }
+
 .dashboard .overlap-3 {
-  height: 35px;
-  left: 56px;
-  position: absolute;
-  top: 2px;
-  width: 220px;
+  height: 65px;
+  width: 300px;
 }
+
 .dashboard .text-wrapper-7 {
   color: #000000de;
   font-family: var(--medium-14px-font-family);
   font-size: var(--medium-14px-font-size);
   font-style: var(--medium-14px-font-style);
   font-weight: var(--medium-14px-font-weight);
-  left: 0px;
   letter-spacing: var(--medium-14px-letter-spacing);
   line-height: var(--medium-14px-line-height);
-  position: absolute;
-  top: 2px;
-  white-space: nowrap;
-  width: 220px;
 }
 
 .dashboard .text-wrapper-8 {
@@ -144,20 +138,13 @@
   font-size: var(--regular-12px-font-size);
   font-style: var(--regular-12px-font-style);
   font-weight: var(--regular-22px-font-weight);
-  left: 0px;
   letter-spacing: var(--regular-12px-letter-spacing);
   line-height: var(--regular-5px-line-height);
-  position: absolute;
-  top: 21px;
-  white-space: nowrap;
-  width: 220px;
 }
+
 .dashboard .icon-navigation-more {
   color: black;
   height: 20px;
-  left: 292px;
-  position: absolute;
-  top: 10px;
   width: 20px;
 }
 .dashboard .comments-elements-2 {
@@ -244,29 +231,10 @@
 }
 
 .dashboard .text-wrapper-13 {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
   color: #000000de;
-  font-family: var(--medium-20px-font-family);
-  font-size: var(--medium-20px-font-size);
-  font-style: var(--medium-20px-font-style);
-  font-weight: var(--medium-20px-font-weight);
-  left: 23px;
-  letter-spacing: var(--medium-20px-letter-spacing);
-  line-height: var(--medium-20px-line-height);
-  position: absolute;
-  top: 14px;
-  white-space: nowrap;
-}
-.dashboard .text-wrapper-13 {
-  color: #000000de;
-  font-family: var(--medium-20px-font-family);
-  font-size: var(--medium-20px-font-size);
-  font-style: var(--medium-20px-font-style);
-  font-weight: var(--medium-20px-font-weight);
-  left: 35px;
-  letter-spacing: var(--medium-20px-letter-spacing);
-  line-height: var(--medium-20px-line-height);
-  position: absolute;
-  top: 28px;
   white-space: nowrap;
 }
 
