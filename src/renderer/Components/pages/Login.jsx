@@ -6,20 +6,27 @@ import { FiLock, FiUnlock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 const Login = () => {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
 
   const handleLogin = (e) => {
     navigate('/LobbyDasboard');
-
-    /*     if (email === 'kennataddese6@gmail.com' && password === 'Whereareyou6') {
-    } else {
-      setIsError(true);
-    } */
   };
-
+  const handleNotificationClick = () => {
+    // Perform the app redirect here
+    // For example:
+    //window.location.href = '/path/to/redirect';
+    console.log('I am clicked');
+    navigate('/Messages');
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <div className="mainContainer">
       {' '}
