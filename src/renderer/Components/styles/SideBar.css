@@ -115,6 +115,9 @@
   white-space: nowrap;
   width: 151px;
 }
+.dashboard .text-wrapper-2 {
+  cursor: pointer;
+}
 
 .dashboard .text-wrapper-3 {
   color: black;
@@ -129,6 +132,9 @@
   top: -1px;
   white-space: nowrap;
   width: 223px;
+}
+.dashboard .text-wrapper-3 {
+  cursor: none;
 }
 .dashboard .overlap-group-wrapper {
   height: 40px;
@@ -169,6 +175,9 @@
   top: 10px;
   white-space: nowrap;
   width: 151px;
+}
+.dashboard .text-wrapper-4 {
+  cursor: pointer;
 }
 .dashboard .navigation-elements-5 {
   height: 40px;

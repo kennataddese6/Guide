@@ -212,3 +212,6 @@
   position: absolute;
   top: 9px;
 }
+.submitButton:hover .text-wrapper-6 {
+  cursor: pointer;
+}
