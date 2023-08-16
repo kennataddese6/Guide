@@ -100,7 +100,7 @@
 
 /* Handle on hover */
 .overlap-2::-webkit-scrollbar-thumb:hover {
-  background: black !important;
+  background: rgb(151, 10, 92) !important;
 }
 .dashboard .comments-elements {
   display: flex;
@@ -109,7 +109,9 @@
   width: 100%;
   margin-top: 10px;
 }
-
+.dashboard .comments-elements:hover {
+  background-color: #e59bd1;
+}
 .dashboard .img-2 {
   height: 38px;
   width: 38px;

@@ -52,7 +52,9 @@ const LobbyDashboard = () => {
                   <p>
                     {client.FirstName} {client.LastName}{' '}
                   </p>
-                  <p>{client.Department}</p>
+                  <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                    {client.Department}
+                  </p>
                 </div>
                 <FiMoreVertical className="icon-navigation-more" />
               </div>
