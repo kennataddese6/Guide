@@ -3,6 +3,10 @@ import '../styles/RegisterCusomer.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
+import { MdCheckCircle } from 'react-icons/md';
+import { reset } from '../../features/customers/customerSlice';
+import { MdCancel, MdError } from 'react-icons/md';
+import Spinner from '../Utilities/Spinner';
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -23,11 +27,14 @@ const RegisterCustomer = ({ role }) => {
 
   useEffect(() => {
     if (isSuccess) {
+      setErrorMessage(false);
       setSuccessMessage(true);
     }
     if (isError) {
+      setSuccessMessage(false);
       setErrorMessage(true);
     }
+    dispatch(reset());
   }, [isSuccess, isError]);
   const handleSubmit = () => {
     const customerData = {
@@ -43,6 +50,8 @@ const RegisterCustomer = ({ role }) => {
     };
     console.log(customerData);
     dispatch(registerCustomer(customerData));
+    setErrorMessage(false);
+    setSuccessMessage(false);
   };
   return (
     <>
@@ -51,6 +60,7 @@ const RegisterCustomer = ({ role }) => {
           <div className="container">
             <div className="rectangle-parent">
               <div className="frame-child" />
+              {isLoading && <Spinner />}
               <input
                 className="frame-item"
                 type="number"
@@ -197,6 +207,41 @@ const RegisterCustomer = ({ role }) => {
               <div className="male">Male</div>
               <div className="female">Female</div>
             </div>
+            {SuccessMessage ? (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '70%',
+                  left: '38%',
+                  color: 'green',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <MdCheckCircle color="green" />
+                <h4> Success</h4>
+              </div>
+            ) : (
+              ''
+            )}
+
+            {ErrorMessage ? (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '70%',
+                  left: '38%',
+                  color: 'red',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <MdCancel color="red" />
+                <h4> Error. Something went wrong</h4>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
