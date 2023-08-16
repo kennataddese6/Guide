@@ -12,12 +12,14 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
+import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState('');
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.customer
   );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toHomepage = () => {
     navigate('/');
   };
@@ -28,7 +30,10 @@ const LobbyDashboard = () => {
     }
   }, [message]);
   console.log('here are the cusomers', clients);
-
+  useEffect(() => {
+    dispatch(getCustomers());
+    dispatch(reset());
+  }, []);
   return (
     <div className="dashboard">
       <SideBar index={1} />
