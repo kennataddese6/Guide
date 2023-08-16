@@ -3,7 +3,7 @@ const API_URL = 'http://localhost:5000/api/users/';
 // Register Users
 const register = async (userData) => {
   try {
-    console.log('here is the messsage in authService', userData);
+    console.log('here is the messsage in CusomerService', userData);
     const response = await axios.post(API_URL, userData);
 
     if (response.data) {

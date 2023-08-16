@@ -1,6 +1,8 @@
 import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { registerCustomer } from 'renderer/features/customers/customerSlice';
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -15,6 +17,8 @@ const RegisterCustomer = ({ role }) => {
   const [ErrorMessage, setErrorMessage] = useState(false);
   //console.log('this is the registered person', role);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     const customerData = {
       firstName: firstName,
@@ -28,6 +32,7 @@ const RegisterCustomer = ({ role }) => {
       elevatorNumber: elevatorNumber,
     };
     console.log(customerData);
+    dispatch(registerCustomer(customerData));
   };
   return (
     <>
