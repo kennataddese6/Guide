@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/auth/authSlice';
 import { MdCancel, MdError } from 'react-icons/md';
+import Spinner from '../Utilities/Spinner';
 const RegisterLobby = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState('');
@@ -21,6 +22,8 @@ const RegisterLobby = () => {
     setEmail('');
     setPhoneNumber('');
     setFloorNumber('');
+    setErrorMessage(false);
+    setSuccessMessage(false);
   };
   useEffect(() => {
     if (isSuccess) {
@@ -52,6 +55,8 @@ const RegisterLobby = () => {
         <div className="frame">
           <div className="div">
             <div className="register-employee">Register Employee</div>
+            {isLoading && <Spinner />}
+
             <input
               className="firstNameInput"
               type="text"
