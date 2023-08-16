@@ -28,5 +28,6 @@ const getCustomers = async () => {
 };
 const CustomerService = {
   RegisterCustomer,
+  getCustomers
 };
 export default CustomerService;

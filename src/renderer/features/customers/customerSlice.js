@@ -27,6 +27,23 @@ export const registerCustomer = createAsyncThunk(
     }
   }
 );
+// get Customers
+export const getCustomers = createAsyncThunk(
+  'customer/getCustomera',
+  async (_, thunkAPI) => {
+    try {
+      return await CustomerService.getCustomers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const CustomerSlice = createSlice({
   name: 'customer',
@@ -51,6 +68,20 @@ export const CustomerSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(registerCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // to get Customer
+      .addCase(getCustomers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCustomers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(getCustomers.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
