@@ -5,7 +5,9 @@ const Messages = () => {
     <div className="dashboard">
       <div className="div">
         <SideBar index={2} />
-        <Spinner />
+        <div style={{ position: 'absolute', top: '50%' }}>
+          <Spinner />
+        </div>
       </div>
     </div>
   );
