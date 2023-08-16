@@ -1,7 +1,34 @@
 import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
+import { useState } from 'react';
 const RegisterCustomer = ({ role }) => {
-  console.log('this is the registered person', role);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [woreda, setWoreda] = useState('');
+  const [subcity, setSubCity] = useState('');
+  const [officeNumber, setOfficeNumber] = useState('');
+  const [department, setDepartment] = useState('');
+  const [floorNumber, setFloorNumber] = useState('');
+  const [elevatorNumber, setEleveatorNumber] = useState('');
+  const [SuccessMessage, setSuccessMessage] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState(false);
+  //console.log('this is the registered person', role);
+
+  const handleSubmit = () => {
+    const customerData = {
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      woreda: woreda,
+      subcity: subcity,
+      officeNumber: officeNumber,
+      department: department,
+      floorNumber: floorNumber,
+      elevatorNumber: elevatorNumber,
+    };
+    console.log(customerData);
+  };
   return (
     <>
       <div className="dashboard">
@@ -15,6 +42,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Floor Number"
                 required
                 id="floorNumber"
+                onChange={(e) => {
+                  setFloorNumber(e.target.value);
+                }}
               />
               <div className="registration-form"> Registration Form</div>
               <input
@@ -23,6 +53,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="First Name"
                 required
                 id="firstName"
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
               />
               <div className="first-name">
                 <p className="first-name1">First Name</p>
@@ -34,6 +67,9 @@ const RegisterCustomer = ({ role }) => {
                   placeholder="Last Name"
                   required
                   id="lastName"
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
                 />
                 <div className="last-name">Last Name</div>
               </div>
@@ -43,6 +79,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Phone"
                 required
                 id="phone"
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                }}
               />
               <div className="phone">
                 <p className="first-name1">Phone</p>
@@ -53,6 +92,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Woreda"
                 required
                 id="woreda"
+                onChange={(e) => {
+                  setWoreda(e.target.value);
+                }}
               />
               <div className="woreda">
                 <p className="first-name1">Woreda</p>
@@ -63,6 +105,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Subcity"
                 required
                 id="subcity"
+                onChange={(e) => {
+                  setSubCity(e.target.value);
+                }}
               />
               <div className="subcity">
                 <p className="first-name1">Subcity</p>
@@ -80,6 +125,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Office Number"
                 required
                 id="officeNumber"
+                onChange={(e) => {
+                  setOfficeNumber(e.target.value);
+                }}
               />
               <div className="provider-name">
                 <p className="first-name1">Provider Name</p>
@@ -96,6 +144,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Department"
                 required
                 id="department"
+                onChange={(e) => {
+                  setDepartment(e.target.value);
+                }}
               />
               <div className="department">
                 <p className="first-name1">Department</p>
@@ -106,6 +157,9 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Elevator Number"
                 required
                 id="elevatorNumber"
+                onChange={(e) => {
+                  setEleveatorNumber(e.target.value);
+                }}
               />
               <div className="elevator-number">
                 <p className="first-name1">Elevator Number</p>
@@ -119,7 +173,9 @@ const RegisterCustomer = ({ role }) => {
               <div className="pre-request">
                 <p className="first-name1">Pre-request</p>
               </div>
-              <button className="submit">Submit</button>
+              <button className="submit" onClick={handleSubmit}>
+                Submit
+              </button>
               <div className="ellipse-div" />
               <input className="frame-child11" type="radio" required />
               <input className="frame-child12" type="radio" required />
