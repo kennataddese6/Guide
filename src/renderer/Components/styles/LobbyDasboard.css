@@ -111,6 +111,7 @@
 }
 .dashboard .comments-elements:hover {
   background-color: #e59bd1;
+  transform: translateY(-5px);
 }
 .dashboard .img-2 {
   height: 38px;
