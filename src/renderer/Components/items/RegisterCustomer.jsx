@@ -36,6 +36,19 @@ const RegisterCustomer = ({ role }) => {
     }
     dispatch(reset());
   }, [isSuccess, isError]);
+  const resetInputs = () => {
+    setFirstName('');
+    setLastName('');
+    setPhoneNumber('');
+    setFloorNumber('');
+    setWoreda('');
+    setSubCity('');
+    setOfficeNumber('');
+    setEleveatorNumber('');
+    setDepartment('');
+    setErrorMessage(false);
+    setSuccessMessage(false);
+  };
   const handleSubmit = () => {
     const customerData = {
       firstName: firstName,
@@ -50,8 +63,7 @@ const RegisterCustomer = ({ role }) => {
     };
     console.log(customerData);
     dispatch(registerCustomer(customerData));
-    setErrorMessage(false);
-    setSuccessMessage(false);
+    resetInputs();
   };
   return (
     <>
@@ -67,6 +79,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Floor Number"
                 required
                 id="floorNumber"
+                value={floorNumber}
                 onChange={(e) => {
                   setFloorNumber(e.target.value);
                 }}
@@ -78,6 +91,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="First Name"
                 required
                 id="firstName"
+                value={firstName}
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
@@ -92,6 +106,7 @@ const RegisterCustomer = ({ role }) => {
                   placeholder="Last Name"
                   required
                   id="lastName"
+                  value={lastName}
                   onChange={(e) => {
                     setLastName(e.target.value);
                   }}
@@ -104,6 +119,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Phone"
                 required
                 id="phone"
+                value={phoneNumber}
                 onChange={(e) => {
                   setPhoneNumber(e.target.value);
                 }}
@@ -117,6 +133,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Woreda"
                 required
                 id="woreda"
+                value={woreda}
                 onChange={(e) => {
                   setWoreda(e.target.value);
                 }}
@@ -130,6 +147,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Subcity"
                 required
                 id="subcity"
+                value={subcity}
                 onChange={(e) => {
                   setSubCity(e.target.value);
                 }}
@@ -150,6 +168,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Office Number"
                 required
                 id="officeNumber"
+                value={officeNumber}
                 onChange={(e) => {
                   setOfficeNumber(e.target.value);
                 }}
@@ -169,6 +188,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Department"
                 required
                 id="department"
+                value={department}
                 onChange={(e) => {
                   setDepartment(e.target.value);
                 }}
@@ -182,6 +202,7 @@ const RegisterCustomer = ({ role }) => {
                 placeholder="Elevator Number"
                 required
                 id="elevatorNumber"
+                value={elevatorNumber}
                 onChange={(e) => {
                   setEleveatorNumber(e.target.value);
                 }}
