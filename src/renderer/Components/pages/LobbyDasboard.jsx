@@ -14,9 +14,12 @@ import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
+import Spinner from '../Utilities/Spinner';
 
 const LobbyDashboard = () => {
-  const [clients, setClients] = useState('');
+  const [clients, setClients] = useState([]);
+  const [checked, setChecked] = useState(false);
+
   const Colors = [
     '#000000',
     '#FFFFFF',
@@ -79,9 +82,14 @@ const LobbyDashboard = () => {
     '#F08080',
     '#00FFFF',
   ];
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.customer
-  );
+  const {
+    isLoading,
+    isError,
+    isSuccess,
+    message,
+    isErrorGetCusomers,
+    isLoadingGetCustomers,
+  } = useSelector((state) => state.customer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -89,15 +97,23 @@ const LobbyDashboard = () => {
     navigate('/');
   };
   useEffect(() => {
-    if (message) {
+    if (message && message.length && !isErrorGetCusomers) {
+      console.log('this is the error message', isErrorGetCusomers);
+      console.log('this is the loading state', isLoadingGetCustomers);
       setClients(message);
+      console.log('this is the type of message', typeof message);
+      console.log('this is the length of the array', message.length);
     }
-  }, [message]);
+  }, [message, isErrorGetCusomers]);
+  useEffect(() => {
+    console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
+    console.log('this is the loading stae ', isLoading);
+  }, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getCustomers());
+    console.log('this is the error message', isErrorGetCusomers);
     dispatch(reset());
   }, []);
-  const [checked, setChecked] = useState(false);
 
   function handleChange(checked) {
     setChecked(checked);
@@ -126,11 +142,25 @@ const LobbyDashboard = () => {
               checkedIcon={false}
               height={20}
               width={40}
-              onColor="#c737a1" // add this line
-              offColor="#FFD700" // add this line
+              onColor="#c737a1"
+              offColor="#FFD700"
             />
           </div>
         </div>
+        {isLoadingGetCustomers && <Spinner />}
+        {isErrorGetCusomers && (
+          <h4
+            style={{
+              color: 'red',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {' '}
+            Server Error !
+          </h4>
+        )}
         {clients
           ? clients.map((client) => {
               const randomColor =

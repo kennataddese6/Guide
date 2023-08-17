@@ -4,6 +4,8 @@ import CustomerService from './customerService';
 // create state intial
 const initialState = {
   isError: false,
+  isErrorGetCusomers: false,
+  isLoadingGetCustomers: false,
   isSuccess: false,
   isLoading: false,
   message: '',
@@ -53,6 +55,7 @@ export const CustomerSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = false;
+      state.isErrorGetCusomers = false;
       state.message = '';
     },
   },
@@ -74,16 +77,16 @@ export const CustomerSlice = createSlice({
       })
       // to get Customer
       .addCase(getCustomers.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingGetCustomers = true;
       })
       .addCase(getCustomers.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingGetCustomers = false;
         //state.isSuccess = true;
         state.message = action.payload;
       })
       .addCase(getCustomers.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
+        state.isLoadingGetCustomers = false;
+        state.isErrorGetCusomers = true;
         state.message = action.payload;
       });
   },
