@@ -15,21 +15,82 @@ import RegisterCustomer from '../items/RegisterCustomer';
 import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState('');
+  const Colors = [
+    '#000000',
+    '#FFFFFF',
+    '#FF0000',
+    '#00FF00',
+    '#0000FF',
+    '#FFFF00',
+    '#FF00FF',
+    '#00FFFF',
+    '#800000',
+    '#008000',
+    '#000080',
+    '#808000',
+    '#800080',
+    '#008080',
+    '#C0C0C0',
+    '#808080',
+    '#9ACD32',
+    '#FF7F0E',
+    '#228B22',
+    '#FFDAB9',
+    '#556B2F',
+    '#DC143C',
+    '#0000CD',
+    '#9470D3',
+    '#8B0000',
+    '#F08080',
+    '#F000FF',
+    '#FF0000',
+    '#FFFF00',
+    '#00FF00',
+    '#0000FF',
+    '#800000',
+    '#008000',
+    '#000080',
+    '#808000',
+    '#800080',
+    '#008080',
+    '#C0C0C0',
+    '#808080',
+    '#9ACD32',
+    '#FF7F0E',
+    '#228B22',
+    '#FFDAB9',
+    '#556B2F',
+    '#DC143C',
+    '#0000CD',
+    '#9470D3',
+    '#8B0000',
+    '#F08080',
+    '#F000FF',
+  ];
+  const lightColors = [
+    '#FFFFFF',
+    '#FFFF00',
+    '#00FF00',
+    '#C0C0C0',
+    '#9ACD32',
+    '#FFDAB9',
+    '#F08080',
+    '#00FFFF',
+  ];
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.customer
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const toHomepage = () => {
     navigate('/');
   };
   useEffect(() => {
     if (message) {
-      console.log(typeof message);
       setClients(message);
     }
   }, [message]);
-  console.log('here are the cusomers', clients);
   useEffect(() => {
     dispatch(getCustomers());
     dispatch(reset());
@@ -46,23 +107,36 @@ const LobbyDashboard = () => {
       <div className="overlap-2">
         <div className="text-wrapper-13">Waiting Clients</div>
         {clients
-          ? clients.map((client) => (
-              <div className="comments-elements">
-                <div className="img-2" alt="Avatar woman">
-                  {' '}
-                  {client.FirstName[0]}
+          ? clients.map((client) => {
+              const randomColor =
+                Colors[Math.floor(Math.random() * Colors.length)];
+              return (
+                <div className="comments-elements">
+                  <div
+                    className="img-2"
+                    alt="Avatar woman"
+                    style={{
+                      backgroundColor: randomColor,
+                      color: lightColors.includes(randomColor)
+                        ? 'black'
+                        : 'white',
+                    }}
+                  >
+                    {' '}
+                    {client.FirstName[0]}
+                  </div>
+                  <div className="overlap-3">
+                    <p>
+                      {client.FirstName + ' '} {client.LastName}
+                    </p>
+                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                      {client.Department}
+                    </p>
+                  </div>
+                  <FiMoreVertical className="icon-navigation-more" />
                 </div>
-                <div className="overlap-3">
-                  <p>
-                    {client.FirstName} {client.LastName}{' '}
-                  </p>
-                  <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                    {client.Department}
-                  </p>
-                </div>
-                <FiMoreVertical className="icon-navigation-more" />
-              </div>
-            ))
+              );
+            })
           : ''}
       </div>
       <Navbar />

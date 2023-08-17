@@ -114,7 +114,7 @@
   transform: translateY(-5px);
 }
 .dashboard .img-2 {
-  background-color: aqua;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
