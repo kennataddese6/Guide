@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket('ws://localhost:5000');
 
 ws.addEventListener('open', function () {
-  console.log('Connected to server');
+  ws.send(JSON.stringify({ email: 'kennataddese6@gmail.com' })); // this line
 });
 
 ws.addEventListener('message', function (event) {
