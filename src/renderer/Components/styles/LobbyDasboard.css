@@ -105,6 +105,7 @@
 .dashboard .comments-elements {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 80px;
   width: 100%;
   margin-top: 10px;
@@ -122,6 +123,7 @@
   width: 38px;
   border-radius: 50%;
   margin-right: 10px;
+  margin-left: 8px;
 }
 
 .dashboard .overlap-3 {
@@ -245,8 +247,6 @@
   white-space: nowrap;
 }
 .dashboard .text-wrapper-13 > div {
-  display: flex;
-  align-items: center;
   width: 31%;
 }
 

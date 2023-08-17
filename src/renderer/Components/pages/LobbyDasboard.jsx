@@ -13,6 +13,8 @@ import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
+import Switch from 'react-switch';
+
 const LobbyDashboard = () => {
   const [clients, setClients] = useState('');
   const Colors = [
@@ -95,6 +97,11 @@ const LobbyDashboard = () => {
     dispatch(getCustomers());
     dispatch(reset());
   }, []);
+  const [checked, setChecked] = useState(false);
+
+  function handleChange(checked) {
+    setChecked(checked);
+  }
   return (
     <div className="dashboard">
       <SideBar index={1} />
@@ -110,7 +117,19 @@ const LobbyDashboard = () => {
             <FiSearch />
           </div>
           <div>Waiting Clients</div>
-          <div></div>
+          <div style={{ textAlign: 'right' }}>
+            {' '}
+            <Switch
+              onChange={handleChange}
+              checked={checked}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={20}
+              width={40}
+              onColor="#c737a1" // add this line
+              offColor="#FFD700" // add this line
+            />
+          </div>
         </div>
         {clients
           ? clients.map((client) => {
