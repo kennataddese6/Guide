@@ -48,11 +48,10 @@ const LobbyDashboard = () => {
         {clients
           ? clients.map((client) => (
               <div className="comments-elements">
-                <img
-                  className="img-2"
-                  alt="Avatar woman"
-                  src="https://www.publicbooks.org/wp-content/uploads/2019/11/joel-mott-LaK153ghdig-unsplash-scaled-e1574787737429.jpg"
-                />
+                <div className="img-2" alt="Avatar woman">
+                  {' '}
+                  {client.FirstName[0]}
+                </div>
                 <div className="overlap-3">
                   <p>
                     {client.FirstName} {client.LastName}{' '}
