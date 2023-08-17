@@ -118,14 +118,24 @@ const LobbyDashboard = () => {
   function handleChange(checked) {
     setChecked(checked);
   }
+  function handleDragStart(event, client) {
+    event.dataTransfer.setData('text/plain', JSON.stringify(client));
+  }
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
+  function handleDrop(event) {
+    event.preventDefault();
+    const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
+    // Update your application state with clientData
+    console.log('The client has beed droped', clientData);
+  }
+
   return (
     <div className="dashboard">
       <SideBar index={1} />
       <div className="div-wrapper">
         <RegisterCustomer role="Customer" />
-      </div>
-      <div className="cards-elevation">
-        <div className="text-wrapper-6">Sent Clients</div>
       </div>
       <div className="overlap-2">
         <div className="text-wrapper-13">
@@ -166,7 +176,11 @@ const LobbyDashboard = () => {
               const randomColor =
                 Colors[Math.floor(Math.random() * Colors.length)];
               return (
-                <div className="comments-elements">
+                <div
+                  className="comments-elements"
+                  draggable="true"
+                  onDragStart={(event) => handleDragStart(event, client)}
+                >
                   <div
                     className="img-2"
                     alt="Avatar woman"
@@ -195,6 +209,13 @@ const LobbyDashboard = () => {
           : ''}
       </div>
       <Navbar />
+      <div
+        className="cards-elevation"
+        onDragOver={(event) => handleDragOver(event)}
+        onDrop={(event) => handleDrop(event)}
+      >
+        <div className="text-wrapper-6">Sent Clients</div>
+      </div>
     </div>
   );
 };
