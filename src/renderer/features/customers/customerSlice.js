@@ -73,7 +73,6 @@ export const CustomerSlice = createSlice({
       .addCase(registerCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
       })
       // to get Customer
       .addCase(getCustomers.pending, (state) => {
