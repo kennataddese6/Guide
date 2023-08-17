@@ -244,6 +244,11 @@
   color: #000000de;
   white-space: nowrap;
 }
+.dashboard .text-wrapper-13 > div {
+  display: flex;
+  align-items: center;
+  width: 31%;
+}
 
 .dashboard .overlap-4 {
   background-color: #ffffff;

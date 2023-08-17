@@ -9,7 +9,7 @@ import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { FiMoreVertical } from 'react-icons/fi';
-import { FiAlertCircle } from 'react-icons/fi';
+import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
@@ -105,7 +105,13 @@ const LobbyDashboard = () => {
         <div className="text-wrapper-6">Sent Clients</div>
       </div>
       <div className="overlap-2">
-        <div className="text-wrapper-13">Waiting Clients</div>
+        <div className="text-wrapper-13">
+          <div style={{ alignSelf: 'start' }}>
+            <FiSearch />
+          </div>
+          <div>Waiting Clients</div>
+          <div></div>
+        </div>
         {clients
           ? clients.map((client) => {
               const randomColor =
