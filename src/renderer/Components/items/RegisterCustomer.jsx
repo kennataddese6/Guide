@@ -7,6 +7,7 @@ import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel, MdError } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
+import { sendMessage } from 'renderer/webSocket';
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -20,7 +21,7 @@ const RegisterCustomer = ({ role }) => {
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   //console.log('this is the registered person', role);
-  const { isLoading, isError, isSuccess } = useSelector(
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.customer
   );
   const dispatch = useDispatch();
@@ -63,6 +64,14 @@ const RegisterCustomer = ({ role }) => {
     };
     console.log(customerData);
     dispatch(registerCustomer(customerData));
+    // Send the message feature
+    /*
+    const composeMessage = {
+      email: 'kennataddese6@gmail.com',
+      content: `${firstName} wants ${department} at floor ${floorNumber}`,
+      address: 'newInstances@gmail.com',
+    };
+    sendMessage(composeMessage); */
     resetInputs();
   };
   return (
