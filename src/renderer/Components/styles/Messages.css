@@ -18,3 +18,10 @@
   border: solid;
   border-color: white white rgb(236, 234, 234) white;
 }
+.ConversationsBoard {
+  background-color: aqua;
+  width: 70%;
+  height: 100%;
+  position: absolute;
+  left: 576px;
+}

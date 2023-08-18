@@ -12,6 +12,7 @@ const Messages = () => {
         </div>
         <FloorReceptionists />
       </div>
+      <div className="ConversationsBoard"></div>
     </div>
   );
 };
