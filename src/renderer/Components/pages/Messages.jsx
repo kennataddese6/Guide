@@ -3,7 +3,11 @@ import '../styles/Messages.css';
 import FloorReceptionists from '../items/FloorReceptionists';
 import Spinner from '../Utilities/Spinner';
 import Conversations from '../items/Conversations';
+import { useState } from 'react';
+
 const Messages = () => {
+  const [selectedFloor, setSelectedFloor] = useState(null);
+
   return (
     <div className="MessageDashboard">
       <SideBar index={2} />
@@ -11,10 +15,13 @@ const Messages = () => {
         <div className="userHeader">
           <h3>Conversations</h3>
         </div>
-        <FloorReceptionists />
+        <FloorReceptionists
+          selectedFloor={selectedFloor}
+          setSelectedFloor={setSelectedFloor}
+        />
       </div>
       <div className="ConversationsBoard">
-        <Conversations />
+        <Conversations floorNumber={selectedFloor} />
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
-const Conversations = () => {
+const Conversations = ({ floorNumber }) => {
+  console.log('this is the floor number', floorNumber);
+  const FloorNumber = floorNumber;
   return (
     <>
       <div>
-        <h1>Hello</h1>
+        <h1>Hello {FloorNumber}</h1>
       </div>
     </>
   );

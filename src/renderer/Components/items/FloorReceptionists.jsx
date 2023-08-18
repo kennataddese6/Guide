@@ -1,23 +1,47 @@
 import '../styles/FloorRecetionists.css';
-const FloorReceptionists = () => {
+import Conversations from './Conversations';
+const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
+  const passFloorNumber = (number) => {
+    setSelectedFloor(number);
+  };
   return (
     <>
-      <div className="ReceptionistContainer">
+      <div
+        className="ReceptionistContainer"
+        onClick={() => {
+          passFloorNumber(1);
+        }}
+      >
         <h3 className="ReceptionistName">1st Floor Receptionist</h3>
         <p className="messageContent"> I have sent Mr.Tewodros to Sdc 13th..</p>
         <p className="TimeandDate"> 7/19/2013</p>
       </div>
-      <div className="ReceptionistContainer">
+      <div
+        className="ReceptionistContainer"
+        onClick={() => {
+          passFloorNumber(2);
+        }}
+      >
         <h3 className="ReceptionistName">2nd Floor Receptionist</h3>
         <p className="messageContent"> Let Mr.Melaku come to the office..</p>
         <p className="TimeandDate"> 6/19/2013</p>
       </div>
-      <div className="ReceptionistContainer">
+      <div
+        className="ReceptionistContainer"
+        onClick={() => {
+          passFloorNumber(3);
+        }}
+      >
         <h3 className="ReceptionistName">3rd Floor Receptionist</h3>
         <p className="messageContent">Mrs. Aster wants to come to the 32th..</p>
         <p className="TimeandDate"> 5/19/2013</p>
       </div>
-      <div className="ReceptionistContainer">
+      <div
+        className="ReceptionistContainer"
+        onClick={() => {
+          passFloorNumber(4);
+        }}
+      >
         <h3 className="ReceptionistName">4th Floor Receptionist</h3>
         <p className="messageContent">
           Mr. Giram has arrived at the 42th Flo...
