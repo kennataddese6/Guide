@@ -24,4 +24,5 @@
   height: 100%;
   position: absolute;
   left: 580px;
+  overflow: auto;
 }
