@@ -4,7 +4,7 @@
   cursor: pointer;
 }
 .ReceptionistContainer:hover {
-  background-color: lightgray;
+  background-color: lightgray !important;
 }
 .ReceptionistName {
   display: flex;

@@ -8,6 +8,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
     <>
       <div
         className="ReceptionistContainer"
+        style={{ backgroundColor: selectedFloor === 1 ? 'lightblue' : 'white' }}
         onClick={() => {
           passFloorNumber(1);
         }}
@@ -18,6 +19,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       </div>
       <div
         className="ReceptionistContainer"
+        style={{ backgroundColor: selectedFloor === 2 ? 'lightblue' : 'white' }}
         onClick={() => {
           passFloorNumber(2);
         }}
@@ -28,6 +30,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       </div>
       <div
         className="ReceptionistContainer"
+        style={{ backgroundColor: selectedFloor === 3 ? 'lightblue' : 'white' }}
         onClick={() => {
           passFloorNumber(3);
         }}
@@ -38,6 +41,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       </div>
       <div
         className="ReceptionistContainer"
+        style={{ backgroundColor: selectedFloor === 4 ? 'lightblue' : 'white' }}
         onClick={() => {
           passFloorNumber(4);
         }}
