@@ -47,7 +47,7 @@ export const getCustomers = createAsyncThunk(
 );
 // get Floor Customers
 export const getFloorCustomers = createAsyncThunk(
-  'customer/getCustomera',
+  'customer/getFloorCustomers',
   async (floorNumber, thunkAPI) => {
     try {
       return await CustomerService.getFloorCustomers(floorNumber);
