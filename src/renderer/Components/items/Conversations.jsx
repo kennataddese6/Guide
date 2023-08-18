@@ -1,7 +1,16 @@
 import '../styles/Conversations.css';
+import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 const Conversations = ({ floorNumber }) => {
-  console.log('this is the floor number', floorNumber);
   const FloorNumber = floorNumber;
+  console.log('this is the floor number', FloorNumber);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log('This is at load time');
+    dispatch(getFloorCustomers(FloorNumber));
+    console.log('I am dispatched');
+  }, []);
   return (
     <>
       <div className="conversationCard">
