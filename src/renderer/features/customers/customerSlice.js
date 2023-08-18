@@ -16,7 +16,6 @@ export const registerCustomer = createAsyncThunk(
   'customer/registerCustomer',
   async (customer, thunkAPI) => {
     try {
-      console.log('here is the meeage in Customer slice', customer);
       return await CustomerService.RegisterCustomer(customer);
     } catch (error) {
       const message =
@@ -35,6 +34,23 @@ export const getCustomers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await CustomerService.getCustomers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// get Floor Customers
+export const getFloorCustomers = createAsyncThunk(
+  'customer/getCustomera',
+  async (floorNumber, thunkAPI) => {
+    try {
+      return await CustomerService.getFloorCustomers(floorNumber);
     } catch (error) {
       const message =
         (error.response &&
@@ -84,6 +100,20 @@ export const CustomerSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(getCustomers.rejected, (state, action) => {
+        state.isLoadingGetCustomers = false;
+        state.isErrorGetCusomers = true;
+        state.message = action.payload;
+      })
+      // to get Customers by floor
+      .addCase(getFloorCustomers.pending, (state) => {
+        state.isLoadingGetCustomers = true;
+      })
+      .addCase(getFloorCustomers.fulfilled, (state, action) => {
+        state.isLoadingGetCustomers = false;
+        //state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(getFloorCustomers.rejected, (state, action) => {
         state.isLoadingGetCustomers = false;
         state.isErrorGetCusomers = true;
         state.message = action.payload;
