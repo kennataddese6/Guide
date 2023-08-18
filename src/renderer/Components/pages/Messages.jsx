@@ -2,6 +2,7 @@ import SideBar from '../items/SideBar';
 import '../styles/Messages.css';
 import FloorReceptionists from '../items/FloorReceptionists';
 import Spinner from '../Utilities/Spinner';
+import Conversations from '../items/Conversations';
 const Messages = () => {
   return (
     <div className="MessageDashboard">
@@ -12,7 +13,9 @@ const Messages = () => {
         </div>
         <FloorReceptionists />
       </div>
-      <div className="ConversationsBoard"></div>
+      <div className="ConversationsBoard">
+        <Conversations />
+      </div>
     </div>
   );
 };
