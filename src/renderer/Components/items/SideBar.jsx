@@ -38,7 +38,7 @@ const SideBar = ({ index }) => {
               <div className="icon-navigation" onClick={toLogin}>
                 <FiChevronDown style={{ color: 'white ' }} />
               </div>
-              <div className="text-wrapper">Receptionist Name</div>
+              <div className="text-wrapper">Lobby Receptionist</div>
             </div>
             <div className="navigation-elements-3">
               {' '}

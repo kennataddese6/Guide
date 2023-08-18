@@ -1,6 +1,7 @@
 .ReceptionistContainer {
   height: 97px;
   width: 320px;
+  cursor: pointer;
 }
 .ReceptionistContainer:hover {
   background-color: lightgray;
@@ -9,11 +10,13 @@
   display: flex;
   justify-content: center;
   padding-top: 12px;
+  cursor: pointer;
 }
 .messageContent {
   display: flex;
   align-items: center;
   margin-left: 60px;
+  cursor: pointer;
 }
 .TimeandDate {
   display: flex;
@@ -23,4 +26,5 @@
   margin-right: 16px;
   font-family: Arial, sans-serif;
   font-size: small;
+  cursor: pointer;
 }
