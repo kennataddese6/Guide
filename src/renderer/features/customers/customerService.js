@@ -28,7 +28,7 @@ const getCustomers = async () => {
 };
 const getFloorCustomers = async (floorNumber) => {
   try {
-    const response = await axios.get(API_URL, floorNumber);
+    const response = await axios.get(API_URL + 'floorCustomers', floorNumber);
     if (response.data) {
       return response.data;
     }
