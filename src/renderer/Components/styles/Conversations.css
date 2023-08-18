@@ -1,0 +1,31 @@
+.conversationCard {
+  background-color: lightgray;
+  width: 25%;
+  height: auto;
+  margin-top: 75px;
+  margin-left: 150px;
+  border-radius: 10%;
+  padding-bottom: 20px;
+}
+.conversationCard .customerName {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+.customerContent {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 15px;
+  color: black;
+}
+.rcustomerContent {
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  color: blueviolet;
+}
+.rcustomerTime {
+  display: flex;
+  justify-content: center;
+}
