@@ -6,7 +6,7 @@ import Conversations from '../items/Conversations';
 import { useState } from 'react';
 
 const Messages = () => {
-  const [selectedFloor, setSelectedFloor] = useState(null);
+  const [selectedFloor, setSelectedFloor] = useState(1);
 
   return (
     <div className="MessageDashboard">

@@ -7,10 +7,8 @@ const Conversations = ({ floorNumber }) => {
   console.log('this is the floor number', FloorNumber);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('This is at load time');
     dispatch(getFloorCustomers(FloorNumber));
-    console.log('I am dispatched');
-  }, []);
+  }, [FloorNumber]);
   return (
     <>
       <div className="conversationCard">
