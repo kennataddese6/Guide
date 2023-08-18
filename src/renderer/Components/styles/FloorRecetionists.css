@@ -1,0 +1,26 @@
+.ReceptionistContainer {
+  height: 97px;
+  width: 320px;
+}
+.ReceptionistContainer:hover {
+  background-color: lightgray;
+}
+.ReceptionistName {
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+}
+.messageContent {
+  display: flex;
+  align-items: center;
+  margin-left: 60px;
+}
+.TimeandDate {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  margin-top: -12px;
+  margin-right: 16px;
+  font-family: Arial, sans-serif;
+  font-size: small;
+}
