@@ -2,6 +2,7 @@ import '../styles/Conversations.css';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import Spinner from '../Utilities/Spinner';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -22,6 +23,19 @@ const Conversations = ({ floorNumber }) => {
   }, [message]);
   return (
     <>
+      {isLoadingGetCustomers && <Spinner />}
+      {isErrorGetCusomers && (
+        <h4
+          style={{
+            color: 'red',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          Server Error !
+        </h4>
+      )}
       {FloorCustomers ? (
         FloorCustomers.map((FloorCustomer) => (
           <div className="conversationCard">
