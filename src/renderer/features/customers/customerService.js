@@ -26,8 +26,19 @@ const getCustomers = async () => {
     throw error;
   }
 };
+const getFloorCustomers = async (floorNumber) => {
+  try {
+    const response = await axios.get(API_URL, floorNumber);
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 const CustomerService = {
   RegisterCustomer,
-  getCustomers
+  getCustomers,
+  getFloorCustomers,
 };
 export default CustomerService;
