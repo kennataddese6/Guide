@@ -11,10 +11,10 @@ const Messages = () => {
   return (
     <div className="MessageDashboard">
       <SideBar index={2} />
+      <div className="userHeader">
+        <h3>Conversations</h3>
+      </div>
       <div className="UserContainer">
-        <div className="userHeader">
-          <h3>Conversations</h3>
-        </div>
         <FloorReceptionists
           selectedFloor={selectedFloor}
           setSelectedFloor={setSelectedFloor}

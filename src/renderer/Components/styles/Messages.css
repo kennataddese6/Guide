@@ -4,11 +4,27 @@
 }
 .UserContainer {
   width: 320px;
-  height: 100%;
+  height: 93%;
   position: absolute;
   left: 256px;
   border: solid;
   border-color: white rgb(241, 238, 232) white;
+  overflow: auto;
+}
+.UserContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.UserContainer::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.UserContainer::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+}
+
+.UserContainer::-webkit-scrollbar-thumb:hover {
+  background-color: violet;
 }
 .userHeader {
   height: 7%;
