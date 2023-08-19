@@ -5,6 +5,7 @@ import authService from './authService';
 const initialState = {
   isError: false,
   isSuccess: false,
+  isSuccessgetFloorReceptionists: false,
   isLoading: false,
   message: '',
 };
@@ -51,6 +52,7 @@ export const authSlice = createSlice({
     reset: (state) => {
       state.isLoading = false;
       state.isSuccess = false;
+      state.isSuccessgetFloorReceptionists = false;
       state.isError = false;
       state.message = '';
     },
@@ -78,7 +80,7 @@ export const authSlice = createSlice({
       })
       .addCase(getFloorReceptionists.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
+        state.isSuccessgetFloorReceptionists = true;
         state.message = action.payload;
       })
       .addCase(getFloorReceptionists.rejected, (state, action) => {

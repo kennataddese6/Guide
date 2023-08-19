@@ -3,12 +3,12 @@ import Conversations from './Conversations';
 import { useEffect, useState } from 'react';
 import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { reset } from 'renderer/features/customers/customerSlice';
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
-  const { isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isLoading, isError, isSuccessgetFloorReceptionists, message } =
+    useSelector((state) => state.auth);
   const passFloorNumber = (number) => {
     setSelectedFloor(number);
   };
@@ -16,11 +16,12 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
     dispatch(getFloorReceptionists());
   }, []);
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessgetFloorReceptionists) {
       console.log('this is the message to be setted', message);
       setFloorReceptionists(message);
     }
-  }, [isSuccess]);
+    dispatch(reset())
+  }, [isSuccessgetFloorReceptionists]);
   return (
     <>
       {floorReceptionists ? (
@@ -28,7 +29,10 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
           <div
             className="ReceptionistContainer"
             style={{
-              backgroundColor: selectedFloor === floorReceptionist.FloorNumber ? 'lightblue' : 'white',
+              backgroundColor:
+                selectedFloor === floorReceptionist.FloorNumber
+                  ? 'lightblue'
+                  : 'white',
             }}
             onClick={() => {
               passFloorNumber(floorReceptionist.FloorNumber);
