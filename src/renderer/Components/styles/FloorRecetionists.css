@@ -28,3 +28,15 @@
   font-size: small;
   cursor: pointer;
 }
+.img-9 {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -80px;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 8px;
+}

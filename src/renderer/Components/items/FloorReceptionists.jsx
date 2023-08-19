@@ -20,36 +20,41 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       console.log('this is the message to be setted', message);
       setFloorReceptionists(message);
     }
-    dispatch(reset())
+    dispatch(reset());
   }, [isSuccessgetFloorReceptionists]);
   return (
     <>
       {floorReceptionists ? (
-        floorReceptionists.map((floorReceptionist) => (
-          <div
-            className="ReceptionistContainer"
-            style={{
-              backgroundColor:
-                selectedFloor === floorReceptionist.FloorNumber
-                  ? 'lightblue'
-                  : 'white',
-            }}
-            onClick={() => {
-              passFloorNumber(floorReceptionist.FloorNumber);
-            }}
-          >
-            <h3 className="ReceptionistName">
-              {floorReceptionist.FirstName + ' '}
-              {floorReceptionist.LastName} ({floorReceptionist.FloorNumber})
-              Floor
-            </h3>
-            <p className="messageContent">
-              {' '}
-              I have sent Mr.Tewodros to Sdc 13th..
-            </p>
-            <p className="TimeandDate"> 7/19/2013</p>
-          </div>
-        ))
+        floorReceptionists.map((floorReceptionist) => {
+          return (
+            <div
+              className="ReceptionistContainer"
+              style={{
+                backgroundColor:
+                  selectedFloor === floorReceptionist.FloorNumber
+                    ? 'lightblue'
+                    : 'white',
+              }}
+              onClick={() => {
+                passFloorNumber(floorReceptionist.FloorNumber);
+              }}
+            >
+              <h3 className="ReceptionistName">
+                {floorReceptionist.FirstName + ' '}
+                {floorReceptionist.LastName} ({floorReceptionist.FloorNumber})
+                Floor
+              </h3>
+
+              <p className="messageContent">
+                {' '}
+                I have sent Mr.Tewodros to Sdc 13th..
+              </p>
+              <div className="img-9">{floorReceptionist.FirstName[0]}</div>
+
+              <p className="TimeandDate"> 7/19/2013</p>
+            </div>
+          );
+        })
       ) : (
         <></>
       )}
