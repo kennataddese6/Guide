@@ -28,7 +28,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
           <div
             className="ReceptionistContainer"
             style={{
-              backgroundColor: selectedFloor === 1 ? 'lightblue' : 'white',
+              backgroundColor: selectedFloor === floorReceptionist.FloorNumber ? 'lightblue' : 'white',
             }}
             onClick={() => {
               passFloorNumber(floorReceptionist.FloorNumber);
