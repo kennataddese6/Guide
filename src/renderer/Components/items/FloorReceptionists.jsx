@@ -1,9 +1,16 @@
 import '../styles/FloorRecetionists.css';
 import Conversations from './Conversations';
+import { useEffect } from 'react';
+import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
+  const dispatch = useDispatch();
   const passFloorNumber = (number) => {
     setSelectedFloor(number);
   };
+  useEffect(() => {
+    dispatch(getFloorReceptionists());
+  }, []);
   return (
     <>
       <div
