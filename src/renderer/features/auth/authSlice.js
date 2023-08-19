@@ -14,8 +14,24 @@ export const register = createAsyncThunk(
   'auth/register',
   async (user, thunkAPI) => {
     try {
-      console.log('here is the meeage in auth slice', user);
       return await authService.register(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// Get Floor Receptionist
+export const getFloorReceptionists = createAsyncThunk(
+  'auth/getFloorRecpetionist',
+  async (_, thunkAPI) => {
+    try {
+      return await authService.getFloorReceptionists();
     } catch (error) {
       const message =
         (error.response &&
@@ -55,6 +71,20 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.user = null;
+      })
+      // to Get Floor Receptionists
+      .addCase(getFloorReceptionists.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getFloorReceptionists.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(getFloorReceptionists.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
