@@ -16,7 +16,7 @@ const Conversations = ({ floorNumber }) => {
   }, [FloorNumber]);
 
   useEffect(() => {
-    if (message && message.length && !isErrorGetCusomers) {
+    if (message && !isErrorGetCusomers) {
       console.log('this is the message that is setted', message);
       setFloorCustomers(message);
     }
@@ -59,7 +59,11 @@ const Conversations = ({ floorNumber }) => {
           </div>
         ))
       ) : (
-        <></>
+        <>
+          <div>
+            <h1>Sorry Nothing to show</h1>
+          </div>
+        </>
       )}
     </>
   );
