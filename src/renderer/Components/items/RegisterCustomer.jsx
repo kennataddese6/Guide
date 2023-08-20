@@ -8,6 +8,7 @@ import { reset } from '../../features/customers/customerSlice';
 import { MdCancel, MdError } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { sendMessage } from 'renderer/webSocket';
+import { updateLatestMessage } from '../../features/auth/authSlice';
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -64,6 +65,7 @@ const RegisterCustomer = ({ role }) => {
     };
     console.log(customerData);
     dispatch(registerCustomer(customerData));
+    dispatch(updateLatestMessage(customerData))
     // Send the message feature
     /*
     const composeMessage = {
