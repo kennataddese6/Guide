@@ -65,7 +65,11 @@ const RegisterCustomer = ({ role }) => {
     };
     console.log(customerData);
     dispatch(registerCustomer(customerData));
-    dispatch(updateLatestMessage(customerData))
+    const composedMessage = {
+      content: firstName +" " +lastName + " wants to come to " + department + " shall I send him? ",
+      to: floorNumber,
+    }
+    dispatch(updateLatestMessage(composedMessage))
     // Send the message feature
     /*
     const composeMessage = {
