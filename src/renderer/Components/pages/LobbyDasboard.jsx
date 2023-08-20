@@ -208,7 +208,7 @@ const LobbyDashboard = () => {
             })
           : ''}
       </div>
-      <Navbar />
+      <Navbar TotalClients={clients.length} />
       <div
         className="cards-elevation"
         onDragOver={(event) => handleDragOver(event)}
