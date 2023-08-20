@@ -31,9 +31,7 @@ const getFloorReceptionists = async () => {
 // To update the latest message of of receptionists
 const updateLatestMessage = async (latestMessage) => {
   try {
-    const response = await axios.put(API_URL + 'latestMessage', {
-      params: { LatestMessage: latestMessage },
-    });
+    const response = await axios.put(API_URL + 'latestMessage', latestMessage);
     if (response.data) {
       return response.data;
     }
