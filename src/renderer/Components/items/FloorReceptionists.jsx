@@ -3,7 +3,7 @@ import Conversations from './Conversations';
 import { useEffect, useState } from 'react';
 import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset } from 'renderer/features/customers/customerSlice';
+import { reset } from 'renderer/features/auth/authSlice';
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
@@ -47,7 +47,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
 
               <p className="messageContent">
                 {' '}
-                I have sent Mr.Tewodros to Sdc 13th..
+               {floorReceptionist.LatestMessage}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
 
