@@ -29,7 +29,7 @@ const getFloorReceptionists = async () => {
   }
 };
 // To update the latest message of of receptionists
-const latestMessage = async (latestMessage) => {
+const updateLatestMessage = async (latestMessage) => {
   try {
     const response = await axios.put(API_URL + 'latestMessage', {
       params: { LatestMessage: latestMessage },
@@ -44,6 +44,6 @@ const latestMessage = async (latestMessage) => {
 const authService = {
   register,
   getFloorReceptionists,
-  latestMessage,
+  updateLatestMessage
 };
 export default authService;
