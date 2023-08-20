@@ -22,6 +22,11 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
     }
     dispatch(reset());
   }, [isSuccessgetFloorReceptionists]);
+
+  function trimMessage(message) {
+    return message.length > 32 ? message.substring(0, 32) + '...' : message;
+  }
+
   return (
     <>
       {floorReceptionists ? (
@@ -47,7 +52,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
 
               <p className="messageContent">
                 {' '}
-               {floorReceptionist.LatestMessage}
+               {floorReceptionist.LatestMessage ? trimMessage(floorReceptionist.LatestMessage) : 'Sorry. Nothing to show'}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
 
