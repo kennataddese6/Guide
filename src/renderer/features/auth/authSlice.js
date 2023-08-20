@@ -44,6 +44,23 @@ export const getFloorReceptionists = createAsyncThunk(
     }
   }
 );
+// update latest message
+export const updateLatestMessage = createAsyncThunk(
+  'auth/updateLatestMessage',
+  async (latestMessage, thunkAPI) => {
+    try {
+      return await authService.updateLatestMessage(latestMessage);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -69,6 +86,21 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(register.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      // to update latest messages
+      .addCase(updateLatestMessage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateLatestMessage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(updateLatestMessage.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
