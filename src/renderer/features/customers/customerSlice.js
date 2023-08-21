@@ -6,9 +6,11 @@ const initialState = {
   isError: false,
   isErrorGetCusomers: false,
   isLoadingGetCustomers: false,
+  isLoadingSentCustomers: false,
   isSuccess: false,
   isLoading: false,
   message: '',
+  SentCustomers: '',
 };
 
 // Register Customer
@@ -139,6 +141,20 @@ export const CustomerSlice = createSlice({
         state.isLoadingGetCustomers = false;
         state.isErrorGetCusomers = true;
         state.message = action.payload;
+      })
+      // to get sent CUsotmer
+      .addCase(getSentCustomers.pending, (state) => {
+        state.isLoadingSentCustomers = true;
+      })
+      .addCase(getSentCustomers.fulfilled, (state, action) => {
+        state.isLoadingSentCustomers = false;
+        //state.isSuccess = true;
+        state.SentCustomers = action.payload;
+      })
+      .addCase(getSentCustomers.rejected, (state, action) => {
+        state.isLoadingSentCustomers = false;
+        state.isErrorGetCusomers = true;
+        //state.message = action.payload;
       })
       // to get Customers by floor
       .addCase(getFloorCustomers.pending, (state) => {
