@@ -46,14 +46,18 @@
   white-space: nowrap;
 }
 .dashboard .cards-elevation {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid;
   border-color: #e5e5e5;
+  border-radius: 4px;
   height: 334px;
-  left: 1029px;
+  left: 1031px;
   position: absolute;
-  top: 640px;
   width: 360px;
+  overflow-y: scroll;
+  top: 580px;
 }
 
 .dashboard .text-wrapper-6 {
