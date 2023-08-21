@@ -83,6 +83,25 @@ export const getSentCustomers = createAsyncThunk(
     }
   }
 );
+// get Customers
+export const getWaitingCustomers = createAsyncThunk(
+  'customer/getWaitingCustomers',
+  async (_, thunkAPI) => {
+    try {
+      const WaitingCusomters = await CustomerService.getWaitingCustomers();
+      console.log('this are the waiting customers', WaitingCusomters);
+      return WaitingCusomters;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // update Customer
 export const updateCustomer = createAsyncThunk(
   'customer/updateCustomer',
