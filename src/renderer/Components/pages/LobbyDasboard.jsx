@@ -119,13 +119,13 @@ const LobbyDashboard = () => {
     console.log('this is the loading stae ', isLoading);
   }, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
-    dispatch(getCustomers());
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
     dispatch(reset());
   }, []);
   useEffect(() => {
     dispatch(getSentCustomers());
+    dispatch(getWaitingCustomers());
   }, [isSuccess]);
   function handleChange(checked) {
     setChecked(checked);
