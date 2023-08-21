@@ -16,6 +16,7 @@ import {
   getCustomers,
   reset,
   updateCustomer,
+  getSentCustomers,
 } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
@@ -115,7 +116,7 @@ const LobbyDashboard = () => {
   }, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getCustomers());
-    console.log('this is the error message', isErrorGetCusomers);
+    dispatch(getSentCustomers());
     dispatch(reset());
   }, []);
 
