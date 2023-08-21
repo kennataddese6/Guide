@@ -12,7 +12,11 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
-import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
+import {
+  getCustomers,
+  reset,
+  updateCustomer,
+} from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
@@ -134,7 +138,12 @@ const LobbyDashboard = () => {
         'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
       to: clientData.FloorNumber,
     };
+    const updateData = {
+      Sent: true,
+      ID: clientData._id,
+    };
     dispatch(updateLatestMessage(composedMessage));
+    dispatch(updateCustomer(updateData));
   }
 
   return (
