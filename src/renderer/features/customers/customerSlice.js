@@ -62,6 +62,23 @@ export const getFloorCustomers = createAsyncThunk(
     }
   }
 );
+// update Customer
+export const updateCustomer = createAsyncThunk(
+  'customer/updateCustomer',
+  async (customer, thunkAPI) => {
+    try {
+      return await CustomerService.updateCustomer(customer);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const CustomerSlice = createSlice({
   name: 'customer',
