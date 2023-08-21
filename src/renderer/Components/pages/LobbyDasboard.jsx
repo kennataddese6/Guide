@@ -232,44 +232,61 @@ const LobbyDashboard = () => {
         onDragOver={(event) => handleDragOver(event)}
         onDrop={(event) => handleDrop(event)}
       >
-        <div className="text-wrapper-6">
-          {sentClients
-            ? sentClients.map((client) => {
-                const randomColor =
-                  Colors[Math.floor(Math.random() * Colors.length)];
-                return (
-                  <div
-                    className="comments-elements"
-                    draggable="true"
-                    onDragStart={(event) => handleDragStart(event, client)}
-                  >
-                    <div
-                      className="img-2"
-                      alt="Avatar woman"
-                      style={{
-                        backgroundColor: randomColor,
-                        color: lightColors.includes(randomColor)
-                          ? 'black'
-                          : 'white',
-                      }}
-                    >
-                      {' '}
-                      {client.FirstName[0]}
-                    </div>
-                    <div className="overlap-3">
-                      <p>
-                        {client.FirstName + ' '} {client.LastName}
-                      </p>
-                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                        {client.Department}
-                      </p>
-                    </div>
-                    <FiMoreVertical className="icon-navigation-more" />
-                  </div>
-                );
-              })
-            : ''}
+        <div className="text-wrapper-13">
+          <div style={{ alignSelf: 'start' }}>
+            <FiSearch />
+          </div>
+          <div> Sent Clients</div>
+          <div style={{ textAlign: 'right' }}>
+            {' '}
+            <Switch
+              onChange={handleChange}
+              checked={checked}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={20}
+              width={40}
+              onColor="#c737a1"
+              offColor="#FFD700"
+            />
+          </div>
         </div>
+        {sentClients
+          ? sentClients.map((client) => {
+              const randomColor =
+                Colors[Math.floor(Math.random() * Colors.length)];
+              return (
+                <div
+                  className="comments-elements"
+                  draggable="true"
+                  onDragStart={(event) => handleDragStart(event, client)}
+                >
+                  <div
+                    className="img-2"
+                    alt="Avatar woman"
+                    style={{
+                      backgroundColor: randomColor,
+                      color: lightColors.includes(randomColor)
+                        ? 'black'
+                        : 'white',
+                    }}
+                  >
+                    {' '}
+                    {client.FirstName[0]}
+                  </div>
+                  <div className="overlap-3">
+                    <p>
+                      {client.FirstName + ' '} {client.LastName}
+                    </p>
+                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                      {client.Department}
+                    </p>
+                  </div>
+                  <FiMoreVertical className="icon-navigation-more" />
+                </div>
+              );
+            })
+          : ''}
       </div>
     </div>
   );
