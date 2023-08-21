@@ -15,7 +15,7 @@ import RegisterCustomer from '../items/RegisterCustomer';
 import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
-
+import { updateLatestMessage } from '../../features/auth/authSlice';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -129,6 +129,12 @@ const LobbyDashboard = () => {
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
     // Update your application state with clientData
     console.log('The client has beed droped', clientData);
+    const composedMessage = {
+      content:
+        'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
+      to: clientData.FloorNumber,
+    };
+    dispatch(updateLatestMessage(composedMessage));
   }
 
   return (
