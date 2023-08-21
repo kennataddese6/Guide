@@ -51,6 +51,19 @@ const getSentCustomers = async () => {
     throw error;
   }
 };
+// Get Waiting Customers
+const getWaitingCustomers = async () => {
+  try {
+    const response = await axios.get(API_URL + 'waitingCustomers', {
+      params: { Sent: false },
+    });
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 // Update Customer
 const updateCustomer = async (userData) => {
   try {
@@ -72,5 +85,6 @@ const CustomerService = {
   getFloorCustomers,
   updateCustomer,
   getSentCustomers,
+  getWaitingCustomers,
 };
 export default CustomerService;
