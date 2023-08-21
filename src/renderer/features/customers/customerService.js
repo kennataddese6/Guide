@@ -38,9 +38,25 @@ const getFloorCustomers = async (FloorNumber) => {
     throw error;
   }
 };
+// Update Customer
+const updateCustomer = async (userData) => {
+  try {
+    const response = await axios.put(API_URL, userData);
+
+    if (response.data) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    console.log('this is the error', error);
+    throw error;
+  }
+};
+
 const CustomerService = {
   RegisterCustomer,
   getCustomers,
   getFloorCustomers,
+  updateCustomer,
 };
 export default CustomerService;
