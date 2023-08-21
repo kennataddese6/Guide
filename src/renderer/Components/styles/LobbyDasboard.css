@@ -261,11 +261,15 @@
 }
 
 .dashboard .text-wrapper-13 {
+  background-color: white;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
   color: #000000de;
   white-space: nowrap;
+  position: sticky;
+  height: 480px;
+  top: 0;
+  z-index: 1;
 }
 .dashboard .text-wrapper-13 > div {
   width: 31%;

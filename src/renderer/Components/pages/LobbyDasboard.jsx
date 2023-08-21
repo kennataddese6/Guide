@@ -112,7 +112,7 @@ const LobbyDashboard = () => {
       console.log('this are the sent cusotmers', SentCustomers);
       setSentClients(SentCustomers);
     }
-    dispatch(reset());
+    // dispatch(reset());  //  Commented out its causing miss infromation
   }, [message, isErrorGetCusomers, SentCustomers]);
   useEffect(() => {
     console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
