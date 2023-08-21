@@ -38,6 +38,19 @@ const getFloorCustomers = async (FloorNumber) => {
     throw error;
   }
 };
+// Get Sent Customers
+const getSentCustomers = async () => {
+  try {
+    const response = await axios.get(API_URL + 'sentCustomers', {
+      params: { Sent: true },
+    });
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 // Update Customer
 const updateCustomer = async (userData) => {
   try {
@@ -58,5 +71,6 @@ const CustomerService = {
   getCustomers,
   getFloorCustomers,
   updateCustomer,
+  getSentCustomers,
 };
 export default CustomerService;
