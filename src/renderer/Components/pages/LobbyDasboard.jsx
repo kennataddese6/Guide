@@ -111,6 +111,7 @@ const LobbyDashboard = () => {
       console.log('this are the sent cusotmers', SentCustomers);
       setSentClients(SentCustomers);
     }
+    dispatch(reset());
   }, [message, isErrorGetCusomers, SentCustomers]);
   useEffect(() => {
     console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
@@ -121,7 +122,9 @@ const LobbyDashboard = () => {
     dispatch(getSentCustomers());
     dispatch(reset());
   }, []);
-
+  useEffect(() => {
+    dispatch(getSentCustomers());
+  }, [isSuccess]);
   function handleChange(checked) {
     setChecked(checked);
   }

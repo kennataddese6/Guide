@@ -128,6 +128,18 @@ export const CustomerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       })
+      // to update Customer
+      .addCase(updateCustomer.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
       // to get Customer
       .addCase(getCustomers.pending, (state) => {
         state.isLoadingGetCustomers = true;
