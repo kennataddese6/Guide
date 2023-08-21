@@ -17,6 +17,7 @@ import {
   reset,
   updateCustomer,
   getSentCustomers,
+  getWaitingCustomers,
 } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
@@ -119,6 +120,7 @@ const LobbyDashboard = () => {
   }, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getCustomers());
+    dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
     dispatch(reset());
   }, []);
