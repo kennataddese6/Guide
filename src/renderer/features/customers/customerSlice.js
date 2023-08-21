@@ -159,16 +159,16 @@ export const CustomerSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       })
-      // to get Customer
-      .addCase(getCustomers.pending, (state) => {
+      // to waiting Customer
+      .addCase(getWaitingCustomers.pending, (state) => {
         state.isLoadingGetCustomers = true;
       })
-      .addCase(getCustomers.fulfilled, (state, action) => {
+      .addCase(getWaitingCustomers.fulfilled, (state, action) => {
         state.isLoadingGetCustomers = false;
         //state.isSuccess = true;
         state.message = action.payload;
       })
-      .addCase(getCustomers.rejected, (state, action) => {
+      .addCase(getWaitingCustomers.rejected, (state, action) => {
         state.isLoadingGetCustomers = false;
         state.isErrorGetCusomers = true;
         state.message = action.payload;
