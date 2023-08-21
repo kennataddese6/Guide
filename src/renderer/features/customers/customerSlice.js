@@ -62,6 +62,25 @@ export const getFloorCustomers = createAsyncThunk(
     }
   }
 );
+// get Customers
+export const getSentCustomers = createAsyncThunk(
+  'customer/getSentCustomers',
+  async (_, thunkAPI) => {
+    try {
+      const SentCusomters = await CustomerService.getSentCustomers();
+      console.log('this are the sent customers', SentCusomters);
+      return SentCusomters;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // update Customer
 export const updateCustomer = createAsyncThunk(
   'customer/updateCustomer',
