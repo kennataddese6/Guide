@@ -13,8 +13,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isError, setIsError] = useState(false);
-  const { isSuccess, isLoading, user } = useSelector((state) => state.auth);
+  const [isErrorLogin, setIsErrorLogin] = useState(false);
+  const { isSuccess, isLoading, user, message, isError } = useSelector(
+    (state) => state.auth
+  );
   const handleLogin = (e) => {
     //navigate('/LobbyDasboard');
     const userData = {
@@ -29,8 +31,12 @@ const Login = () => {
     } else {
       console.log('Incorrect username of password');
     }
+    if (isError) {
+      console.log('here is the error', message);
+      setIsErrorLogin(true);
+    }
     dispatch(reset());
-  }, [isSuccess, user]);
+  }, [isSuccess, user, isError]);
   const handleNotificationClick = () => {
     // Perform the app redirect here
     // For example:
@@ -79,7 +85,7 @@ const Login = () => {
         <button className="loginbutton" onClick={handleLogin}>
           Sign In
         </button>
-        {isError ? (
+        {isErrorLogin ? (
           <p className="invalidCredentials"> Invalid Username or Password.</p>
         ) : (
           <p className="invalidCredentials"> </p>
