@@ -4,14 +4,22 @@ import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FiLock, FiUnlock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
+import { login } from 'renderer/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
 
   const handleLogin = (e) => {
-    navigate('/LobbyDasboard');
+    //navigate('/LobbyDasboard');
+    const userData = {
+      email: email,
+      password: password,
+    };
+    dispatch(login(userData));
   };
   const handleNotificationClick = () => {
     // Perform the app redirect here
