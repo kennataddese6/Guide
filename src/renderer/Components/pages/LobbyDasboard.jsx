@@ -98,6 +98,7 @@ const LobbyDashboard = () => {
     isLoadingGetCustomers,
     SentCustomers,
   } = useSelector((state) => state.customer);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -109,15 +110,11 @@ const LobbyDashboard = () => {
       setClients(message);
     }
     if (SentCustomers) {
-      console.log('this are the sent cusotmers', SentCustomers);
       setSentClients(SentCustomers);
     }
     // dispatch(reset());  //  Commented out its causing miss infromation
   }, [message, isErrorGetCusomers, SentCustomers]);
-  useEffect(() => {
-    console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
-    console.log('this is the loading stae ', isLoading);
-  }, [isLoadingGetCustomers, isLoading]);
+  useEffect(() => {}, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
@@ -140,7 +137,6 @@ const LobbyDashboard = () => {
     event.preventDefault();
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
     // Update your application state with clientData
-    console.log('The client has beed droped', clientData);
     const composedMessage = {
       content:
         'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
@@ -153,7 +149,11 @@ const LobbyDashboard = () => {
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
-
+  useEffect(() => {
+    if (!user) {
+      toHomepage();
+    }
+  }, [user]);
   return (
     <div className="dashboard">
       <SideBar index={1} />
