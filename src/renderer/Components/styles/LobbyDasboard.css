@@ -46,16 +46,37 @@
   white-space: nowrap;
 }
 .dashboard .cards-elevation {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid;
   border-color: #e5e5e5;
+  border-radius: 4px;
   height: 334px;
-  left: 1029px;
+  left: 1031px;
   position: absolute;
-  top: 640px;
   width: 360px;
+  overflow-y: scroll;
+  top: 580px;
+}
+.cards-elevation::-webkit-scrollbar {
+  width: 10px;
 }
 
+/* Track */
+.cards-elevation::-webkit-scrollbar-track {
+  background: #e59bd1;
+}
+
+/* Handle */
+.cards-elevation::-webkit-scrollbar-thumb {
+  background: #c737a1;
+}
+
+/* Handle on hover */
+.cards-elevation::-webkit-scrollbar-thumb:hover {
+  background: rgb(151, 10, 92) !important;
+}
 .dashboard .text-wrapper-6 {
   color: #000000de;
   font-family: var(--medium-20px-font-family);
@@ -240,11 +261,15 @@
 }
 
 .dashboard .text-wrapper-13 {
+  background-color: white;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
   color: #000000de;
   white-space: nowrap;
+  position: sticky;
+  height: 480px;
+  top: 0;
+  z-index: 1;
 }
 .dashboard .text-wrapper-13 > div {
   width: 31%;

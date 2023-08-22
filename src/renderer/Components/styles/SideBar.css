@@ -43,6 +43,7 @@
   top: 40px;
   width: 40px;
   border-radius: 50%;
+  cursor: pointer;
   /* Can add border radius to the image  border-radius: 40%;   */
 }
 
@@ -75,6 +76,7 @@
   top: 103px;
   white-space: nowrap;
   width: 183px;
+  cursor: pointer;
 }
 .dashboard .navigation-elements-3 {
   height: 76px;
@@ -100,6 +102,7 @@
   position: absolute;
   top: 8px;
   width: 24px;
+  cursor: pointer;
 }
 .dashboard .text-wrapper-2 {
   color: #000000de;

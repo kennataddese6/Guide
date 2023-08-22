@@ -12,12 +12,19 @@ import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
-import { getCustomers, reset } from 'renderer/features/customers/customerSlice';
+import {
+  getCustomers,
+  reset,
+  updateCustomer,
+  getSentCustomers,
+  getWaitingCustomers,
+} from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
-
+import { updateLatestMessage } from '../../features/auth/authSlice';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
+  const [sentClients, setSentClients] = useState([]);
   const [checked, setChecked] = useState(false);
 
   const Colors = [
@@ -89,6 +96,7 @@ const LobbyDashboard = () => {
     message,
     isErrorGetCusomers,
     isLoadingGetCustomers,
+    SentCustomers,
   } = useSelector((state) => state.customer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -98,23 +106,27 @@ const LobbyDashboard = () => {
   };
   useEffect(() => {
     if (message && message.length && !isErrorGetCusomers) {
-      console.log('this is the error message', isErrorGetCusomers);
-      console.log('this is the loading state', isLoadingGetCustomers);
       setClients(message);
-      console.log('this is the type of message', typeof message);
-      console.log('this is the length of the array', message.length);
     }
-  }, [message, isErrorGetCusomers]);
+    if (SentCustomers) {
+      console.log('this are the sent cusotmers', SentCustomers);
+      setSentClients(SentCustomers);
+    }
+    // dispatch(reset());  //  Commented out its causing miss infromation
+  }, [message, isErrorGetCusomers, SentCustomers]);
   useEffect(() => {
     console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
     console.log('this is the loading stae ', isLoading);
   }, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
-    dispatch(getCustomers());
-    console.log('this is the error message', isErrorGetCusomers);
+    dispatch(getWaitingCustomers());
+    dispatch(getSentCustomers());
     dispatch(reset());
   }, []);
-
+  useEffect(() => {
+    dispatch(getSentCustomers());
+    dispatch(getWaitingCustomers());
+  }, [isSuccess]);
   function handleChange(checked) {
     setChecked(checked);
   }
@@ -129,6 +141,17 @@ const LobbyDashboard = () => {
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
     // Update your application state with clientData
     console.log('The client has beed droped', clientData);
+    const composedMessage = {
+      content:
+        'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
+      to: clientData.FloorNumber,
+    };
+    const updateData = {
+      Sent: true,
+      ID: clientData._id,
+    };
+    dispatch(updateLatestMessage(composedMessage));
+    dispatch(updateCustomer(updateData));
   }
 
   return (
@@ -208,13 +231,67 @@ const LobbyDashboard = () => {
             })
           : ''}
       </div>
-      <Navbar />
+      <Navbar TotalClients={clients.length} />
       <div
         className="cards-elevation"
         onDragOver={(event) => handleDragOver(event)}
         onDrop={(event) => handleDrop(event)}
       >
-        <div className="text-wrapper-6">Sent Clients</div>
+        <div className="text-wrapper-13">
+          <div style={{ alignSelf: 'start' }}>
+            <FiSearch />
+          </div>
+          <div> Sent Clients</div>
+          <div style={{ textAlign: 'right' }}>
+            {' '}
+            <Switch
+              onChange={handleChange}
+              checked={checked}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={20}
+              width={40}
+              onColor="#c737a1"
+              offColor="#FFD700"
+            />
+          </div>
+        </div>
+        {sentClients
+          ? sentClients.map((client) => {
+              const randomColor =
+                Colors[Math.floor(Math.random() * Colors.length)];
+              return (
+                <div
+                  className="comments-elements"
+                  draggable="true"
+                  onDragStart={(event) => handleDragStart(event, client)}
+                >
+                  <div
+                    className="img-2"
+                    alt="Avatar woman"
+                    style={{
+                      backgroundColor: randomColor,
+                      color: lightColors.includes(randomColor)
+                        ? 'black'
+                        : 'white',
+                    }}
+                  >
+                    {' '}
+                    {client.FirstName[0]}
+                  </div>
+                  <div className="overlap-3">
+                    <p>
+                      {client.FirstName + ' '} {client.LastName}
+                    </p>
+                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                      {client.Department}
+                    </p>
+                  </div>
+                  <FiMoreVertical className="icon-navigation-more" />
+                </div>
+              );
+            })
+          : ''}
       </div>
     </div>
   );

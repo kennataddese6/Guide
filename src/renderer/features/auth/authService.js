@@ -15,7 +15,33 @@ const register = async (userData) => {
     throw error;
   }
 };
+// To get FLoor Receptionists
+const getFloorReceptionists = async () => {
+  try {
+    const response = await axios.get(API_URL + 'floorReceptionists', {
+      params: { roles: 4800 },
+    });
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+// To update the latest message of of receptionists
+const updateLatestMessage = async (latestMessage) => {
+  try {
+    const response = await axios.put(API_URL + 'latestMessage', latestMessage);
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 const authService = {
   register,
+  getFloorReceptionists,
+  updateLatestMessage
 };
 export default authService;

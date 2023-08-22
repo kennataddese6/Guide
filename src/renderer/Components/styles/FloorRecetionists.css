@@ -1,0 +1,42 @@
+.ReceptionistContainer {
+  height: 97px;
+  width: 320px;
+  cursor: pointer;
+}
+.ReceptionistContainer:hover {
+  background-color: lightgray !important;
+}
+.ReceptionistName {
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+  cursor: pointer;
+}
+.messageContent {
+  display: flex;
+  align-items: center;
+  margin-left: 60px;
+  cursor: pointer;
+}
+.TimeandDate {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  margin-top: 32px;
+  margin-right: 16px;
+  font-family: Arial, sans-serif;
+  font-size: small;
+  cursor: pointer;
+}
+.img-9 {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -80px;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 8px;
+}
