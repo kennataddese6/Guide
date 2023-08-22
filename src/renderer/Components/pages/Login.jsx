@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { login } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
+import Spinner from '../Utilities/Spinner';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Login = () => {
     <div className="mainContainer">
       {' '}
       <div className="group-child">
-        {' '}
+        {isLoading && <Spinner />}{' '}
         <div className="profileCircle">
           <FaUser className="userIcon" />
         </div>
