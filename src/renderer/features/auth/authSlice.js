@@ -33,7 +33,6 @@ export const register = createAsyncThunk(
 // To login user
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
   try {
-    console.log('here is the user ', users);
     return await authService.login(user);
   } catch (error) {
     const message =
@@ -77,7 +76,18 @@ export const updateLatestMessage = createAsyncThunk(
     }
   }
 );
-
+// To logout
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    return await authService.logout();
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
