@@ -53,7 +53,7 @@ const updateLatestMessage = async (latestMessage) => {
   }
 };
 // To logout users
-const logout = async (userData) => {
+const logout = async () => {
   try {
     sessionStorage.removeItem('user');
   } catch (error) {
@@ -65,5 +65,6 @@ const authService = {
   getFloorReceptionists,
   updateLatestMessage,
   login,
+  logout,
 };
 export default authService;
