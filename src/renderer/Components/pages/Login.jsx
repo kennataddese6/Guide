@@ -5,14 +5,15 @@ import { MdEmail } from 'react-icons/md';
 import { FiLock, FiUnlock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { login } from 'renderer/features/auth/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset } from 'renderer/features/auth/authSlice';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
-
+  const { isSuccess, isLoading, user } = useSelector((state) => state.auth);
   const handleLogin = (e) => {
     //navigate('/LobbyDasboard');
     const userData = {
@@ -21,6 +22,14 @@ const Login = () => {
     };
     dispatch(login(userData));
   };
+  useEffect(() => {
+    if (isSuccess || user) {
+      navigate('/LobbyDasboard');
+    } else {
+      console.log('Incorrect username of password');
+    }
+    dispatch(reset());
+  }, [isSuccess, user]);
   const handleNotificationClick = () => {
     // Perform the app redirect here
     // For example:
