@@ -4,9 +4,12 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
+import { logout } from 'renderer/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 const SideBar = ({ index }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toLobbyDashboard = () => {
     navigate('/LobbyDasboard');
   };
@@ -17,7 +20,7 @@ const SideBar = ({ index }) => {
     navigate('/Register');
   };
   const toLogin = () => {
-    navigate('/');
+    dispatch(logout())
   };
   return (
     <div className="dashboard">
