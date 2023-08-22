@@ -52,6 +52,14 @@ const updateLatestMessage = async (latestMessage) => {
     throw error;
   }
 };
+// To logout users
+const logout = async (userData) => {
+  try {
+    sessionStorage.removeItem('user');
+  } catch (error) {
+    throw error;
+  }
+};
 const authService = {
   register,
   getFloorReceptionists,
