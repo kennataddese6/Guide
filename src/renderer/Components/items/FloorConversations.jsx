@@ -4,6 +4,7 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import Spinner from '../Utilities/Spinner';
 import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
+import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 const FloorConversations = ({ floorNumber }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -26,12 +27,18 @@ const FloorConversations = ({ floorNumber }) => {
       setFloorCustomers(message);
     }
   }, [message]);
-  const customerAccepted = (id) => {
+
+  const customerAccepted = (id, firstName, lastName, floorNumber) => {
     const updateData = {
       Accepted: true,
       ID: id,
     };
     dispatch(updateCustomer(updateData));
+    const composedMessage = {
+      content: `Yes. Let ${firstName} ${lastName} come`,
+      to: floorNumber,
+    };
+    dispatch(updateLatestMessage(composedMessage));
   };
   return (
     <>
@@ -64,7 +71,12 @@ const FloorConversations = ({ floorNumber }) => {
                 <p
                   className="rcustomerContent"
                   onClick={() => {
-                    customerAccepted(FloorCustomer._id);
+                    customerAccepted(
+                      FloorCustomer._id,
+                      FloorCustomer.FirstName,
+                      FloorCustomer.LastName,
+                      FloorCustomer.FloorNumber
+                    );
                   }}
                 >
                   Yes. Let him come
