@@ -2,6 +2,7 @@ import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import FloorSideBar from '../items/FloorSidebar';
 const FloorDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,13 +16,16 @@ const FloorDashboard = () => {
     }
   }, [user]);
   return (
-    <div
-      onClick={() => {
-        tologout();
-      }}
-    >
-      <h1> This is Floor Receptionist Dashobard</h1>
-    </div>
+    <>
+      <FloorSideBar />
+      <div
+        onClick={() => {
+          tologout();
+        }}
+      >
+        <h1> This is Floor Receptionist Dashobard</h1>
+      </div>
+    </>
   );
 };
 export default FloorDashboard;
