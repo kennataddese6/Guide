@@ -36,7 +36,7 @@ const FloorSideBar = ({ index }) => {
                 <FiChevronDown style={{ color: 'white ' }} />
               </div>
               <div className="text-wrapper">
-                ({user.FloorNumber}) Floor Receptionist
+                ({user ? user.FloorNumber : ''}) Floor Receptionist
               </div>
             </div>
             <div className="navigation-elements-3">

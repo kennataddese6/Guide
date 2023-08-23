@@ -17,7 +17,7 @@ const FloorDashboard = () => {
   }, [user]);
   return (
     <>
-      <FloorSideBar />
+      <FloorSideBar index={1} />
       <div
         onClick={() => {
           tologout();
