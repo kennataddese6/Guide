@@ -14,6 +14,12 @@ const FloorSideBar = ({ index }) => {
   const toLogin = () => {
     dispatch(logout());
   };
+  const toFloorMessages = () => {
+    navigate('/FloorMessages');
+  };
+  const toFloorDashboard = () => {
+    navigate('/FloorDashboard');
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -52,6 +58,7 @@ const FloorSideBar = ({ index }) => {
             </div>
             <div
               className="overlap-group-wrapper"
+              onClick={toFloorDashboard}
               style={{ backgroundColor: SideBarIndex === 1 ? 'gold' : '' }}
             >
               {' '}
@@ -66,6 +73,9 @@ const FloorSideBar = ({ index }) => {
             </div>
             <div
               className="navigation-elements-5"
+              onClick={() => {
+                toFloorMessages();
+              }}
               style={{ backgroundColor: SideBarIndex === 2 ? 'gold' : '' }}
             >
               <div className="overlap-group">
