@@ -35,7 +35,7 @@ const FloorMessages = () => {
           </div>
         </div>
         <div className="ConversationsBoard">
-          <FloorConversations />
+          <FloorConversations floorNumber={user ? user.FloorNumber : ''} />
         </div>
       </div>
     </>
