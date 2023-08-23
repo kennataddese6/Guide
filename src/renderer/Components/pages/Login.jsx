@@ -31,6 +31,9 @@ const Login = () => {
       if (user.Roles === 1000) {
         navigate('/LobbyDasboard');
       }
+      if (user.Roles === 4800) {
+        navigate('/FloorDashboard');
+      }
     }
     if (isError) {
       message === 'Network Error'
