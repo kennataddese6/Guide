@@ -9,6 +9,10 @@ const FloorMessages = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+
+  function trimMessage(message) {
+    return message.length > 32 ? message.substring(0, 32) + '...' : message;
+  }
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -28,7 +32,11 @@ const FloorMessages = () => {
           >
             <h3 className="ReceptionistName">Lobby Receptionist</h3>
 
-            <p className="messageContent">This is the message content</p>
+            <p className="messageContent">
+              {user && user.LatestMessage
+                ? trimMessage(user.LatestMessage)
+                : 'Sorry. Nothing to show!'}
+            </p>
             <div className="img-9">L</div>
 
             <p className="TimeandDate"> 7/19/2013</p>
