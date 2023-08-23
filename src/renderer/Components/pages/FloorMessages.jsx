@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import FloorReceptionists from '../items/FloorReceptionists';
+import FloorConversations from '../items/FloorConversations';
 const FloorMessages = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +34,9 @@ const FloorMessages = () => {
             <p className="TimeandDate"> 7/19/2013</p>
           </div>
         </div>
-        <div></div>
+        <div className="ConversationsBoard">
+          <FloorConversations />
+        </div>
       </div>
     </>
   );
