@@ -25,6 +25,13 @@
   justify-content: end;
   margin-right: 20px;
   color: blueviolet;
+  text-decoration: underline;
+}
+.ArcustomerContent {
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  color: blueviolet;
 }
 .rcustomerTime {
   display: flex;
