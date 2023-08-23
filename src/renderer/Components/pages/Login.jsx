@@ -28,9 +28,9 @@ const Login = () => {
   };
   useEffect(() => {
     if (isSuccess || user) {
-      navigate('/LobbyDasboard');
-    } else {
-      console.log('Incorrect username of password');
+      if (user.Roles === 1000) {
+        navigate('/LobbyDasboard');
+      }
     }
     if (isError) {
       message === 'Network Error'
