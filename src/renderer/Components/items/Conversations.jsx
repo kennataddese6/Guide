@@ -47,14 +47,18 @@ const Conversations = ({ floorNumber }) => {
               Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
-            <p className="rcustomerContent"> Yes. Let him come</p>
-            <p className="customerContent">
+            {FloorCustomer.Accepted ? (
+              <p className="rcustomerContent"> Yes. Let him come</p>
+            ) : (
+              ''
+            )}
+            {/*             <p className="customerContent">
               {' '}
               I have sent {FloorCustomer.FirstName + ' '}{' '}
               {FloorCustomer.LastName}
             </p>
             <p className="rcustomerContent"> He has arrived</p>
-            <p className="customerContent"> Remarks:</p>
+            <p className="customerContent"> Remarks:</p> */}
             <p className="rcustomerTime"> 07/19/2023</p>
           </div>
         ))
