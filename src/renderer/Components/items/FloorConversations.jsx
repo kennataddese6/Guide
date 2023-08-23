@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import Spinner from '../Utilities/Spinner';
-
+import { updateCustomer } from 'renderer/features/customers/customerSlice';
 const FloorConversations = ({ floorNumber }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -20,7 +20,11 @@ const FloorConversations = ({ floorNumber }) => {
     }
   }, [message]);
   const customerAccepted = (id) => {
-    console.log('Customer is Accepted', id);
+    const updateData = {
+      Accepted: true,
+      ID: id,
+    };
+    dispatch(updateCustomer(updateData));
   };
   return (
     <>
