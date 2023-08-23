@@ -14,6 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isErrorLogin, setIsErrorLogin] = useState(false);
+  const [errMsg, seterrMsg] = useState('');
   const { isSuccess, isLoading, user, message, isError } = useSelector(
     (state) => state.auth
   );
@@ -32,6 +33,9 @@ const Login = () => {
       console.log('Incorrect username of password');
     }
     if (isError) {
+      message === 'Network Error'
+        ? seterrMsg('Network Error!')
+        : seterrMsg('Invalid Email or Password');
       console.log('here is the error', message);
       setIsErrorLogin(true);
     }
@@ -86,7 +90,7 @@ const Login = () => {
           Sign In
         </button>
         {isErrorLogin ? (
-          <p className="invalidCredentials"> Invalid Username or Password.</p>
+          <p className="invalidCredentials"> {errMsg}</p>
         ) : (
           <p className="invalidCredentials"> </p>
         )}

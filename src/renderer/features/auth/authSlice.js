@@ -127,6 +127,7 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        state.message = action.payload;
       })
       // to update latest messages
       .addCase(updateLatestMessage.pending, (state) => {
