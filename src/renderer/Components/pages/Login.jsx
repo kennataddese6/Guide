@@ -28,10 +28,10 @@ const Login = () => {
   };
   useEffect(() => {
     if (isSuccess || user) {
-      if (user.Roles === 1000) {
+      if (user && user.Roles === 1000) {
         navigate('/LobbyDasboard');
       }
-      if (user.Roles === 4800) {
+      if (user && user.Roles === 4800) {
         navigate('/FloorDashboard');
       }
     }
