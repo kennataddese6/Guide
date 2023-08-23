@@ -26,12 +26,14 @@
   margin-right: 20px;
   color: blueviolet;
   text-decoration: underline;
+  cursor: pointer;
 }
 .ArcustomerContent {
   display: flex;
   justify-content: end;
   margin-right: 20px;
   color: blueviolet;
+  cursor: pointer;
 }
 .rcustomerTime {
   display: flex;

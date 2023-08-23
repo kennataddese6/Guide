@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import Spinner from '../Utilities/Spinner';
 import { updateCustomer } from 'renderer/features/customers/customerSlice';
+import { reset } from 'renderer/features/customers/customerSlice';
 const FloorConversations = ({ floorNumber }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -13,6 +14,12 @@ const FloorConversations = ({ floorNumber }) => {
   useEffect(() => {
     dispatch(getFloorCustomers(FloorNumber));
   }, [FloorNumber]);
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(getFloorCustomers(FloorNumber));
+    }
+    dispatch(reset());
+  }, [isSuccess]);
   useEffect(() => {
     if (message && !isErrorGetCusomers) {
       console.log('this is the message that is setted', message);
