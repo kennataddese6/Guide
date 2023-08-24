@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
@@ -41,6 +42,15 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     dispatch(updateLatestMessage(composedMessage));
     setReload(true);
   };
+  function formatDate(dateString) {
+    const date = moment(dateString);
+    const now = moment();
+    if (now.diff(date, 'days') >= 1) {
+      return date.format('YYYY-MM-DD');
+    } else {
+      return date.format('HH:mm');
+    }
+  }
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
@@ -103,7 +113,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             </p>
             <p className="rcustomerContent"> He has arrived</p>
             <p className="customerContent"> Remarks:</p> */}
-            <p className="rcustomerTime"> 07/19/2023</p>
+            <p className="rcustomerTime">
+              {formatDate(FloorCustomer.updatedAt)}
+            </p>
           </div>
         ))
       ) : (
