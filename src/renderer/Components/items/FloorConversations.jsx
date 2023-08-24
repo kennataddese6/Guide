@@ -105,6 +105,13 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             ) : (
               ''
             )}
+            {FloorCustomer.Sent ? (
+              <p className="rcustomerContent"> He has arrived</p>
+            ) : FloorCustomer.Sent && FloorCustomer.Arrived ? (
+              <p className="AcustomerContent"> Arrived</p>
+            ) : (
+              ''
+            )}
 
             {/*             <p className="customerContent">
               {' '}
