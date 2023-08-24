@@ -1,3 +1,4 @@
+import moment from 'moment';
 import '../styles/FloorRecetionists.css';
 import Conversations from './Conversations';
 import { useEffect, useState } from 'react';
@@ -26,7 +27,15 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   function trimMessage(message) {
     return message.length > 32 ? message.substring(0, 32) + '...' : message;
   }
-
+  function formatDate(dateString) {
+    const date = moment(dateString);
+    const now = moment();
+    if (now.diff(date, 'days') >= 1) {
+      return date.format('DD-MM-YYYY');
+    } else {
+      return date.format('HH:mm');
+    }
+  }
   return (
     <>
       {floorReceptionists ? (
@@ -52,11 +61,16 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
 
               <p className="messageContent">
                 {' '}
-               {floorReceptionist.LatestMessage ? trimMessage(floorReceptionist.LatestMessage) : 'Sorry. Nothing to show'}
+                {floorReceptionist.LatestMessage
+                  ? trimMessage(floorReceptionist.LatestMessage)
+                  : 'Sorry. Nothing to show'}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
 
-              <p className="TimeandDate"> 7/19/2013</p>
+              <p className="TimeandDate">
+                {' '}
+                {formatDate(floorReceptionist.updatedAt)}
+              </p>
             </div>
           );
         })

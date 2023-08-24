@@ -26,7 +26,7 @@ const Conversations = ({ floorNumber }) => {
     const date = moment(dateString);
     const now = moment();
     if (now.diff(date, 'days') >= 1) {
-      return date.format('YYYY-MM-DD');
+      return date.format('DD-MM-YYYY');
     } else {
       return date.format('HH:mm');
     }
