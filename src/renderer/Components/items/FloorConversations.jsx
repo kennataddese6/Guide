@@ -5,7 +5,7 @@ import Spinner from '../Utilities/Spinner';
 import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
-const FloorConversations = ({ floorNumber }) => {
+const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -39,6 +39,7 @@ const FloorConversations = ({ floorNumber }) => {
       to: floorNumber,
     };
     dispatch(updateLatestMessage(composedMessage));
+    setReload(true);
   };
   return (
     <>

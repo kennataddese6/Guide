@@ -1,13 +1,15 @@
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import FloorReceptionists from '../items/FloorReceptionists';
 import FloorConversations from '../items/FloorConversations';
+import { login } from 'renderer/features/auth/authSlice';
 const FloorMessages = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [reload, setReload] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   function trimMessage(message) {
@@ -18,6 +20,23 @@ const FloorMessages = () => {
       navigate('/');
     }
   }, [user]);
+
+  useEffect(() => {
+    console.log('this is step 1', reload);
+    if (reload) {
+      console.log('this is step 2', reload);
+      const userData = {
+        email: user.Email,
+        password: user.Password,
+      };
+      dispatch(login(userData));
+      console.log('this is step 3', reload);
+    }
+    console.log('this is step 4', reload);
+
+    setReload(false);
+    console.log('this is step 5', reload);
+  }, [reload]);
   return (
     <>
       <div className="MessageDashboard">
@@ -43,7 +62,11 @@ const FloorMessages = () => {
           </div>
         </div>
         <div className="ConversationsBoard">
-          <FloorConversations floorNumber={user ? user.FloorNumber : ''} />
+          <FloorConversations
+            floorNumber={user ? user.FloorNumber : ''}
+            reload={reload}
+            setReload={setReload}
+          />
         </div>
       </div>
     </>
