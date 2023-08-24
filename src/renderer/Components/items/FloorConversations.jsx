@@ -86,6 +86,15 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             ) : (
               <p className="ArcustomerContent">Accepted</p>
             )}
+            {FloorCustomer.Sent ? (
+              <p className="customerContent">
+                {' '}
+                I have sent {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName}
+              </p>
+            ) : (
+              ''
+            )}
 
             {/*             <p className="customerContent">
               {' '}
