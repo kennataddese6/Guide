@@ -52,6 +52,15 @@ const Conversations = ({ floorNumber }) => {
             ) : (
               ''
             )}
+            {FloorCustomer.Sent ? (
+              <p className="customerContent">
+                {' '}
+                I have sent {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName}
+              </p>
+            ) : (
+              ''
+            )}
             {/*             <p className="customerContent">
               {' '}
               I have sent {FloorCustomer.FirstName + ' '}{' '}
