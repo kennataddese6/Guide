@@ -58,7 +58,7 @@ const Conversations = ({ floorNumber }) => {
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
             {FloorCustomer.Accepted ? (
-              <p className="rcustomerContent"> Yes. Let him come</p>
+              <p className="ArcustomerContent"> Yes. Let him come</p>
             ) : (
               ''
             )}
@@ -68,6 +68,11 @@ const Conversations = ({ floorNumber }) => {
                 I have sent {FloorCustomer.FirstName + ' '}{' '}
                 {FloorCustomer.LastName}
               </p>
+            ) : (
+              ''
+            )}
+            {FloorCustomer.Arrived ? (
+              <p className="ArcustomerContent"> Arrived</p>
             ) : (
               ''
             )}
