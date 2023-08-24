@@ -68,7 +68,10 @@ const FloorMessages = () => {
             </p>
             <div className="img-9">L</div>
 
-            <p className="TimeandDate"> {formatDate(user.updatedAt)}</p>
+            <p className="TimeandDate">
+              {' '}
+              {formatDate(user ? user.updatedAt : '')}
+            </p>
           </div>
         </div>
         <div className="ConversationsBoard">

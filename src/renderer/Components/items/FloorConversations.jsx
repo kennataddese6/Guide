@@ -42,6 +42,21 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     dispatch(updateLatestMessage(composedMessage));
     setReload(true);
   };
+
+  const customerArrived = (id, firstName, lastName, floorNumber) => {
+    const updateData = {
+      Arrived: true,
+      ID: id,
+    };
+    dispatch(updateCustomer(updateData));
+
+    const composedMessage = {
+      content: `Customer  ${firstName} ${lastName} has Arrived`,
+      to: floorNumber,
+    };
+    dispatch(updateLatestMessage(composedMessage));
+    setReload(true);
+  };
   function formatDate(dateString) {
     const date = moment(dateString);
     const now = moment();
@@ -105,10 +120,22 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             ) : (
               ''
             )}
-            {FloorCustomer.Sent ? (
-              <p className="rcustomerContent"> He has arrived</p>
+            {FloorCustomer.Sent && !FloorCustomer.Arrived ? (
+              <p
+                className="rcustomerContent"
+                onClick={() => {
+                  customerArrived(
+                    FloorCustomer._id,
+                    FloorCustomer.FirstName,
+                    FloorCustomer.LastName,
+                    FloorCustomer.FloorNumber
+                  );
+                }}
+              >
+                He has arrived
+              </p>
             ) : FloorCustomer.Sent && FloorCustomer.Arrived ? (
-              <p className="AcustomerContent"> Arrived</p>
+              <p className="ArcustomerContent"> Arrived</p>
             ) : (
               ''
             )}
