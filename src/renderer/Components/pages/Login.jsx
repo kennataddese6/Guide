@@ -34,6 +34,9 @@ const Login = () => {
       if (user && user.Roles === 4800) {
         navigate('/FloorDashboard');
       }
+      if (user && user.Roles == 7706) {
+        navigate('/AdminDashboard');
+      }
     }
     if (isError) {
       message === 'Network Error'
