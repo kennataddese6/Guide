@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -37,6 +38,15 @@ const FloorMessages = () => {
     setReload(false);
     console.log('this is step 5', reload);
   }, [reload]);
+  function formatDate(dateString) {
+    const date = moment(dateString);
+    const now = moment();
+    if (now.diff(date, 'days') >= 1) {
+      return date.format('YYYY-MM-DD');
+    } else {
+      return date.format('HH:mm');
+    }
+  }
   return (
     <>
       <div className="MessageDashboard">
@@ -58,7 +68,7 @@ const FloorMessages = () => {
             </p>
             <div className="img-9">L</div>
 
-            <p className="TimeandDate"> 7/19/2013</p>
+            <p className="TimeandDate"> {formatDate(user.updatedAt)}</p>
           </div>
         </div>
         <div className="ConversationsBoard">
