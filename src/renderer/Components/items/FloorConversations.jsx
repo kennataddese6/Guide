@@ -61,6 +61,12 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       content: `Customer  ${firstName} ${lastName} has Arrived`,
       to: floorNumber,
     };
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content: `Customer  ${firstName} ${lastName} has Arrived`,
+      address: 0,
+    };
+    sendMessage(InstantMessage);
     dispatch(updateLatestMessage(composedMessage));
     setReload(true);
   };
