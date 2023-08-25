@@ -66,6 +66,16 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       return date.format('HH:mm');
     }
   }
+  const handleNotificationClick = () => {
+    dispatch(getFloorCustomers(FloorNumber));
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
