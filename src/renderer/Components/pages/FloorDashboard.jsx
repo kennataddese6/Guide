@@ -15,6 +15,21 @@ const FloorDashboard = () => {
       navigate('/');
     }
   }, [user]);
+  const handleNotificationClick = () => {
+    if (user && user.Roles === 1000) {
+      navigate('/Messages');
+    }
+    if (user && user.Roles === 4800) {
+      navigate('/FloorMessages');
+    }
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <>
       <FloorSideBar index={1} />
