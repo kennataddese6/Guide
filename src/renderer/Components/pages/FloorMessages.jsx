@@ -51,7 +51,7 @@ const FloorMessages = () => {
   }
   ws.addEventListener('message', function (event) {
     const userData = {
-      email: user.Email,
+      email: user ? user.Email : '',
       password: user.Password,
     };
     dispatch(login(userData));
