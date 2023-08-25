@@ -17,4 +17,4 @@ const sendMessage = (message) => {
   }
 };
 
-export { sendMessage };
+export { sendMessage,ws };

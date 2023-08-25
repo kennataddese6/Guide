@@ -6,6 +6,7 @@ import Spinner from '../Utilities/Spinner';
 import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
 const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -66,6 +67,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       return date.format('HH:mm');
     }
   }
+  ws.addEventListener('message', function (event) {
+    dispatch(getFloorCustomers(FloorNumber));
+  });
   const handleNotificationClick = () => {
     dispatch(getFloorCustomers(FloorNumber));
   };
