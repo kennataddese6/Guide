@@ -30,7 +30,7 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess || user) {
       const connected = {
-        email: user.FloorNumber,
+        email: user ? user.FloorNumber : '',
       };
       sendMessage(connected);
       if (user && user.Roles === 1000) {

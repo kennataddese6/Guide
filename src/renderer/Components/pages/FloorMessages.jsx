@@ -7,6 +7,8 @@ import FloorSideBar from '../items/FloorSidebar';
 import FloorReceptionists from '../items/FloorReceptionists';
 import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
+
 const FloorMessages = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,6 +49,13 @@ const FloorMessages = () => {
       return date.format('HH:mm');
     }
   }
+  ws.addEventListener('message', function (event) {
+    const userData = {
+      email: user.Email,
+      password: user.Password,
+    };
+    dispatch(login(userData));
+  });
   return (
     <>
       <div className="MessageDashboard">
