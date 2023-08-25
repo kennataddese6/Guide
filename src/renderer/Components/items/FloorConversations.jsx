@@ -13,7 +13,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const [FloorCustomers, setFloorCustomers] = useState([]);
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
-
+  const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getFloorCustomers(FloorNumber));
   }, [FloorNumber]);
@@ -41,6 +41,12 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       to: floorNumber,
     };
     dispatch(updateLatestMessage(composedMessage));
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content: `Yes. Let ${firstName} ${lastName} come`,
+      address: 0,
+    };
+    sendMessage(InstantMessage);
     setReload(true);
   };
 
