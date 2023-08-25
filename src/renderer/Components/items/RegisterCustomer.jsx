@@ -7,8 +7,9 @@ import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel, MdError } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
-import { sendMessage } from 'renderer/webSocket';
 import { updateLatestMessage } from '../../features/auth/authSlice';
+import { sendMessage } from '../../webSocket';
+
 const RegisterCustomer = ({ role }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -25,6 +26,7 @@ const RegisterCustomer = ({ role }) => {
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.customer
   );
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -66,18 +68,24 @@ const RegisterCustomer = ({ role }) => {
     console.log(customerData);
     dispatch(registerCustomer(customerData));
     const composedMessage = {
-      content: firstName +" " +lastName + " wants to come to " + department + " shall I send him? ",
+      content:
+        firstName +
+        ' ' +
+        lastName +
+        ' wants to come to ' +
+        department +
+        ' shall I send him? ',
       to: floorNumber,
-    }
-    dispatch(updateLatestMessage(composedMessage))
-    // Send the message feature
-    /*
-    const composeMessage = {
-      email: 'kennataddese6@gmail.com',
-      content: `${firstName} wants ${department} at floor ${floorNumber}`,
-      address: 'newInstances@gmail.com',
     };
-    sendMessage(composeMessage); */
+    dispatch(updateLatestMessage(composedMessage));
+    // Send the message feature
+
+    const composeMessage = {
+      email: user.FloorNumber,
+      content: `${firstName} ${lastName} wants to come to ${department}. Shall I send him?`,
+      address: floorNumber,
+    };
+    sendMessage(composeMessage);
     resetInputs();
   };
   return (
