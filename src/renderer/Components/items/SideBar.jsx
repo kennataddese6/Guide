@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaUsers, FaBuilding } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
@@ -85,11 +85,11 @@ const SideBar = ({ index }) => {
               style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
             >
               <div className="overlap-group">
-                <MdAssignment
+                <FaBuilding
                   className="icon-action"
                   style={{ color: 'black' }}
                 />
-                <div className="text-wrapper-4">Register</div>
+                <div className="text-wrapper-4">Floors</div>
               </div>
             </div>
           </div>
