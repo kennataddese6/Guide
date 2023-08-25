@@ -2,7 +2,7 @@ import AdminSidebar from '../items/AdminSidebar';
 const AdminDashboard = () => {
   return (
     <>
-      <AdminSidebar index={3} />
+      <AdminSidebar index={1} />
     </>
   );
 };
