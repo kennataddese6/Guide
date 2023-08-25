@@ -52,7 +52,7 @@ const FloorMessages = () => {
   ws.addEventListener('message', function (event) {
     const userData = {
       email: user ? user.Email : '',
-      password: user.Password,
+      password: user ? user.Password : '',
     };
     dispatch(login(userData));
   });
