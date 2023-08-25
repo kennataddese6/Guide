@@ -22,6 +22,8 @@ import {
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
+
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
@@ -146,6 +148,13 @@ const LobbyDashboard = () => {
       Sent: true,
       ID: clientData._id,
     };
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content:
+        'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
+      address: clientData.FloorNumber,
+    };
+    sendMessage(InstantMessage);
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
