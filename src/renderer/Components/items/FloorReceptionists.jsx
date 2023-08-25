@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
@@ -36,6 +37,9 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       return date.format('HH:mm');
     }
   }
+  ws.addEventListener('message', function (event) {
+    dispatch(getFloorReceptionists());
+  });
   return (
     <>
       {floorReceptionists ? (
