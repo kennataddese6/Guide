@@ -8,6 +8,7 @@ import { login } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
 import Spinner from '../Utilities/Spinner';
+import { sendMessage } from '../../webSocket';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,6 +29,10 @@ const Login = () => {
   };
   useEffect(() => {
     if (isSuccess || user) {
+      const connected = {
+        email: user.FloorNumber,
+      };
+      sendMessage(connected);
       if (user && user.Roles === 1000) {
         navigate('/LobbyDasboard');
       }
