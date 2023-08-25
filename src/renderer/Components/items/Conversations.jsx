@@ -4,6 +4,7 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
+import { sendMessage, ws } from 'renderer/webSocket';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -31,6 +32,9 @@ const Conversations = ({ floorNumber }) => {
       return date.format('HH:mm');
     }
   }
+  ws.addEventListener('message', function (event) {
+    dispatch(getFloorCustomers(FloorNumber));
+  });
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
