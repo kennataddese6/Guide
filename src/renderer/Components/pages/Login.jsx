@@ -53,11 +53,12 @@ const Login = () => {
     dispatch(reset());
   }, [isSuccess, user, isError]);
   const handleNotificationClick = () => {
-    // Perform the app redirect here
-    // For example:
-    //window.location.href = '/path/to/redirect';
-    console.log('I am clicked');
-    navigate('/Messages');
+    if (user && user.Roles === 1000) {
+      navigate('/Messages');
+    }
+    if (user && user.Roles === 4800) {
+      navigate('/FloorMessages');
+    }
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(
