@@ -16,11 +16,9 @@ const SideBar = ({ index }) => {
   const toMessages = () => {
     navigate('/Messages');
   };
-  const toRegisterCustomer = () => {
-    navigate('/Register');
-  };
+
   const toLogin = () => {
-    dispatch(logout())
+    dispatch(logout());
   };
   return (
     <div className="dashboard">
@@ -84,7 +82,6 @@ const SideBar = ({ index }) => {
             </div>
             <div
               className="navigation-elements-6"
-              onClick={toRegisterCustomer}
               style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
             >
               <div className="overlap-group">

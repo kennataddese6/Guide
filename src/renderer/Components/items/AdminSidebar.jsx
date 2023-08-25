@@ -6,7 +6,7 @@ import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
-const SideBar = ({ index }) => {
+const AdminSideBar = ({ index }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -107,4 +107,4 @@ const SideBar = ({ index }) => {
   );
 };
 
-export default SideBar;
+export default AdminSideBar;
