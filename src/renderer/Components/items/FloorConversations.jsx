@@ -7,10 +7,13 @@ import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
+
 const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState(false)
+
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
@@ -79,9 +82,18 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
-    dispatch(getFloorCustomers(FloorNumber));
+   ws.addEventListener('message', function (event) {
+    setIncomingMessage(true)
+
   });
+  useEffect(()=>{
+    if(incomingMessage){
+    console.log('here is the incoming message',incomingMessage)
+
+      dispatch(getFloorCustomers(FloorNumber));
+    }
+    setIncomingMessage(false)
+  },[incomingMessage])
   const handleNotificationClick = () => {
     dispatch(getFloorCustomers(FloorNumber));
   };
@@ -185,6 +197,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
           </div>
         </>
       )}
+
     </>
   );
 };

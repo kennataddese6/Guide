@@ -13,6 +13,8 @@ const FloorMessages = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
+  const [incomingMessage, setIncomingMessage] = useState(false)
+
   const { user } = useSelector((state) => state.auth);
 
   function trimMessage(message) {
@@ -49,13 +51,20 @@ const FloorMessages = () => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
-    const userData = {
-      email: user ? user.Email : '',
-      password: user ? user.Password : '',
-    };
-    dispatch(login(userData));
+   ws.addEventListener('message', function (event) {
+    setIncomingMessage(true)
   });
+  useEffect(()=>{
+    console.log('here is the incoming message',incomingMessage)
+    if(incomingMessage){
+      const userData = {
+        email: user ? user.Email : '',
+        password: user ? user.Password : '',
+      };
+      dispatch(login(userData));
+    }
+    setIncomingMessage(false)
+  },[incomingMessage])
   return (
     <>
       <div className="MessageDashboard">
@@ -91,6 +100,7 @@ const FloorMessages = () => {
           />
         </div>
       </div>
+
     </>
   );
 };

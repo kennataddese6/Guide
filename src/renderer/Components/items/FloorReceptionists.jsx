@@ -6,9 +6,12 @@ import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
+
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState(false)
+
   const { isLoading, isError, isSuccessgetFloorReceptionists, message } =
     useSelector((state) => state.auth);
   const passFloorNumber = (number) => {
@@ -37,9 +40,17 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
-    dispatch(getFloorReceptionists());
+   ws.addEventListener('message', function (event) {
+    setIncomingMessage(true)
   });
+  useEffect(()=>{
+    if(incomingMessage){
+    console.log('here is the incoming message',incomingMessage)
+
+      dispatch(getFloorReceptionists());
+    }
+    setIncomingMessage(false)
+  },[incomingMessage])
   return (
     <>
       {floorReceptionists ? (
@@ -81,6 +92,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       ) : (
         <></>
       )}
+
     </>
   );
 };

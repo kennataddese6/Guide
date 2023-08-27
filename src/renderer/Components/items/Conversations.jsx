@@ -8,6 +8,7 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState(false)
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
 
@@ -32,9 +33,17 @@ const Conversations = ({ floorNumber }) => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
-    dispatch(getFloorCustomers(FloorNumber));
+   ws.addEventListener('message', function (event) {
+    setIncomingMessage(true)
   });
+
+  useEffect(()=>{
+    console.log('here is the incoming message',incomingMessage)
+    if(incomingMessage){
+      dispatch(getFloorCustomers(FloorNumber));
+    }
+    setIncomingMessage(false)
+  },[incomingMessage])
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
