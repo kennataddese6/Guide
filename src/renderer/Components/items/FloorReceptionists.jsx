@@ -68,11 +68,11 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
                 passFloorNumber(floorReceptionist.FloorNumber);
               }}
             >
-              <h3 className="ReceptionistName">
+              <p className="ReceptionistName">
                 {floorReceptionist.FirstName + ' '}
                 {floorReceptionist.LastName} ({floorReceptionist.FloorNumber})
                 Floor
-              </h3>
+              </p>
 
               <p className="messageContent">
                 {' '}

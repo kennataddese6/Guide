@@ -62,10 +62,10 @@ const Conversations = ({ floorNumber }) => {
       {FloorCustomers ? (
         FloorCustomers.map((FloorCustomer) => (
           <div className="conversationCard">
-            <h3 className="customerName">
+            <p className="customerName">
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
-            </h3>
+            </p>
             <p className="customerContent">
               Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
               wants to come to {FloorCustomer.Department}. Shall I send him?
