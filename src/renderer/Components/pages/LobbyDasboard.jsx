@@ -142,6 +142,21 @@ const LobbyDashboard = () => {
     // Calculate brightness
     return (r * 299 + g * 587 + b * 114) / 1000;
   };
+  const handleNotificationClick = () => {
+    if (user && user.Roles === 1000) {
+      navigate('/Messages');
+    }
+    if (user && user.Roles === 4800) {
+      navigate('/FloorMessages');
+    }
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <div className="dashboard">
       <SideBar index={1} />
