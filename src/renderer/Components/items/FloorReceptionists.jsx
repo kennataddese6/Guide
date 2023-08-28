@@ -10,7 +10,7 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
-  const [incomingMessage, setIncomingMessage] = useState(false)
+  const [incomingMessage, setIncomingMessage] = useState(false);
 
   const { isLoading, isError, isSuccessgetFloorReceptionists, message } =
     useSelector((state) => state.auth);
@@ -40,21 +40,22 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function (event) {
-    setIncomingMessage(true)
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
   });
-  useEffect(()=>{
-    if(incomingMessage){
-    console.log('here is the incoming message',incomingMessage)
+  useEffect(() => {
+    if (incomingMessage) {
+      console.log('here is the incoming message', incomingMessage);
 
       dispatch(getFloorReceptionists());
     }
-    setIncomingMessage(false)
-  },[incomingMessage])
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   return (
     <>
       {floorReceptionists ? (
         floorReceptionists.map((floorReceptionist) => {
+          !selectedFloor && setSelectedFloor(floorReceptionists[0].FloorNumber);
           return (
             <div
               className="ReceptionistContainer"
@@ -92,7 +93,6 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       ) : (
         <></>
       )}
-
     </>
   );
 };
