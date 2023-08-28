@@ -29,58 +29,6 @@ const LobbyDashboard = () => {
   const [sentClients, setSentClients] = useState([]);
   const [checked, setChecked] = useState(false);
 
-  const Colors = [
-    '#000000',
-    '#FFFFFF',
-    '#FF0000',
-    '#00FF00',
-    '#0000FF',
-    '#FFFF00',
-    '#FF00FF',
-    '#00FFFF',
-    '#800000',
-    '#008000',
-    '#000080',
-    '#808000',
-    '#800080',
-    '#008080',
-    '#C0C0C0',
-    '#808080',
-    '#9ACD32',
-    '#FF7F0E',
-    '#228B22',
-    '#FFDAB9',
-    '#556B2F',
-    '#DC143C',
-    '#0000CD',
-    '#9470D3',
-    '#8B0000',
-    '#F08080',
-    '#F000FF',
-    '#FF0000',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#800000',
-    '#008000',
-    '#000080',
-    '#808000',
-    '#800080',
-    '#008080',
-    '#C0C0C0',
-    '#808080',
-    '#9ACD32',
-    '#FF7F0E',
-    '#228B22',
-    '#FFDAB9',
-    '#556B2F',
-    '#DC143C',
-    '#0000CD',
-    '#9470D3',
-    '#8B0000',
-    '#F08080',
-    '#F000FF',
-  ];
   const lightColors = [
     '#FFFFFF',
     '#FFFF00',
@@ -163,6 +111,37 @@ const LobbyDashboard = () => {
       toHomepage();
     }
   }, [user]);
+  const generateColorFromString = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = '#';
+    for (let j = 0; j < 3; j++) {
+      const value = (hash >> (j * 8)) & 0xff;
+      color += ('00' + value.toString(16)).substr(-2);
+    }
+    return color;
+  };
+  const getColorFromName = (name) => {
+    return generateColorFromString(name);
+  };
+  const getBrightness = (color) => {
+    // Convert color to RGB
+    const hex = color.replace(
+      /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+      (m, r, g, b) => {
+        return r + r + g + g + b + b;
+      }
+    );
+    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const r = parseInt(rgb[1], 16);
+    const g = parseInt(rgb[2], 16);
+    const b = parseInt(rgb[3], 16);
+
+    // Calculate brightness
+    return (r * 299 + g * 587 + b * 114) / 1000;
+  };
   return (
     <div className="dashboard">
       <SideBar index={1} />
@@ -205,8 +184,9 @@ const LobbyDashboard = () => {
         )}
         {clients
           ? clients.map((client) => {
-              const randomColor =
-                Colors[Math.floor(Math.random() * Colors.length)];
+              const fullName = client.FirstName + ' ' + client.LastName;
+              const color = getColorFromName(fullName);
+              const isLightColor = getBrightness(color) > 180;
               return (
                 <div
                   className="comments-elements"
@@ -217,10 +197,8 @@ const LobbyDashboard = () => {
                     className="img-2"
                     alt="Avatar woman"
                     style={{
-                      backgroundColor: randomColor,
-                      color: lightColors.includes(randomColor)
-                        ? 'black'
-                        : 'white',
+                      backgroundColor: color,
+                      color: isLightColor ? 'black' : 'white',
                     }}
                   >
                     {' '}
@@ -267,8 +245,9 @@ const LobbyDashboard = () => {
         </div>
         {sentClients
           ? sentClients.map((client) => {
-              const randomColor =
-                Colors[Math.floor(Math.random() * Colors.length)];
+              const fullName = client.FirstName + ' ' + client.LastName;
+              const color = getColorFromName(fullName);
+              const isLightColor = getBrightness(color) > 180;
               return (
                 <div
                   className="comments-elements"
@@ -279,10 +258,8 @@ const LobbyDashboard = () => {
                     className="img-2"
                     alt="Avatar woman"
                     style={{
-                      backgroundColor: randomColor,
-                      color: lightColors.includes(randomColor)
-                        ? 'black'
-                        : 'white',
+                      backgroundColor: color,
+                      color: isLightColor ? 'black' : 'white',
                     }}
                   >
                     {' '}
