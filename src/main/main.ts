@@ -35,6 +35,7 @@ ipcMain.on('show-notification', (event, notificationData) => {
     title,
     body,
     silent: false, // Enable sound for the notification
+    icon: path.join(__dirname, '../../assets/cbIcon.png'),
   });
   notification.on('click', () => {
     if (mainWindow!.isMinimized()) {
@@ -78,14 +79,6 @@ const createWindow = async () => {
   if (isDebug) {
     await installExtensions();
   }
-
-  const RESOURCES_PATH = app.isPackaged
-    ? path.join(process.resourcesPath, 'assets')
-    : path.join(__dirname, '../../assets');
-
-  const getAssetPath = (...paths: string[]): string => {
-    return path.join(RESOURCES_PATH, ...paths);
-  };
 
   mainWindow = new BrowserWindow({
     show: false,
