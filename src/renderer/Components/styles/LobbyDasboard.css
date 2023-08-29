@@ -104,6 +104,37 @@
   width: 360px;
   overflow-y: scroll;
 }
+@media screen and (min-height: 590px) and (max-height: 920px) {
+  /* your styles here */
+  .dashboard .overlap-2 {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #e5e5e5;
+    border-radius: 4px;
+    height: 334px;
+    left: 1031px;
+    position: absolute;
+    top: 32px;
+    width: 360px;
+    overflow-y: scroll;
+  }
+  .dashboard .cards-elevation {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #e5e5e5;
+    border-radius: 4px;
+    height: 334px;
+    left: 1031px;
+    position: absolute;
+    width: 360px;
+    overflow-y: scroll;
+    top: 410px;
+  }
+}
 /* width */
 .overlap-2::-webkit-scrollbar {
   width: 10px;

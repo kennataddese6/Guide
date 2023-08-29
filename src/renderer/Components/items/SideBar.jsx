@@ -1,23 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaUsers, FaBuilding } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
+import { logout } from 'renderer/features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 const SideBar = ({ index }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toLobbyDashboard = () => {
     navigate('/LobbyDasboard');
   };
   const toMessages = () => {
     navigate('/Messages');
   };
-  const toRegisterCustomer = () => {
-    navigate('/Register');
-  };
+
   const toLogin = () => {
-    navigate('/');
+    dispatch(logout());
   };
   return (
     <div className="dashboard">
@@ -81,15 +82,14 @@ const SideBar = ({ index }) => {
             </div>
             <div
               className="navigation-elements-6"
-              onClick={toRegisterCustomer}
               style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
             >
               <div className="overlap-group">
-                <MdAssignment
+                <FaBuilding
                   className="icon-action"
                   style={{ color: 'black' }}
                 />
-                <div className="text-wrapper-4">Register</div>
+                <div className="text-wrapper-4">Floors</div>
               </div>
             </div>
           </div>

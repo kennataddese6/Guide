@@ -1,10 +1,10 @@
 import RegisterCustomer from '../items/RegisterCustomer';
-import SideBar from '../items/SideBar';
+import AdminSideBar from '../items/AdminSidebar';
 import RegisterLobby from '../items/RegisterLobby';
 const Register = () => {
   return (
     <>
-      <SideBar index={3} />
+      <AdminSideBar index={3} />
       <RegisterLobby />
     </>
   );

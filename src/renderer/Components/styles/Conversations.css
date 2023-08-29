@@ -1,6 +1,6 @@
 .conversationCard {
-  background-color: lightgray;
-  width: 25%;
+  background-color:  #f2f2f2;
+  width: 30%;
   height: auto;
   margin-top: 75px;
   margin-left: 150px;
@@ -11,6 +11,8 @@
   display: flex;
   justify-content: center;
   padding-top: 20px;
+  font-weight: bold;
+  font-family:Helvetica;
 }
 .customerContent {
   display: flex;
@@ -25,6 +27,15 @@
   justify-content: end;
   margin-right: 20px;
   color: blueviolet;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.ArcustomerContent {
+  display: flex;
+  justify-content: end;
+  margin-right: 20px;
+  color: blueviolet;
+  cursor: pointer;
 }
 .rcustomerTime {
   display: flex;

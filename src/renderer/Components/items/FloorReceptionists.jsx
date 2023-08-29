@@ -1,12 +1,17 @@
+import moment from 'moment';
 import '../styles/FloorRecetionists.css';
 import Conversations from './Conversations';
 import { useEffect, useState } from 'react';
 import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
+
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState(false);
+
   const { isLoading, isError, isSuccessgetFloorReceptionists, message } =
     useSelector((state) => state.auth);
   const passFloorNumber = (number) => {
@@ -26,11 +31,31 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   function trimMessage(message) {
     return message.length > 32 ? message.substring(0, 32) + '...' : message;
   }
+  function formatDate(dateString) {
+    const date = moment(dateString);
+    const now = moment();
+    if (now.diff(date, 'days') >= 1) {
+      return date.format('DD-MM-YYYY');
+    } else {
+      return date.format('HH:mm');
+    }
+  }
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
+  });
+  useEffect(() => {
+    if (incomingMessage) {
+      console.log('here is the incoming message', incomingMessage);
 
+      dispatch(getFloorReceptionists());
+    }
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   return (
     <>
       {floorReceptionists ? (
         floorReceptionists.map((floorReceptionist) => {
+          !selectedFloor && setSelectedFloor(floorReceptionists[0].FloorNumber);
           return (
             <div
               className="ReceptionistContainer"
@@ -44,19 +69,24 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
                 passFloorNumber(floorReceptionist.FloorNumber);
               }}
             >
-              <h3 className="ReceptionistName">
+              <p className="ReceptionistName">
                 {floorReceptionist.FirstName + ' '}
                 {floorReceptionist.LastName} ({floorReceptionist.FloorNumber})
                 Floor
-              </h3>
+              </p>
 
               <p className="messageContent">
                 {' '}
-               {floorReceptionist.LatestMessage ? trimMessage(floorReceptionist.LatestMessage) : 'Sorry. Nothing to show'}
+                {floorReceptionist.LatestMessage
+                  ? trimMessage(floorReceptionist.LatestMessage)
+                  : 'Sorry. Nothing to show'}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
 
-              <p className="TimeandDate"> 7/19/2013</p>
+              <p className="TimeandDate">
+                {' '}
+                {formatDate(floorReceptionist.updatedAt)}
+              </p>
             </div>
           );
         })

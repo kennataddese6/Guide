@@ -4,21 +4,61 @@ import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { FiLock, FiUnlock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
+import { login } from 'renderer/features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset } from 'renderer/features/auth/authSlice';
+import Spinner from '../Utilities/Spinner';
+import { sendMessage } from '../../webSocket';
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isError, setIsError] = useState(false);
-
+  const [isErrorLogin, setIsErrorLogin] = useState(false);
+  const [errMsg, seterrMsg] = useState('');
+  const { isSuccess, isLoading, user, message, isError } = useSelector(
+    (state) => state.auth
+  );
   const handleLogin = (e) => {
-    navigate('/LobbyDasboard');
+    //navigate('/LobbyDasboard');
+    const userData = {
+      email: email,
+      password: password,
+    };
+    dispatch(login(userData));
   };
+  useEffect(() => {
+    if (isSuccess || user) {
+      const connected = {
+        email: user ? user.FloorNumber : '',
+      };
+      sendMessage(connected);
+      if (user && user.Roles === 1000) {
+        navigate('/LobbyDasboard');
+      }
+      if (user && user.Roles === 4800) {
+        navigate('/FloorDashboard');
+      }
+      if (user && user.Roles == 7706) {
+        navigate('/AdminDashboard');
+      }
+    }
+    if (isError) {
+      message === 'Network Error'
+        ? seterrMsg('Network Error!')
+        : seterrMsg('Invalid Email or Password');
+      console.log('here is the error', message);
+      setIsErrorLogin(true);
+    }
+    dispatch(reset());
+  }, [isSuccess, user, isError]);
   const handleNotificationClick = () => {
-    // Perform the app redirect here
-    // For example:
-    //window.location.href = '/path/to/redirect';
-    console.log('I am clicked');
-    navigate('/Messages');
+    if (user && user.Roles === 1000) {
+      navigate('/Messages');
+    }
+    if (user && user.Roles === 4800) {
+      navigate('/FloorMessages');
+    }
   };
   useEffect(() => {
     window.electron.ipcRenderer.on(
@@ -31,7 +71,7 @@ const Login = () => {
     <div className="mainContainer">
       {' '}
       <div className="group-child">
-        {' '}
+        {isLoading && <Spinner />}{' '}
         <div className="profileCircle">
           <FaUser className="userIcon" />
         </div>
@@ -61,8 +101,8 @@ const Login = () => {
         <button className="loginbutton" onClick={handleLogin}>
           Sign In
         </button>
-        {isError ? (
-          <p className="invalidCredentials"> Invalid Username or Password.</p>
+        {isErrorLogin ? (
+          <p className="invalidCredentials"> {errMsg}</p>
         ) : (
           <p className="invalidCredentials"> </p>
         )}

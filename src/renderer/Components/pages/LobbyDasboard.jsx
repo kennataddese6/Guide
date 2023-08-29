@@ -22,63 +22,13 @@ import {
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
+import { sendMessage, ws } from 'renderer/webSocket';
+
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
   const [checked, setChecked] = useState(false);
 
-  const Colors = [
-    '#000000',
-    '#FFFFFF',
-    '#FF0000',
-    '#00FF00',
-    '#0000FF',
-    '#FFFF00',
-    '#FF00FF',
-    '#00FFFF',
-    '#800000',
-    '#008000',
-    '#000080',
-    '#808000',
-    '#800080',
-    '#008080',
-    '#C0C0C0',
-    '#808080',
-    '#9ACD32',
-    '#FF7F0E',
-    '#228B22',
-    '#FFDAB9',
-    '#556B2F',
-    '#DC143C',
-    '#0000CD',
-    '#9470D3',
-    '#8B0000',
-    '#F08080',
-    '#F000FF',
-    '#FF0000',
-    '#FFFF00',
-    '#00FF00',
-    '#0000FF',
-    '#800000',
-    '#008000',
-    '#000080',
-    '#808000',
-    '#800080',
-    '#008080',
-    '#C0C0C0',
-    '#808080',
-    '#9ACD32',
-    '#FF7F0E',
-    '#228B22',
-    '#FFDAB9',
-    '#556B2F',
-    '#DC143C',
-    '#0000CD',
-    '#9470D3',
-    '#8B0000',
-    '#F08080',
-    '#F000FF',
-  ];
   const lightColors = [
     '#FFFFFF',
     '#FFFF00',
@@ -98,6 +48,7 @@ const LobbyDashboard = () => {
     isLoadingGetCustomers,
     SentCustomers,
   } = useSelector((state) => state.customer);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -109,15 +60,11 @@ const LobbyDashboard = () => {
       setClients(message);
     }
     if (SentCustomers) {
-      console.log('this are the sent cusotmers', SentCustomers);
       setSentClients(SentCustomers);
     }
     // dispatch(reset());  //  Commented out its causing miss infromation
   }, [message, isErrorGetCusomers, SentCustomers]);
-  useEffect(() => {
-    console.log('this is the loading stae of cusomers', isLoadingGetCustomers);
-    console.log('this is the loading stae ', isLoading);
-  }, [isLoadingGetCustomers, isLoading]);
+  useEffect(() => {}, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
@@ -140,7 +87,6 @@ const LobbyDashboard = () => {
     event.preventDefault();
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
     // Update your application state with clientData
-    console.log('The client has beed droped', clientData);
     const composedMessage = {
       content:
         'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
@@ -150,10 +96,67 @@ const LobbyDashboard = () => {
       Sent: true,
       ID: clientData._id,
     };
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content:
+        'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
+      address: clientData.FloorNumber,
+    };
+    sendMessage(InstantMessage);
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
+  useEffect(() => {
+    if (!user) {
+      toHomepage();
+    }
+  }, [user]);
+  const generateColorFromString = (str) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = '#';
+    for (let j = 0; j < 3; j++) {
+      const value = (hash >> (j * 8)) & 0xff;
+      color += ('00' + value.toString(16)).substr(-2);
+    }
+    return color;
+  };
+  const getColorFromName = (name) => {
+    return generateColorFromString(name);
+  };
+  const getBrightness = (color) => {
+    // Convert color to RGB
+    const hex = color.replace(
+      /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+      (m, r, g, b) => {
+        return r + r + g + g + b + b;
+      }
+    );
+    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const r = parseInt(rgb[1], 16);
+    const g = parseInt(rgb[2], 16);
+    const b = parseInt(rgb[3], 16);
 
+    // Calculate brightness
+    return (r * 299 + g * 587 + b * 114) / 1000;
+  };
+  const handleNotificationClick = () => {
+    if (user && user.Roles === 1000) {
+      navigate('/Messages');
+    }
+    if (user && user.Roles === 4800) {
+      navigate('/FloorMessages');
+    }
+  };
+  useEffect(() => {
+    window.electron.ipcRenderer.on(
+      'notification-clicked',
+      handleNotificationClick
+    );
+    return () => {};
+  }, []);
   return (
     <div className="dashboard">
       <SideBar index={1} />
@@ -196,8 +199,9 @@ const LobbyDashboard = () => {
         )}
         {clients
           ? clients.map((client) => {
-              const randomColor =
-                Colors[Math.floor(Math.random() * Colors.length)];
+              const fullName = client.FirstName + ' ' + client.LastName;
+              const color = getColorFromName(fullName);
+              const isLightColor = getBrightness(color) > 180;
               return (
                 <div
                   className="comments-elements"
@@ -208,10 +212,8 @@ const LobbyDashboard = () => {
                     className="img-2"
                     alt="Avatar woman"
                     style={{
-                      backgroundColor: randomColor,
-                      color: lightColors.includes(randomColor)
-                        ? 'black'
-                        : 'white',
+                      backgroundColor: color,
+                      color: isLightColor ? 'black' : 'white',
                     }}
                   >
                     {' '}
@@ -258,8 +260,9 @@ const LobbyDashboard = () => {
         </div>
         {sentClients
           ? sentClients.map((client) => {
-              const randomColor =
-                Colors[Math.floor(Math.random() * Colors.length)];
+              const fullName = client.FirstName + ' ' + client.LastName;
+              const color = getColorFromName(fullName);
+              const isLightColor = getBrightness(color) > 180;
               return (
                 <div
                   className="comments-elements"
@@ -270,10 +273,8 @@ const LobbyDashboard = () => {
                     className="img-2"
                     alt="Avatar woman"
                     style={{
-                      backgroundColor: randomColor,
-                      color: lightColors.includes(randomColor)
-                        ? 'black'
-                        : 'white',
+                      backgroundColor: color,
+                      color: isLightColor ? 'black' : 'white',
                     }}
                   >
                     {' '}

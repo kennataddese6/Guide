@@ -3,11 +3,18 @@ import '../styles/Messages.css';
 import FloorReceptionists from '../items/FloorReceptionists';
 import Spinner from '../Utilities/Spinner';
 import Conversations from '../items/Conversations';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Messages = () => {
-  const [selectedFloor, setSelectedFloor] = useState(1);
-
+  const [selectedFloor, setSelectedFloor] = useState(0);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
   return (
     <div className="MessageDashboard">
       <SideBar index={2} />

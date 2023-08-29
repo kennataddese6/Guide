@@ -1,11 +1,14 @@
+import moment from 'moment';
 import '../styles/Conversations.css';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
+import { sendMessage, ws } from 'renderer/webSocket';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
+  const [incomingMessage, setIncomingMessage] = useState(false)
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
 
@@ -21,6 +24,26 @@ const Conversations = ({ floorNumber }) => {
       setFloorCustomers(message);
     }
   }, [message]);
+  function formatDate(dateString) {
+    const date = moment(dateString);
+    const now = moment();
+    if (now.diff(date, 'days') >= 1) {
+      return date.format('DD-MM-YYYY');
+    } else {
+      return date.format('HH:mm');
+    }
+  }
+   ws.addEventListener('message', function (event) {
+    setIncomingMessage(true)
+  });
+
+  useEffect(()=>{
+    console.log('here is the incoming message',incomingMessage)
+    if(incomingMessage){
+      dispatch(getFloorCustomers(FloorNumber));
+    }
+    setIncomingMessage(false)
+  },[incomingMessage])
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
@@ -39,23 +62,43 @@ const Conversations = ({ floorNumber }) => {
       {FloorCustomers ? (
         FloorCustomers.map((FloorCustomer) => (
           <div className="conversationCard">
-            <h3 className="customerName">
+            <p className="customerName">
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
-            </h3>
+            </p>
             <p className="customerContent">
               Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
-            <p className="rcustomerContent"> Yes. Let him come</p>
-            <p className="customerContent">
+            {FloorCustomer.Accepted ? (
+              <p className="ArcustomerContent"> Yes. Let him come</p>
+            ) : (
+              ''
+            )}
+            {FloorCustomer.Sent ? (
+              <p className="customerContent">
+                {' '}
+                I have sent {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName}
+              </p>
+            ) : (
+              ''
+            )}
+            {FloorCustomer.Arrived ? (
+              <p className="ArcustomerContent"> Arrived</p>
+            ) : (
+              ''
+            )}
+            {/*             <p className="customerContent">
               {' '}
               I have sent {FloorCustomer.FirstName + ' '}{' '}
               {FloorCustomer.LastName}
             </p>
             <p className="rcustomerContent"> He has arrived</p>
-            <p className="customerContent"> Remarks:</p>
-            <p className="rcustomerTime"> 07/19/2023</p>
+            <p className="customerContent"> Remarks:</p> */}
+            <p className="rcustomerTime">
+              {formatDate(FloorCustomer.updatedAt)}
+            </p>
           </div>
         ))
       ) : (
