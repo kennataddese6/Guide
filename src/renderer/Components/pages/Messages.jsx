@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const Messages = () => {
-  const [selectedFloor, setSelectedFloor] = useState(1);
+  const [selectedFloor, setSelectedFloor] = useState(0);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
