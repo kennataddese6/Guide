@@ -146,3 +146,4 @@ app
     });
   })
   .catch(console.log);
+app.setAppUserModelId('Guide');
