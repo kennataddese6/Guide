@@ -14,7 +14,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const [FloorCustomers, setFloorCustomers] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
   const [postponeClient, setPostPoneClient] = useState(false);
-  const [postPoneDate, setPostPoneDate] = useState(false);
+  const [postPoneDate, setPostPoneDate] = useState(new Date());
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
@@ -88,8 +88,6 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
   });
   useEffect(() => {
     if (incomingMessage) {
-      console.log('here is the incoming message', incomingMessage);
-
       dispatch(getFloorCustomers(FloorNumber));
     }
     setIncomingMessage(false);
@@ -104,6 +102,10 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     );
     return () => {};
   }, []);
+  const ScheduleClient = () => {
+    console.log('here is the date', postPoneDate);
+    setPostPoneClient(false);
+  };
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
@@ -169,7 +171,15 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                   }}
                   style={{ maxWidth: 120 }}
                 />
-                <button className="acceptCusotmer"> Okay </button>
+                <button
+                  className="acceptCusotmer"
+                  onClick={() => {
+                    ScheduleClient();
+                  }}
+                >
+                  {' '}
+                  Okay{' '}
+                </button>
                 <button
                   onClick={() => {
                     setPostPoneClient(false);
