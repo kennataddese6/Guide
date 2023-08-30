@@ -102,9 +102,11 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     );
     return () => {};
   }, []);
-  const ScheduleClient = () => {
+  const ScheduleClient = (id) => {
     console.log('here is the date', postPoneDate);
+    console.log('here is the client', id);
     setPostPoneClient(false);
+    setPostPoneDate(new Date());
   };
   return (
     <>
@@ -174,7 +176,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                 <button
                   className="acceptCusotmer"
                   onClick={() => {
-                    ScheduleClient();
+                    ScheduleClient(FloorCustomer._id);
                   }}
                 >
                   {' '}
