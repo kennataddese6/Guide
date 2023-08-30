@@ -12,7 +12,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
-  const [incomingMessage, setIncomingMessage] = useState(false)
+  const [incomingMessage, setIncomingMessage] = useState(false);
 
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
@@ -82,18 +82,17 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function (event) {
-    setIncomingMessage(true)
-
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
   });
-  useEffect(()=>{
-    if(incomingMessage){
-    console.log('here is the incoming message',incomingMessage)
+  useEffect(() => {
+    if (incomingMessage) {
+      console.log('here is the incoming message', incomingMessage);
 
       dispatch(getFloorCustomers(FloorNumber));
     }
-    setIncomingMessage(false)
-  },[incomingMessage])
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   const handleNotificationClick = () => {
     dispatch(getFloorCustomers(FloorNumber));
   };
@@ -131,9 +130,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
             {FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
-              <>
-                <p
-                  className="rcustomerContent"
+              <div className="buttonHolder">
+                <button
+                  className="acceptCusotmer"
                   onClick={() => {
                     customerAccepted(
                       FloorCustomer._id,
@@ -143,9 +142,14 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                     );
                   }}
                 >
-                  Yes. Let him come
-                </p>
-              </>
+                  Accept
+                </button>
+                <button
+                  className="postponeCustomer"
+                >
+                  Postpone
+                </button>
+              </div>
             ) : (
               <p className="ArcustomerContent">Accepted</p>
             )}
@@ -197,7 +201,6 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
           </div>
         </>
       )}
-
     </>
   );
 };
