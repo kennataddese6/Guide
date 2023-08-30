@@ -87,20 +87,25 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
   function formatday(date) {
     const inputDate = new Date(date);
     const currentDate = new Date();
+    const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
     const oneWeekFromNow = new Date(
       currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
     );
     if (inputDate > currentDate && inputDate < oneWeekFromNow) {
-      const daysOfWeek = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ];
-      return daysOfWeek[inputDate.getDay()];
+      if (inputDate.getDate() === tomorrow.getDate()) {
+        return 'Tomorrow';
+      } else {
+        const daysOfWeek = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+        ];
+        return daysOfWeek[inputDate.getDay()];
+      }
     } else {
       const day = inputDate.getDate().toString().padStart(2, '0');
       const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
