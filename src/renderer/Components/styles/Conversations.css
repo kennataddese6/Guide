@@ -24,12 +24,11 @@
 }
 .rcustomerContent {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+  margin-right: 20px;
+  color: blueviolet;
   cursor: pointer;
-  width: 100px; /* Set the width of the button */
-  height: 25px;
-  font-size: 14px;
+  text-decoration: underline;
 }
 .acceptCusotmer {
   display: flex;
