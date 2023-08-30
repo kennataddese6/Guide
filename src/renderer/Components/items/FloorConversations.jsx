@@ -7,13 +7,14 @@ import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
-
+import { DatePicker } from 'react-rainbow-components';
 const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
-
+  const [postponeClient, setPostPoneClient] = useState(false);
+  const [postPoneDate, setPostPoneDate] = useState(false);
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
@@ -129,7 +130,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
-            {FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
+            {FloorCustomer.Waiting &&
+            !FloorCustomer.Accepted &&
+            !postponeClient ? (
               <div className="buttonHolder">
                 <button
                   className="acceptCusotmer"
@@ -145,9 +148,36 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                   Accept
                 </button>
                 <button
+                  onClick={() => {
+                    setPostPoneClient(true);
+                  }}
                   className="postponeCustomer"
                 >
                   Postpone
+                </button>
+              </div>
+            ) : FloorCustomer.Waiting &&
+              !FloorCustomer.Accepted &&
+              postponeClient ? (
+              <div className="buttonHolder">
+                <DatePicker
+                  id="datePicker-1"
+                  formatStyle="small"
+                  value={postPoneDate}
+                  onChange={(date) => {
+                    setPostPoneDate(date);
+                  }}
+                  style={{ maxWidth: 120 }}
+                />
+                <button className="acceptCusotmer"> Okay </button>
+                <button
+                  onClick={() => {
+                    setPostPoneClient(false);
+                  }}
+                  className="postponeCustomer"
+                >
+                  {' '}
+                  Cancel{' '}
                 </button>
               </div>
             ) : (
@@ -181,14 +211,6 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             ) : (
               ''
             )}
-
-            {/*             <p className="customerContent">
-              {' '}
-              I have sent {FloorCustomer.FirstName + ' '}{' '}
-              {FloorCustomer.LastName}
-            </p>
-            <p className="rcustomerContent"> He has arrived</p>
-            <p className="customerContent"> Remarks:</p> */}
             <p className="rcustomerTime">
               {formatDate(FloorCustomer.updatedAt)}
             </p>
