@@ -102,8 +102,8 @@ const SideBar = ({ index }) => {
             onClick={toClients}
           >
             <div className="overlap-group">
-              <FaUsers className="iconSetting" style={{ color: 'black' }} />
-              <div className="text-wrapper-2">Clients</div>
+              <FaUsers className="icon-action" style={{ color: 'black' }} />
+              <div className="text-wrapper-4">Clients</div>
             </div>
           </div>
           <div className="navigation-elements-8">
