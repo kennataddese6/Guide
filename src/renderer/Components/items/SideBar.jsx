@@ -18,7 +18,9 @@ const SideBar = ({ index }) => {
   };
   const toClients = () => {
     navigate('/Clients');
-    console.log('I am clicked');
+  };
+  const toFloors = () => {
+    navigate('/Floors');
   };
   const toLogin = () => {
     dispatch(logout());
@@ -85,6 +87,7 @@ const SideBar = ({ index }) => {
             </div>
             <div
               className="navigation-elements-6"
+              onClick={toFloors}
               style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
             >
               <div className="overlap-group">
