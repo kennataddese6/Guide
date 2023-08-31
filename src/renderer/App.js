@@ -9,6 +9,7 @@ import Login from './Components/pages/Login';
 import FloorDashboard from './Components/pages/FloorDashboard';
 import FloorMessages from './Components/pages/FloorMessages';
 import AdminDashboard from './Components/pages/AdminDashboard';
+import Clients from './Components/pages/Clients';
 export default function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/FloorDashboard" element={<FloorDashboard />} />
         <Route path="/FloorMessages" element={<FloorMessages />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/Clients" element={<Clients />} />
       </Routes>
     </Router>
   );
