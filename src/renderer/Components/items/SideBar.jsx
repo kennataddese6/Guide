@@ -16,7 +16,10 @@ const SideBar = ({ index }) => {
   const toMessages = () => {
     navigate('/Messages');
   };
-
+  const toClients = () => {
+    navigate('/Clients');
+    console.log('I am clicked');
+  };
   const toLogin = () => {
     dispatch(logout());
   };
@@ -93,7 +96,11 @@ const SideBar = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="navigation-elements-7">
+          <div
+            className="navigation-elements-7"
+            style={{ backgroundColor: SideBarIndex === 4 ? 'gold' : '' }}
+            onClick={toClients}
+          >
             <FaUsers className="iconSetting" style={{ color: 'black' }} />
             <div className="text-wrapper-2">Clients</div>
           </div>
