@@ -51,7 +51,10 @@ const Conversations = ({ floorNumber }) => {
     const oneWeekFromNow = new Date(
       currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
     );
-    if (inputDate > currentDate && inputDate < oneWeekFromNow) {
+
+    if (inputDate.toDateString() === currentDate.toDateString()) {
+      return 'Today';
+    } else if (inputDate > currentDate && inputDate < oneWeekFromNow) {
       if (inputDate.getDate() === tomorrow.getDate()) {
         return 'Tomorrow';
       } else {
@@ -73,6 +76,7 @@ const Conversations = ({ floorNumber }) => {
       return `${day}-${month}-${year}`;
     }
   }
+
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
