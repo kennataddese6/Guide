@@ -133,7 +133,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     );
     return () => {};
   }, []);
-  const ScheduleClient = (id) => {
+  const ScheduleClient = (id, firstName, lastName, floorNumber) => {
     const updateData = {
       ID: id,
       Postpone: true,
@@ -141,6 +141,17 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     };
     console.log('here is hte user data', updateData);
     dispatch(updateCustomer(updateData));
+    const composedMessage = {
+      content: ` ${firstName} ${lastName} is Scheduled`,
+      to: floorNumber,
+    };
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content: ` ${firstName} ${lastName} is Scheduled`,
+      address: 0,
+    };
+    sendMessage(InstantMessage);
+    dispatch(updateLatestMessage(composedMessage));
     setPostPoneClient(false);
     setPostPoneDate(new Date());
   };
@@ -187,7 +198,12 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                 <button
                   className="acceptCusotmer"
                   onClick={() => {
-                    ScheduleClient(FloorCustomer._id);
+                    ScheduleClient(
+                      FloorCustomer._id,
+                      FloorCustomer.FirstName,
+                      FloorCustomer.LastName,
+                      FloorCustomer.FloorNumber
+                    );
                   }}
                 >
                   {' '}
