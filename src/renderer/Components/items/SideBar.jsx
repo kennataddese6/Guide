@@ -6,12 +6,11 @@ import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
 import { sendMessage, ws } from 'renderer/webSocket';
+import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 const SideBar = ({ index }) => {
   const SideBarIndex = index;
-  const [online, setOnline] = useState(true);
-  const [retryCount, setRetryCount] = useState(0);
+  const online = useWebSocket('ws://localhost:5000');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toLobbyDashboard = () => {
@@ -29,44 +28,6 @@ const SideBar = ({ index }) => {
   const toLogin = () => {
     dispatch(logout());
   };
-  const reconnect = () => {
-    // Close the existing WebSocket connection
-    ws.close();
-    // Create a new WebSocket object
-    const newWs = new WebSocket('ws://localhost:5000');
-    // Set up the event listeners
-    newWs.addEventListener('close', handleClose);
-    newWs.addEventListener('open', handleOpen);
-  };
-
-  const handleClose = (event) => {
-    setOnline(false);
-    console.log('Sorry I am disconnected');
-    // Calculate the delay before attempting to reconnect
-    const delay = Math.min(1000 * 2 ** retryCount, 30000);
-    // Attempt to reconnect after the specified delay
-    setTimeout(() => {
-      reconnect();
-      // Increment the retry count
-      setRetryCount((count) => count + 1);
-    }, delay);
-  };
-
-  const handleOpen = (event) => {
-    setOnline(true);
-    console.log('hello I am connected');
-    // Reset the retry count when the connection is re-established
-    setRetryCount(0);
-  };
-  useEffect(() => {
-    setOnline(ws.readyState === WebSocket.OPEN);
-    ws.addEventListener('close', handleClose);
-    ws.addEventListener('open', handleOpen);
-    return () => {
-      ws.removeEventListener('close', handleClose);
-      ws.removeEventListener('open', handleOpen);
-    };
-  }, [ws, setOnline]);
 
   return (
     <div className="dashboard">
