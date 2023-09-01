@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   message: '',
   SentCustomers: '',
+  ScheduledCustomers: '',
 };
 
 // Register Customer
@@ -202,6 +203,11 @@ export const CustomerSlice = createSlice({
         state.isLoadingSentCustomers = false;
         state.isErrorGetCusomers = true;
         //state.message = action.payload;
+      })
+      .addCase(getScheduledCustomers.fulfilled, (state, action) => {
+        state.isLoadingSentCustomers = false;
+        //state.isSuccess = true;
+        state.ScheduledCustomers = action.payload;
       })
       // to get Customers by floor
       .addCase(getFloorCustomers.pending, (state) => {
