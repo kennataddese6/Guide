@@ -28,6 +28,7 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
+  const [scheduledClients, setScheduledClients] = useState([]);
   const [checked, setChecked] = useState(false);
 
   const {
@@ -38,6 +39,7 @@ const LobbyDashboard = () => {
     isErrorGetCusomers,
     isLoadingGetCustomers,
     SentCustomers,
+    ScheduledCustomers,
   } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -53,8 +55,11 @@ const LobbyDashboard = () => {
     if (SentCustomers) {
       setSentClients(SentCustomers);
     }
+    if (ScheduledCustomers) {
+      setScheduledClients(ScheduledCustomers);
+    }
     // dispatch(reset());  //  Commented out its causing miss infromation
-  }, [message, isErrorGetCusomers, SentCustomers]);
+  }, [message, isErrorGetCusomers, SentCustomers, ScheduledCustomers]);
   useEffect(() => {}, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getWaitingCustomers());
@@ -300,8 +305,8 @@ const LobbyDashboard = () => {
               />
             </div>
           </div>
-          {sentClients
-            ? sentClients.map((client) => {
+          {scheduledClients
+            ? scheduledClients.map((client) => {
                 const fullName = client.FirstName + ' ' + client.LastName;
                 const color = getColorFromName(fullName);
                 const isLightColor = getBrightness(color) > 180;
