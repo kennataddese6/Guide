@@ -30,6 +30,7 @@ const LobbyDashboard = () => {
   const [sentClients, setSentClients] = useState([]);
   const [scheduledClients, setScheduledClients] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [incomingMessage, setIncomingMessage] = useState(false);
 
   const {
     isLoading,
@@ -154,6 +155,17 @@ const LobbyDashboard = () => {
     );
     return () => {};
   }, []);
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
+  });
+
+  useEffect(() => {
+    if (incomingMessage) {
+      dispatch(getWaitingCustomers());
+      dispatch(getScheduledCustomers());
+    }
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   return (
     <div className="dashboard">
       <SideBar index={1} />
