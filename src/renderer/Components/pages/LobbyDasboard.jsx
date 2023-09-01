@@ -18,6 +18,7 @@ import {
   updateCustomer,
   getSentCustomers,
   getWaitingCustomers,
+  getScheduledCustomers,
 } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
@@ -58,6 +59,7 @@ const LobbyDashboard = () => {
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
+    dispatch(getScheduledCustomers());
     dispatch(reset());
   }, []);
   useEffect(() => {
