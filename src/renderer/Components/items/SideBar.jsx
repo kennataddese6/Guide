@@ -11,6 +11,7 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const SideBar = ({ index }) => {
   const SideBarIndex = index;
   const [online, setOnline] = useState(true);
+  const [retryCount, setRetryCount] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toLobbyDashboard = () => {
@@ -41,14 +42,22 @@ const SideBar = ({ index }) => {
   const handleClose = (event) => {
     setOnline(false);
     console.log('Sorry I am disconnected');
-    setTimeout(() => reconnect(), 1000);
+    // Calculate the delay before attempting to reconnect
+    const delay = Math.min(1000 * 2 ** retryCount, 30000);
+    // Attempt to reconnect after the specified delay
+    setTimeout(() => {
+      reconnect();
+      // Increment the retry count
+      setRetryCount((count) => count + 1);
+    }, delay);
   };
 
   const handleOpen = (event) => {
     setOnline(true);
     console.log('hello I am connected');
+    // Reset the retry count when the connection is re-established
+    setRetryCount(0);
   };
-
   useEffect(() => {
     setOnline(ws.readyState === WebSocket.OPEN);
     ws.addEventListener('close', handleClose);
