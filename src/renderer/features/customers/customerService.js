@@ -64,6 +64,17 @@ const getWaitingCustomers = async () => {
     throw error;
   }
 };
+// Get Scheduled Customers
+const getScheduledCustomers = async () => {
+  try {
+    const response = await axios.get(API_URL + 'ScheduledCustomers');
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 // Update Customer
 const updateCustomer = async (userData) => {
   try {
@@ -86,5 +97,6 @@ const CustomerService = {
   updateCustomer,
   getSentCustomers,
   getWaitingCustomers,
+  getScheduledCustomers,
 };
 export default CustomerService;
