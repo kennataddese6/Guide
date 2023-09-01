@@ -104,6 +104,16 @@ const LobbyDashboard = () => {
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
+  function handleDropOnWaitingClients(event) {
+    event.preventDefault();
+    const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
+    const updateData = {
+      Waiting: true,
+      postpone: false,
+      ID: clientData._id,
+    };
+    dispatch(updateCustomer(updateData));
+  }
   useEffect(() => {
     if (!user) {
       toHomepage();
@@ -208,6 +218,8 @@ const LobbyDashboard = () => {
                     className="comments-elements"
                     draggable="true"
                     onDragStart={(event) => handleDragStart(event, client)}
+                    onDragOver={(event) => handleDragOver(event)}
+                    onDrop={(event) => handleDropOnWaitingClients(event)}
                   >
                     <div
                       className="img-2"
