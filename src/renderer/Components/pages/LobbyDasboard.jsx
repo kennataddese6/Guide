@@ -113,6 +113,12 @@ const LobbyDashboard = () => {
       ID: clientData._id,
     };
     dispatch(updateCustomer(updateData));
+    const composeMessage = {
+      email: user.FloorNumber,
+      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      address: clientData.FloorNumber,
+    };
+    sendMessage(composeMessage);
   }
   useEffect(() => {
     if (!user) {
