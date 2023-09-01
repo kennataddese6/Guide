@@ -288,7 +288,6 @@ const LobbyDashboard = () => {
         <div
           className="cards-elevation"
           onDragOver={(event) => handleDragOver(event)}
-          onDrop={(event) => handleDrop(event)}
         >
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'start' }}>
