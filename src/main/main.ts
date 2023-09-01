@@ -87,11 +87,19 @@ const createWindow = async () => {
     await installExtensions();
   }
 
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'assets')
+    : path.join(__dirname, '../../assets');
+
+  const getAssetPath = (...paths: string[]): string => {
+    return path.join(RESOURCES_PATH, ...paths);
+  };
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
-    icon: path.join(__dirname, '../../assets/cbIcon.png'),
+    icon: getAssetPath('icon.ico'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
