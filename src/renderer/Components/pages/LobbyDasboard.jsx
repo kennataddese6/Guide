@@ -29,16 +29,6 @@ const LobbyDashboard = () => {
   const [sentClients, setSentClients] = useState([]);
   const [checked, setChecked] = useState(false);
 
-  const lightColors = [
-    '#FFFFFF',
-    '#FFFF00',
-    '#00FF00',
-    '#C0C0C0',
-    '#9ACD32',
-    '#FFDAB9',
-    '#F08080',
-    '#00FFFF',
-  ];
   const {
     isLoading,
     isError,
@@ -169,19 +159,7 @@ const LobbyDashboard = () => {
             <FiSearch />
           </div>
           <div>Waiting Clients</div>
-          <div style={{ textAlign: 'right' }}>
-            {' '}
-            <Switch
-              onChange={handleChange}
-              checked={checked}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              height={20}
-              width={40}
-              onColor="#c737a1"
-              offColor="#FFD700"
-            />
-          </div>
+          <div style={{ textAlign: 'right' }}> </div>
         </div>
         {isLoadingGetCustomers && <Spinner />}
         {isErrorGetCusomers && (
@@ -234,66 +212,129 @@ const LobbyDashboard = () => {
           : ''}
       </div>
       <Navbar TotalClients={clients.length} />
-      <div
-        className="cards-elevation"
-        onDragOver={(event) => handleDragOver(event)}
-        onDrop={(event) => handleDrop(event)}
-      >
-        <div className="text-wrapper-13">
-          <div style={{ alignSelf: 'start' }}>
-            <FiSearch />
+      {!checked ? (
+        <div
+          className="cards-elevation"
+          onDragOver={(event) => handleDragOver(event)}
+          onDrop={(event) => handleDrop(event)}
+        >
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div> Sent Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={handleChange}
+                checked={checked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
           </div>
-          <div> Sent Clients</div>
-          <div style={{ textAlign: 'right' }}>
-            {' '}
-            <Switch
-              onChange={handleChange}
-              checked={checked}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              height={20}
-              width={40}
-              onColor="#c737a1"
-              offColor="#FFD700"
-            />
-          </div>
-        </div>
-        {sentClients
-          ? sentClients.map((client) => {
-              const fullName = client.FirstName + ' ' + client.LastName;
-              const color = getColorFromName(fullName);
-              const isLightColor = getBrightness(color) > 180;
-              return (
-                <div
-                  className="comments-elements"
-                  draggable="true"
-                  onDragStart={(event) => handleDragStart(event, client)}
-                >
+          {sentClients
+            ? sentClients.map((client) => {
+                const fullName = client.FirstName + ' ' + client.LastName;
+                const color = getColorFromName(fullName);
+                const isLightColor = getBrightness(color) > 180;
+                return (
                   <div
-                    className="img-2"
-                    alt="Avatar woman"
-                    style={{
-                      backgroundColor: color,
-                      color: isLightColor ? 'black' : 'white',
-                    }}
+                    className="comments-elements"
+                    draggable="true"
+                    onDragStart={(event) => handleDragStart(event, client)}
                   >
-                    {' '}
-                    {client.FirstName[0]}
+                    <div
+                      className="img-2"
+                      alt="Avatar woman"
+                      style={{
+                        backgroundColor: color,
+                        color: isLightColor ? 'black' : 'white',
+                      }}
+                    >
+                      {' '}
+                      {client.FirstName[0]}
+                    </div>
+                    <div className="overlap-3">
+                      <p>
+                        {client.FirstName + ' '} {client.LastName}
+                      </p>
+                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                        {client.Department}
+                      </p>
+                    </div>
+                    <FiMoreVertical className="icon-navigation-more" />
                   </div>
-                  <div className="overlap-3">
-                    <p>
-                      {client.FirstName + ' '} {client.LastName}
-                    </p>
-                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                      {client.Department}
-                    </p>
+                );
+              })
+            : ''}
+        </div>
+      ) : (
+        <div
+          className="cards-elevation"
+          onDragOver={(event) => handleDragOver(event)}
+          onDrop={(event) => handleDrop(event)}
+        >
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div> Scheduled Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={handleChange}
+                checked={checked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
+          </div>
+          {sentClients
+            ? sentClients.map((client) => {
+                const fullName = client.FirstName + ' ' + client.LastName;
+                const color = getColorFromName(fullName);
+                const isLightColor = getBrightness(color) > 180;
+                return (
+                  <div
+                    className="comments-elements"
+                    draggable="true"
+                    onDragStart={(event) => handleDragStart(event, client)}
+                  >
+                    <div
+                      className="img-2"
+                      alt="Avatar woman"
+                      style={{
+                        backgroundColor: color,
+                        color: isLightColor ? 'black' : 'white',
+                      }}
+                    >
+                      {' '}
+                      {client.FirstName[0]}
+                    </div>
+                    <div className="overlap-3">
+                      <p>
+                        {client.FirstName + ' '} {client.LastName}
+                      </p>
+                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                        {client.Department}
+                      </p>
+                    </div>
+                    <FiMoreVertical className="icon-navigation-more" />
                   </div>
-                  <FiMoreVertical className="icon-navigation-more" />
-                </div>
-              );
-            })
-          : ''}
-      </div>
+                );
+              })
+            : ''}
+        </div>
+      )}
     </div>
   );
 };
