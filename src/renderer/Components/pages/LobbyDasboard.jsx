@@ -61,7 +61,6 @@ const LobbyDashboard = () => {
     }
     // dispatch(reset());  //  Commented out its causing miss infromation
   }, [message, isErrorGetCusomers, SentCustomers, ScheduledCustomers]);
-  useEffect(() => {}, [isLoadingGetCustomers, isLoading]);
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
@@ -71,6 +70,7 @@ const LobbyDashboard = () => {
   useEffect(() => {
     dispatch(getSentCustomers());
     dispatch(getWaitingCustomers());
+    dispatch(getScheduledCustomers());
   }, [isSuccess]);
   function handleChange(checked) {
     setChecked(checked);
