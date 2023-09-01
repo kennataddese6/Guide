@@ -46,6 +46,15 @@
   cursor: pointer;
   /* Can add border radius to the image  border-radius: 40%;   */
 }
+.dashboard .status-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  top: 65px;
+  left: 46px;
+  position: absolute;
+}
 
 .dashboard .divider-2 {
   background-color: var(--gray-divider);
