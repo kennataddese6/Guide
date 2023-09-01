@@ -183,39 +183,43 @@ const LobbyDashboard = () => {
           </h4>
         )}
         {clients
-          ? clients.map((client) => {
-              const fullName = client.FirstName + ' ' + client.LastName;
-              const color = getColorFromName(fullName);
-              const isLightColor = getBrightness(color) > 180;
-              return (
-                <div
-                  className="comments-elements"
-                  draggable="true"
-                  onDragStart={(event) => handleDragStart(event, client)}
-                >
+          ? clients
+              .filter((client) =>
+                client.Status ? client.Status.postpone === false : true
+              )
+              .map((client) => {
+                const fullName = client.FirstName + ' ' + client.LastName;
+                const color = getColorFromName(fullName);
+                const isLightColor = getBrightness(color) > 180;
+                return (
                   <div
-                    className="img-2"
-                    alt="Avatar woman"
-                    style={{
-                      backgroundColor: color,
-                      color: isLightColor ? 'black' : 'white',
-                    }}
+                    className="comments-elements"
+                    draggable="true"
+                    onDragStart={(event) => handleDragStart(event, client)}
                   >
-                    {' '}
-                    {client.FirstName[0]}
+                    <div
+                      className="img-2"
+                      alt="Avatar woman"
+                      style={{
+                        backgroundColor: color,
+                        color: isLightColor ? 'black' : 'white',
+                      }}
+                    >
+                      {' '}
+                      {client.FirstName[0]}
+                    </div>
+                    <div className="overlap-3">
+                      <p>
+                        {client.FirstName + ' '} {client.LastName}
+                      </p>
+                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                        {client.Department}
+                      </p>
+                    </div>
+                    <FiMoreVertical className="icon-navigation-more" />
                   </div>
-                  <div className="overlap-3">
-                    <p>
-                      {client.FirstName + ' '} {client.LastName}
-                    </p>
-                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                      {client.Department}
-                    </p>
-                  </div>
-                  <FiMoreVertical className="icon-navigation-more" />
-                </div>
-              );
-            })
+                );
+              })
           : ''}
       </div>
       <Navbar TotalClients={clients.length} />
