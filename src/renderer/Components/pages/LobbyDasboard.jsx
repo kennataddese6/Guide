@@ -8,10 +8,10 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
-import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
+import Client from '../items/Client';
 import {
   getCustomers,
   reset,
@@ -131,37 +131,7 @@ const LobbyDashboard = () => {
       toHomepage();
     }
   }, [user]);
-  const generateColorFromString = (str) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    let color = '#';
-    for (let j = 0; j < 3; j++) {
-      const value = (hash >> (j * 8)) & 0xff;
-      color += ('00' + value.toString(16)).substr(-2);
-    }
-    return color;
-  };
-  const getColorFromName = (name) => {
-    return generateColorFromString(name);
-  };
-  const getBrightness = (color) => {
-    // Convert color to RGB
-    const hex = color.replace(
-      /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-      (m, r, g, b) => {
-        return r + r + g + g + b + b;
-      }
-    );
-    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const r = parseInt(rgb[1], 16);
-    const g = parseInt(rgb[2], 16);
-    const b = parseInt(rgb[3], 16);
 
-    // Calculate brightness
-    return (r * 299 + g * 587 + b * 114) / 1000;
-  };
   const handleNotificationClick = () => {
     if (user && user.Roles === 1000) {
       navigate('/Messages');
@@ -221,41 +191,15 @@ const LobbyDashboard = () => {
               .filter((client) =>
                 client.Status ? client.Status.postpone === false : true
               )
-              .map((client) => {
-                const fullName = client.FirstName + ' ' + client.LastName;
-                const color = getColorFromName(fullName);
-                const isLightColor = getBrightness(color) > 180;
-                return (
-                  <div
-                    className="comments-elements"
-                    draggable="true"
-                    onDragStart={(event) => handleDragStart(event, client)}
-                    onDragOver={(event) => handleDragOver(event)}
-                    onDrop={(event) => handleDropOnWaitingClients(event)}
-                  >
-                    <div
-                      className="img-2"
-                      alt="Avatar woman"
-                      style={{
-                        backgroundColor: color,
-                        color: isLightColor ? 'black' : 'white',
-                      }}
-                    >
-                      {' '}
-                      {client.FirstName[0].toUpperCase()}
-                    </div>
-                    <div className="overlap-3">
-                      <p>
-                        {client.FirstName + ' '} {client.LastName}
-                      </p>
-                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                        {client.Department}
-                      </p>
-                    </div>
-                    <FiMoreVertical className="icon-navigation-more" />
-                  </div>
-                );
-              })
+              .map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver}
+                  handleDropOnWaitingClients={handleDropOnWaitingClients}
+                />
+              ))
           : ''}
       </div>
       <Navbar TotalClients={clients.length} />
@@ -285,39 +229,15 @@ const LobbyDashboard = () => {
             </div>
           </div>
           {sentClients
-            ? sentClients.map((client) => {
-                const fullName = client.FirstName + ' ' + client.LastName;
-                const color = getColorFromName(fullName);
-                const isLightColor = getBrightness(color) > 180;
-                return (
-                  <div
-                    className="comments-elements"
-                    draggable="true"
-                    onDragStart={(event) => handleDragStart(event, client)}
-                  >
-                    <div
-                      className="img-2"
-                      alt="Avatar woman"
-                      style={{
-                        backgroundColor: color,
-                        color: isLightColor ? 'black' : 'white',
-                      }}
-                    >
-                      {' '}
-                      {client.FirstName[0]}
-                    </div>
-                    <div className="overlap-3">
-                      <p>
-                        {client.FirstName + ' '} {client.LastName}
-                      </p>
-                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                        {client.Department}
-                      </p>
-                    </div>
-                    <FiMoreVertical className="icon-navigation-more" />
-                  </div>
-                );
-              })
+            ? sentClients.map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver}
+                  handleDropOnWaitingClients={handleDropOnWaitingClients}
+                />
+              ))
             : ''}
         </div>
       ) : (
@@ -345,39 +265,15 @@ const LobbyDashboard = () => {
             </div>
           </div>
           {scheduledClients
-            ? scheduledClients.map((client) => {
-                const fullName = client.FirstName + ' ' + client.LastName;
-                const color = getColorFromName(fullName);
-                const isLightColor = getBrightness(color) > 180;
-                return (
-                  <div
-                    className="comments-elements"
-                    draggable="true"
-                    onDragStart={(event) => handleDragStart(event, client)}
-                  >
-                    <div
-                      className="img-2"
-                      alt="Avatar woman"
-                      style={{
-                        backgroundColor: color,
-                        color: isLightColor ? 'black' : 'white',
-                      }}
-                    >
-                      {' '}
-                      {client.FirstName[0]}
-                    </div>
-                    <div className="overlap-3">
-                      <p>
-                        {client.FirstName + ' '} {client.LastName}
-                      </p>
-                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                        {client.Department}
-                      </p>
-                    </div>
-                    <FiMoreVertical className="icon-navigation-more" />
-                  </div>
-                );
-              })
+            ? scheduledClients.map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver}
+                  handleDropOnWaitingClients={handleDropOnWaitingClients}
+                />
+              ))
             : ''}
         </div>
       )}
