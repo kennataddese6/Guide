@@ -208,6 +208,7 @@ const LobbyDashboard = () => {
           className="cards-elevation"
           onDragOver={(event) => handleDragOver(event)}
           onDrop={(event) => handleDrop(event)}
+          onDragStart={(event) => event.preventDefault()}
         >
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'start' }}>
@@ -233,18 +234,13 @@ const LobbyDashboard = () => {
                 <Client
                   key={client.id}
                   client={client}
-                  handleDragStart={handleDragStart}
                   handleDragOver={handleDragOver}
-                  handleDropOnWaitingClients={handleDropOnWaitingClients}
                 />
               ))
             : ''}
         </div>
       ) : (
-        <div
-          className="cards-elevation"
-          onDragOver={(event) => handleDragOver(event)}
-        >
+        <div className="cards-elevation">
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'start' }}>
               <FiSearch />
@@ -270,8 +266,6 @@ const LobbyDashboard = () => {
                   key={client.id}
                   client={client}
                   handleDragStart={handleDragStart}
-                  handleDragOver={handleDragOver}
-                  handleDropOnWaitingClients={handleDropOnWaitingClients}
                 />
               ))
             : ''}

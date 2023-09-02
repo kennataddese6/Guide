@@ -14,9 +14,15 @@ const Client = ({
     <div
       className="comments-elements"
       draggable="true"
-      onDragStart={(event) => handleDragStart(event, client)}
-      onDragOver={(event) => handleDragOver(event)}
-      onDrop={(event) => handleDropOnWaitingClients(event)}
+      onDragStart={
+        handleDragStart ? (event) => handleDragStart(event, client) : null
+      }
+      onDragOver={handleDragOver ? (event) => handleDragOver(event) : null}
+      onDrop={
+        handleDropOnWaitingClients
+          ? (event) => handleDropOnWaitingClients(event)
+          : null
+      }
     >
       <div
         className="img-2"
