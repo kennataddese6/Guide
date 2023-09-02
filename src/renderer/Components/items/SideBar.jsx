@@ -16,7 +16,7 @@ const SideBar = ({ index }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { color, isLightColor } = useColorAndBrightness(
-    user.FirstName + ' ' + user.LastName
+    user ? user.FirstName + user.LastName : ''
   );
   const toLobbyDashboard = () => {
     navigate('/LobbyDasboard');
@@ -52,7 +52,7 @@ const SideBar = ({ index }) => {
                   color: isLightColor ? 'black' : 'white',
                 }}
               >
-                {user.FirstName[0]}
+                {user ? user.FirstName[0] : ''}
               </div>
               <div
                 className="status-circle"

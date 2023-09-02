@@ -6,14 +6,16 @@ import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 const FloorSideBar = ({ index }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const online = useWebSocket('ws://localhost:5000');
   const { user } = useSelector((state) => state.auth);
   const { color, isLightColor } = useColorAndBrightness(
-    user.FirstName + ' ' + user.LastName
+    user ? user.FirstName + user.LastName : ''
   );
   const toLogin = () => {
     dispatch(logout());
@@ -42,8 +44,12 @@ const FloorSideBar = ({ index }) => {
                   color: isLightColor ? 'black' : 'white',
                 }}
               >
-                {user.FirstName[0]}
+                {user ? user.FirstName[0].toUpperCase() : ''}
               </div>
+              <div
+                className="status-circle"
+                style={{ backgroundColor: online ? 'green' : 'grey' }}
+              ></div>
               <div className="divider-2" />
               <div className="icon-navigation" onClick={toLogin}>
                 <FiChevronDown style={{ color: 'white ' }} />

@@ -242,7 +242,7 @@ const LobbyDashboard = () => {
                       }}
                     >
                       {' '}
-                      {client.FirstName[0]}
+                      {client.FirstName[0].toUpperCase()}
                     </div>
                     <div className="overlap-3">
                       <p>
