@@ -30,6 +30,7 @@ const LobbyDashboard = () => {
   const [sentClients, setSentClients] = useState([]);
   const [scheduledClients, setScheduledClients] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [toggleBookedClients, setToggleBookedClients] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
 
   const {
@@ -49,6 +50,7 @@ const LobbyDashboard = () => {
   const toHomepage = () => {
     navigate('/');
   };
+
   useEffect(() => {
     if (message && message.length && !isErrorGetCusomers) {
       setClients(message);
@@ -61,26 +63,36 @@ const LobbyDashboard = () => {
     }
     // dispatch(reset());  //  Commented out its causing miss infromation
   }, [message, isErrorGetCusomers, SentCustomers, ScheduledCustomers]);
+
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
     dispatch(getScheduledCustomers());
     dispatch(reset());
   }, []);
+
   useEffect(() => {
     dispatch(getSentCustomers());
     dispatch(getWaitingCustomers());
     dispatch(getScheduledCustomers());
   }, [isSuccess]);
+
   function handleChange(checked) {
     setChecked(checked);
   }
+
+  function hanldeToggle(checked) {
+    setToggleBookedClients(checked);
+  }
+
   function handleDragStart(event, client) {
     event.dataTransfer.setData('text/plain', JSON.stringify(client));
   }
+
   function handleDragOver(event) {
     event.preventDefault();
   }
+
   function handleDrop(event) {
     event.preventDefault();
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
@@ -104,6 +116,7 @@ const LobbyDashboard = () => {
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
+
   function handleDropOnWaitingClients(event) {
     event.preventDefault();
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
@@ -126,6 +139,7 @@ const LobbyDashboard = () => {
     };
     dispatch(updateLatestMessage(composedMessage));
   }
+
   useEffect(() => {
     if (!user) {
       toHomepage();
@@ -140,6 +154,7 @@ const LobbyDashboard = () => {
       navigate('/FloorMessages');
     }
   };
+
   useEffect(() => {
     window.electron.ipcRenderer.on(
       'notification-clicked',
@@ -147,6 +162,7 @@ const LobbyDashboard = () => {
     );
     return () => {};
   }, []);
+
   ws.addEventListener('message', function (event) {
     setIncomingMessage(true);
   });
@@ -158,50 +174,101 @@ const LobbyDashboard = () => {
     }
     setIncomingMessage(false);
   }, [incomingMessage]);
+
   return (
     <div className="dashboard">
       <SideBar index={1} />
       <div className="div-wrapper">
         <RegisterCustomer role="Customer" />
       </div>
-      <div className="overlap-2">
-        <div className="text-wrapper-13">
-          <div style={{ alignSelf: 'start' }}>
-            <FiSearch />
+      {!toggleBookedClients ? (
+        <div className="overlap-2">
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div>Waiting Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={hanldeToggle}
+                checked={toggleBookedClients}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
           </div>
-          <div>Waiting Clients</div>
-          <div style={{ textAlign: 'right' }}> </div>
+          {isLoadingGetCustomers && <Spinner />}
+          {isErrorGetCusomers && (
+            <h4
+              style={{
+                color: 'red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {' '}
+              Server Error !
+            </h4>
+          )}
+          {clients
+            ? clients
+                .filter((client) =>
+                  client.Status ? client.Status.postpone === false : true
+                )
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragStart={handleDragStart}
+                    handleDragOver={handleDragOver}
+                    handleDropOnWaitingClients={handleDropOnWaitingClients}
+                  />
+                ))
+            : ''}
         </div>
-        {isLoadingGetCustomers && <Spinner />}
-        {isErrorGetCusomers && (
-          <h4
-            style={{
-              color: 'red',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {' '}
-            Server Error !
-          </h4>
-        )}
-        {clients
-          ? clients
-              .filter((client) =>
-                client.Status ? client.Status.postpone === false : true
-              )
-              .map((client) => (
-                <Client
-                  key={client.id}
-                  client={client}
-                  handleDragStart={handleDragStart}
-                  handleDragOver={handleDragOver}
-                  handleDropOnWaitingClients={handleDropOnWaitingClients}
-                />
-              ))
-          : ''}
-      </div>
+      ) : (
+        <div className="overlap-2">
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div>Booked Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={hanldeToggle}
+                checked={toggleBookedClients}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
+          </div>
+          {isLoadingGetCustomers && <Spinner />}
+          {isErrorGetCusomers && (
+            <h4
+              style={{
+                color: 'red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {' '}
+              Server Error !
+            </h4>
+          )}
+        </div>
+      )}
       <Navbar TotalClients={clients.length} />
       {!checked ? (
         <div
