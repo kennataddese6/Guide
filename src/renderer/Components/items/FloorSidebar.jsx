@@ -26,6 +26,9 @@ const FloorSideBar = ({ index }) => {
   const toFloorDashboard = () => {
     navigate('/FloorDashboard');
   };
+  const toBooking = () => {
+    navigate('/Booking');
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -102,13 +105,16 @@ const FloorSideBar = ({ index }) => {
             <div
               className="navigation-elements-6"
               style={{ backgroundColor: SideBarIndex === 3 ? 'gold' : '' }}
+              onClick={() => {
+                toBooking();
+              }}
             >
               <div className="overlap-group">
                 <MdAssignment
                   className="icon-action"
                   style={{ color: 'black' }}
                 />
-                <div className="text-wrapper-4">Register</div>
+                <div className="text-wrapper-4">Book</div>
               </div>
             </div>
           </div>

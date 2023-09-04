@@ -11,6 +11,7 @@ import FloorMessages from './Components/pages/FloorMessages';
 import AdminDashboard from './Components/pages/AdminDashboard';
 import Clients from './Components/pages/Clients';
 import Floors from './Components/pages/Floors';
+import Booking from './Components/pages/Booking';
 export default function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients />} />
         <Route path="/Floors" element={<Floors />} />
+        <Route path="/Booking" element={<Booking />} />
       </Routes>
     </Router>
   );
