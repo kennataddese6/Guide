@@ -3,17 +3,11 @@ import Navbar from '../items/Navbar';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
-import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
-import { BiTask } from 'react-icons/bi';
-import { MdAssignment } from 'react-icons/md';
-import { FiAlertCircle, FiSearch } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import Client from '../items/Client';
 import {
-  getCustomers,
   reset,
   updateCustomer,
   getSentCustomers,
@@ -34,8 +28,6 @@ const LobbyDashboard = () => {
   const [incomingMessage, setIncomingMessage] = useState(false);
 
   const {
-    isLoading,
-    isError,
     isSuccess,
     message,
     isErrorGetCusomers,
@@ -163,7 +155,7 @@ const LobbyDashboard = () => {
     return () => {};
   }, []);
 
-  ws.addEventListener('message', function (event) {
+  ws.addEventListener('message', function () {
     setIncomingMessage(true);
   });
 

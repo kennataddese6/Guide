@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/auth/authSlice';
-import { MdCancel, MdError } from 'react-icons/md';
+import { MdCancel} from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 const RegisterLobby = () => {
   const dispatch = useDispatch();

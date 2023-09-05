@@ -11,6 +11,7 @@ const Clients = () => {
   }, []);
   useEffect(() => {
     setAllClients(message);
+    console.log(allClients);
   }, [message]);
   return (
     <>

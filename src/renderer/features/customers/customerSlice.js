@@ -160,7 +160,7 @@ export const CustomerSlice = createSlice({
         state.isSuccess = true;
         state.message = action.payload;
       })
-      .addCase(registerCustomer.rejected, (state, action) => {
+      .addCase(registerCustomer.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })
@@ -168,11 +168,11 @@ export const CustomerSlice = createSlice({
       .addCase(updateCustomer.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateCustomer.fulfilled, (state, action) => {
+      .addCase(updateCustomer.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(updateCustomer.rejected, (state, action) => {
+      .addCase(updateCustomer.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })
@@ -213,7 +213,7 @@ export const CustomerSlice = createSlice({
         //state.isSuccess = true;
         state.SentCustomers = action.payload;
       })
-      .addCase(getSentCustomers.rejected, (state, action) => {
+      .addCase(getSentCustomers.rejected, (state) => {
         state.isLoadingSentCustomers = false;
         state.isErrorGetCusomers = true;
         //state.message = action.payload;
