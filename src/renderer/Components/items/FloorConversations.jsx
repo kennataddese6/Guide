@@ -7,13 +7,15 @@ import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
-
+import { DatePicker } from 'react-rainbow-components';
 const FloorConversations = ({ floorNumber, reload, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
-  const [incomingMessage, setIncomingMessage] = useState(false)
-
+  const [incomingMessage, setIncomingMessage] = useState(false);
+  const [postponeClient, setPostPoneClient] = useState(false);
+  const [clickedCardId, setClickedCardId] = useState(null);
+  const [postPoneDate, setPostPoneDate] = useState(new Date());
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
@@ -82,18 +84,45 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function (event) {
-    setIncomingMessage(true)
+  function formatday(date) {
+    const inputDate = new Date(date);
+    const currentDate = new Date();
+    const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+    const oneWeekFromNow = new Date(
+      currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+    );
+    if (inputDate > currentDate && inputDate < oneWeekFromNow) {
+      if (inputDate.getDate() === tomorrow.getDate()) {
+        return 'Tomorrow';
+      } else {
+        const daysOfWeek = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+        ];
+        return daysOfWeek[inputDate.getDay()];
+      }
+    } else {
+      const day = inputDate.getDate().toString().padStart(2, '0');
+      const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+      const year = inputDate.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
+  }
 
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
   });
-  useEffect(()=>{
-    if(incomingMessage){
-    console.log('here is the incoming message',incomingMessage)
-
+  useEffect(() => {
+    if (incomingMessage) {
       dispatch(getFloorCustomers(FloorNumber));
     }
-    setIncomingMessage(false)
-  },[incomingMessage])
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   const handleNotificationClick = () => {
     dispatch(getFloorCustomers(FloorNumber));
   };
@@ -104,6 +133,28 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     );
     return () => {};
   }, []);
+  const ScheduleClient = (id, firstName, lastName, floorNumber) => {
+    const updateData = {
+      ID: id,
+      Postpone: true,
+      date: postPoneDate,
+    };
+    console.log('here is hte user data', updateData);
+    dispatch(updateCustomer(updateData));
+    const composedMessage = {
+      content: ` ${firstName} ${lastName} is Scheduled`,
+      to: floorNumber,
+    };
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content: ` ${firstName} ${lastName} is Scheduled`,
+      address: 0,
+    };
+    sendMessage(InstantMessage);
+    dispatch(updateLatestMessage(composedMessage));
+    setPostPoneClient(false);
+    setPostPoneDate(new Date());
+  };
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
@@ -130,10 +181,49 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
               wants to come to {FloorCustomer.Department}. Shall I send him?
             </p>
-            {FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
-              <>
-                <p
-                  className="rcustomerContent"
+            {FloorCustomer.Waiting &&
+            !FloorCustomer.Accepted &&
+            postponeClient &&
+            FloorCustomer._id === clickedCardId ? (
+              <div className="buttonHolder">
+                <DatePicker
+                  id="datePicker-1"
+                  formatStyle="small"
+                  value={postPoneDate}
+                  onChange={(date) => {
+                    setPostPoneDate(date);
+                  }}
+                  style={{ maxWidth: 120 }}
+                />
+                <button
+                  className="acceptCusotmer"
+                  onClick={() => {
+                    ScheduleClient(
+                      FloorCustomer._id,
+                      FloorCustomer.FirstName,
+                      FloorCustomer.LastName,
+                      FloorCustomer.FloorNumber
+                    );
+                  }}
+                >
+                  {' '}
+                  Okay{' '}
+                </button>
+                <button
+                  onClick={() => {
+                    setPostPoneClient(false);
+                    setClickedCardId(null);
+                  }}
+                  className="postponeCustomer"
+                >
+                  {' '}
+                  Cancel{' '}
+                </button>
+              </div>
+            ) : FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
+              <div className="buttonHolder">
+                <button
+                  className="acceptCusotmer"
                   onClick={() => {
                     customerAccepted(
                       FloorCustomer._id,
@@ -143,12 +233,25 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                     );
                   }}
                 >
-                  Yes. Let him come
-                </p>
-              </>
-            ) : (
+                  Accept
+                </button>
+                <button
+                  onClick={() => {
+                    setPostPoneClient(true);
+                    setClickedCardId(FloorCustomer._id);
+                  }}
+                  className="postponeCustomer"
+                >
+                  Postpone
+                </button>
+              </div>
+            ) : FloorCustomer.Accepted ? (
               <p className="ArcustomerContent">Accepted</p>
-            )}
+            ) : FloorCustomer.Status.postpone ? (
+              <p className="ArcustomerContent">
+                Scheduled to {formatday(FloorCustomer.Status.date)}
+              </p>
+            ) : null}
             {FloorCustomer.Sent ? (
               <p className="customerContent">
                 {' '}
@@ -177,14 +280,6 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
             ) : (
               ''
             )}
-
-            {/*             <p className="customerContent">
-              {' '}
-              I have sent {FloorCustomer.FirstName + ' '}{' '}
-              {FloorCustomer.LastName}
-            </p>
-            <p className="rcustomerContent"> He has arrived</p>
-            <p className="customerContent"> Remarks:</p> */}
             <p className="rcustomerTime">
               {formatDate(FloorCustomer.updatedAt)}
             </p>
@@ -197,7 +292,6 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
           </div>
         </>
       )}
-
     </>
   );
 };

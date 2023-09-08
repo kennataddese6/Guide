@@ -8,16 +8,17 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
-import { FiMoreVertical } from 'react-icons/fi';
 import { FiAlertCircle, FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
+import Client from '../items/Client';
 import {
   getCustomers,
   reset,
   updateCustomer,
   getSentCustomers,
   getWaitingCustomers,
+  getScheduledCustomers,
 } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
@@ -27,18 +28,10 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const LobbyDashboard = () => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
+  const [scheduledClients, setScheduledClients] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [incomingMessage, setIncomingMessage] = useState(false);
 
-  const lightColors = [
-    '#FFFFFF',
-    '#FFFF00',
-    '#00FF00',
-    '#C0C0C0',
-    '#9ACD32',
-    '#FFDAB9',
-    '#F08080',
-    '#00FFFF',
-  ];
   const {
     isLoading,
     isError,
@@ -47,6 +40,7 @@ const LobbyDashboard = () => {
     isErrorGetCusomers,
     isLoadingGetCustomers,
     SentCustomers,
+    ScheduledCustomers,
   } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -62,17 +56,21 @@ const LobbyDashboard = () => {
     if (SentCustomers) {
       setSentClients(SentCustomers);
     }
+    if (ScheduledCustomers) {
+      setScheduledClients(ScheduledCustomers);
+    }
     // dispatch(reset());  //  Commented out its causing miss infromation
-  }, [message, isErrorGetCusomers, SentCustomers]);
-  useEffect(() => {}, [isLoadingGetCustomers, isLoading]);
+  }, [message, isErrorGetCusomers, SentCustomers, ScheduledCustomers]);
   useEffect(() => {
     dispatch(getWaitingCustomers());
     dispatch(getSentCustomers());
+    dispatch(getScheduledCustomers());
     dispatch(reset());
   }, []);
   useEffect(() => {
     dispatch(getSentCustomers());
     dispatch(getWaitingCustomers());
+    dispatch(getScheduledCustomers());
   }, [isSuccess]);
   function handleChange(checked) {
     setChecked(checked);
@@ -106,42 +104,34 @@ const LobbyDashboard = () => {
     dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
+  function handleDropOnWaitingClients(event) {
+    event.preventDefault();
+    const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
+    const updateData = {
+      Waiting: true,
+      postpone: false,
+      ID: clientData._id,
+    };
+    dispatch(updateCustomer(updateData));
+    const InstantMessage = {
+      email: user.FloorNumber,
+      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      address: clientData.FloorNumber,
+    };
+    sendMessage(InstantMessage);
+    const composedMessage = {
+      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+
+      to: clientData.FloorNumber,
+    };
+    dispatch(updateLatestMessage(composedMessage));
+  }
   useEffect(() => {
     if (!user) {
       toHomepage();
     }
   }, [user]);
-  const generateColorFromString = (str) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    let color = '#';
-    for (let j = 0; j < 3; j++) {
-      const value = (hash >> (j * 8)) & 0xff;
-      color += ('00' + value.toString(16)).substr(-2);
-    }
-    return color;
-  };
-  const getColorFromName = (name) => {
-    return generateColorFromString(name);
-  };
-  const getBrightness = (color) => {
-    // Convert color to RGB
-    const hex = color.replace(
-      /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
-      (m, r, g, b) => {
-        return r + r + g + g + b + b;
-      }
-    );
-    const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    const r = parseInt(rgb[1], 16);
-    const g = parseInt(rgb[2], 16);
-    const b = parseInt(rgb[3], 16);
 
-    // Calculate brightness
-    return (r * 299 + g * 587 + b * 114) / 1000;
-  };
   const handleNotificationClick = () => {
     if (user && user.Roles === 1000) {
       navigate('/Messages');
@@ -157,6 +147,17 @@ const LobbyDashboard = () => {
     );
     return () => {};
   }, []);
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
+  });
+
+  useEffect(() => {
+    if (incomingMessage) {
+      dispatch(getWaitingCustomers());
+      dispatch(getScheduledCustomers());
+    }
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   return (
     <div className="dashboard">
       <SideBar index={1} />
@@ -169,19 +170,7 @@ const LobbyDashboard = () => {
             <FiSearch />
           </div>
           <div>Waiting Clients</div>
-          <div style={{ textAlign: 'right' }}>
-            {' '}
-            <Switch
-              onChange={handleChange}
-              checked={checked}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              height={20}
-              width={40}
-              onColor="#c737a1"
-              offColor="#FFD700"
-            />
-          </div>
+          <div style={{ textAlign: 'right' }}> </div>
         </div>
         {isLoadingGetCustomers && <Spinner />}
         {isErrorGetCusomers && (
@@ -198,102 +187,90 @@ const LobbyDashboard = () => {
           </h4>
         )}
         {clients
-          ? clients.map((client) => {
-              const fullName = client.FirstName + ' ' + client.LastName;
-              const color = getColorFromName(fullName);
-              const isLightColor = getBrightness(color) > 180;
-              return (
-                <div
-                  className="comments-elements"
-                  draggable="true"
-                  onDragStart={(event) => handleDragStart(event, client)}
-                >
-                  <div
-                    className="img-2"
-                    alt="Avatar woman"
-                    style={{
-                      backgroundColor: color,
-                      color: isLightColor ? 'black' : 'white',
-                    }}
-                  >
-                    {' '}
-                    {client.FirstName[0]}
-                  </div>
-                  <div className="overlap-3">
-                    <p>
-                      {client.FirstName + ' '} {client.LastName}
-                    </p>
-                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                      {client.Department}
-                    </p>
-                  </div>
-                  <FiMoreVertical className="icon-navigation-more" />
-                </div>
-              );
-            })
+          ? clients
+              .filter((client) =>
+                client.Status ? client.Status.postpone === false : true
+              )
+              .map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragStart={handleDragStart}
+                  handleDragOver={handleDragOver}
+                  handleDropOnWaitingClients={handleDropOnWaitingClients}
+                />
+              ))
           : ''}
       </div>
       <Navbar TotalClients={clients.length} />
-      <div
-        className="cards-elevation"
-        onDragOver={(event) => handleDragOver(event)}
-        onDrop={(event) => handleDrop(event)}
-      >
-        <div className="text-wrapper-13">
-          <div style={{ alignSelf: 'start' }}>
-            <FiSearch />
+      {!checked ? (
+        <div
+          className="cards-elevation"
+          onDragOver={(event) => handleDragOver(event)}
+          onDrop={(event) => handleDrop(event)}
+          onDragStart={(event) => event.preventDefault()}
+        >
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div> Sent Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={handleChange}
+                checked={checked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
           </div>
-          <div> Sent Clients</div>
-          <div style={{ textAlign: 'right' }}>
-            {' '}
-            <Switch
-              onChange={handleChange}
-              checked={checked}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              height={20}
-              width={40}
-              onColor="#c737a1"
-              offColor="#FFD700"
-            />
-          </div>
+          {sentClients
+            ? sentClients.map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragOver={handleDragOver}
+                />
+              ))
+            : ''}
         </div>
-        {sentClients
-          ? sentClients.map((client) => {
-              const fullName = client.FirstName + ' ' + client.LastName;
-              const color = getColorFromName(fullName);
-              const isLightColor = getBrightness(color) > 180;
-              return (
-                <div
-                  className="comments-elements"
-                  draggable="true"
-                  onDragStart={(event) => handleDragStart(event, client)}
-                >
-                  <div
-                    className="img-2"
-                    alt="Avatar woman"
-                    style={{
-                      backgroundColor: color,
-                      color: isLightColor ? 'black' : 'white',
-                    }}
-                  >
-                    {' '}
-                    {client.FirstName[0]}
-                  </div>
-                  <div className="overlap-3">
-                    <p>
-                      {client.FirstName + ' '} {client.LastName}
-                    </p>
-                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                      {client.Department}
-                    </p>
-                  </div>
-                  <FiMoreVertical className="icon-navigation-more" />
-                </div>
-              );
-            })
-          : ''}
-      </div>
+      ) : (
+        <div className="cards-elevation">
+          <div className="text-wrapper-13">
+            <div style={{ alignSelf: 'start' }}>
+              <FiSearch />
+            </div>
+            <div> Scheduled Clients</div>
+            <div style={{ textAlign: 'right' }}>
+              {' '}
+              <Switch
+                onChange={handleChange}
+                checked={checked}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
+          </div>
+          {scheduledClients
+            ? scheduledClients.map((client) => (
+                <Client
+                  key={client.id}
+                  client={client}
+                  handleDragStart={handleDragStart}
+                />
+              ))
+            : ''}
+        </div>
+      )}
     </div>
   );
 };

@@ -11,6 +11,7 @@ const initialState = {
   isLoading: false,
   message: '',
   SentCustomers: '',
+  ScheduledCustomers: '',
 };
 
 // Register Customer
@@ -70,7 +71,6 @@ export const getSentCustomers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const SentCusomters = await CustomerService.getSentCustomers();
-      console.log('this are the sent customers', SentCusomters);
       return SentCusomters;
     } catch (error) {
       const message =
@@ -89,8 +89,25 @@ export const getWaitingCustomers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const WaitingCusomters = await CustomerService.getWaitingCustomers();
-      console.log('this are the waiting customers', WaitingCusomters);
       return WaitingCusomters;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// get Scheduled  Customers
+export const getScheduledCustomers = createAsyncThunk(
+  'customer/getScheduledCustomers',
+  async (_, thunkAPI) => {
+    try {
+      const ScheduledCustomers = await CustomerService.getScheduledCustomers();
+      return ScheduledCustomers;
     } catch (error) {
       const message =
         (error.response &&
@@ -186,6 +203,11 @@ export const CustomerSlice = createSlice({
         state.isLoadingSentCustomers = false;
         state.isErrorGetCusomers = true;
         //state.message = action.payload;
+      })
+      .addCase(getScheduledCustomers.fulfilled, (state, action) => {
+        state.isLoadingSentCustomers = false;
+        //state.isSuccess = true;
+        state.ScheduledCustomers = action.payload;
       })
       // to get Customers by floor
       .addCase(getFloorCustomers.pending, (state) => {

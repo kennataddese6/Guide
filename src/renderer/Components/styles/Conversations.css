@@ -1,5 +1,5 @@
 .conversationCard {
-  background-color:  #f2f2f2;
+  background-color: #f2f2f2;
   width: 30%;
   height: auto;
   margin-top: 75px;
@@ -12,7 +12,7 @@
   justify-content: center;
   padding-top: 20px;
   font-weight: bold;
-  font-family:Helvetica;
+  font-family: Helvetica;
 }
 .customerContent {
   display: flex;
@@ -27,9 +27,32 @@
   justify-content: end;
   margin-right: 20px;
   color: blueviolet;
-  text-decoration: underline;
   cursor: pointer;
+  text-decoration: underline;
 }
+.acceptCusotmer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100px; /* Set the width of the button */
+  height: 25px;
+  margin: 0 10px;
+  background-color: #90ee90;
+  font-size: 14px;
+}
+.postponeCustomer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100px; /* Set the width of the button */
+  height: 25px;
+  margin: 0 10px;
+  background-color: #ffb6c1;
+  font-size: 14px;
+}
+
 .ArcustomerContent {
   display: flex;
   justify-content: end;
@@ -38,6 +61,10 @@
   cursor: pointer;
 }
 .rcustomerTime {
+  display: flex;
+  justify-content: center;
+}
+.buttonHolder {
   display: flex;
   justify-content: center;
 }

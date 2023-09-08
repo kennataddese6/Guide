@@ -37,6 +37,9 @@
   width: 255px;
 }
 .dashboard .avatar-man {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 40px;
   left: 16px;
   position: absolute;
@@ -45,6 +48,15 @@
   border-radius: 50%;
   cursor: pointer;
   /* Can add border radius to the image  border-radius: 40%;   */
+}
+.dashboard .status-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  top: 65px;
+  left: 46px;
+  position: absolute;
 }
 
 .dashboard .divider-2 {
@@ -204,10 +216,6 @@
   position: absolute;
   top: 300px;
   width: 255px;
-}
-.dashboard .navigation-elements-7:hover {
-  background-color: violet;
-  transform: translateY(-5px); /* move element up by 5px */
 }
 .dashboard .navigation-elements-8 {
   height: 40px;

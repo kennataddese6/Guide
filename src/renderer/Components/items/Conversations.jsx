@@ -8,7 +8,7 @@ import { sendMessage, ws } from 'renderer/webSocket';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
-  const [incomingMessage, setIncomingMessage] = useState(false)
+  const [incomingMessage, setIncomingMessage] = useState(false);
   const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
     useSelector((state) => state.customer);
 
@@ -33,17 +33,50 @@ const Conversations = ({ floorNumber }) => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function (event) {
-    setIncomingMessage(true)
+  ws.addEventListener('message', function (event) {
+    setIncomingMessage(true);
   });
 
-  useEffect(()=>{
-    console.log('here is the incoming message',incomingMessage)
-    if(incomingMessage){
+  useEffect(() => {
+    console.log('here is the incoming message', incomingMessage);
+    if (incomingMessage) {
       dispatch(getFloorCustomers(FloorNumber));
     }
-    setIncomingMessage(false)
-  },[incomingMessage])
+    setIncomingMessage(false);
+  }, [incomingMessage]);
+  function formatday(date) {
+    const inputDate = new Date(date);
+    const currentDate = new Date();
+    const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+    const oneWeekFromNow = new Date(
+      currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
+    );
+
+    if (inputDate.toDateString() === currentDate.toDateString()) {
+      return 'Today';
+    } else if (inputDate > currentDate && inputDate < oneWeekFromNow) {
+      if (inputDate.getDate() === tomorrow.getDate()) {
+        return 'Tomorrow';
+      } else {
+        const daysOfWeek = [
+          'Sunday',
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+        ];
+        return daysOfWeek[inputDate.getDay()];
+      }
+    } else {
+      const day = inputDate.getDate().toString().padStart(2, '0');
+      const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+      const year = inputDate.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
+  }
+
   return (
     <>
       {isLoadingGetCustomers && <Spinner />}
@@ -86,6 +119,10 @@ const Conversations = ({ floorNumber }) => {
             )}
             {FloorCustomer.Arrived ? (
               <p className="ArcustomerContent"> Arrived</p>
+            ) : FloorCustomer.Status && FloorCustomer.Status.postpone ? (
+              <p className="ArcustomerContent">
+                Scheduled to {formatday(FloorCustomer.Status.date)}
+              </p>
             ) : (
               ''
             )}

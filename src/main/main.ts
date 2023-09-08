@@ -9,10 +9,16 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain, Notification } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  Notification,
+  Menu,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 class AppUpdater {
   constructor() {
@@ -35,6 +41,7 @@ ipcMain.on('show-notification', (event, notificationData) => {
     title,
     body,
     silent: false, // Enable sound for the notification
+    icon: path.join(__dirname, '../../assets/cbIcon.png'),
   });
   notification.on('click', () => {
     if (mainWindow!.isMinimized()) {
@@ -73,6 +80,7 @@ const installExtensions = async () => {
     )
     .catch(console.log);
 };
+Menu.setApplicationMenu(null);
 
 const createWindow = async () => {
   if (isDebug) {
@@ -91,7 +99,7 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    icon: getAssetPath('icon.png'),
+    icon: getAssetPath('icon.ico'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
@@ -115,9 +123,6 @@ const createWindow = async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {
@@ -153,3 +158,4 @@ app
     });
   })
   .catch(console.log);
+app.setAppUserModelId('Guide');
