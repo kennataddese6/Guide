@@ -1,9 +1,13 @@
 import SideBar from '../items/SideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomers } from 'renderer/features/customers/customerSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 const Clients = () => {
   const dispatch = useDispatch();
+  const ClientTableRef = useRef();
   const { message } = useSelector((state) => state.customer);
   const [allClients, setAllClients] = useState([]);
   useEffect(() => {
@@ -13,11 +17,67 @@ const Clients = () => {
     setAllClients(message);
     console.log(allClients);
   }, [message]);
+
+  const [columnDefs] = useState([
+    {
+      field: 'FirstName',
+      filter: true,
+    },
+
+    {
+      field: 'LastName',
+      filter: true,
+    },
+    {
+      field: 'Woreda',
+      filter: true,
+    },
+    { field: 'SubCity', filter: true },
+
+    { field: 'PhoneNumber' },
+    { field: 'Department' },
+    { field: 'FloorNumber' },
+  ]);
+  const defaultColDef = useMemo(() => {
+    return {
+      sortable: true,
+      filter: true,
+      resizable: true,
+      minWidth: 100,
+      flex: 1,
+    };
+  }, []);
+  const popupParent = useMemo(() => {
+    return document.body;
+  }, []);
   return (
     <>
       {' '}
       <SideBar index={4} />
-      <h1>Hello This is Client page</h1>
+      <div
+        id="myGrid"
+        className="ag-theme-alpine"
+        style={{ height: 600, width: '70%' }}
+      >
+        <AgGridReact
+          ref={ClientTableRef}
+          rowData={allClients.map((client) => ({
+            FirstName: client.FirstName,
+            LastName: client.LastName,
+            Woreda: client.Woreda,
+            SubCity: client.SubCity,
+            PhoneNumber: client.PhoneNumber,
+            Department: client.Department,
+            FloorNumber: client.FloorNumber,
+          }))}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          suppressExcelExport={true}
+          popupParent={popupParent}
+          // pagination={true}
+          //paginationPageSize={true}
+        ></AgGridReact>
+      </div>
     </>
   );
 };
