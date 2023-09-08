@@ -7,6 +7,14 @@ const RegisterFloors = () => {
   const [floorNumber, setFloorNumber] = useState('');
   const [officeNumber, setOfficeNumber] = useState('');
 
+  const resetInputs = () => {
+    setWorkUnit('');
+    setDivison('');
+    setDepartment('');
+    setFloorNumber('');
+    setOfficeNumber('');
+  };
+
   const handleSubmit = () => {
     const Floor = {
       workUnit: workUnit,
@@ -16,6 +24,7 @@ const RegisterFloors = () => {
       officeNumber: officeNumber,
     };
     console.log('This is the floor to be dispacted', Floor);
+    resetInputs();
   };
   return (
     <>
