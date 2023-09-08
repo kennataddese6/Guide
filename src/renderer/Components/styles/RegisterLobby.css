@@ -24,7 +24,9 @@
   height: 522px;
   position: relative;
   width: 511px;
+  box-shadow: 5px 10px #888888;
 }
+
 .frame .register-employee {
   color: #000000;
   font-family: 'Inter-Regular', Helvetica;
