@@ -1,4 +1,22 @@
+import React from 'react';
+import { useState } from 'react';
 const RegisterFloors = () => {
+  const [workUnit, setWorkUnit] = useState('');
+  const [divison, setDivison] = useState('');
+  const [department, setDepartment] = useState('');
+  const [floorNumber, setFloorNumber] = useState('');
+  const [officeNumber, setOfficeNumber] = useState('');
+
+  const handleSubmit = () => {
+    const Floor = {
+      workUnit: workUnit,
+      divison: divison,
+      department: department,
+      floorNumber: floorNumber,
+      officeNumber: officeNumber,
+    };
+    console.log('This is the floor to be dispacted', Floor);
+  };
   return (
     <>
       <div className="LobbyContainer">
@@ -13,36 +31,38 @@ const RegisterFloors = () => {
               className="firstNameInput"
               type="text"
               style={{ width: '349px' }}
+              value={workUnit}
+              onChange={(e) => {
+                setWorkUnit(e.target.value);
+              }}
             />
             <div className="overlap-group"></div>
             <input
               className="emailInput"
               type="text"
-              //value={email}
-              /* onChange={(e) => {
-                setEmail(e.target.value);
-              }} */
+              value={divison}
+              onChange={(e) => {
+                setDivison(e.target.value);
+              }}
             />
 
             <input
               className="phoneInput"
               type="text"
               style={{ width: '349px' }}
-
-              //value={phoneNumber}
-              /* onChange={(e) => {
-                setPhoneNumber(e.target.value);
-              }} */
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+              }}
             />
             <input
               className="phoneInput"
               type="number"
               style={{ width: '136px', position: 'absolute', top: '438px' }}
-
-              //value={phoneNumber}
-              /* onChange={(e) => {
-                setPhoneNumber(e.target.value);
-              }} */
+              value={floorNumber}
+              onChange={(e) => {
+                setFloorNumber(e.target.value);
+              }}
             />
             <input
               className="phoneInput"
@@ -53,11 +73,10 @@ const RegisterFloors = () => {
                 top: '438px',
                 left: '279px',
               }}
-
-              //value={phoneNumber}
-              /* onChange={(e) => {
-                setPhoneNumber(e.target.value);
-              }} */
+              value={officeNumber}
+              onChange={(e) => {
+                setOfficeNumber(e.target.value);
+              }}
             />
             <div className="text-wrapper-4">Work Unit</div>
             <div className="text-wrapper">Division</div>
@@ -76,7 +95,7 @@ const RegisterFloors = () => {
             </div>
             <div
               className="submitButton"
-              onClick={''}
+              onClick={handleSubmit}
               style={{ position: 'absolute', top: '502px' }}
             >
               <div className="text-wrapper-6">Submit</div>
