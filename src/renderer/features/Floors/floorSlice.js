@@ -41,15 +41,15 @@ export const FloorSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // to register Floor
-      .addCase(registerCustomer.pending, (state) => {
+      .addCase(registerFloor.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registerCustomer.fulfilled, (state, action) => {
+      .addCase(registerFloor.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.message = action.payload;
       })
-      .addCase(registerCustomer.rejected, (state) => {
+      .addCase(registerFloor.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });
