@@ -1,6 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
+import { registerFloor } from 'renderer/features/Floors/floorSlice';
+import { useDispatch } from 'react-redux';
 const RegisterFloors = () => {
+  const dispatch = useDispatch();
   const [workUnit, setWorkUnit] = useState('');
   const [divison, setDivison] = useState('');
   const [department, setDepartment] = useState('');
@@ -24,6 +27,7 @@ const RegisterFloors = () => {
       officeNumber: officeNumber,
     };
     console.log('This is the floor to be dispacted', Floor);
+    dispatch(registerFloor(Floor));
     resetInputs();
   };
   return (
