@@ -1,7 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { registerFloor } from 'renderer/features/Floors/floorSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { reset } from 'renderer/features/Floors/floorSlice';
+import Spinner from '../Utilities/Spinner';
 const RegisterFloors = () => {
   const dispatch = useDispatch();
   const [workUnit, setWorkUnit] = useState('');
@@ -9,7 +11,7 @@ const RegisterFloors = () => {
   const [department, setDepartment] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
   const [officeNumber, setOfficeNumber] = useState('');
-
+  const { isLoading, isSucess, isError } = useSelector((state) => state.floor);
   const resetInputs = () => {
     setWorkUnit('');
     setDivison('');
@@ -17,6 +19,14 @@ const RegisterFloors = () => {
     setFloorNumber('');
     setOfficeNumber('');
   };
+
+  useEffect(() => {
+    if (isSucess) {
+    }
+    if (isError) {
+    }
+    dispatch(reset());
+  }, [isSucess, isError]);
 
   const handleSubmit = () => {
     const Floor = {
@@ -38,8 +48,7 @@ const RegisterFloors = () => {
             <div className="register-employee">
               Register Building Work Units
             </div>
-            {/*    {isLoading && <Spinner />} */}
-
+            {isLoading && <Spinner />}
             <input
               className="firstNameInput"
               type="text"
@@ -58,7 +67,6 @@ const RegisterFloors = () => {
                 setDivison(e.target.value);
               }}
             />
-
             <input
               className="phoneInput"
               type="text"
@@ -113,7 +121,6 @@ const RegisterFloors = () => {
             >
               <div className="text-wrapper-6">Submit</div>
             </div>
-
             {/*             {SuccessMessage ? (
               <div
                 style={{
@@ -130,7 +137,6 @@ const RegisterFloors = () => {
             ) : (
               ''
             )} */}
-
             {/*             {ErrorMessage ? (
               <div
                 style={{
