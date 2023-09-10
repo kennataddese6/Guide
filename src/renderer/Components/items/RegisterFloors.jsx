@@ -4,7 +4,7 @@ import { registerFloor } from 'renderer/features/Floors/floorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/Floors/floorSlice';
 import Spinner from '../Utilities/Spinner';
-import { MdCancel} from 'react-icons/md';
+import { MdCancel, MdCheckCircle} from 'react-icons/md';
 
 const RegisterFloors = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const RegisterFloors = () => {
   const [officeNumber, setOfficeNumber] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
-  const { isLoading, isSucess, isError } = useSelector((state) => state.floor);
+  const { isLoading, isSuccess, isError } = useSelector((state) => state.floor);
   const resetInputs = () => {
     setWorkUnit('');
     setDivison('');
@@ -25,14 +25,14 @@ const RegisterFloors = () => {
   };
 
   useEffect(() => {
-    if (isSucess) {
+    if (isSuccess) {
       setSuccessMessage(true);
     }
     if (isError) {
       setErrorMessage(true);
     }
     dispatch(reset());
-  }, [isSucess, isError]);
+  }, [isSuccess, isError]);
 
   const handleSubmit = () => {
     const Floor = {
@@ -127,7 +127,7 @@ const RegisterFloors = () => {
             >
               <div className="text-wrapper-6">Submit</div>
             </div>
-            {/*             {SuccessMessage ? (
+                      {SuccessMessage ? (
               <div
                 style={{
                   position: 'absolute',
@@ -142,7 +142,7 @@ const RegisterFloors = () => {
               </div>
             ) : (
               ''
-            )} */}
+            )}
             {ErrorMessage ? (
               <div
                 style={{
