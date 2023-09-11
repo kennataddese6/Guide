@@ -68,6 +68,18 @@ export const FloorSlice = createSlice({
       .addCase(registerFloor.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
+      })
+      .addCase(getFloors.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getFloors.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(getFloors.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
       });
   },
 });
