@@ -6,11 +6,12 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
+import { reset } from 'renderer/features/customers/customerSlice';
 const Clients = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
-  const { message } = useSelector((state) => state.customer);
+  const { message, isSuccess } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const [allClients, setAllClients] = useState([]);
 
@@ -23,9 +24,11 @@ const Clients = () => {
     dispatch(getCustomers());
   }, []);
   useEffect(() => {
-    setAllClients(message);
-    console.log(allClients);
-  }, [message]);
+    if (isSuccess) {
+      setAllClients(message);
+    }
+    dispatch(reset());
+  }, [isSuccess]);
 
   const [columnDefs] = useState([
     {
@@ -66,7 +69,7 @@ const Clients = () => {
       <div
         id="myGrid"
         className="ag-theme-alpine"
-        style={{ height: 600, width: '70%', marginLeft: '20%' }}
+        style={{ height: 600, width: '70%', marginLeft: '12%' }}
       >
         <AgGridReact
           ref={ClientTableRef}
