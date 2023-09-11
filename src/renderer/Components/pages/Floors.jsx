@@ -1,6 +1,7 @@
 import SideBar from '../items/SideBar';
 import { useEffect, useState, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getFloors, reset } from 'renderer/features/Floors/floorSlice';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
@@ -9,11 +10,19 @@ import Spinner from '../Utilities/Spinner';
 
 const Floors = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
   const FloorTableRef = useRef();
+  const { user } = useSelector((state) => state.auth);
+
   const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.floor
   );
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
   useEffect(() => {
     dispatch(getFloors());
   }, []);
@@ -64,7 +73,7 @@ const Floors = () => {
       <div
         id="myGrid"
         className="ag-theme-alpine"
-        style={{ height: 600, width: '70%', marginLeft: '20%' }}
+        style={{ height: 600, width: '70%', marginLeft: '12%' }}
       >
         {isLoading && Spinner}
         <AgGridReact
