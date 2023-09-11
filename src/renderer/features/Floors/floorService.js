@@ -13,8 +13,17 @@ const RegisterFloor = async (floor) => {
     throw error;
   }
 };
+const GetFloors = async () => {
+  try {
+    const response = await axios.get(API_URL);
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 const FloorService = {
   RegisterFloor,
+  GetFloors,
 };
 export default FloorService;
