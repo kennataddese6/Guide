@@ -169,6 +169,10 @@ const LobbyDashboard = () => {
 
   return (
     <div className="dashboard">
+      <Navbar
+        TotalClients={clients.length}
+        SentClients={SentCustomers.length}
+      />
       <SideBar index={1} />
       <div className="div-wrapper">
         <RegisterCustomer role="Customer" />
@@ -261,7 +265,6 @@ const LobbyDashboard = () => {
           )}
         </div>
       )}
-      <Navbar TotalClients={clients.length} />
       {!checked ? (
         <div
           className="cards-elevation"
