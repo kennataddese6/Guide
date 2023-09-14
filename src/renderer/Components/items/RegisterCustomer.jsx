@@ -1,29 +1,29 @@
-import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
-import { MdCancel, MdError } from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage } from '../../webSocket';
-
-const RegisterCustomer = ({ role }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [woreda, setWoreda] = useState('');
-  const [subcity, setSubCity] = useState('');
-  const [officeNumber, setOfficeNumber] = useState('');
-  const [department, setDepartment] = useState('');
-  const [floorNumber, setFloorNumber] = useState('');
-  const [elevatorNumber, setEleveatorNumber] = useState('');
+import FormContext from 'renderer/features/hook/FormContext';
+const RegisterCustomer = () => {
+  const { form, setForm } = useContext(FormContext);
+  const [firstName, setFirstName] = useState(form.firstName);
+  const [lastName, setLastName] = useState(form.lastName);
+  const [phoneNumber, setPhoneNumber] = useState(form.phoneNumber);
+  const [woreda, setWoreda] = useState(form.woreda);
+  const [subcity, setSubCity] = useState(form.subcity);
+  const [officeNumber, setOfficeNumber] = useState(form.officeNumber);
+  const [department, setDepartment] = useState(form.department);
+  const [floorNumber, setFloorNumber] = useState(form.floorNumber);
+  const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   //console.log('this is the registered person', role);
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  const { isLoading, isError, isSuccess } = useSelector(
     (state) => state.customer
   );
   const { user } = useSelector((state) => state.auth);
@@ -40,6 +40,30 @@ const RegisterCustomer = ({ role }) => {
     }
     dispatch(reset());
   }, [isSuccess, isError]);
+  useEffect(() => {
+    setForm({
+      ...form,
+      firstName,
+      lastName,
+      phoneNumber,
+      woreda,
+      subcity,
+      officeNumber,
+      department,
+      floorNumber,
+      elevatorNumber,
+    });
+  }, [
+    firstName,
+    lastName,
+    phoneNumber,
+    woreda,
+    subcity,
+    officeNumber,
+    department,
+    floorNumber,
+    elevatorNumber,
+  ]);
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
