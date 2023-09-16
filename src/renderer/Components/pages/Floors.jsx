@@ -12,12 +12,39 @@ const Floors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
+  const [cellStyle, setCellStyle] = useState({});
   const FloorTableRef = useRef();
   const { user } = useSelector((state) => state.auth);
 
   const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.floor
   );
+  const Copy = (event) => {
+    // check if the browser supports the Clipboard API
+    if (!navigator.clipboard) {
+      console.log('Clipboard API not supported');
+      return;
+    }
+
+    // write the cell's value to the clipboard
+    navigator.clipboard
+      .writeText(event.value)
+      .then(function () {
+        console.log('Copied to clipboard');
+
+        // add the 'copied' CSS class to the cell
+        event.cellElement.classList.add('copied');
+
+        // remove the 'copied' CSS class after five seconds
+        setTimeout(function () {
+          event.cellElement.classList.remove('copied');
+        }, 5000);
+      })
+      .catch(function (err) {
+        console.error('Error copying to clipboard', err);
+      });
+  };
+
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -89,6 +116,7 @@ const Floors = () => {
           defaultColDef={defaultColDef}
           suppressExcelExport={true}
           popupParent={popupParent}
+          onCellDoubleClicked={Copy}
           // pagination={true}
           //paginationPageSize={true}
         ></AgGridReact>
