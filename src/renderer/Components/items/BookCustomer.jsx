@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/auth/authSlice';
-import { MdCancel, MdError } from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 const BookCustomer = () => {
   const dispatch = useDispatch();
@@ -13,10 +13,13 @@ const BookCustomer = () => {
   const [woreda, setWoreda] = useState('');
   const [subCity, setSubCity] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [floorNumber, setFloorNumber] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
-  const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, user } = useSelector(
+    (state) => state.auth
+  );
+  const [floorNumber, setFloorNumber] = useState(user.FloorNumber);
+
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
@@ -41,7 +44,6 @@ const BookCustomer = () => {
     const userData = {
       firstName: firstName,
       lastName: lastName,
-      email: email,
       phoneNumber: phoneNumber,
       floorNumber: floorNumber,
     };
@@ -53,7 +55,12 @@ const BookCustomer = () => {
     <>
       <div className="LobbyContainer">
         <div className="frame">
-          <div className="div">
+          <div
+            className="div"
+            style={{
+              height: '700px',
+            }}
+          >
             <div className="register-employee">Book a Customer</div>
             {isLoading && <Spinner />}
 
@@ -99,13 +106,34 @@ const BookCustomer = () => {
                 setPhoneNumber(e.target.value);
               }}
             />
-
+            <input
+              className="phoneInput"
+              type="number"
+              style={{ position: 'absolute', top: '426px', width: '349px' }}
+            />
+            <input
+              className="phoneInput"
+              type="number"
+              style={{ position: 'absolute', top: '510px', width: '349px' }}
+            />
             <div className="text-wrapper">Woreda</div>
             <div className="text-wrapper-7">Subcity</div>
             <div className="text-wrapper-4">First Name</div>
             <div className="text-wrapper-3">Last Name</div>
             <div className="text-wrapper-2">Phone Number</div>
             <div className="text-wrapper-5">Floor Number</div>
+            <div
+              className="text-wrapper-2"
+              style={{ position: 'absolute', top: '382px' }}
+            >
+              Department
+            </div>
+            <div
+              className="text-wrapper-2"
+              style={{ position: 'absolute', top: '470px' }}
+            >
+              Work Unit
+            </div>
             <input
               className="floorNumberInput"
               type="number"
@@ -114,7 +142,10 @@ const BookCustomer = () => {
                 setFloorNumber(e.target.value);
               }}
             />
-            <div className="submitButton">
+            <div
+              className="submitButton"
+              style={{ position: 'absolute', top: '600px' }}
+            >
               <div className="text-wrapper-6">Submit</div>
             </div>
             {SuccessMessage ? (
