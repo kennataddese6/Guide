@@ -7,7 +7,6 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
-
 const Floors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,7 +17,8 @@ const Floors = () => {
   const { isSuccess, isError, message, isLoading } = useSelector(
     (state) => state.floor
   );
-  const Copy = (event) => {
+
+  const Copy = (params) => {
     // check if the browser supports the Clipboard API
     if (!navigator.clipboard) {
       console.log('Clipboard API not supported');
@@ -27,23 +27,24 @@ const Floors = () => {
 
     // write the cell's value to the clipboard
     navigator.clipboard
-      .writeText(event.value)
+      .writeText(params.value)
       .then(function () {
         console.log('Copied to clipboard');
 
         // add the 'copied' CSS class to the cell
-        event.cellElement.classList.add('copied');
+        params.node.setDataValue(params.column, params.value + ' (Copied)');
+        params.api.refreshCells({ force: true });
 
         // remove the 'copied' CSS class after five seconds
         setTimeout(function () {
-          event.cellElement.classList.remove('copied');
+          params.node.setDataValue(params.column, params.value);
+          params.api.refreshCells({ force: true });
         }, 5000);
       })
       .catch(function (err) {
         console.error('Error copying to clipboard', err);
       });
   };
-
   useEffect(() => {
     if (!user) {
       navigate('/');
