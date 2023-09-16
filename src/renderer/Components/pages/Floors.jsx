@@ -12,7 +12,6 @@ const Floors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
-  const [cellStyle, setCellStyle] = useState({});
   const FloorTableRef = useRef();
   const { user } = useSelector((state) => state.auth);
 

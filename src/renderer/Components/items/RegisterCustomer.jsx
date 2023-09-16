@@ -1,5 +1,5 @@
 import '../styles/RegisterCusomer.css';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { MdCheckCircle } from 'react-icons/md';
@@ -22,6 +22,8 @@ const RegisterCustomer = () => {
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const inputRef = useRef(null);
+
   //console.log('this is the registered person', role);
   const { isLoading, isError, isSuccess } = useSelector(
     (state) => state.customer
@@ -112,6 +114,10 @@ const RegisterCustomer = () => {
     sendMessage(composeMessage);
     resetInputs();
   };
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    document.execCommand('paste');
+  };
   return (
     <>
       <div className="dashboard">
@@ -123,7 +129,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-item"
                 type="number"
-                placeholder="Floor Number"
                 required
                 id="floorNumber"
                 value={floorNumber}
@@ -135,7 +140,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-inner"
                 type="text"
-                placeholder="First Name"
                 required
                 id="firstName"
                 value={firstName}
@@ -150,7 +154,6 @@ const RegisterCustomer = () => {
                 <input
                   className="rectangle-input"
                   type="text"
-                  placeholder="Last Name"
                   required
                   id="lastName"
                   value={lastName}
@@ -163,7 +166,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child1"
                 type="tel"
-                placeholder="Phone"
                 required
                 id="phone"
                 value={phoneNumber}
@@ -177,7 +179,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child2"
                 type="text"
-                placeholder="Woreda"
                 required
                 id="woreda"
                 value={woreda}
@@ -191,7 +192,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child3"
                 type="text"
-                placeholder="Subcity"
                 required
                 id="subcity"
                 value={subcity}
@@ -205,14 +205,12 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child4"
                 type="text"
-                placeholder="Provider Name"
                 required
                 id="providerName"
               />
               <input
                 className="frame-child5"
                 type="number"
-                placeholder="Office Number"
                 required
                 id="officeNumber"
                 value={officeNumber}
@@ -232,13 +230,14 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child6"
                 type="text"
-                placeholder="Department"
                 required
                 id="department"
                 value={department}
                 onChange={(e) => {
                   setDepartment(e.target.value);
                 }}
+                ref={inputRef}
+                onContextMenu={handleContextMenu}
               />
               <div className="department">
                 <p className="first-name1">Department</p>
@@ -246,7 +245,6 @@ const RegisterCustomer = () => {
               <input
                 className="frame-child7"
                 type="number"
-                placeholder="Elevator Number"
                 required
                 id="elevatorNumber"
                 value={elevatorNumber}
@@ -257,12 +255,7 @@ const RegisterCustomer = () => {
               <div className="elevator-number">
                 <p className="first-name1">Elevator Number</p>
               </div>
-              <input
-                className="frame-child8"
-                type="text"
-                placeholder="Pre-request"
-                id="pre-request"
-              />
+              <input className="frame-child8" type="text" id="pre-request" />
               <div className="pre-request">
                 <p className="first-name1">Pre-request</p>
               </div>
