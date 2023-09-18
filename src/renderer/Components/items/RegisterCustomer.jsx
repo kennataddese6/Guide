@@ -136,7 +136,7 @@ const RegisterCustomer = () => {
                   setFloorNumber(e.target.value);
                 }}
               />
-              <div className="registration-form"> Registration Form</div>
+              <div className="registration-form"> Register Customer</div>
               <input
                 className="frame-inner"
                 type="text"
