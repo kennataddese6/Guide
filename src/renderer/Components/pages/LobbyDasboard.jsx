@@ -215,7 +215,9 @@ const LobbyDashboard = () => {
           {clients
             ? clients
                 .filter((client) =>
-                  client.Status ? client.Status.postpone === false : true
+                  client.Status
+                    ? client.Status.postpone && client.Booking === false
+                    : true
                 )
                 .map((client) => (
                   <Client
@@ -263,6 +265,19 @@ const LobbyDashboard = () => {
               Server Error !
             </h4>
           )}
+          {clients
+            ? clients
+                .filter((client) => (client ? client.Booking === true : false))
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragStart={handleDragStart}
+                    handleDragOver={handleDragOver}
+                    handleDropOnWaitingClients={handleDropOnWaitingClients}
+                  />
+                ))
+            : ''}
         </div>
       )}
       {!checked ? (
