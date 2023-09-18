@@ -1,9 +1,9 @@
 import '../styles/RegisterLobby.css';
-import { register } from '../../features/auth/authSlice';
+import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
-import { reset } from '../../features/auth/authSlice';
+import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 const BookCustomer = () => {
@@ -11,21 +11,26 @@ const BookCustomer = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [woreda, setWoreda] = useState('');
-  const [subCity, setSubCity] = useState('');
+  const [subcity, setSubCity] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [department, setDepartment] = useState('');
+  const [officeNumber, setOfficeNumber] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
-  const { isLoading, isError, isSuccess, user } = useSelector(
-    (state) => state.auth
+  const { user } = useSelector((state) => state.auth);
+  const { isSuccess, isLoading, isError } = useSelector(
+    (state) => state.customer
   );
-  const [floorNumber, setFloorNumber] = useState(user.FloorNumber);
+  const [floorNumber, setFloorNumber] = useState(user ? user.FloorNumber : '');
 
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
     setWoreda('');
     setPhoneNumber('');
-    setFloorNumber('');
+    setSubCity('');
+    setDepartment('');
+    setOfficeNumber('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -46,8 +51,13 @@ const BookCustomer = () => {
       lastName: lastName,
       phoneNumber: phoneNumber,
       floorNumber: floorNumber,
+      woreda: woreda,
+      subcity: subcity,
+      department: department,
+      officeNumber: officeNumber,
+      booking: true,
     };
-    console.log('This is the user data', userData);
+    dispatch(registerCustomer(userData));
     resetInputs();
   };
 
@@ -61,8 +71,8 @@ const BookCustomer = () => {
               height: '700px',
             }}
           >
-            <div className="register-employee">Book a Customer</div>
             {isLoading && <Spinner />}
+            <div className="register-employee">Book a Customer</div>
 
             <input
               className="firstNameInput"
@@ -93,7 +103,7 @@ const BookCustomer = () => {
             <input
               className="subcityInput"
               type="text"
-              value={subCity}
+              value={subcity}
               onChange={(e) => {
                 setSubCity(e.target.value);
               }}
@@ -108,13 +118,20 @@ const BookCustomer = () => {
             />
             <input
               className="phoneInput"
-              type="number"
               style={{ position: 'absolute', top: '426px', width: '349px' }}
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+              }}
             />
             <input
               className="phoneInput"
               type="number"
-              style={{ position: 'absolute', top: '510px', width: '349px' }}
+              style={{ position: 'absolute', top: '510px' }}
+              value={officeNumber}
+              onChange={(e) => {
+                setOfficeNumber(e.target.value);
+              }}
             />
             <div className="text-wrapper">Woreda</div>
             <div className="text-wrapper-7">Subcity</div>
@@ -132,7 +149,7 @@ const BookCustomer = () => {
               className="text-wrapper-2"
               style={{ position: 'absolute', top: '470px' }}
             >
-              Work Unit
+              Office Number
             </div>
             <input
               className="floorNumberInput"
@@ -145,6 +162,7 @@ const BookCustomer = () => {
             <div
               className="submitButton"
               style={{ position: 'absolute', top: '600px' }}
+              onClick={handleSubmit}
             >
               <div className="text-wrapper-6">Submit</div>
             </div>
@@ -152,7 +170,7 @@ const BookCustomer = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '85%',
+                  top: '91%',
                   color: 'green',
                   display: 'flex',
                   alignItems: 'center',
@@ -169,7 +187,7 @@ const BookCustomer = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '85%',
+                  top: '91%',
                   color: 'red',
                   display: 'flex',
                   alignItems: 'center',
