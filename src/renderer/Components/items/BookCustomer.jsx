@@ -1,6 +1,7 @@
 import '../styles/RegisterLobby.css';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
@@ -8,6 +9,7 @@ import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 const BookCustomer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [woreda, setWoreda] = useState('');
@@ -60,7 +62,11 @@ const BookCustomer = () => {
     dispatch(registerCustomer(userData));
     resetInputs();
   };
-
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
   return (
     <>
       <div className="LobbyContainer">
