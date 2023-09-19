@@ -90,8 +90,8 @@ const RegisterCustomer = () => {
       department: department,
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
+      booking: false,
     };
-    console.log(customerData);
     dispatch(registerCustomer(customerData));
     const composedMessage = {
       content:
