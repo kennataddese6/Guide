@@ -267,8 +267,15 @@ const FloorConversations = ({ floorNumber, setReload }) => {
             ) : FloorCustomer.Status.postpone ? (
               <p className="ArcustomerContent">
                 Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
-                {new Date(FloorCustomer.Status.date).getHours()}:
-                {new Date(FloorCustomer.Status.date).getMinutes()}.
+                {new Date(FloorCustomer.Status.date)
+                  .getHours()
+                  .toString()
+                  .padStart(2, '0')}
+                :
+                {new Date(FloorCustomer.Status.date)
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}
               </p>
             ) : null}
             {FloorCustomer.Sent ? (
