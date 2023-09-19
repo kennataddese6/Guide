@@ -154,6 +154,7 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     dispatch(updateLatestMessage(composedMessage));
     setPostPoneClient(false);
     setPostPoneDate(new Date());
+    setReload(true);
   };
   return (
     <>
