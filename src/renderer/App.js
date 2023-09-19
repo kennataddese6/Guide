@@ -12,6 +12,7 @@ import Clients from './Components/pages/Clients';
 import Floors from './Components/pages/Floors';
 import Booking from './Components/pages/Booking';
 import FormProvider from './features/hook/FormProvider';
+import FloorClients from './Components/pages/FloorClients';
 export default function App() {
   return (
     <Router>
@@ -31,6 +32,8 @@ export default function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/FloorClients" element={<FloorClients />} />
+
         <Route
           path="/Floors"
           element={
