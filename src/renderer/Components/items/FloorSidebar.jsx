@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
+import {  FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
-import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +27,9 @@ const FloorSideBar = ({ index }) => {
   };
   const toBooking = () => {
     navigate('/Booking');
+  };
+  const toFloorClients = () => {
+    navigate('/FloorClients');
   };
   return (
     <div className="dashboard">
@@ -118,9 +120,17 @@ const FloorSideBar = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="navigation-elements-7">
-            <FaUsers className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Clients</div>
+          <div
+            className="navigation-elements-7"
+            style={{ backgroundColor: SideBarIndex === 4 ? 'gold' : '' }}
+            onClick={() => {
+              toFloorClients();
+            }}
+          >
+            <div className="overlap-group">
+              <FaUsers className="icon-action" style={{ color: 'black' }} />
+              <div className="text-wrapper-4">Clients</div>
+            </div>
           </div>
           <div className="navigation-elements-8">
             <IoIosNotifications
