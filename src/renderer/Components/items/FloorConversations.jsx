@@ -8,7 +8,7 @@ import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 import { DatePicker } from 'react-rainbow-components';
-const FloorConversations = ({ floorNumber, reload, setReload }) => {
+const FloorConversations = ({ floorNumber, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -114,7 +114,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     }
   }
 
-  ws.addEventListener('message', function (event) {
+  ws.addEventListener('message', function () {
     setIncomingMessage(true);
   });
   useEffect(() => {
@@ -177,10 +177,21 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
             </h3>
-            <p className="customerContent">
-              Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
-              wants to come to {FloorCustomer.Department}. Shall I send him?
-            </p>
+            {FloorCustomer.Booking ? (
+              <p className="customerContent">
+                {' '}
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '} will be visiting{' '}
+                {FloorCustomer.Department}. Please Let him in when here arrives.
+              </p>
+            ) : (
+              <p className="customerContent">
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '}
+                wants to come to {FloorCustomer.Department}. Shall I send him?
+              </p>
+            )}
+
             {FloorCustomer.Waiting &&
             !FloorCustomer.Accepted &&
             postponeClient &&
@@ -220,7 +231,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                   Cancel{' '}
                 </button>
               </div>
-            ) : FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
+            ) : FloorCustomer.Waiting &&
+              !FloorCustomer.Accepted &&
+              !FloorCustomer.Booking ? (
               <div className="buttonHolder">
                 <button
                   className="acceptCusotmer"
