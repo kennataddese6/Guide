@@ -216,7 +216,8 @@ const LobbyDashboard = () => {
             ? clients
                 .filter((client) =>
                   client.Status
-                    ? client.Status.postpone && client.Booking === false
+                    ? client.Status.postpone === false &&
+                      client.Booking === false
                     : true
                 )
                 .map((client) => (
