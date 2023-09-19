@@ -7,7 +7,7 @@ import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
-import { DatePicker } from 'react-rainbow-components';
+import { DateTimePicker } from 'react-rainbow-components';
 const FloorConversations = ({ floorNumber, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -198,8 +198,8 @@ const FloorConversations = ({ floorNumber, setReload }) => {
             postponeClient &&
             FloorCustomer._id === clickedCardId ? (
               <div className="buttonHolder">
-                <DatePicker
-                  id="datePicker-1"
+                <DateTimePicker
+                  id="dateTimePicker-1"
                   formatStyle="small"
                   value={postPoneDate}
                   onChange={(date) => {
