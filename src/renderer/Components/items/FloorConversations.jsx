@@ -91,7 +91,10 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     const oneWeekFromNow = new Date(
       currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
     );
-    if (inputDate > currentDate && inputDate < oneWeekFromNow) {
+
+    if (inputDate.toDateString() === currentDate.toDateString()) {
+      return 'Today';
+    } else if (inputDate > currentDate && inputDate < oneWeekFromNow) {
       if (inputDate.getDate() === tomorrow.getDate()) {
         return 'Tomorrow';
       } else {
@@ -263,7 +266,9 @@ const FloorConversations = ({ floorNumber, setReload }) => {
               <p className="ArcustomerContent">Accepted</p>
             ) : FloorCustomer.Status.postpone ? (
               <p className="ArcustomerContent">
-                Scheduled to {formatday(FloorCustomer.Status.date)}
+                Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
+                {new Date(FloorCustomer.Status.date).getHours()}:
+                {new Date(FloorCustomer.Status.date).getMinutes()}.
               </p>
             ) : null}
             {FloorCustomer.Sent ? (
