@@ -132,7 +132,9 @@ const Conversations = ({ floorNumber }) => {
               <p className="ArcustomerContent"> Arrived</p>
             ) : FloorCustomer.Status && FloorCustomer.Status.postpone ? (
               <p className="ArcustomerContent">
-                Scheduled to {formatday(FloorCustomer.Status.date)}
+                Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
+                {new Date(FloorCustomer.Status.date).getHours()}:
+                {new Date(FloorCustomer.Status.date).getMinutes()}.
               </p>
             ) : (
               ''
