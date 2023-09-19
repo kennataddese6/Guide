@@ -8,9 +8,11 @@ import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
+import useRefresh from 'renderer/features/hook/useRefresh';
 const BookCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setRefresh } = useRefresh();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [woreda, setWoreda] = useState('');
@@ -62,10 +64,12 @@ const BookCustomer = () => {
     };
     dispatch(registerCustomer(userData));
     const composedMessage = {
-      content: `Customer  ${firstName} ${lastName} will be visiting ${department}. Please Let him in When he arrives`,
+      content: `Mr  ${firstName} ${lastName} will be visiting ${department}. Please Let him in When he arrives`,
       to: user ? user.FloorNumber : '',
     };
     dispatch(updateLatestMessage(composedMessage));
+    setRefresh(true);
+
     resetInputs();
   };
   useEffect(() => {
