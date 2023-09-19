@@ -232,7 +232,10 @@ const LobbyDashboard = () => {
             : ''}
         </div>
       ) : (
-        <div className="overlap-2">
+        <div
+          className="overlap-2"
+          onDragStart={(event) => event.preventDefault()}
+        >
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'start' }}>
               <FiSearch />
@@ -269,15 +272,7 @@ const LobbyDashboard = () => {
           {clients
             ? clients
                 .filter((client) => (client ? client.Booking === true : false))
-                .map((client) => (
-                  <Client
-                    key={client.id}
-                    client={client}
-                    handleDragStart={handleDragStart}
-                    handleDragOver={handleDragOver}
-                    handleDropOnWaitingClients={handleDropOnWaitingClients}
-                  />
-                ))
+                .map((client) => <Client key={client.id} client={client} />)
             : ''}
         </div>
       )}
