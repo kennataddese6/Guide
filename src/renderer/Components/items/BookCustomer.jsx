@@ -7,6 +7,7 @@ import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
+import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 const BookCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,6 +61,11 @@ const BookCustomer = () => {
       booking: true,
     };
     dispatch(registerCustomer(userData));
+    const composedMessage = {
+      content: `Customer  ${firstName} ${lastName} will be visiting ${department}. Please Let him in When he arrives`,
+      to: user ? user.FloorNumber : '',
+    };
+    dispatch(updateLatestMessage(composedMessage));
     resetInputs();
   };
   useEffect(() => {
