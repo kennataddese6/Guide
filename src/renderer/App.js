@@ -30,7 +30,10 @@ export default function App() {
           }
         />
         <Route path="/Messages" element={<Messages online={online} />} />
-        <Route path="/FloorDashboard" element={<FloorDashboard />} />
+        <Route
+          path="/FloorDashboard"
+          element={<FloorDashboard online={online} />}
+        />
         <Route path="/FloorMessages" element={<FloorMessages />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients online={online} />} />
