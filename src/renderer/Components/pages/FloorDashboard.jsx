@@ -4,13 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import '../styles/floorDashboard.css';
+import Switch from 'react-switch';
+import { FiSearch } from 'react-icons/fi';
 
 const FloorDashboard = ({ online }) => {
   const navigate = useNavigate();
   const dipatch = useDispatch();
   const [clients, setClients] = useState([]);
+  const [checked, setChecked] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
+
+  function handleChange(checked) {
+    setChecked(checked);
+  }
 
   useEffect(() => {
     if (!user) {
@@ -43,7 +50,23 @@ const FloorDashboard = ({ online }) => {
       <FloorSideBar index={1} online={online} />
       <div className="firstFrame">
         <div className="frameHeader">
+          <div className='searchContainer'>
+            <FiSearch />
+          </div>
           <h3 className="headerText"> Waiting Clients</h3>
+          <div className="toggleBar">
+            {' '}
+            <Switch
+              onChange={handleChange}
+              checked={checked}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={20}
+              width={40}
+              onColor="#c737a1"
+              offColor="#FFD700"
+            />
+          </div>
         </div>
         {clients
           ? clients
