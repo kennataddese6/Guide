@@ -51,7 +51,7 @@ export default function App() {
             </FormProvider>
           }
         />
-        <Route path="/Booking" element={<Booking />} />
+        <Route path="/Booking" element={<Booking online={online} />} />
       </Routes>
     </Router>
   );
