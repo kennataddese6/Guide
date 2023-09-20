@@ -41,7 +41,7 @@ export default function App() {
           path="/Floors"
           element={
             <FormProvider>
-              <Floors />
+              <Floors online={online} />
             </FormProvider>
           }
         />
