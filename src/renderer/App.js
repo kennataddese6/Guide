@@ -13,7 +13,10 @@ import Floors from './Components/pages/Floors';
 import Booking from './Components/pages/Booking';
 import FormProvider from './features/hook/FormProvider';
 import FloorClients from './Components/pages/FloorClients';
+import { useWebSocket } from './features/hook/useWebSocket';
 export default function App() {
+  const online = useWebSocket('ws://localhost:5000');
+
   return (
     <Router>
       <Routes>
@@ -22,7 +25,7 @@ export default function App() {
           path="/LobbyDasboard"
           element={
             <FormProvider>
-              <LobbyDashboard />
+              <LobbyDashboard online={online} />
             </FormProvider>
           }
         />
