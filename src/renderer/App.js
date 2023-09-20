@@ -29,7 +29,7 @@ export default function App() {
             </FormProvider>
           }
         />
-        <Route path="/Messages" element={<Messages />} />
+        <Route path="/Messages" element={<Messages online={online} />} />
         <Route path="/FloorDashboard" element={<FloorDashboard />} />
         <Route path="/FloorMessages" element={<FloorMessages />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
