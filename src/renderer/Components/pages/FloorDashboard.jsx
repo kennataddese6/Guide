@@ -1,15 +1,12 @@
-import { logout } from 'renderer/features/auth/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
-const FloorDashboard = ({online}) => {
-  const dispatch = useDispatch();
+import '../styles/floorDashboard.css';
+const FloorDashboard = ({ online }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const tologout = () => {
-    dispatch(logout());
-  };
+
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -32,13 +29,17 @@ const FloorDashboard = ({online}) => {
   }, []);
   return (
     <>
-      <FloorSideBar index={1} online = {online} />
-      <div
-        onClick={() => {
-          tologout();
-        }}
-      >
-        <h1> This is Floor Receptionist Dashobard</h1>
+      <FloorSideBar index={1} online={online} />
+      <div className="firstFrame">
+        <div className="frameHeader">
+          <h3 className="headerText"> Waiting Clients</h3>
+        </div>
+        <div className="clientsList"></div>
+      </div>
+      <div className="secondFrame">
+        <div className="frameHeader">
+          <h3 className="headerText"> Incoming Clients</h3>
+        </div>
       </div>
     </>
   );
