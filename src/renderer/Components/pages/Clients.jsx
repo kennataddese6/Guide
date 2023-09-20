@@ -7,7 +7,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
 import { reset } from 'renderer/features/customers/customerSlice';
-const Clients = () => {
+const Clients = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
@@ -65,7 +65,7 @@ const Clients = () => {
   return (
     <>
       {' '}
-      <SideBar index={4} />
+      <SideBar index={4} online={online} />
       <div
         id="myGrid"
         className="ag-theme-alpine"
