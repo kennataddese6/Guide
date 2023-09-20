@@ -4,11 +4,10 @@ import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
-const SideBar = ({ index }) => {
+const SideBar = ({ index, online }) => {
   const SideBarIndex = index;
-  const online = useWebSocket('ws://localhost:5000');
+  const onLine = online;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -53,7 +52,7 @@ const SideBar = ({ index }) => {
               </div>
               <div
                 className="status-circle"
-                style={{ backgroundColor: online ? 'green' : 'grey' }}
+                style={{ backgroundColor: onLine ? 'green' : 'grey' }}
               ></div>
               <div className="divider-2" />
               <div className="icon-navigation" onClick={toLogin}>
