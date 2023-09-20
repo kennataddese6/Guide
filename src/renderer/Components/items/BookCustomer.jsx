@@ -1,27 +1,41 @@
 import '../styles/RegisterLobby.css';
-import { register } from '../../features/auth/authSlice';
+import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
-import { reset } from '../../features/auth/authSlice';
-import { MdCancel} from 'react-icons/md';
+import { reset } from '../../features/customers/customerSlice';
+import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
-const RegisterLobby = () => {
+import { updateLatestMessage } from 'renderer/features/auth/authSlice';
+import useRefresh from 'renderer/features/hook/useRefresh';
+const BookCustomer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { setRefresh } = useRefresh();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [woreda, setWoreda] = useState('');
+  const [subcity, setSubCity] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [floorNumber, setFloorNumber] = useState('');
+  const [department, setDepartment] = useState('');
+  const [officeNumber, setOfficeNumber] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
-  const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
+  const { isSuccess, isLoading, isError } = useSelector(
+    (state) => state.customer
+  );
+  const [floorNumber, setFloorNumber] = useState(user ? user.FloorNumber : '');
+
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
-    setEmail('');
+    setWoreda('');
     setPhoneNumber('');
-    setFloorNumber('');
+    setSubCity('');
+    setDepartment('');
+    setOfficeNumber('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -40,21 +54,41 @@ const RegisterLobby = () => {
     const userData = {
       firstName: firstName,
       lastName: lastName,
-      email: email,
       phoneNumber: phoneNumber,
       floorNumber: floorNumber,
+      woreda: woreda,
+      subcity: subcity,
+      department: department,
+      officeNumber: officeNumber,
+      booking: true,
     };
-    dispatch(register(userData));
+    dispatch(registerCustomer(userData));
+    const composedMessage = {
+      content: `Mr  ${firstName} ${lastName} will be visiting ${department}. Please Let him in When he arrives`,
+      to: user ? user.FloorNumber : '',
+    };
+    dispatch(updateLatestMessage(composedMessage));
+    setRefresh(true);
+
     resetInputs();
   };
-
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
   return (
     <>
       <div className="LobbyContainer">
         <div className="frame">
-          <div className="div">
-            <div className="register-employee">Register Employee</div>
+          <div
+            className="div"
+            style={{
+              height: '700px',
+            }}
+          >
             {isLoading && <Spinner />}
+            <div className="register-employee">Book a Customer</div>
 
             <input
               className="firstNameInput"
@@ -75,14 +109,21 @@ const RegisterLobby = () => {
               />
             </div>
             <input
-              className="emailInput"
+              className="woredaInput"
               type="text"
-              value={email}
+              value={woreda}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setWoreda(e.target.value);
               }}
             />
-
+            <input
+              className="subcityInput"
+              type="text"
+              value={subcity}
+              onChange={(e) => {
+                setSubCity(e.target.value);
+              }}
+            />
             <input
               className="phoneInput"
               type="number"
@@ -91,12 +132,41 @@ const RegisterLobby = () => {
                 setPhoneNumber(e.target.value);
               }}
             />
-
-            <div className="text-wrapper">Email</div>
+            <input
+              className="phoneInput"
+              style={{ position: 'absolute', top: '426px', width: '349px' }}
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+              }}
+            />
+            <input
+              className="phoneInput"
+              type="number"
+              style={{ position: 'absolute', top: '510px' }}
+              value={officeNumber}
+              onChange={(e) => {
+                setOfficeNumber(e.target.value);
+              }}
+            />
+            <div className="text-wrapper">Woreda</div>
+            <div className="text-wrapper-7">Subcity</div>
             <div className="text-wrapper-4">First Name</div>
             <div className="text-wrapper-3">Last Name</div>
             <div className="text-wrapper-2">Phone Number</div>
             <div className="text-wrapper-5">Floor Number</div>
+            <div
+              className="text-wrapper-2"
+              style={{ position: 'absolute', top: '382px' }}
+            >
+              Department
+            </div>
+            <div
+              className="text-wrapper-2"
+              style={{ position: 'absolute', top: '470px' }}
+            >
+              Office Number
+            </div>
             <input
               className="floorNumberInput"
               type="number"
@@ -105,14 +175,18 @@ const RegisterLobby = () => {
                 setFloorNumber(e.target.value);
               }}
             />
-            <div className="submitButton" onClick={handleSubmit}>
+            <div
+              className="submitButton"
+              style={{ position: 'absolute', top: '600px' }}
+              onClick={handleSubmit}
+            >
               <div className="text-wrapper-6">Submit</div>
             </div>
             {SuccessMessage ? (
               <div
                 style={{
                   position: 'absolute',
-                  top: '85%',
+                  top: '91%',
                   color: 'green',
                   display: 'flex',
                   alignItems: 'center',
@@ -129,7 +203,7 @@ const RegisterLobby = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '85%',
+                  top: '91%',
                   color: 'red',
                   display: 'flex',
                   alignItems: 'center',
@@ -147,5 +221,4 @@ const RegisterLobby = () => {
     </>
   );
 };
-
-export default RegisterLobby;
+export default BookCustomer;

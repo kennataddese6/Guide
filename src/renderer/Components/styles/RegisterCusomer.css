@@ -1,7 +1,6 @@
 .frame-child,
 .frame-item {
   position: absolute;
-  top: 0;
   left: 0;
   background-color: var(--color-gainsboro);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -321,6 +320,7 @@
 }
 .rectangle-parent {
   position: relative;
+  top: 10%;
   background-color: var(--color-white);
   width: 720px;
   height: 670px;
@@ -347,6 +347,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: gold;
+  background-color: purple;
+  color: white;
   top: 400px;
 }

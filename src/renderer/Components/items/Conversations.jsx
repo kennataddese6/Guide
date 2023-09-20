@@ -4,13 +4,14 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
-import { sendMessage, ws } from 'renderer/webSocket';
+import { ws } from 'renderer/webSocket';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
-  const { isSuccess, message, isErrorGetCusomers, isLoadingGetCustomers } =
-    useSelector((state) => state.customer);
+  const { message, isErrorGetCusomers, isLoadingGetCustomers } = useSelector(
+    (state) => state.customer
+  );
 
   const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ const Conversations = ({ floorNumber }) => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
+  ws.addEventListener('message', function () {
     setIncomingMessage(true);
   });
 
@@ -99,10 +100,20 @@ const Conversations = ({ floorNumber }) => {
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
             </p>
-            <p className="customerContent">
-              Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
-              wants to come to {FloorCustomer.Department}. Shall I send him?
-            </p>
+            {FloorCustomer.Booking ? (
+              <p className="customerContent">
+                {' '}
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '} will be visiting{' '}
+                {FloorCustomer.Department}. Please Let him in when here arrives.
+              </p>
+            ) : (
+              <p className="customerContent">
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '}
+                wants to come to {FloorCustomer.Department}. Shall I send him?
+              </p>
+            )}
             {FloorCustomer.Accepted ? (
               <p className="ArcustomerContent"> Yes. Let him come</p>
             ) : (
@@ -121,18 +132,20 @@ const Conversations = ({ floorNumber }) => {
               <p className="ArcustomerContent"> Arrived</p>
             ) : FloorCustomer.Status && FloorCustomer.Status.postpone ? (
               <p className="ArcustomerContent">
-                Scheduled to {formatday(FloorCustomer.Status.date)}
+                Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
+                {new Date(FloorCustomer.Status.date)
+                  .getHours()
+                  .toString()
+                  .padStart(2, '0')}
+                :
+                {new Date(FloorCustomer.Status.date)
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}
               </p>
             ) : (
               ''
             )}
-            {/*             <p className="customerContent">
-              {' '}
-              I have sent {FloorCustomer.FirstName + ' '}{' '}
-              {FloorCustomer.LastName}
-            </p>
-            <p className="rcustomerContent"> He has arrived</p>
-            <p className="customerContent"> Remarks:</p> */}
             <p className="rcustomerTime">
               {formatDate(FloorCustomer.updatedAt)}
             </p>

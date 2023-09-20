@@ -7,8 +7,8 @@ import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
-import { DatePicker } from 'react-rainbow-components';
-const FloorConversations = ({ floorNumber, reload, setReload }) => {
+import { DateTimePicker } from 'react-rainbow-components';
+const FloorConversations = ({ floorNumber, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -91,7 +91,10 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     const oneWeekFromNow = new Date(
       currentDate.getTime() + 7 * 24 * 60 * 60 * 1000
     );
-    if (inputDate > currentDate && inputDate < oneWeekFromNow) {
+
+    if (inputDate.toDateString() === currentDate.toDateString()) {
+      return 'Today';
+    } else if (inputDate > currentDate && inputDate < oneWeekFromNow) {
       if (inputDate.getDate() === tomorrow.getDate()) {
         return 'Tomorrow';
       } else {
@@ -114,7 +117,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     }
   }
 
-  ws.addEventListener('message', function (event) {
+  ws.addEventListener('message', function () {
     setIncomingMessage(true);
   });
   useEffect(() => {
@@ -154,6 +157,7 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
     dispatch(updateLatestMessage(composedMessage));
     setPostPoneClient(false);
     setPostPoneDate(new Date());
+    setReload(true);
   };
   return (
     <>
@@ -177,17 +181,28 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
             </h3>
-            <p className="customerContent">
-              Mr {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
-              wants to come to {FloorCustomer.Department}. Shall I send him?
-            </p>
+            {FloorCustomer.Booking ? (
+              <p className="customerContent">
+                {' '}
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '} will be visiting{' '}
+                {FloorCustomer.Department}. Please Let him in when here arrives.
+              </p>
+            ) : (
+              <p className="customerContent">
+                Mr {FloorCustomer.FirstName + ' '}{' '}
+                {FloorCustomer.LastName + ' '}
+                wants to come to {FloorCustomer.Department}. Shall I send him?
+              </p>
+            )}
+
             {FloorCustomer.Waiting &&
             !FloorCustomer.Accepted &&
             postponeClient &&
             FloorCustomer._id === clickedCardId ? (
               <div className="buttonHolder">
-                <DatePicker
-                  id="datePicker-1"
+                <DateTimePicker
+                  id="dateTimePicker-1"
                   formatStyle="small"
                   value={postPoneDate}
                   onChange={(date) => {
@@ -220,7 +235,9 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
                   Cancel{' '}
                 </button>
               </div>
-            ) : FloorCustomer.Waiting && !FloorCustomer.Accepted ? (
+            ) : FloorCustomer.Waiting &&
+              !FloorCustomer.Accepted &&
+              !FloorCustomer.Booking ? (
               <div className="buttonHolder">
                 <button
                   className="acceptCusotmer"
@@ -249,7 +266,16 @@ const FloorConversations = ({ floorNumber, reload, setReload }) => {
               <p className="ArcustomerContent">Accepted</p>
             ) : FloorCustomer.Status.postpone ? (
               <p className="ArcustomerContent">
-                Scheduled to {formatday(FloorCustomer.Status.date)}
+                Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
+                {new Date(FloorCustomer.Status.date)
+                  .getHours()
+                  .toString()
+                  .padStart(2, '0')}
+                :
+                {new Date(FloorCustomer.Status.date)
+                  .getMinutes()
+                  .toString()
+                  .padStart(2, '0')}
               </p>
             ) : null}
             {FloorCustomer.Sent ? (

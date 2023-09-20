@@ -1,29 +1,31 @@
-import SideBar from './SideBar';
 import '../styles/RegisterCusomer.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
-import { MdCancel, MdError } from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage } from '../../webSocket';
-
-const RegisterCustomer = ({ role }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [woreda, setWoreda] = useState('');
-  const [subcity, setSubCity] = useState('');
-  const [officeNumber, setOfficeNumber] = useState('');
-  const [department, setDepartment] = useState('');
-  const [floorNumber, setFloorNumber] = useState('');
-  const [elevatorNumber, setEleveatorNumber] = useState('');
+import FormContext from 'renderer/features/hook/FormContext';
+const RegisterCustomer = () => {
+  const { form, setForm } = useContext(FormContext);
+  const [firstName, setFirstName] = useState(form.firstName);
+  const [lastName, setLastName] = useState(form.lastName);
+  const [phoneNumber, setPhoneNumber] = useState(form.phoneNumber);
+  const [woreda, setWoreda] = useState(form.woreda);
+  const [subcity, setSubCity] = useState(form.subcity);
+  const [officeNumber, setOfficeNumber] = useState(form.officeNumber);
+  const [department, setDepartment] = useState(form.department);
+  const [floorNumber, setFloorNumber] = useState(form.floorNumber);
+  const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const inputRef = useRef(null);
+
   //console.log('this is the registered person', role);
-  const { isLoading, isError, isSuccess, message } = useSelector(
+  const { isLoading, isError, isSuccess } = useSelector(
     (state) => state.customer
   );
   const { user } = useSelector((state) => state.auth);
@@ -40,6 +42,30 @@ const RegisterCustomer = ({ role }) => {
     }
     dispatch(reset());
   }, [isSuccess, isError]);
+  useEffect(() => {
+    setForm({
+      ...form,
+      firstName,
+      lastName,
+      phoneNumber,
+      woreda,
+      subcity,
+      officeNumber,
+      department,
+      floorNumber,
+      elevatorNumber,
+    });
+  }, [
+    firstName,
+    lastName,
+    phoneNumber,
+    woreda,
+    subcity,
+    officeNumber,
+    department,
+    floorNumber,
+    elevatorNumber,
+  ]);
   const resetInputs = () => {
     setFirstName('');
     setLastName('');
@@ -64,8 +90,8 @@ const RegisterCustomer = ({ role }) => {
       department: department,
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
+      booking: false,
     };
-    console.log(customerData);
     dispatch(registerCustomer(customerData));
     const composedMessage = {
       content:
@@ -88,6 +114,10 @@ const RegisterCustomer = ({ role }) => {
     sendMessage(composeMessage);
     resetInputs();
   };
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    document.execCommand('paste');
+  };
   return (
     <>
       <div className="dashboard">
@@ -99,7 +129,6 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-item"
                 type="number"
-                placeholder="Floor Number"
                 required
                 id="floorNumber"
                 value={floorNumber}
@@ -107,11 +136,10 @@ const RegisterCustomer = ({ role }) => {
                   setFloorNumber(e.target.value);
                 }}
               />
-              <div className="registration-form"> Registration Form</div>
+              <div className="registration-form"> Register Customer</div>
               <input
                 className="frame-inner"
                 type="text"
-                placeholder="First Name"
                 required
                 id="firstName"
                 value={firstName}
@@ -126,7 +154,6 @@ const RegisterCustomer = ({ role }) => {
                 <input
                   className="rectangle-input"
                   type="text"
-                  placeholder="Last Name"
                   required
                   id="lastName"
                   value={lastName}
@@ -139,7 +166,6 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child1"
                 type="tel"
-                placeholder="Phone"
                 required
                 id="phone"
                 value={phoneNumber}
@@ -153,7 +179,6 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child2"
                 type="text"
-                placeholder="Woreda"
                 required
                 id="woreda"
                 value={woreda}
@@ -167,7 +192,6 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child3"
                 type="text"
-                placeholder="Subcity"
                 required
                 id="subcity"
                 value={subcity}
@@ -181,14 +205,12 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child4"
                 type="text"
-                placeholder="Provider Name"
                 required
                 id="providerName"
               />
               <input
                 className="frame-child5"
                 type="number"
-                placeholder="Office Number"
                 required
                 id="officeNumber"
                 value={officeNumber}
@@ -208,13 +230,14 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child6"
                 type="text"
-                placeholder="Department"
                 required
                 id="department"
                 value={department}
                 onChange={(e) => {
                   setDepartment(e.target.value);
                 }}
+                ref={inputRef}
+                onContextMenu={handleContextMenu}
               />
               <div className="department">
                 <p className="first-name1">Department</p>
@@ -222,7 +245,6 @@ const RegisterCustomer = ({ role }) => {
               <input
                 className="frame-child7"
                 type="number"
-                placeholder="Elevator Number"
                 required
                 id="elevatorNumber"
                 value={elevatorNumber}
@@ -233,12 +255,7 @@ const RegisterCustomer = ({ role }) => {
               <div className="elevator-number">
                 <p className="first-name1">Elevator Number</p>
               </div>
-              <input
-                className="frame-child8"
-                type="text"
-                placeholder="Pre-request"
-                id="pre-request"
-              />
+              <input className="frame-child8" type="text" id="pre-request" />
               <div className="pre-request">
                 <p className="first-name1">Pre-request</p>
               </div>

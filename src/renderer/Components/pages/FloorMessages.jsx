@@ -1,13 +1,11 @@
 import moment from 'moment';
-import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
-import FloorReceptionists from '../items/FloorReceptionists';
 import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
-import { sendMessage, ws } from 'renderer/webSocket';
+import {  ws } from 'renderer/webSocket';
 
 const FloorMessages = () => {
   const dispatch = useDispatch();
@@ -51,7 +49,7 @@ const FloorMessages = () => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function (event) {
+   ws.addEventListener('message', function () {
     setIncomingMessage(true)
   });
   useEffect(()=>{

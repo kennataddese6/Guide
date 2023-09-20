@@ -9,7 +9,9 @@ const Client = ({
 }) => {
   const fullName = client.FirstName + ' ' + client.LastName;
   const { color, isLightColor } = useColorAndBrightness(fullName);
-
+  function trimString(string) {
+    return string.length > 32 ? string.substring(0, 32) + '...' : string;
+  }
   return (
     <div
       className="comments-elements"
@@ -40,7 +42,7 @@ const Client = ({
           {client.FirstName + ' '} {client.LastName}
         </p>
         <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-          {client.Department}
+          {trimString(client.Department)}
         </p>
       </div>
       <FiMoreVertical className="icon-navigation-more" />
