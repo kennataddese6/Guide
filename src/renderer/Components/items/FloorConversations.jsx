@@ -282,7 +282,8 @@ const FloorConversations = ({ floorNumber, setReload }) => {
               <p className="customerContent">
                 {' '}
                 I have sent {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName}
+                {FloorCustomer.LastName} on Elevator{' '}
+                {FloorCustomer.ElevatorNumber}
               </p>
             ) : (
               ''
