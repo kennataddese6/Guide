@@ -5,8 +5,10 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { useNavigate } from 'react-router-dom';
 const FloorClients = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { message } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const ClientTableRef = useRef();
@@ -14,6 +16,12 @@ const FloorClients = () => {
   useEffect(() => {
     dispatch(getFloorCustomers(user ? user.FloorNumber : ''));
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user]);
   useEffect(() => {
     setFloorCustomers(message);
     console.log(floorCustomers);
