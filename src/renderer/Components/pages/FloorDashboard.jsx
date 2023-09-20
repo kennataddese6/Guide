@@ -57,7 +57,7 @@ const FloorDashboard = ({ online }) => {
             <div className="searchContainer">
               <FiSearch />
             </div>
-            <h3 className="headerText"> Booked Clients</h3>
+            <h3 className="headerText"> Scheduled Clients</h3>
             <div className="toggleBar">
               {' '}
               <Switch
@@ -161,60 +161,115 @@ const FloorDashboard = ({ online }) => {
             : []}
         </div>
       )}
-      <div className="secondFrame">
-        <div className="frameHeader">
-          <div className="searchContainer">
-            <FiSearch />
+      {toggled ? (
+        <div className="secondFrame">
+          <div className="frameHeader">
+            <div className="searchContainer">
+              <FiSearch />
+            </div>
+            <h3 className="headerText"> Booked Clients</h3>
+            <div className="toggleBar">
+              {' '}
+              <Switch
+                onChange={handleToggle}
+                checked={toggled}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
           </div>
-          <h3 className="headerText"> Incoming Clients</h3>
-          <div className="toggleBar">
-            {' '}
-            <Switch
-              onChange={handleToggle}
-              checked={toggled}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              height={20}
-              width={40}
-              onColor="#c737a1"
-              offColor="#FFD700"
-            />
-          </div>
+          {clients
+            ? clients
+                .filter((client) =>
+                  client.Booking ? client.Booking === true : false
+                )
+                .map((client) => (
+                  <div className="clientsList">
+                    <div
+                      className="clientCircle"
+                      alt="Avatar woman"
+                      style={{
+                        backgroundColor: 'grey',
+                        color: 'black',
+                      }}
+                    >
+                      {' '}
+                      {client.FirstName[0].toUpperCase()}
+                    </div>
+                    <div className="clientInfoContainer">
+                      <p>
+                        {' '}
+                        {client.FirstName} {client.LastName}
+                      </p>
+                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                        {' '}
+                        {client.Department}
+                      </p>
+                    </div>
+                  </div>
+                ))
+            : []}
         </div>
-        {clients
-          ? clients
-              .filter((client) =>
-                client
-                  ? client.Sent === true && client.Arrived === false
-                  : false
-              )
-              .map((client) => (
-                <div className="clientsList">
-                  <div
-                    className="clientCircle"
-                    alt="Avatar woman"
-                    style={{
-                      backgroundColor: 'grey',
-                      color: 'black',
-                    }}
-                  >
-                    {' '}
-                    {client.FirstName[0].toUpperCase()}
-                  </div>
-                  <div className="clientInfoContainer">
-                    <p>
+      ) : (
+        <div className="secondFrame">
+          <div className="frameHeader">
+            <div className="searchContainer">
+              <FiSearch />
+            </div>
+            <h3 className="headerText"> Incoming Clients</h3>
+            <div className="toggleBar">
+              {' '}
+              <Switch
+                onChange={handleToggle}
+                checked={toggled}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                height={20}
+                width={40}
+                onColor="#c737a1"
+                offColor="#FFD700"
+              />
+            </div>
+          </div>
+          {clients
+            ? clients
+                .filter((client) =>
+                  client
+                    ? client.Sent === true && client.Arrived === false
+                    : false
+                )
+                .map((client) => (
+                  <div className="clientsList">
+                    <div
+                      className="clientCircle"
+                      alt="Avatar woman"
+                      style={{
+                        backgroundColor: 'grey',
+                        color: 'black',
+                      }}
+                    >
                       {' '}
-                      {client.FirstName} {client.LastName}
-                    </p>
-                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                      {' '}
-                      {client.Department}
-                    </p>
+                      {client.FirstName[0].toUpperCase()}
+                    </div>
+                    <div className="clientInfoContainer">
+                      <p>
+                        {' '}
+                        {client.FirstName} {client.LastName}
+                      </p>
+                      <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                        {' '}
+                        {client.Department}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
-          : []}
-      </div>
+                ))
+            : []}
+        </div>
+      )}
     </>
   );
 };
