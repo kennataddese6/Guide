@@ -1,17 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import {  FaUsers } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
-const FloorSideBar = ({ index }) => {
+const FloorSideBar = ({ index, online }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const online = useWebSocket('ws://localhost:5000');
   const { user } = useSelector((state) => state.auth);
   const { color, isLightColor } = useColorAndBrightness(
     user ? user.FirstName + user.LastName : ''
