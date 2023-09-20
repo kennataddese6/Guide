@@ -5,6 +5,7 @@ import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
+import { FiRefreshCw } from 'react-icons/fi';
 const SideBar = ({ index, online }) => {
   const SideBarIndex = index;
   const onLine = online;
@@ -124,11 +125,8 @@ const SideBar = ({ index, online }) => {
             </div>
           </div>
           <div className="navigation-elements-8">
-            <IoIosNotifications
-              className="iconSetting"
-              style={{ color: 'black' }}
-            />
-            <div className="text-wrapper-2">Notifications</div>
+            <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
+            <div className="text-wrapper-2">Update</div>
           </div>
         </div>
         <div className="divider-3" />
