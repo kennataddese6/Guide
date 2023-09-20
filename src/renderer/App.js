@@ -34,7 +34,10 @@ export default function App() {
           path="/FloorDashboard"
           element={<FloorDashboard online={online} />}
         />
-        <Route path="/FloorMessages" element={<FloorMessages />} />
+        <Route
+          path="/FloorMessages"
+          element={<FloorMessages online={online} />}
+        />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
