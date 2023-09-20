@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FaUsers, FaBuilding } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
+import { IoMdAnalytics } from 'react-icons/io';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
