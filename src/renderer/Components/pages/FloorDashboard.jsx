@@ -12,13 +12,16 @@ const FloorDashboard = ({ online }) => {
   const dipatch = useDispatch();
   const [clients, setClients] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [toggled, setToggled] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
 
   function handleChange(checked) {
     setChecked(checked);
   }
-
+  function handleToggle(toggle) {
+    setToggled(toggle);
+  }
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -160,7 +163,23 @@ const FloorDashboard = ({ online }) => {
       )}
       <div className="secondFrame">
         <div className="frameHeader">
+          <div className="searchContainer">
+            <FiSearch />
+          </div>
           <h3 className="headerText"> Incoming Clients</h3>
+          <div className="toggleBar">
+            {' '}
+            <Switch
+              onChange={handleToggle}
+              checked={toggled}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              height={20}
+              width={40}
+              onColor="#c737a1"
+              offColor="#FFD700"
+            />
+          </div>
         </div>
         {clients
           ? clients
