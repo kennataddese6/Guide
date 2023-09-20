@@ -41,7 +41,10 @@ export default function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/FloorClients" element={<FloorClients />} />
+        <Route
+          path="/FloorClients"
+          element={<FloorClients online={online} />}
+        />
 
         <Route
           path="/Floors"
