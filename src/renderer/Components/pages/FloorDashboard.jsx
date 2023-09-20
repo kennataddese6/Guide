@@ -46,70 +46,76 @@ const FloorDashboard = ({ online }) => {
           <h3 className="headerText"> Waiting Clients</h3>
         </div>
         {clients
-          .filter((client) =>
-            client.Status
-              ? client.Status.postpone === false && client.Booking === false
-              : true
-          )
-          .map((client) => (
-            <div className="clientsList">
-              <div
-                className="clientCircle"
-                alt="Avatar woman"
-                style={{
-                  backgroundColor: 'grey',
-                  color: 'black',
-                }}
-              >
-                {' '}
-                {client.FirstName[0].toUpperCase()}
-              </div>
-              <div className="clientInfoContainer">
-                <p>
-                  {' '}
-                  {client.FirstName} {client.LastName}
-                </p>
-                <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                  {' '}
-                  {client.Department}
-                </p>
-              </div>
-            </div>
-          ))}
+          ? clients
+              .filter((client) =>
+                client.Status
+                  ? client.Status.postpone === false && client.Booking === false
+                  : true
+              )
+              .map((client) => (
+                <div className="clientsList">
+                  <div
+                    className="clientCircle"
+                    alt="Avatar woman"
+                    style={{
+                      backgroundColor: 'grey',
+                      color: 'black',
+                    }}
+                  >
+                    {' '}
+                    {client.FirstName[0].toUpperCase()}
+                  </div>
+                  <div className="clientInfoContainer">
+                    <p>
+                      {' '}
+                      {client.FirstName} {client.LastName}
+                    </p>
+                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                      {' '}
+                      {client.Department}
+                    </p>
+                  </div>
+                </div>
+              ))
+          : []}
       </div>
       <div className="secondFrame">
         <div className="frameHeader">
           <h3 className="headerText"> Incoming Clients</h3>
         </div>
         {clients
-          .filter((client) =>
-            client ? client.Sent === true && client.Arrived === false : false
-          )
-          .map((client) => (
-            <div className="clientsList">
-              <div
-                className="clientCircle"
-                alt="Avatar woman"
-                style={{
-                  backgroundColor: 'grey',
-                  color: 'black',
-                }}
-              >
-                {' '}
-                {client.FirstName[0].toUpperCase()}
-              </div>
-              <div className="clientInfoContainer">
-                <p>
-                  {' '}
-                  {client.FirstName} {client.LastName}
-                </p>
-                <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
-                  {' '}
-                  {client.Department}
-                </p>
-              </div>
-            </div>
-          ))}
+          ? clients
+              .filter((client) =>
+                client
+                  ? client.Sent === true && client.Arrived === false
+                  : false
+              )
+              .map((client) => (
+                <div className="clientsList">
+                  <div
+                    className="clientCircle"
+                    alt="Avatar woman"
+                    style={{
+                      backgroundColor: 'grey',
+                      color: 'black',
+                    }}
+                  >
+                    {' '}
+                    {client.FirstName[0].toUpperCase()}
+                  </div>
+                  <div className="clientInfoContainer">
+                    <p>
+                      {' '}
+                      {client.FirstName} {client.LastName}
+                    </p>
+                    <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
+                      {' '}
+                      {client.Department}
+                    </p>
+                  </div>
+                </div>
+              ))
+          : []}
       </div>
     </>
   );
