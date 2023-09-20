@@ -1,9 +1,9 @@
 import FloorSideBar from '../items/FloorSidebar';
 import BookCustomer from '../items/BookCustomer';
-const Booking = () => {
+const Booking = ({ online }) => {
   return (
     <>
-      <FloorSideBar index={3} />
+      <FloorSideBar index={3} online={online} />
       <BookCustomer />
     </>
   );
