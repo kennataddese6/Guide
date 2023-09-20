@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
-import {  ws } from 'renderer/webSocket';
+import { ws } from 'renderer/webSocket';
 
-const FloorMessages = () => {
+const FloorMessages = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
-  const [incomingMessage, setIncomingMessage] = useState(false)
+  const [incomingMessage, setIncomingMessage] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -49,24 +49,24 @@ const FloorMessages = () => {
       return date.format('HH:mm');
     }
   }
-   ws.addEventListener('message', function () {
-    setIncomingMessage(true)
+  ws.addEventListener('message', function () {
+    setIncomingMessage(true);
   });
-  useEffect(()=>{
-    console.log('here is the incoming message',incomingMessage)
-    if(incomingMessage){
+  useEffect(() => {
+    console.log('here is the incoming message', incomingMessage);
+    if (incomingMessage) {
       const userData = {
         email: user ? user.Email : '',
         password: user ? user.Password : '',
       };
       dispatch(login(userData));
     }
-    setIncomingMessage(false)
-  },[incomingMessage])
+    setIncomingMessage(false);
+  }, [incomingMessage]);
   return (
     <>
       <div className="MessageDashboard">
-        <FloorSideBar index={2} />{' '}
+        <FloorSideBar index={2} online={online} />{' '}
         <div className="userHeader">
           <h3>Conversations</h3>
         </div>
@@ -98,7 +98,6 @@ const FloorMessages = () => {
           />
         </div>
       </div>
-
     </>
   );
 };
