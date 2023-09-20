@@ -7,13 +7,16 @@
   position: absolute;
   top: 74px;
   width: 440px;
+  overflow-y: scroll;
 }
 .frameHeader {
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #d9d9d9;
   height: 40px;
+  width: 440px;
 }
 
 .secondFrame {
@@ -25,13 +28,27 @@
   position: absolute;
   top: 550px;
   width: 440px;
+  overflow-y: scroll;
 }
 .clientsList {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 80px;
+  height: 60px;
   width: 100%;
   margin-top: 10px;
-  background-color: green;
+}
+.clientsList:hover {
+  background-color: violet;
+}
+.clientCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+.clientInfoContainer {
+  margin-left: 22px;
 }
