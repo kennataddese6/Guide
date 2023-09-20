@@ -33,7 +33,7 @@ export default function App() {
         <Route path="/FloorDashboard" element={<FloorDashboard />} />
         <Route path="/FloorMessages" element={<FloorMessages />} />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/Clients" element={<Clients />} />
+        <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/FloorClients" element={<FloorClients />} />
 
