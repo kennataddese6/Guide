@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
-const FloorDashboard = () => {
+const FloorDashboard = ({online}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -32,7 +32,7 @@ const FloorDashboard = () => {
   }, []);
   return (
     <>
-      <FloorSideBar index={1} />
+      <FloorSideBar index={1} online = {online} />
       <div
         onClick={() => {
           tologout();
