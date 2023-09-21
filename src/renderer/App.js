@@ -14,6 +14,7 @@ import Booking from './Components/pages/Booking';
 import FormProvider from './features/hook/FormProvider';
 import FloorClients from './Components/pages/FloorClients';
 import { useWebSocket } from './features/hook/useWebSocket';
+import Settings from './Components/pages/Settings';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
 
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/Settings" element={<Settings online={online} />} />
         <Route
           path="/FloorClients"
           element={<FloorClients online={online} />}
