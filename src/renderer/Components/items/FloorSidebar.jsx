@@ -31,6 +31,9 @@ const FloorSideBar = ({ index, online }) => {
   const toFloorClients = () => {
     navigate('/FloorClients');
   };
+  const toSettings = () => {
+    navigate('/Settings');
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -65,7 +68,7 @@ const FloorSideBar = ({ index, online }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4">
+              <div className="navigation-elements-4" onClick={toSettings}>
                 <FiSettings
                   className="iconSetting"
                   style={{ color: 'black' }}
