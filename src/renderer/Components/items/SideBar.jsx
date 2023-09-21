@@ -28,7 +28,7 @@ const SideBar = ({ index, online }) => {
     navigate('/Floors');
   };
   const toSettings = () => {
-    navigate('/Settings', { state: { Looby } });
+    navigate('/Settings', { state: true });
   };
   const toLogin = () => {
     dispatch(logout());
