@@ -66,12 +66,18 @@ const SideBar = ({ index, online }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4" onClick={toSettings}>
-                <FiSettings
-                  className="iconSetting"
-                  style={{ color: 'black' }}
-                />
-                <div className="text-wrapper-2">Main Settings</div>
+              <div
+                className="navigation-elements-4"
+                onClick={toSettings}
+                style={{ backgroundColor: SideBarIndex === 5 ? 'gold' : '' }}
+              >
+                <div className="overlap-group">
+                  <FiSettings
+                    className="icon-action"
+                    style={{ color: 'black' }}
+                  />
+                  <div className="text-wrapper-4">Main Settings</div>
+                </div>
               </div>
               <div className="text-wrapper-3">Settings</div>
             </div>

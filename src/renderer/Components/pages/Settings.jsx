@@ -1,8 +1,8 @@
 import SideBar from '../items/SideBar';
-const Settings = ({online}) => {
+const Settings = ({ online }) => {
   return (
     <>
-      <SideBar online={online} />
+      <SideBar index={5} online={online} />
       <h1> This is Settings Page</h1>
     </>
   );
