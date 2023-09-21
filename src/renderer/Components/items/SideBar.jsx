@@ -27,6 +27,9 @@ const SideBar = ({ index, online }) => {
   const toFloors = () => {
     navigate('/Floors');
   };
+  const toSettings = () => {
+    navigate('/Settings');
+  };
   const toLogin = () => {
     dispatch(logout());
   };
@@ -63,7 +66,7 @@ const SideBar = ({ index, online }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4">
+              <div className="navigation-elements-4" onClick={toSettings}>
                 <FiSettings
                   className="iconSetting"
                   style={{ color: 'black' }}
