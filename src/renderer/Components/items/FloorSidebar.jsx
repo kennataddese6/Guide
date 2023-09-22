@@ -1,18 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
-import { BiTask } from 'react-icons/bi';
+import { IoMdAnalytics } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
-const FloorSideBar = ({ index }) => {
+import { FiRefreshCw } from 'react-icons/fi';
+
+const FloorSideBar = ({ index, online }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const online = useWebSocket('ws://localhost:5000');
   const { user } = useSelector((state) => state.auth);
   const { color, isLightColor } = useColorAndBrightness(
     user ? user.FirstName + user.LastName : ''
@@ -28,6 +27,9 @@ const FloorSideBar = ({ index }) => {
   };
   const toBooking = () => {
     navigate('/Booking');
+  };
+  const toFloorClients = () => {
+    navigate('/FloorClients');
   };
   return (
     <div className="dashboard">
@@ -118,16 +120,21 @@ const FloorSideBar = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="navigation-elements-7">
-            <FaUsers className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Clients</div>
+          <div
+            className="navigation-elements-7"
+            style={{ backgroundColor: SideBarIndex === 4 ? 'gold' : '' }}
+            onClick={() => {
+              toFloorClients();
+            }}
+          >
+            <div className="overlap-group">
+              <FaUsers className="icon-action" style={{ color: 'black' }} />
+              <div className="text-wrapper-4">Clients</div>
+            </div>
           </div>
           <div className="navigation-elements-8">
-            <IoIosNotifications
-              className="iconSetting"
-              style={{ color: 'black' }}
-            />
-            <div className="text-wrapper-2">Notifications</div>
+            <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
+            <div className="text-wrapper-2">Update</div>
           </div>
         </div>
         <div className="divider-3" />

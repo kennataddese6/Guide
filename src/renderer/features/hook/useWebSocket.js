@@ -1,46 +1,47 @@
 import { useState, useEffect } from 'react';
 
 export const useWebSocket = (url) => {
-  const [ws, setWs] = useState(new WebSocket(url));
-  const [online, setOnline] = useState(ws.readyState === WebSocket.OPEN);
+  const [ws, setWs] = useState(null);
+  const [online, setOnline] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
-  const handleClose = (event) => {
+  const handleClose = () => {
     setOnline(false);
-    console.log('Sorry I am disconnected');
-    // Calculate the delay before attempting to reconnect
+    console.log('Sorry, I am disconnected');
     const delay = Math.min(1000 * 2 ** retryCount, 30000);
-    // Attempt to reconnect after the specified delay
     setTimeout(() => {
       reconnect();
-      // Increment the retry count
       setRetryCount((count) => count + 1);
     }, delay);
   };
 
-  const handleOpen = (event) => {
+  const handleOpen = () => {
     setOnline(true);
-    console.log('hello I am connected');
-    // Reset the retry count when the connection is re-established
+    console.log('Hello, I am connected');
     setRetryCount(0);
   };
 
   const reconnect = () => {
-    // Close the existing WebSocket connection
-    ws.close();
-    // Create a new WebSocket object
-    const newWs = new WebSocket(url);
-    // Update the state
-    setWs(newWs);
+    if (ws) {
+      ws.close();
+    }
+    setWs(new WebSocket(url));
   };
 
   useEffect(() => {
-    ws.addEventListener('close', handleClose);
-    ws.addEventListener('open', handleOpen);
-    return () => {
-      ws.removeEventListener('close', handleClose);
-      ws.removeEventListener('open', handleOpen);
-    };
+    setWs(new WebSocket(url));
+  }, [url]);
+
+  useEffect(() => {
+    if (ws) {
+      ws.addEventListener('close', handleClose);
+      ws.addEventListener('open', handleOpen);
+      return () => {
+        ws.removeEventListener('close', handleClose);
+        ws.removeEventListener('open', handleOpen);
+        ws.close();
+      };
+    }
   }, [ws]);
 
   return online;

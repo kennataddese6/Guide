@@ -97,10 +97,7 @@
   top: 365px;
   width: 255px;
 }
-.dashboard .navigation-elements-4:hover {
-  background-color: violet;
-  transform: translateY(-5px); /* move element up by 5px */
-}
+
 .dashboard .navigation-elements-4 {
   height: 40px;
   left: 0;

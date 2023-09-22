@@ -1,17 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers, FaBuilding } from 'react-icons/fa';
+import { FaUsers, FaBuilding } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
-import { BiTask } from 'react-icons/bi';
-import { MdAssignment } from 'react-icons/md';
+import { IoMdAnalytics } from 'react-icons/io';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendMessage, ws } from 'renderer/webSocket';
-import { useWebSocket } from 'renderer/features/hook/useWebSocket';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
-const SideBar = ({ index }) => {
+import { FiRefreshCw } from 'react-icons/fi';
+const SideBar = ({ index, online }) => {
   const SideBarIndex = index;
-  const online = useWebSocket('ws://localhost:5000');
+  const onLine = online;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -29,6 +26,9 @@ const SideBar = ({ index }) => {
   };
   const toFloors = () => {
     navigate('/Floors');
+  };
+  const toSettings = () => {
+    navigate('/Settings', { state: { Looby } });
   };
   const toLogin = () => {
     dispatch(logout());
@@ -56,7 +56,7 @@ const SideBar = ({ index }) => {
               </div>
               <div
                 className="status-circle"
-                style={{ backgroundColor: online ? 'green' : 'grey' }}
+                style={{ backgroundColor: onLine ? 'green' : 'grey' }}
               ></div>
               <div className="divider-2" />
               <div className="icon-navigation" onClick={toLogin}>
@@ -66,12 +66,18 @@ const SideBar = ({ index }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4">
-                <FiSettings
-                  className="iconSetting"
-                  style={{ color: 'black' }}
-                />
-                <div className="text-wrapper-2">Main Settings</div>
+              <div
+                className="navigation-elements-4"
+                onClick={toSettings}
+                style={{ backgroundColor: SideBarIndex === 5 ? 'gold' : '' }}
+              >
+                <div className="overlap-group">
+                  <FiSettings
+                    className="icon-action"
+                    style={{ color: 'black' }}
+                  />
+                  <div className="text-wrapper-4">Main Settings</div>
+                </div>
               </div>
               <div className="text-wrapper-3">Settings</div>
             </div>
@@ -128,11 +134,8 @@ const SideBar = ({ index }) => {
             </div>
           </div>
           <div className="navigation-elements-8">
-            <IoIosNotifications
-              className="iconSetting"
-              style={{ color: 'black' }}
-            />
-            <div className="text-wrapper-2">Notifications</div>
+            <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
+            <div className="text-wrapper-2">Update</div>
           </div>
         </div>
         <div className="divider-3" />

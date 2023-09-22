@@ -1,12 +1,11 @@
 import SideBar from '../items/SideBar';
 import '../styles/Messages.css';
 import FloorReceptionists from '../items/FloorReceptionists';
-import Spinner from '../Utilities/Spinner';
 import Conversations from '../items/Conversations';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-const Messages = () => {
+const Messages = ({ online }) => {
   const [selectedFloor, setSelectedFloor] = useState(0);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ const Messages = () => {
   }, [user]);
   return (
     <div className="MessageDashboard">
-      <SideBar index={2} />
+      <SideBar index={2} online={online} />
       <div className="userHeader">
         <h3>Conversations</h3>
       </div>

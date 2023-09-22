@@ -12,7 +12,12 @@ import Clients from './Components/pages/Clients';
 import Floors from './Components/pages/Floors';
 import Booking from './Components/pages/Booking';
 import FormProvider from './features/hook/FormProvider';
+import FloorClients from './Components/pages/FloorClients';
+import { useWebSocket } from './features/hook/useWebSocket';
+import Settings from './Components/pages/Settings';
 export default function App() {
+  const online = useWebSocket('ws://localhost:5000');
+
   return (
     <Router>
       <Routes>
@@ -21,25 +26,37 @@ export default function App() {
           path="/LobbyDasboard"
           element={
             <FormProvider>
-              <LobbyDashboard />
+              <LobbyDashboard online={online} />
             </FormProvider>
           }
         />
-        <Route path="/Messages" element={<Messages />} />
-        <Route path="/FloorDashboard" element={<FloorDashboard />} />
-        <Route path="/FloorMessages" element={<FloorMessages />} />
+        <Route path="/Messages" element={<Messages online={online} />} />
+        <Route
+          path="/FloorDashboard"
+          element={<FloorDashboard online={online} />}
+        />
+        <Route
+          path="/FloorMessages"
+          element={<FloorMessages online={online} />}
+        />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/Clients" element={<Clients />} />
+        <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/Settings" element={<Settings online={online} />} />
+        <Route
+          path="/FloorClients"
+          element={<FloorClients online={online} />}
+        />
+
         <Route
           path="/Floors"
           element={
             <FormProvider>
-              <Floors />
+              <Floors online={online} />
             </FormProvider>
           }
         />
-        <Route path="/Booking" element={<Booking />} />
+        <Route path="/Booking" element={<Booking online={online} />} />
       </Routes>
     </Router>
   );

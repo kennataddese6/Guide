@@ -7,7 +7,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
-const Floors = () => {
+const Floors = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
@@ -95,8 +95,7 @@ const Floors = () => {
   }, []);
   return (
     <>
-      <SideBar index={3} />
-
+      <SideBar index={3} online={online} />
       <div
         id="myGrid"
         className="ag-theme-alpine"

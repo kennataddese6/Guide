@@ -1,19 +1,21 @@
-import SideBar from '../items/SideBar';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCustomers } from 'renderer/features/customers/customerSlice';
 import { useEffect, useState, useRef, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import FloorSideBar from '../items/FloorSidebar';
+import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
-import { reset } from 'renderer/features/customers/customerSlice';
-const Clients = ({ online }) => {
+const FloorClients = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const ClientTableRef = useRef();
-  const { message, isSuccess } = useSelector((state) => state.customer);
+  const { message } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
-  const [allClients, setAllClients] = useState([]);
+  const ClientTableRef = useRef();
+  const [floorCustomers, setFloorCustomers] = useState([]);
+  useEffect(() => {
+    dispatch(getFloorCustomers(user ? user.FloorNumber : ''));
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -21,15 +23,9 @@ const Clients = ({ online }) => {
     }
   }, [user]);
   useEffect(() => {
-    dispatch(getCustomers());
-  }, []);
-  useEffect(() => {
-    if (isSuccess) {
-      setAllClients(message);
-    }
-    dispatch(reset());
-  }, [isSuccess]);
-
+    setFloorCustomers(message);
+    console.log(floorCustomers);
+  }, [message]);
   const [columnDefs] = useState([
     {
       field: 'FirstName',
@@ -64,8 +60,7 @@ const Clients = ({ online }) => {
   }, []);
   return (
     <>
-      {' '}
-      <SideBar index={4} online={online} />
+      <FloorSideBar index={4} online={online} />
       <div
         id="myGrid"
         className="ag-theme-alpine"
@@ -73,24 +68,26 @@ const Clients = ({ online }) => {
       >
         <AgGridReact
           ref={ClientTableRef}
-          rowData={allClients.map((client) => ({
-            FirstName: client.FirstName,
-            LastName: client.LastName,
-            Woreda: client.Woreda,
-            SubCity: client.SubCity,
-            PhoneNumber: client.PhoneNumber,
-            Department: client.Department,
-            FloorNumber: client.FloorNumber,
-          }))}
+          rowData={
+            floorCustomers
+              ? floorCustomers.map((client) => ({
+                  FirstName: client.FirstName,
+                  LastName: client.LastName,
+                  Woreda: client.Woreda,
+                  SubCity: client.SubCity,
+                  PhoneNumber: client.PhoneNumber,
+                  Department: client.Department,
+                  FloorNumber: client.FloorNumber,
+                }))
+              : []
+          }
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           suppressExcelExport={true}
           popupParent={popupParent}
-          // pagination={true}
-          //paginationPageSize={true}
         ></AgGridReact>
       </div>
     </>
   );
 };
-export default Clients;
+export default FloorClients;
