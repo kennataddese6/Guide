@@ -1,14 +1,17 @@
 import '../styles/changePassword.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangePassword } from 'renderer/features/auth/authSlice';
 import Spinner from '../Utilities/Spinner';
+import { reset } from 'renderer/features/auth/authSlice';
 const ChangePassowrd = () => {
   const dispatch = useDispatch();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, sestConfirmPassword] = useState('');
-  const { user, isSuccess, isError, isLoading } = useSelector(
+  const [Error, setError] = useState(false);
+  const [displayMessage, setDiplayMessage] = useState('');
+  const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
   );
   const handleSubmit = () => {
@@ -19,6 +22,13 @@ const ChangePassowrd = () => {
     };
     dispatch(ChangePassword(userData));
   };
+  useEffect(() => {
+    if (isError) {
+      setError(true);
+      setDiplayMessage(message);
+    }
+    dispatch(reset());
+  }, [isError]);
   return (
     <div className="changePassowrdContainer">
       {isLoading && <Spinner />}
@@ -57,6 +67,7 @@ const ChangePassowrd = () => {
         {' '}
         Submit
       </button>
+      <p style={{ color: Error ? 'red' : 'green' }}> {displayMessage}</p>
     </div>
   );
 };
