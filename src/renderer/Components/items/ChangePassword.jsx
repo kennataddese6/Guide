@@ -1,16 +1,20 @@
 import '../styles/changePassword.css';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChangePassword } from 'renderer/features/auth/authSlice';
 const ChangePassowrd = () => {
+  const dispatch = useDispatch();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, sestConfirmPassword] = useState('');
+  const { user } = useSelector((state) => state.auth);
   const handleSubmit = () => {
-    console.log(
-      'Here are the inputs',
-      currentPassword,
-      confirmPassword,
-      newPassword
-    );
+    const userData = {
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      Email: user ? user.Email : '',
+    };
+    dispatch(ChangePassword(userData));
   };
   return (
     <div className="changePassowrdContainer">
