@@ -22,19 +22,20 @@ const ChangePassowrd = () => {
       Id: user ? user._id : '',
     };
     dispatch(ChangePassword(userData));
+    setError(false);
+    setSuccess(false);
   };
   useEffect(() => {
     if (isError) {
       setError(true);
       setDiplayMessage(message);
-      console.log('this is the message ', message);
     }
     if (isSuccess) {
       setSuccess(true);
       setDiplayMessage(message);
     }
     dispatch(reset());
-  }, [isError]);
+  }, [isError, isSuccess]);
   return (
     <div className="changePassowrdContainer">
       {isLoading && <Spinner />}
@@ -73,7 +74,10 @@ const ChangePassowrd = () => {
         {' '}
         Submit
       </button>
-      <p style={{ color: Error ? 'red' : 'green' }}> {displayMessage}</p>
+      <p style={{ color: Error ? 'red' : Success ? 'green' : 'white' }}>
+        {' '}
+        {displayMessage}
+      </p>
     </div>
   );
 };
