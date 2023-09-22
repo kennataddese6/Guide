@@ -2,12 +2,15 @@ import '../styles/changePassword.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangePassword } from 'renderer/features/auth/authSlice';
+import Spinner from '../Utilities/Spinner';
 const ChangePassowrd = () => {
   const dispatch = useDispatch();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, sestConfirmPassword] = useState('');
-  const { user } = useSelector((state) => state.auth);
+  const { user, isSuccess, isError, isLoading } = useSelector(
+    (state) => state.auth
+  );
   const handleSubmit = () => {
     const userData = {
       currentPassword: currentPassword,
@@ -18,6 +21,7 @@ const ChangePassowrd = () => {
   };
   return (
     <div className="changePassowrdContainer">
+      {isLoading && <Spinner />}
       <h3 className="headerText">Change Password</h3>
       <input
         type="password"
