@@ -10,6 +10,7 @@ const ChangePassowrd = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, sestConfirmPassword] = useState('');
   const [Error, setError] = useState(false);
+  const [Success, setSuccess] = useState(false);
   const [displayMessage, setDiplayMessage] = useState('');
   const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
@@ -25,6 +26,11 @@ const ChangePassowrd = () => {
   useEffect(() => {
     if (isError) {
       setError(true);
+      setDiplayMessage(message);
+      console.log('this is the message ', message);
+    }
+    if (isSuccess) {
+      setSuccess(true);
       setDiplayMessage(message);
     }
     dispatch(reset());

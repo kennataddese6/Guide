@@ -83,16 +83,17 @@ export const ChangePassword = createAsyncThunk(
     try {
       return await authService.ChangePassword(user);
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      let message;
+      if (error.response && error.response.status === 401) {
+        message = 'Incorrect Password!';
+      } else {
+        message = error.message || error.toString();
+      }
       return thunkAPI.rejectWithValue(message);
     }
   }
 );
+
 // To logout
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
