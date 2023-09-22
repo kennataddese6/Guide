@@ -12,6 +12,7 @@ const ChangePassowrd = () => {
   const [Error, setError] = useState(false);
   const [Success, setSuccess] = useState(false);
   const [displayMessage, setDiplayMessage] = useState('');
+  const [passwordMatch, setPasswordMatch] = useState(true);
   const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -36,6 +37,13 @@ const ChangePassowrd = () => {
     }
     dispatch(reset());
   }, [isError, isSuccess]);
+  useEffect(() => {
+    if (newPassword !== confirmPassword) {
+      setPasswordMatch(false);
+    } else {
+      setPasswordMatch(true);
+    }
+  }, [newPassword, confirmPassword]);
   return (
     <div className="changePassowrdContainer">
       {isLoading && <Spinner />}
@@ -63,7 +71,10 @@ const ChangePassowrd = () => {
       <input
         type="password"
         className="EmailID"
-        style={{ marginTop: '2em' }}
+        style={{
+          marginTop: '2em',
+          borderBottomColor: passwordMatch ? '' : 'red',
+        }}
         placeholder="Confirm Password"
         value={confirmPassword}
         onChange={(e) => {
