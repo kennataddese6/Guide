@@ -12,7 +12,7 @@ const ChangePassowrd = () => {
     const userData = {
       currentPassword: currentPassword,
       newPassword: newPassword,
-      Email: user ? user.Email : '',
+      Id: user ? user._id : '',
     };
     dispatch(ChangePassword(userData));
   };
