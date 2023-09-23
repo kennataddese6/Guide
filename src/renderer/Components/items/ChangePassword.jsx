@@ -14,6 +14,7 @@ const ChangePassowrd = () => {
   const [displayMessage, setDiplayMessage] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [confirmFoucus, setConfirmFocus] = useState(false);
+  const [emptyField, setEmptyField] = useState(false);
   const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -27,6 +28,13 @@ const ChangePassowrd = () => {
     setError(false);
     setSuccess(false);
   };
+  useEffect(() => {
+    if (!newPassword) {
+      setEmptyField(true);
+    } else {
+      setEmptyField(false);
+    }
+  }, [newPassword]);
   useEffect(() => {
     if (isError) {
       setError(true);
@@ -72,6 +80,9 @@ const ChangePassowrd = () => {
         onChange={(e) => {
           setNewPassword(e.target.value);
         }}
+        onFocus={() => {
+          setConfirmFocus(true);
+        }}
       />
       <input
         type="password"
@@ -91,12 +102,12 @@ const ChangePassowrd = () => {
       />
       <button
         className={
-          !passwordMatch
+          !passwordMatch || emptyField
             ? 'CHangePaaswordButtonInactive'
             : 'CHangePaaswordButton'
         }
         onClick={handleSubmit}
-        disabled={!!Error}
+        disabled={!passwordMatch || !!emptyField}
       >
         {' '}
         Submit
