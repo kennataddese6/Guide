@@ -89,7 +89,15 @@ const ChangePassowrd = () => {
           sestConfirmPassword(e.target.value);
         }}
       />
-      <button className="CHangePaaswordButton" onClick={handleSubmit}>
+      <button
+        className={
+          !passwordMatch
+            ? 'CHangePaaswordButtonInactive'
+            : 'CHangePaaswordButton'
+        }
+        onClick={handleSubmit}
+        disabled={!!Error}
+      >
         {' '}
         Submit
       </button>
