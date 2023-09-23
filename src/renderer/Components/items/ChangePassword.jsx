@@ -13,6 +13,7 @@ const ChangePassowrd = () => {
   const [Success, setSuccess] = useState(false);
   const [displayMessage, setDiplayMessage] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [confirmFoucus, setConfirmFocus] = useState(false);
   const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -38,10 +39,14 @@ const ChangePassowrd = () => {
     dispatch(reset());
   }, [isError, isSuccess]);
   useEffect(() => {
-    if (newPassword !== confirmPassword) {
+    if (newPassword !== confirmPassword && confirmFoucus) {
       setPasswordMatch(false);
+      setError(true);
+      setDiplayMessage('Passwords Must Match!');
     } else {
       setPasswordMatch(true);
+      setError(false);
+      setDiplayMessage('');
     }
   }, [newPassword, confirmPassword]);
   return (
@@ -77,6 +82,9 @@ const ChangePassowrd = () => {
         }}
         placeholder="Confirm Password"
         value={confirmPassword}
+        onFocus={() => {
+          setConfirmFocus(true);
+        }}
         onChange={(e) => {
           sestConfirmPassword(e.target.value);
         }}
