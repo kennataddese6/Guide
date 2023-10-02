@@ -80,6 +80,7 @@ const RegisterCustomer = () => {
     setOfficeNumber('');
     setEleveatorNumber('');
     setDepartment('');
+    setGender('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -94,6 +95,7 @@ const RegisterCustomer = () => {
       department: department,
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
+      gender: gender,
       booking: false,
     };
     dispatch(registerCustomer(customerData));
