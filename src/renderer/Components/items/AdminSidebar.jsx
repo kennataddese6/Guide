@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaUsers } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
-import { BiTask } from 'react-icons/bi';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,13 +35,16 @@ const AdminSideBar = ({ index }) => {
             </div>
             <div className="navigation-elements-2">
               {' '}
-              <img
+              <div
                 className="avatar-man"
                 alt="Avatar man"
-                src="
-                https://www.newarab.com/sites/default/files/886938950.jpeg
-                "
-              />
+                style={{
+                  backgroundColor: 'white',
+                  color: 'black',
+                }}
+              >
+                {user ? user.FirstName[0] : ''}
+              </div>
               <div className="divider-2" />
               <div className="icon-navigation" onClick={toLogin}>
                 <FiChevronDown style={{ color: 'white ' }} />
