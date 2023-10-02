@@ -72,6 +72,19 @@
   justify-content: center;
   color: white;
 }
+.submitButInactive {
+  background-color: grey;
+  border-radius: 20px;
+  height: 36px;
+  left: 45%;
+  overflow: hidden;
+  position: absolute;
+  width: 162px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 .submitBut:hover {
   background-color: #b110b1;
   transform: translateY(-2px); /* move element up by 5px */

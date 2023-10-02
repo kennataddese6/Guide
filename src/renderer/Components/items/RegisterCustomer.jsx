@@ -23,6 +23,7 @@ const RegisterCustomer = () => {
   const [gender, setGender] = useState(form.gender);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const [inactive, setInactive] = useState(true);
   const inputRef = useRef(null);
 
   //console.log('this is the registered person', role);
@@ -121,6 +122,31 @@ const RegisterCustomer = () => {
     event.preventDefault();
     document.execCommand('paste');
   };
+  useEffect(() => {
+    setInactive(
+      firstName === '' ||
+        lastName === '' ||
+        gender === '' ||
+        phoneNumber === '' ||
+        woreda === '' ||
+        subcity === '' ||
+        department === '' ||
+        floorNumber === '' ||
+        officeNumber === '' ||
+        elevatorNumber === ''
+    );
+  }, [
+    firstName,
+    lastName,
+    gender,
+    phoneNumber,
+    woreda,
+    subcity,
+    department,
+    floorNumber,
+    officeNumber,
+    elevatorNumber,
+  ]);
   return (
     <>
       <div className="dashboard">
@@ -311,14 +337,24 @@ const RegisterCustomer = () => {
               type="text"
               required
               id="providerName"
+              placeholder="(optional)"
             />
-            <div
-              className="submitBut"
-              style={{ position: 'absolute', top: '690px' }}
-              onClick={handleSubmit}
-            >
-              Submit
-            </div>
+            {inactive ? (
+              <div
+                className="submitButInactive"
+                style={{ position: 'absolute', top: '690px' }}
+              >
+                Submit
+              </div>
+            ) : (
+              <div
+                className="submitBut"
+                style={{ position: 'absolute', top: '690px' }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </div>
+            )}
             {SuccessMessage ? (
               <div
                 style={{
