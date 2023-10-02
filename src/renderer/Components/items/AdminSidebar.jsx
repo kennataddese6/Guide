@@ -14,6 +14,10 @@ const AdminSideBar = ({ index }) => {
   const toRegister = () => {
     navigate('/Register');
   };
+  const toAdminDashobard = () => {
+    navigate('/AdminDashboard');
+  };
+
   const toLoginPage = () => {
     navigate('/');
   };
@@ -65,6 +69,7 @@ const AdminSideBar = ({ index }) => {
             <div
               className="overlap-group-wrapper"
               style={{ backgroundColor: SideBarIndex === 1 ? 'gold' : '' }}
+              onClick={toAdminDashobard}
             >
               {' '}
               <div className="overlap-group">
