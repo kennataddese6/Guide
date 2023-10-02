@@ -184,7 +184,7 @@ const LobbyDashboard = ({ online }) => {
               <FiSearch />
             </div>
             <div>Waiting Clients</div>
-            <div style={{ textAlign: 'right', paddingTop: '2px' }}>
+            <div style={{ textAlign: 'right', paddingTop: '4px' }}>
               {' '}
               <Switch
                 onChange={hanldeToggle}
@@ -237,11 +237,11 @@ const LobbyDashboard = ({ online }) => {
           onDragStart={(event) => event.preventDefault()}
         >
           <div className="text-wrapper-13">
-            <div style={{ alignSelf: 'start' }}>
+            <div style={{ alignSelf: 'center' }}>
               <FiSearch />
             </div>
             <div>Booked Clients</div>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'right', paddingTop: '4px' }}>
               {' '}
               <Switch
                 onChange={hanldeToggle}
@@ -288,7 +288,7 @@ const LobbyDashboard = ({ online }) => {
               <FiSearch />
             </div>
             <div> Sent Clients</div>
-            <div style={{ textAlign: 'right', paddingTop: '2px' }}>
+            <div style={{ textAlign: 'right', paddingTop: '4px' }}>
               {' '}
               <Switch
                 onChange={handleChange}
@@ -315,11 +315,11 @@ const LobbyDashboard = ({ online }) => {
       ) : (
         <div className="cards-elevation">
           <div className="text-wrapper-13">
-            <div style={{ alignSelf: 'start' }}>
+            <div style={{ alignSelf: 'center' }}>
               <FiSearch />
             </div>
             <div> Scheduled Clients</div>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'right', paddingTop: '4px' }}>
               {' '}
               <Switch
                 onChange={handleChange}
