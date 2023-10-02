@@ -12,7 +12,7 @@ const ChangePassowrd = () => {
   const [Error, setError] = useState(false);
   const [Success, setSuccess] = useState(false);
   const [displayMessage, setDiplayMessage] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordMatch, setPasswordMatch] = useState(false);
   const [confirmFoucus, setConfirmFocus] = useState(false);
   const [emptyField, setEmptyField] = useState(false);
   const { user, isSuccess, isError, isLoading, message } = useSelector(
