@@ -20,6 +20,7 @@ const RegisterCustomer = () => {
   const [department, setDepartment] = useState(form.department);
   const [floorNumber, setFloorNumber] = useState(form.floorNumber);
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
+  const [gender, setGender] = useState(form.gender);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   const inputRef = useRef(null);
@@ -54,6 +55,7 @@ const RegisterCustomer = () => {
       department,
       floorNumber,
       elevatorNumber,
+      gender,
     });
   }, [
     firstName,
@@ -65,6 +67,7 @@ const RegisterCustomer = () => {
     department,
     floorNumber,
     elevatorNumber,
+    gender,
   ]);
   const resetInputs = () => {
     setFirstName('');
@@ -156,9 +159,25 @@ const RegisterCustomer = () => {
             <div className="genderSelection">
               {' '}
               <label htmlFor="female"> Male</label>
-              <input type="radio" value="male" name="gender" />
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                checked={gender === 'male' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              />
               <label htmlFor="female"> Female</label>
-              <input type="radio" value="female" name="gender" />
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                checked={gender === 'female' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              />
             </div>
             <p
               className="last-name"
