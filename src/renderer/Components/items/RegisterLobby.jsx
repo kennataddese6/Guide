@@ -23,6 +23,7 @@ const RegisterLobby = () => {
     setEmail('');
     setPhoneNumber('');
     setFloorNumber('');
+    setSelectedRole('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -47,6 +48,7 @@ const RegisterLobby = () => {
       email: email,
       phoneNumber: phoneNumber,
       floorNumber: floorNumber,
+      role: Number(selectedRole),
     };
     dispatch(register(userData));
     resetInputs();
