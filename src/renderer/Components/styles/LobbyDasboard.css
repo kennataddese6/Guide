@@ -295,6 +295,7 @@
   background-color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
   color: #000000de;
   white-space: nowrap;
   position: sticky;

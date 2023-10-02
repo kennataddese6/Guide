@@ -180,11 +180,11 @@ const LobbyDashboard = ({ online }) => {
       {!toggleBookedClients ? (
         <div className="overlap-2">
           <div className="text-wrapper-13">
-            <div style={{ alignSelf: 'start' }}>
+            <div style={{ alignSelf: 'center' }}>
               <FiSearch />
             </div>
             <div>Waiting Clients</div>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'right', paddingTop: '2px' }}>
               {' '}
               <Switch
                 onChange={hanldeToggle}
@@ -284,11 +284,11 @@ const LobbyDashboard = ({ online }) => {
           onDragStart={(event) => event.preventDefault()}
         >
           <div className="text-wrapper-13">
-            <div style={{ alignSelf: 'start' }}>
+            <div style={{ alignSelf: 'center' }}>
               <FiSearch />
             </div>
             <div> Sent Clients</div>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'right', paddingTop: '2px' }}>
               {' '}
               <Switch
                 onChange={handleChange}
