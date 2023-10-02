@@ -4,7 +4,7 @@ import { registerFloor } from 'renderer/features/Floors/floorSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/Floors/floorSlice';
 import Spinner from '../Utilities/Spinner';
-import { MdCancel, MdCheckCircle} from 'react-icons/md';
+import { MdCancel, MdCheckCircle } from 'react-icons/md';
 
 const RegisterFloors = () => {
   const dispatch = useDispatch();
@@ -72,6 +72,7 @@ const RegisterFloors = () => {
               onChange={(e) => {
                 setDivison(e.target.value);
               }}
+              style={{ width: '349px' }}
             />
             <input
               className="phoneInput"
@@ -127,7 +128,7 @@ const RegisterFloors = () => {
             >
               <div className="text-wrapper-6">Submit</div>
             </div>
-                      {SuccessMessage ? (
+            {SuccessMessage ? (
               <div
                 style={{
                   position: 'absolute',
