@@ -41,6 +41,17 @@ const getFloorReceptionists = async () => {
     throw error;
   }
 };
+// To get all Users
+const getUsers = async () => {
+  try {
+    const response = await axios.get(API_URL + 'getUsers');
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
 // To update the latest message of of receptionists
 const updateLatestMessage = async (latestMessage) => {
   try {
@@ -80,5 +91,6 @@ const authService = {
   login,
   logout,
   ChangePassword,
+  getUsers,
 };
 export default authService;
