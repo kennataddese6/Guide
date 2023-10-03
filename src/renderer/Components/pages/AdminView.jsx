@@ -1,6 +1,8 @@
 import AdminSideBar from '../items/AdminSidebar';
 import { FaUsers, FaBuilding } from 'react-icons/fa';
 import { useState } from 'react';
+import Floors from '../items/Floors';
+import Users from '../items/Users';
 
 const AdminView = () => {
   const [selected, setSelected] = useState(1);
@@ -26,7 +28,7 @@ const AdminView = () => {
         <FaBuilding />
         <p className="headerTtile"> Floors</p>
       </div>
-      <p>Hello this is admin page</p>
+      {selected === 1 ? <Users /> : <Floors />}
     </>
   );
 };
