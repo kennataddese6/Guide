@@ -10,8 +10,32 @@
   justify-content: center;
   border-radius: 25px;
 }
+.headerOneSelected {
+  background-color: gold;
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  width: 150px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+}
 .headerTwo {
   background-color: rgb(241, 241, 241);
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 150px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+}
+.headerTwoSelected {
+  background-color:gold;
   position: absolute;
   top: 10%;
   left: 50%;
