@@ -70,7 +70,14 @@ const Users = () => {
                 FirstName: user.FirstName,
                 LastName: user.LastName,
                 FloorNumber: user.FloorNumber,
-                Role: user.Roles,
+                Role:
+                  user.Roles === 7706
+                    ? 'Admin'
+                    : user.Roles === 4800
+                    ? 'Floor receptionist'
+                    : user.Roles === 1000
+                    ? 'Lobby receptionist'
+                    : '',
                 PhoneNumber: user.PhoneNumber,
                 Email: user.Email,
               }))
