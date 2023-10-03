@@ -59,6 +59,23 @@ export const getFloorReceptionists = createAsyncThunk(
     }
   }
 );
+// Get Users
+export const getUsers = createAsyncThunk(
+  'auth/getUsers',
+  async (_, thunkAPI) => {
+    try {
+      return await authService.getUsers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // update latest message
 export const updateLatestMessage = createAsyncThunk(
   'auth/updateLatestMessage',
