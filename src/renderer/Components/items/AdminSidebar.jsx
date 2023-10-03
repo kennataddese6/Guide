@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUsers } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
 import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
@@ -23,6 +23,9 @@ const AdminSideBar = ({ index }) => {
   };
   const toLogin = () => {
     dispatch(logout());
+  };
+  const toAdminView = () => {
+    navigate('/AdminView');
   };
   useEffect(() => {
     if (!user) {
@@ -107,9 +110,15 @@ const AdminSideBar = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="navigation-elements-7">
-            <FaUsers className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Clients</div>
+          <div
+            className="navigation-elements-7"
+            onClick={toAdminView}
+            style={{ backgroundColor: SideBarIndex === 4 ? 'gold' : '' }}
+          >
+            <div className="overlap-group">
+              <FaEye className="icon-action" style={{ color: 'black' }} />
+              <div className="text-wrapper-4">View</div>
+            </div>
           </div>
           <div className="navigation-elements-8">
             <IoIosNotifications
