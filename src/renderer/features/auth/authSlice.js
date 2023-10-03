@@ -191,6 +191,20 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      // to Get Users
+      .addCase(getUsers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccessgetFloorReceptionists = true;
+        state.message = action.payload;
+      })
+      .addCase(getUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
       })
