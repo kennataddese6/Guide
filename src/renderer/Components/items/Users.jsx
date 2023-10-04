@@ -12,6 +12,18 @@ const Users = () => {
   const { isSuccessgetFloorReceptionists, isError, message } = useSelector(
     (state) => state.auth
   );
+  const BtnCellRenderer = (props) => {
+    const btnClickedHandler = () => {
+      props.clicked(props.data.Email);
+    };
+
+    return (
+      <button className="resetButton" onClick={btnClickedHandler}>
+        Reset
+      </button>
+    );
+  };
+
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -43,6 +55,15 @@ const Users = () => {
     { field: 'Email' },
 
     { field: 'FloorNumber', filter: true },
+    {
+      field: 'ResetPassword',
+      cellRenderer: BtnCellRenderer,
+      cellRendererParams: {
+        clicked: function (email) {
+          alert(`${email} was clicked`);
+        },
+      },
+    },
   ]);
   const defaultColDef = useMemo(() => {
     return {

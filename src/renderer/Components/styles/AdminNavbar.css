@@ -35,7 +35,7 @@
   border-radius: 25px;
 }
 .headerTwoSelected {
-  background-color:gold;
+  background-color: gold;
   position: absolute;
   top: 10%;
   left: 50%;
@@ -55,4 +55,10 @@
 }
 .headerTtile {
   padding-left: 5px;
+}
+.resetButton {
+  background-color: purple;
+  width: 100%;
+  font-size: 12px;
+  color: white;
 }
