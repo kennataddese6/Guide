@@ -13,7 +13,9 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
-  const [resetEmail, setResetEmail] = useState('');
+  const [resetEmail, setResetEmail] = useState({
+    email: '',
+  });
   const { isSuccessgetFloorReceptionists, isError, message } = useSelector(
     (state) => state.auth
   );
@@ -29,13 +31,13 @@ const Users = () => {
     );
   };
   const openModal = (content) => {
-    setResetEmail(content);
+    setResetEmail({ email: content });
     setModalContent(content);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setResetEmail('');
+    setResetEmail({ email: '' });
     setIsModalOpen(false);
   };
   const handleSubmit = () => {
@@ -78,7 +80,7 @@ const Users = () => {
       cellRenderer: BtnCellRenderer,
       cellRendererParams: {
         clicked: function (email) {
-          openModal(`${email} `);
+          openModal(email);
         },
       },
     },
