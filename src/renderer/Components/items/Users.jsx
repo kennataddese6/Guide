@@ -6,6 +6,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import CustomModal from 'renderer/features/hook/CustomModal';
+import { ResetPassword } from 'renderer/features/auth/authSlice';
 const Users = () => {
   const dispatch = useDispatch();
   const UserTableRef = useRef();
@@ -38,7 +39,7 @@ const Users = () => {
     setIsModalOpen(false);
   };
   const handleSubmit = () => {
-    console.log('Passowrd going to be reset', resetEmail);
+    dispatch(ResetPassword(resetEmail));
   };
 
   useEffect(() => {
