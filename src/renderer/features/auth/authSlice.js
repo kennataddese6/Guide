@@ -110,6 +110,23 @@ export const ChangePassword = createAsyncThunk(
     }
   }
 );
+// To Reset Password
+export const ResetPassword = createAsyncThunk(
+  'auth/ResetPassword',
+  async (user, thunkAPI) => {
+    try {
+      return await authService.ResetPassword(user);
+    } catch (error) {
+      let message;
+      if (error.response && error.response.status === 401) {
+        message = 'Incorrect Password!';
+      } else {
+        message = error.message || error.toString();
+      }
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 // To logout
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
