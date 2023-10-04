@@ -36,7 +36,7 @@ const buttonPosition = {
 const highlight = {
   color: 'purple',
 };
-const CustomModal = ({ isOpen, onRequestClose, content }) => (
+const CustomModal = ({ isOpen, onRequestClose, content , resetPassowrd }) => (
   <Modal
     isOpen={isOpen}
     onRequestClose={onRequestClose}
@@ -50,7 +50,7 @@ const CustomModal = ({ isOpen, onRequestClose, content }) => (
       <span style={highlight}>{content}</span>
     </p>
     <div style={buttonPosition}>
-      <button style={buttonStyle} onClick={onRequestClose}>
+      <button style={buttonStyle} onClick={resetPassowrd}>
         Reset
       </button>
       <button style={buttonStyle2} onClick={onRequestClose}>

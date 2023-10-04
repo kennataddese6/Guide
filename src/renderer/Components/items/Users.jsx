@@ -12,6 +12,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
   const { isSuccessgetFloorReceptionists, isError, message } = useSelector(
     (state) => state.auth
   );
@@ -27,12 +28,17 @@ const Users = () => {
     );
   };
   const openModal = (content) => {
+    setResetEmail(content);
     setModalContent(content);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
+    setResetEmail('');
     setIsModalOpen(false);
+  };
+  const handleSubmit = () => {
+    console.log('Passowrd going to be reset', resetEmail);
   };
 
   useEffect(() => {
@@ -124,6 +130,7 @@ const Users = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         content={modalContent}
+        resetPassowrd={handleSubmit}
       />
     </div>
   );
