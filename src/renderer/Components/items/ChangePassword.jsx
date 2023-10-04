@@ -29,12 +29,12 @@ const ChangePassowrd = () => {
     setSuccess(false);
   };
   useEffect(() => {
-    if (!newPassword) {
+    if (!newPassword || !confirmPassword) {
       setEmptyField(true);
     } else {
       setEmptyField(false);
     }
-  }, [newPassword]);
+  }, [newPassword, confirmPassword]);
   useEffect(() => {
     if (isError) {
       setError(true);
@@ -87,9 +87,6 @@ const ChangePassowrd = () => {
         value={newPassword}
         onChange={(e) => {
           setNewPassword(e.target.value);
-        }}
-        onFocus={() => {
-          setConfirmFocus(true);
         }}
       />
       <input
