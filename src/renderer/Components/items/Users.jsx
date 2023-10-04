@@ -7,18 +7,19 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import CustomModal from 'renderer/features/hook/CustomModal';
 import { ResetPassword } from 'renderer/features/auth/authSlice';
+import NotificationModal from 'renderer/features/hook/NotificationModal';
 const Users = () => {
   const dispatch = useDispatch();
   const UserTableRef = useRef();
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const [resetEmail, setResetEmail] = useState({
     email: '',
   });
-  const { isSuccessgetFloorReceptionists, isError, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isSuccessgetFloorReceptionists, isError, message, isSuccess } =
+    useSelector((state) => state.auth);
   const BtnCellRenderer = (props) => {
     const btnClickedHandler = () => {
       props.clicked(props.data.Email);
@@ -34,6 +35,7 @@ const Users = () => {
     setResetEmail({ email: content });
     setModalContent(content);
     setIsModalOpen(true);
+    setShowModal(false);
   };
 
   const closeModal = () => {
@@ -42,6 +44,7 @@ const Users = () => {
   };
   const handleSubmit = () => {
     dispatch(ResetPassword(resetEmail));
+    closeModal();
   };
 
   useEffect(() => {
@@ -56,6 +59,14 @@ const Users = () => {
     }
     dispatch(reset());
   }, [isSuccessgetFloorReceptionists, isError]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShowModal(true);
+    }
+    dispatch(reset());
+  }, [isSuccess]);
+
   const [columnDefs] = useState([
     {
       field: 'FirstName',
@@ -135,6 +146,7 @@ const Users = () => {
         content={modalContent}
         resetPassowrd={handleSubmit}
       />
+      {showModal && <NotificationModal />}
     </div>
   );
 };
