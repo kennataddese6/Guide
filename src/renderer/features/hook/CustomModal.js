@@ -34,9 +34,10 @@ const buttonPosition = {
   marginTop: '25px',
 };
 const highlight = {
-  color: 'purple',
+  color: 'blue',
+  textDecoration: 'underline',
 };
-const CustomModal = ({ isOpen, onRequestClose, content , resetPassowrd }) => (
+const CustomModal = ({ isOpen, onRequestClose, content, resetPassowrd }) => (
   <Modal
     isOpen={isOpen}
     onRequestClose={onRequestClose}
