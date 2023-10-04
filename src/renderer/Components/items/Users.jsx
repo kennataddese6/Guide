@@ -5,10 +5,13 @@ import { reset } from 'renderer/features/auth/authSlice';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import CustomModal from 'renderer/features/hook/CustomModal';
 const Users = () => {
   const dispatch = useDispatch();
-  const [users, setUsers] = useState([]);
   const UserTableRef = useRef();
+  const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('');
   const { isSuccessgetFloorReceptionists, isError, message } = useSelector(
     (state) => state.auth
   );
@@ -22,6 +25,14 @@ const Users = () => {
         Reset
       </button>
     );
+  };
+  const openModal = (content) => {
+    setModalContent(content);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -60,7 +71,7 @@ const Users = () => {
       cellRenderer: BtnCellRenderer,
       cellRendererParams: {
         clicked: function (email) {
-          alert(`${email} was clicked`);
+          openModal(`${email} `);
         },
       },
     },
@@ -109,6 +120,11 @@ const Users = () => {
         suppressExcelExport={true}
         popupParent={popupParent}
       ></AgGridReact>
+      <CustomModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        content={modalContent}
+      />
     </div>
   );
 };
