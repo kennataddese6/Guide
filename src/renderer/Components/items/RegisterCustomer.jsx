@@ -155,7 +155,7 @@ const RegisterCustomer = () => {
         <div className="div">
           <div className="container">
             {isLoading && <Spinner />}
-            <div className="registration-form"> Register Customer</div>
+            <h3 className="formHeaderLobby"> Register Customer </h3>
             <p className="first-name1">First Name</p>
             <p className="last-name">Last Name</p>
             <input
