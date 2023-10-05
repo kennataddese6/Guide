@@ -29,6 +29,9 @@ const AdminSideBar = ({ index }) => {
   const toAdminView = () => {
     navigate('/AdminView');
   };
+  const toSettings = () => {
+    navigate('/Settings', { state: 3 });
+  };
   useEffect(() => {
     if (!user) {
       toLoginPage();
@@ -62,7 +65,7 @@ const AdminSideBar = ({ index }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4">
+              <div className="navigation-elements-4" onClick={toSettings}>
                 <FiSettings
                   className="iconSetting"
                   style={{ color: 'black' }}

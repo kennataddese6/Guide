@@ -32,7 +32,7 @@ const FloorSideBar = ({ index, online }) => {
     navigate('/FloorClients');
   };
   const toSettings = () => {
-    navigate('/Settings');
+    navigate('/Settings', { state: 2 });
   };
   return (
     <div className="dashboard">

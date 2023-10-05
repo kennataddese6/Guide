@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import SideBar from '../items/SideBar';
 import FloorSideBar from '../items/FloorSidebar';
 import ChangePassowrd from '../items/ChangePassword';
-
+import AdminSideBar from '../items/AdminSidebar';
 const Settings = ({ online }) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,11 +17,13 @@ const Settings = ({ online }) => {
   }, [user]);
   return (
     <>
-      {location.state ? (
+      {location.state === 1 ? (
         <SideBar index={5} online={online} />
-      ) : (
+      ) : location.state === 2 ? (
         <FloorSideBar index={5} online={online} />
-      )}
+      ) : location.state === 3 ? (
+        <AdminSideBar />
+      ) : null}
       <ChangePassowrd />
     </>
   );
