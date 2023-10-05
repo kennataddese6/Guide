@@ -20,8 +20,10 @@ const RegisterCustomer = () => {
   const [department, setDepartment] = useState(form.department);
   const [floorNumber, setFloorNumber] = useState(form.floorNumber);
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
+  const [gender, setGender] = useState(form.gender);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const [inactive, setInactive] = useState(true);
   const inputRef = useRef(null);
 
   //console.log('this is the registered person', role);
@@ -54,6 +56,7 @@ const RegisterCustomer = () => {
       department,
       floorNumber,
       elevatorNumber,
+      gender,
     });
   }, [
     firstName,
@@ -65,6 +68,7 @@ const RegisterCustomer = () => {
     department,
     floorNumber,
     elevatorNumber,
+    gender,
   ]);
   const resetInputs = () => {
     setFirstName('');
@@ -76,6 +80,7 @@ const RegisterCustomer = () => {
     setOfficeNumber('');
     setEleveatorNumber('');
     setDepartment('');
+    setGender('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -90,6 +95,7 @@ const RegisterCustomer = () => {
       department: department,
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
+      gender: gender,
       booking: false,
     };
     dispatch(registerCustomer(customerData));
@@ -118,162 +124,245 @@ const RegisterCustomer = () => {
     event.preventDefault();
     document.execCommand('paste');
   };
+  useEffect(() => {
+    setInactive(
+      firstName === '' ||
+        lastName === '' ||
+        gender === '' ||
+        phoneNumber === '' ||
+        woreda === '' ||
+        subcity === '' ||
+        department === '' ||
+        floorNumber === '' ||
+        officeNumber === '' ||
+        elevatorNumber === ''
+    );
+  }, [
+    firstName,
+    lastName,
+    gender,
+    phoneNumber,
+    woreda,
+    subcity,
+    department,
+    floorNumber,
+    officeNumber,
+    elevatorNumber,
+  ]);
   return (
     <>
       <div className="dashboard">
         <div className="div">
           <div className="container">
-            <div className="rectangle-parent">
-              <div className="frame-child" />
-              {isLoading && <Spinner />}
+            {isLoading && <Spinner />}
+            <div className="registration-form"> Register Customer</div>
+            <p className="first-name1">First Name</p>
+            <p className="last-name">Last Name</p>
+            <input
+              className="CusotmerfirstInput"
+              type="text"
+              required
+              id="firstName"
+              value={firstName}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />{' '}
+            <input
+              className="CusotmersecondInput"
+              type="text"
+              required
+              id="lastName"
+              value={lastName}
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '180px' }}
+            >
+              Gender
+            </p>
+            <div className="genderSelection">
+              {' '}
+              <label htmlFor="female"> Male</label>
               <input
-                className="frame-item"
-                type="number"
-                required
-                id="floorNumber"
-                value={floorNumber}
+                type="radio"
+                value="male"
+                name="gender"
+                checked={gender === 'male' ? true : null}
                 onChange={(e) => {
-                  setFloorNumber(e.target.value);
+                  setGender(e.target.value);
                 }}
               />
-              <div className="registration-form"> Register Customer</div>
+              <label htmlFor="female"> Female</label>
               <input
-                className="frame-inner"
-                type="text"
-                required
-                id="firstName"
-                value={firstName}
+                type="radio"
+                value="female"
+                name="gender"
+                checked={gender === 'female' ? true : null}
                 onChange={(e) => {
-                  setFirstName(e.target.value);
+                  setGender(e.target.value);
                 }}
               />
-              <div className="first-name">
-                <p className="first-name1">First Name</p>
-              </div>
-              <div className="rectangle-group">
-                <input
-                  className="rectangle-input"
-                  type="text"
-                  required
-                  id="lastName"
-                  value={lastName}
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-                <div className="last-name">Last Name</div>
-              </div>
-              <input
-                className="frame-child1"
-                type="tel"
-                required
-                id="phone"
-                value={phoneNumber}
-                onChange={(e) => {
-                  setPhoneNumber(e.target.value);
-                }}
-              />
-              <div className="phone">
-                <p className="first-name1">Phone</p>
-              </div>
-              <input
-                className="frame-child2"
-                type="text"
-                required
-                id="woreda"
-                value={woreda}
-                onChange={(e) => {
-                  setWoreda(e.target.value);
-                }}
-              />
-              <div className="woreda">
-                <p className="first-name1">Woreda</p>
-              </div>
-              <input
-                className="frame-child3"
-                type="text"
-                required
-                id="subcity"
-                value={subcity}
-                onChange={(e) => {
-                  setSubCity(e.target.value);
-                }}
-              />
-              <div className="subcity">
-                <p className="first-name1">Subcity</p>
-              </div>
-              <input
-                className="frame-child4"
-                type="text"
-                required
-                id="providerName"
-              />
-              <input
-                className="frame-child5"
-                type="number"
-                required
-                id="officeNumber"
-                value={officeNumber}
-                onChange={(e) => {
-                  setOfficeNumber(e.target.value);
-                }}
-              />
-              <div className="provider-name">
-                <p className="first-name1">Provider Name</p>
-              </div>
-              <div className="office-number">
-                <p className="first-name1">Office Number</p>
-              </div>
-              <div className="floor-number">
-                <p className="first-name1">Floor Number</p>
-              </div>
-              <input
-                className="frame-child6"
-                type="text"
-                required
-                id="department"
-                value={department}
-                onChange={(e) => {
-                  setDepartment(e.target.value);
-                }}
-                ref={inputRef}
-                onContextMenu={handleContextMenu}
-              />
-              <div className="department">
-                <p className="first-name1">Department</p>
-              </div>
-              <input
-                className="frame-child7"
-                type="number"
-                required
-                id="elevatorNumber"
-                value={elevatorNumber}
-                onChange={(e) => {
-                  setEleveatorNumber(e.target.value);
-                }}
-              />
-              <div className="elevator-number">
-                <p className="first-name1">Elevator Number</p>
-              </div>
-              <input className="frame-child8" type="text" id="pre-request" />
-              <div className="pre-request">
-                <p className="first-name1">Pre-request</p>
-              </div>
-              <button className="submit" onClick={handleSubmit}>
-                Submit
-              </button>
-              <div className="ellipse-div" />
-              <input className="frame-child11" type="radio" required />
-              <input className="frame-child12" type="radio" required />
-              <div className="male">Male</div>
-              <div className="female">Female</div>
             </div>
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '180px' }}
+            >
+              Phone Number
+            </p>
+            <input
+              className="CusotmersecondInput noNumberSpin"
+              type="number"
+              required
+              id="phone"
+              value={phoneNumber}
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
+              style={{
+                position: 'absolute',
+                top: '240px',
+                WebkitAppearance: 'none',
+                MozAppearance: 'textfield',
+              }}
+            />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '280px' }}
+            >
+              Woreda
+            </p>
+            <input
+              className="CusotmerfirstInput"
+              type="number"
+              required
+              id="woreda"
+              value={woreda}
+              onChange={(e) => {
+                setWoreda(e.target.value);
+              }}
+              style={{ position: 'absolute', top: '340px' }}
+            />
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '280px' }}
+            >
+              Subcity
+            </p>
+            <input
+              className="CusotmersecondInput"
+              type="number"
+              required
+              id="subcity"
+              value={subcity}
+              onChange={(e) => {
+                setSubCity(e.target.value);
+              }}
+              style={{ position: 'absolute', top: '340px' }}
+            />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '380px' }}
+            >
+              Departemnt
+            </p>
+            <input
+              className="CusotmerfirstInput"
+              type="text"
+              required
+              id="department"
+              value={department}
+              onChange={(e) => {
+                setDepartment(e.target.value);
+              }}
+              ref={inputRef}
+              onContextMenu={handleContextMenu}
+              style={{ position: 'absolute', top: '440px' }}
+            />
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '380px' }}
+            >
+              Floor Number
+            </p>
+            <input
+              className="CusotmersecondInput"
+              type="number"
+              required
+              id="floorNumber"
+              value={floorNumber}
+              onChange={(e) => {
+                setFloorNumber(e.target.value);
+              }}
+              style={{ position: 'absolute', top: '440px' }}
+            />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '480px' }}
+            >
+              Office Number
+            </p>
+            <input
+              className="CusotmerfirstInput"
+              type="number"
+              required
+              id="officeNumber"
+              value={officeNumber}
+              onChange={(e) => {
+                setOfficeNumber(e.target.value);
+              }}
+              style={{ position: 'absolute', top: '540px' }}
+            />
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '480px' }}
+            >
+              Elevator Number
+            </p>
+            <input
+              className="CusotmersecondInput"
+              type="number"
+              required
+              id="elevatorNumber"
+              value={elevatorNumber}
+              onChange={(e) => {
+                setEleveatorNumber(e.target.value);
+              }}
+              style={{ position: 'absolute', top: '540px' }}
+            />
+            <p className="intention">Intention of visit</p>
+            <input
+              className="intentionVisit"
+              type="text"
+              required
+              id="providerName"
+              placeholder="(optional)"
+            />
+            {inactive ? (
+              <div
+                className="submitButInactive"
+                style={{ position: 'absolute', top: '690px' }}
+              >
+                Submit
+              </div>
+            ) : (
+              <div
+                className="submitBut"
+                style={{ position: 'absolute', top: '690px' }}
+                onClick={handleSubmit}
+              >
+                Submit
+              </div>
+            )}
             {SuccessMessage ? (
               <div
                 style={{
                   position: 'absolute',
-                  top: '70%',
-                  left: '38%',
+                  top: '93%',
+                  left: '51%',
                   color: 'green',
                   display: 'flex',
                   alignItems: 'center',
@@ -285,13 +374,12 @@ const RegisterCustomer = () => {
             ) : (
               ''
             )}
-
             {ErrorMessage ? (
               <div
                 style={{
                   position: 'absolute',
-                  top: '70%',
-                  left: '38%',
+                  top: '93%',
+                  left: '41%',
                   color: 'red',
                   display: 'flex',
                   alignItems: 'center',

@@ -11,6 +11,7 @@ const FormProvider = ({ children }) => {
     department: '',
     floorNumber: '',
     elevatorNumber: '',
+    gender: '',
   });
 
   return (

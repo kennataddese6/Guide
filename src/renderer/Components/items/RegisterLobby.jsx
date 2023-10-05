@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/auth/authSlice';
-import { MdCancel} from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 const RegisterLobby = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const RegisterLobby = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [floorNumber, setFloorNumber] = useState('');
+  const [selectedRole, setSelectedRole] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
@@ -22,8 +23,12 @@ const RegisterLobby = () => {
     setEmail('');
     setPhoneNumber('');
     setFloorNumber('');
+    setSelectedRole('');
     setErrorMessage(false);
     setSuccessMessage(false);
+  };
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
   };
   useEffect(() => {
     if (isSuccess) {
@@ -43,6 +48,7 @@ const RegisterLobby = () => {
       email: email,
       phoneNumber: phoneNumber,
       floorNumber: floorNumber,
+      role: Number(selectedRole),
     };
     dispatch(register(userData));
     resetInputs();
@@ -91,10 +97,27 @@ const RegisterLobby = () => {
                 setPhoneNumber(e.target.value);
               }}
             />
+            <select
+              className="lastNameInput"
+              value={selectedRole}
+              onChange={handleRoleChange}
+              style={{ position: 'absolute', top: '256px', left: '279px' }}
+            >
+              <option value="">Select a role</option>
+              <option value="7706">Admin</option>
+              <option value="1000">Lobby Receptionist</option>
+              <option value="4800">Floor Receptionist</option>
+            </select>
 
             <div className="text-wrapper">Email</div>
             <div className="text-wrapper-4">First Name</div>
             <div className="text-wrapper-3">Last Name</div>
+            <div
+              className="text-wrapper-3"
+              style={{ position: 'absolute', top: '213px' }}
+            >
+              Role
+            </div>
             <div className="text-wrapper-2">Phone Number</div>
             <div className="text-wrapper-5">Floor Number</div>
             <input

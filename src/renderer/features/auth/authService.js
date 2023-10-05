@@ -52,6 +52,19 @@ const updateLatestMessage = async (latestMessage) => {
     throw error;
   }
 };
+// To Change Password
+const ChangePassword = async (userData) => {
+  try {
+    const response = await axios.post(API_URL + 'ChangePassword', userData);
+
+    if (response.data) {
+      //sessionStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 // To logout users
 const logout = async () => {
   try {
@@ -66,5 +79,6 @@ const authService = {
   updateLatestMessage,
   login,
   logout,
+  ChangePassword,
 };
 export default authService;
