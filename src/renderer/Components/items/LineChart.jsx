@@ -4,6 +4,7 @@ import { getCustomers } from 'renderer/features/customers/customerSlice';
 import { Line } from 'react-chartjs-2';
 import { CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
+import { reset } from 'renderer/features/customers/customerSlice';
 
 Chart.register(CategoryScale);
 const LineChart = () => {
@@ -18,8 +19,8 @@ const LineChart = () => {
   useEffect(() => {
     if (isSuccess) {
       setCustomers(message);
-      console.log(message);
     }
+    dispatch(reset());
   }, [isSuccess]);
 
   // Assuming each customer has a 'date' property
