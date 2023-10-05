@@ -22,7 +22,7 @@ const Settings = ({ online }) => {
       ) : location.state === 2 ? (
         <FloorSideBar index={5} online={online} />
       ) : location.state === 3 ? (
-        <AdminSideBar />
+        <AdminSideBar index={5} />
       ) : null}
       <ChangePassowrd />
     </>
