@@ -1,8 +1,8 @@
 import '../styles/login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import { FiLock, FiUnlock } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { login } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +19,7 @@ const Login = () => {
   const { isSuccess, isLoading, user, message, isError } = useSelector(
     (state) => state.auth
   );
-  const handleLogin = (e) => {
-    //navigate('/LobbyDasboard');
+  const handleLogin = () => {
     const userData = {
       email: email,
       password: password,

@@ -1,19 +1,19 @@
 import moment from 'moment';
 import '../styles/FloorRecetionists.css';
-import Conversations from './Conversations';
 import { useEffect, useState } from 'react';
 import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
-import { sendMessage, ws } from 'renderer/webSocket';
+import { ws } from 'renderer/webSocket';
 
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
 
-  const { isLoading, isError, isSuccessgetFloorReceptionists, message } =
-    useSelector((state) => state.auth);
+  const { isSuccessgetFloorReceptionists, message } = useSelector(
+    (state) => state.auth
+  );
   const passFloorNumber = (number) => {
     setSelectedFloor(number);
   };
@@ -40,7 +40,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       return date.format('HH:mm');
     }
   }
-  ws.addEventListener('message', function (event) {
+  ws.addEventListener('message', function () {
     setIncomingMessage(true);
   });
   useEffect(() => {
