@@ -96,6 +96,7 @@ const RegisterCustomer = () => {
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
       gender: gender,
+      regiseterdBy: user.Email,
       booking: false,
     };
     dispatch(registerCustomer(customerData));
