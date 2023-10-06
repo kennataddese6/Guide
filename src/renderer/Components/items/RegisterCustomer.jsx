@@ -114,7 +114,7 @@ const RegisterCustomer = () => {
     // Send the message feature
 
     const composeMessage = {
-      email: user.FloorNumber,
+      email: String(user.FloorNumber),
       content: `${firstName} ${lastName} wants to come to ${department}. Shall I send him?`,
       address: floorNumber,
     };

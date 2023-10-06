@@ -29,17 +29,25 @@ const Login = () => {
   };
   useEffect(() => {
     if (isSuccess || user) {
-      const connected = {
-        email: user ? user.FloorNumber : '',
-      };
-      sendMessage(connected);
       if (user && user.Roles === 1000) {
+        const connected = {
+          email: user ? user.Email : '',
+        };
+        sendMessage(connected);
         navigate('/LobbyDasboard');
       }
       if (user && user.Roles === 4800) {
+        const connected = {
+          email: user ? String(user.FloorNumber) : '',
+        };
+        sendMessage(connected);
         navigate('/FloorDashboard');
       }
       if (user && user.Roles == 7706) {
+        const connected = {
+          email: user ? user.Email : '',
+        };
+        sendMessage(connected);
         navigate('/AdminDashboard');
       }
     }
