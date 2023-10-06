@@ -178,7 +178,12 @@ const LobbyDashboard = ({ online }) => {
         <RegisterCustomer role="Customer" />
       </div>
       {!toggleBookedClients ? (
-        <div className="overlap-2">
+        <div
+          className="overlap-2"
+          onDragOver={(event) => handleDragOver(event)}
+          handleDragStart={handleDragStart}
+          onDrop={(event) => handleDropOnWaitingClients(event)}
+        >
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'center' }}>
               <FiSearch />
@@ -224,9 +229,7 @@ const LobbyDashboard = ({ online }) => {
                   <Client
                     key={client.id}
                     client={client}
-                    handleDragStart={handleDragStart}
                     handleDragOver={handleDragOver}
-                    handleDropOnWaitingClients={handleDropOnWaitingClients}
                   />
                 ))
             : ''}
