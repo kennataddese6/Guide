@@ -2,13 +2,14 @@ import '../styles/RegisterCusomer.css';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
-import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage } from '../../webSocket';
 import FormContext from 'renderer/features/hook/FormContext';
+import NotificationModal from 'renderer/features/hook/NotificationModal';
+
 const RegisterCustomer = () => {
   const { form, setForm } = useContext(FormContext);
   const [firstName, setFirstName] = useState(form.firstName);
@@ -358,23 +359,7 @@ const RegisterCustomer = () => {
                 Submit
               </div>
             )}
-            {SuccessMessage ? (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '93%',
-                  left: '51%',
-                  color: 'green',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <MdCheckCircle color="green" />
-                <h4> Success</h4>
-              </div>
-            ) : (
-              ''
-            )}
+            {SuccessMessage ? <NotificationModal /> : ''}
             {ErrorMessage ? (
               <div
                 style={{

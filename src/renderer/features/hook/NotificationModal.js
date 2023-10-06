@@ -16,7 +16,7 @@ const NotificationModal = () => {
         }
         return Math.min(oldProgress + 1, 100);
       });
-    }, 30);
+    }, 50);
 
     return () => clearInterval(timer);
   }, []);
@@ -64,7 +64,7 @@ const NotificationModal = () => {
           {' '}
           <MdCheckCircle />
         </span>
-        Password Reset Successfully.
+        Operation Successful.
       </p>
       <div style={progressStyle}>
         <ProgressBar completed={progress} color="red" height="2px" />
