@@ -275,9 +275,9 @@ const LobbyDashboard = ({ online }) => {
             </h4>
           )}
           {clients
-            ? clients.map((client) => (
-                <Client key={client.id} client={client} />
-              ))
+            ? clients
+                .filter((client) => (client ? client.Booking === true : false))
+                .map((client) => <Client key={client.id} client={client} />)
             : ''}
         </div>
       )}
