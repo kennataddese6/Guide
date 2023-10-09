@@ -16,9 +16,11 @@ const RegisterCustomer = async (userData) => {
   }
 };
 
-const getCustomers = async () => {
+const getCustomers = async (user) => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL, {
+      params: { User: user },
+    });
     if (response.data) {
       return response.data;
     }
