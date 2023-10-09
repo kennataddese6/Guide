@@ -36,6 +36,7 @@ const LobbyDashboard = ({ online }) => {
     ScheduledCustomers,
   } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
+  const [UserEmail] = useState(user ? user.Email : '');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -225,6 +226,7 @@ const LobbyDashboard = ({ online }) => {
                       client.Booking === false
                     : true
                 )
+                .filter((client) => client.RegisteredBy === UserEmail)
                 .map((client) => (
                   <Client
                     key={client.id}
