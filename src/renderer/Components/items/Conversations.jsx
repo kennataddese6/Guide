@@ -12,7 +12,8 @@ const Conversations = ({ floorNumber }) => {
   const { message, isErrorGetCusomers, isLoadingGetCustomers } = useSelector(
     (state) => state.customer
   );
-
+  const { user } = useSelector((state) => state.auth);
+  const [userEmail] = useState(user ? user.Email : '');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -94,68 +95,67 @@ const Conversations = ({ floorNumber }) => {
         </h4>
       )}
       {FloorCustomers ? (
-        FloorCustomers.map((FloorCustomer) => (
-          <div className="conversationCard">
-            <p className="customerName">
-              {' '}
-              {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
-            </p>
-            {FloorCustomer.Booking ? (
-              <p className="customerContent">
-                {' '}
-                Mr {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName + ' '} will be visiting{' '}
-                {FloorCustomer.Department}. Please Let him in when here arrives.
+        FloorCustomers.map((FloorCustomer) => {
+          return userEmail === FloorCustomer.RegisteredBy ? (
+            <div className="conversationCard">
+              <p className="customerName">
+                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
               </p>
-            ) : (
-              <p className="customerContent">
-                Mr {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName + ' '}
-                wants to come to {FloorCustomer.Department}. Shall I send him?
+              {FloorCustomer.Booking ? (
+                <p className="customerContent">
+                  Mr {FloorCustomer.FirstName + ' '}{' '}
+                  {FloorCustomer.LastName + ' '} will be visiting{' '}
+                  {FloorCustomer.Department}. Please let him in when he arrives.
+                </p>
+              ) : (
+                <p className="customerContent">
+                  Mr {FloorCustomer.FirstName + ' '}{' '}
+                  {FloorCustomer.LastName + ' '}
+                  wants to come to {FloorCustomer.Department}. Shall I send him?
+                </p>
+              )}
+              {FloorCustomer.Accepted ? (
+                <p className="ArcustomerContent">Yes. Let him come</p>
+              ) : (
+                ''
+              )}
+              {FloorCustomer.Sent ? (
+                <p className="customerContent">
+                  I have sent {FloorCustomer.FirstName + ' '}{' '}
+                  {FloorCustomer.LastName} on Elevator{' '}
+                  {FloorCustomer.ElevatorNumber}
+                </p>
+              ) : (
+                ''
+              )}
+              {FloorCustomer.Arrived ? (
+                <p className="ArcustomerContent">Arrived</p>
+              ) : FloorCustomer.Status && FloorCustomer.Status.postpone ? (
+                <p className="ArcustomerContent">
+                  Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
+                  {new Date(FloorCustomer.Status.date)
+                    .getHours()
+                    .toString()
+                    .padStart(2, '0')}
+                  :
+                  {new Date(FloorCustomer.Status.date)
+                    .getMinutes()
+                    .toString()
+                    .padStart(2, '0')}
+                </p>
+              ) : (
+                ''
+              )}
+              <p className="rcustomerTime">
+                {formatDate(FloorCustomer.updatedAt)}
               </p>
-            )}
-            {FloorCustomer.Accepted ? (
-              <p className="ArcustomerContent"> Yes. Let him come</p>
-            ) : (
-              ''
-            )}
-            {FloorCustomer.Sent ? (
-              <p className="customerContent">
-                {' '}
-                I have sent {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName} on Elevator{' '}
-                {FloorCustomer.ElevatorNumber}
-              </p>
-            ) : (
-              ''
-            )}
-            {FloorCustomer.Arrived ? (
-              <p className="ArcustomerContent"> Arrived</p>
-            ) : FloorCustomer.Status && FloorCustomer.Status.postpone ? (
-              <p className="ArcustomerContent">
-                Scheduled to {formatday(FloorCustomer.Status.date)} on{' '}
-                {new Date(FloorCustomer.Status.date)
-                  .getHours()
-                  .toString()
-                  .padStart(2, '0')}
-                :
-                {new Date(FloorCustomer.Status.date)
-                  .getMinutes()
-                  .toString()
-                  .padStart(2, '0')}
-              </p>
-            ) : (
-              ''
-            )}
-            <p className="rcustomerTime">
-              {formatDate(FloorCustomer.updatedAt)}
-            </p>
-          </div>
-        ))
+            </div>
+          ) : null;
+        })
       ) : (
         <>
           <div>
-            <h1>Sorry Nothing to show</h1>
+            <h1>Sorry, nothing to show</h1>
           </div>
         </>
       )}
