@@ -18,6 +18,7 @@ const Clients = ({ online }) => {
   const { message, isSuccess } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const [allClients, setAllClients] = useState([]);
+  const [UserEmail] = useState(user ? user.Email : '');
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -83,25 +84,24 @@ const Clients = ({ online }) => {
       >
         <AgGridReact
           ref={ClientTableRef}
-          rowData={allClients.map((client) => ({
-            FirstName: client.FirstName,
-            LastName: client.LastName,
-            Woreda: client.Woreda,
-            SubCity: client.SubCity,
-            PhoneNumber: `'${client.PhoneNumber}'`,
-            Department: client.Department,
-            FloorNumber: client.FloorNumber,
-            Gender: client.Gender,
-          }))}
+          rowData={allClients
+            .filter((client) => client.RegisteredBy === UserEmail)
+            .map((client) => ({
+              FirstName: client.FirstName,
+              LastName: client.LastName,
+              Woreda: client.Woreda,
+              SubCity: client.SubCity,
+              PhoneNumber: `'${client.PhoneNumber}'`,
+              Department: client.Department,
+              FloorNumber: client.FloorNumber,
+              Gender: client.Gender,
+            }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           suppressExcelExport={true}
           popupParent={popupParent}
           suppressExcelExport={true}
-          // pagination={true}
-          //paginationPageSize={true}
         ></AgGridReact>
-
         <div
           className="submitBut"
           style={{ marginTop: '20px' }}
