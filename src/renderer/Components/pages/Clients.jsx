@@ -41,6 +41,10 @@ const Clients = ({ online }) => {
       filter: true,
     },
     {
+      field: 'Gender',
+      filter: true,
+    },
+    {
       field: 'Woreda',
       filter: true,
     },
@@ -81,6 +85,7 @@ const Clients = ({ online }) => {
             PhoneNumber: client.PhoneNumber,
             Department: client.Department,
             FloorNumber: client.FloorNumber,
+            Gender: client.Gender,
           }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
