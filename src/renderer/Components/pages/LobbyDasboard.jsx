@@ -182,7 +182,6 @@ const LobbyDashboard = ({ online }) => {
         <div
           className="overlap-2"
           onDragOver={(event) => handleDragOver(event)}
-          handleDragStart={handleDragStart}
           onDrop={(event) => handleDropOnWaitingClients(event)}
         >
           <div className="text-wrapper-13">
@@ -232,6 +231,7 @@ const LobbyDashboard = ({ online }) => {
                     key={client.id}
                     client={client}
                     handleDragOver={handleDragOver}
+                    handleDragStart={handleDragStart}
                   />
                 ))
             : ''}
