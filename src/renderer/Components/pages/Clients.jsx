@@ -24,7 +24,7 @@ const Clients = ({ online }) => {
     }
   }, [user]);
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(getCustomers(user ? user.Email : ''));
   }, []);
   useEffect(() => {
     if (isSuccess) {
