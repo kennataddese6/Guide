@@ -308,13 +308,15 @@ const LobbyDashboard = ({ online }) => {
             </div>
           </div>
           {sentClients
-            ? sentClients.map((client) => (
-                <Client
-                  key={client.id}
-                  client={client}
-                  handleDragOver={handleDragOver}
-                />
-              ))
+            ? sentClients
+                .filter((client) => client.RegisteredBy === UserEmail)
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragOver={handleDragOver}
+                  />
+                ))
             : ''}
         </div>
       ) : (
@@ -339,13 +341,15 @@ const LobbyDashboard = ({ online }) => {
             </div>
           </div>
           {scheduledClients
-            ? scheduledClients.map((client) => (
-                <Client
-                  key={client.id}
-                  client={client}
-                  handleDragStart={handleDragStart}
-                />
-              ))
+            ? scheduledClients
+                .filter((client) => client.RegisteredBy === UserEmail)
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragStart={handleDragStart}
+                  />
+                ))
             : ''}
         </div>
       )}
