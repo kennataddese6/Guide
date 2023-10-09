@@ -88,7 +88,7 @@ const Clients = ({ online }) => {
             LastName: client.LastName,
             Woreda: client.Woreda,
             SubCity: client.SubCity,
-            PhoneNumber: client.PhoneNumber,
+            PhoneNumber: `'${client.PhoneNumber}'`,
             Department: client.Department,
             FloorNumber: client.FloorNumber,
             Gender: client.Gender,
