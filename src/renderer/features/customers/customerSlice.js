@@ -34,9 +34,9 @@ export const registerCustomer = createAsyncThunk(
 // get Customers
 export const getCustomers = createAsyncThunk(
   'customer/getCustomera',
-  async (_, thunkAPI) => {
+  async (user, thunkAPI) => {
     try {
-      return await CustomerService.getCustomers();
+      return await CustomerService.getCustomers(user);
     } catch (error) {
       const message =
         (error.response &&
