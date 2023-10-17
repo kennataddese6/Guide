@@ -5,6 +5,7 @@ import { getFloorReceptionists } from 'renderer/features/auth/authSlice';
 import { getCustomers } from 'renderer/features/customers/customerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
+import { reset as resetCustomer } from 'renderer/features/customers/customerSlice';
 import { ws } from 'renderer/webSocket';
 
 const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
@@ -12,6 +13,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   const [floorReceptionists, setFloorReceptionists] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
   const [client, setClient] = useState([]);
+  const [systemUser, setSystemUser] = useState('');
 
   const {
     isSuccessgetFloorReceptionists,
@@ -28,6 +30,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   useEffect(() => {
     dispatch(getFloorReceptionists());
     dispatch(getCustomers());
+    setSystemUser(user ? user : '');
   }, []);
   useEffect(() => {
     if (isSuccessgetFloorReceptionists) {
@@ -42,15 +45,16 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
         'here is the last client',
         customerMessage
           .filter((customers) => customers.FloorNumber === selectedFloor)
-          .filter((customer) => customer.RegisteredBy === user.Email)[0]
+          .filter((customer) => customer.RegisteredBy === systemUser.Email)[0]
       );
       setClient(customerMessage);
     }
+    dispatch(resetCustomer());
   }, [isSuccess]);
 
-  /*   function trimMessage(message) {
+  function trimMessage(message) {
     return message.length > 32 ? message.substring(0, 32) + '...' : message;
-  } */
+  }
   function formatDate(dateString) {
     const date = moment(dateString);
     const now = moment();
@@ -101,36 +105,116 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
                     (customer) =>
                       customer.FloorNumber === floorReceptionist.FloorNumber
                   )
-                  .filter((customer) => customer.RegisteredBy === user.Email)[0]
-                  ?.Booking
-                  ? `Mr ${client[0]?.FirstName} would be visiting us`
+                  .filter(
+                    (customer) => customer.RegisteredBy === systemUser.Email
+                  )[0]?.Booking
+                  ? `${trimMessage(
+                      `Mr ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      } would be visiting us`
+                    )}`
                   : client
                       .filter(
                         (customer) =>
                           customer.FloorNumber === floorReceptionist.FloorNumber
                       )
                       .filter(
-                        (customer) => customer.RegisteredBy === user.Email
+                        (customer) => customer.RegisteredBy === systemUser.Email
+                      )[0]?.Status.postpone
+                  ? `${trimMessage(
+                      `Mr ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      } has been Scheduled`
+                    )}`
+                  : client
+                      .filter(
+                        (customer) =>
+                          customer.FloorNumber === floorReceptionist.FloorNumber
+                      )
+                      .filter(
+                        (customer) => customer.RegisteredBy === systemUser.Email
+                      )[0]?.Arrived
+                  ? `${trimMessage(
+                      `Mr ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      } has arrived`
+                    )}`
+                  : client
+                      .filter(
+                        (customer) =>
+                          customer.FloorNumber === floorReceptionist.FloorNumber
+                      )
+                      .filter(
+                        (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Sent
-                  ? `I have sent ${client[0]?.FirstName}`
+                  ? `${trimMessage(
+                      `I have sent ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      }`
+                    )}`
                   : client
                       .filter(
                         (customer) =>
                           customer.FloorNumber === floorReceptionist.FloorNumber
                       )
                       .filter(
-                        (customer) => customer.RegisteredBy === user.Email
+                        (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Accepted
-                  ? `Yes, let ${client[0]?.FirstName} come`
+                  ? `${trimMessage(
+                      `Yes, let ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      } come`
+                    )}`
                   : client
                       .filter(
                         (customer) =>
                           customer.FloorNumber === floorReceptionist.FloorNumber
                       )
                       .filter(
-                        (customer) => customer.RegisteredBy === user.Email
+                        (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Waiting
-                  ? `${client[0]?.FirstName} wants to come`
+                  ? `${trimMessage(
+                      `Mr ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.FirstName
+                      } wants to come to ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.Department
+                      }`
+                    )}`
                   : `Sorry`}{' '}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
