@@ -215,7 +215,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
                         )?.Department
                       }`
                     )}`
-                  : `Sorry`}{' '}
+                  : `Sorry, Nothing to show.`}{' '}
               </p>
               <div className="img-9">{floorReceptionist.FirstName[0]}</div>
 
