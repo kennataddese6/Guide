@@ -6,6 +6,7 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import '../styles/floorDashboard.css';
 import Switch from 'react-switch';
 import { FiSearch } from 'react-icons/fi';
+import { ws } from 'renderer/webSocket';
 
 const FloorDashboard = ({ online }) => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const FloorDashboard = ({ online }) => {
   const [clients, setClients] = useState([]);
   const [checked, setChecked] = useState(false);
   const [toggled, setToggled] = useState(false);
+  const [incomingMessage, setIncomingMessage] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
 
@@ -39,6 +41,12 @@ const FloorDashboard = ({ online }) => {
     dipatch(getFloorCustomers(user ? user.FloorNumber : ''));
   }, []);
   useEffect(() => {
+    if (incomingMessage) {
+      dipatch(getFloorCustomers(user ? user.FloorNumber : ''));
+      setIncomingMessage(false);
+    }
+  }, [incomingMessage]);
+  useEffect(() => {
     setClients(message);
   }, [message]);
   useEffect(() => {
@@ -48,6 +56,9 @@ const FloorDashboard = ({ online }) => {
     );
     return () => {};
   }, []);
+  ws.addEventListener('message', function () {
+    setIncomingMessage(true);
+  });
   return (
     <>
       <FloorSideBar index={1} online={online} />
