@@ -92,18 +92,22 @@ const FloorMessages = ({ online }) => {
 
             <p className="messageContent">
               {floorCustomers && floorCustomers.Booking
-                ? `${floorCustomers.FirstName} has been booked`
+                ? ` ${trimMessage(
+                    `${floorCustomers.FirstName} has been booked`
+                  )}`
                 : floorCustomers.Status && floorCustomers.Status.postpone
-                ? `${floorCustomers.FirstName} has been scheduled`
+                ? `${trimMessage(
+                    `${floorCustomers.FirstName} has been scheduled`
+                  )}`
                 : floorCustomers.Arrived
-                ? `${floorCustomers.FirstName} has Arrived`
+                ? `${trimMessage(`${floorCustomers.FirstName} has Arrived`)}`
                 : floorCustomers.Sent
-                ? ` I have sent ${floorCustomers.FirstName}`
+                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName}`
                 : floorCustomers.Accepted
                 ? ` Let ${floorCustomers.FirstName} come`
                 : floorCustomers.Waiting
-                ? `${floorCustomers.FirstName} Wants to come
-                to ${floorCustomers.Department}
+                ? `${trimMessage(`${floorCustomers.FirstName} Wants to come
+                to ${floorCustomers.Department}`)}
                 `
                 : 'Sorry. Nothing to Show.'}
             </p>
