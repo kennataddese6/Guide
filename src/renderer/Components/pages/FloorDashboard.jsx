@@ -130,7 +130,8 @@ const FloorDashboard = ({ online }) => {
                 .filter((client) =>
                   client.Status
                     ? client.Status.postpone === false &&
-                      client.Booking === false
+                      client.Booking === false &&
+                      client.Sent === false
                     : true
                 )
                 .map((client) => (
