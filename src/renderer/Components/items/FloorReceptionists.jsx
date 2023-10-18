@@ -40,7 +40,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   }, [isSuccessgetFloorReceptionists]);
   useEffect(() => {
     if (isSuccess) {
-      console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii', customerMessage);
+      console.log('I am going to set the new floor messages', customerMessage);
       console.log(
         'here is the last client',
         customerMessage
@@ -69,9 +69,13 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   });
   useEffect(() => {
     if (incomingMessage) {
-      console.log('here is the incoming message', incomingMessage);
+      console.log(
+        'I am going to dispatch get floor recpetionist',
+        incomingMessage
+      );
 
       dispatch(getFloorReceptionists());
+      dispatch(getCustomers());
     }
     setIncomingMessage(false);
   }, [incomingMessage]);
