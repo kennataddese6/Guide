@@ -1,8 +1,8 @@
 import '../styles/login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import { FiLock, FiUnlock } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { login } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +19,7 @@ const Login = () => {
   const { isSuccess, isLoading, user, message, isError } = useSelector(
     (state) => state.auth
   );
-  const handleLogin = (e) => {
-    //navigate('/LobbyDasboard');
+  const handleLogin = () => {
     const userData = {
       email: email,
       password: password,
@@ -29,17 +28,25 @@ const Login = () => {
   };
   useEffect(() => {
     if (isSuccess || user) {
-      const connected = {
-        email: user ? user.FloorNumber : '',
-      };
-      sendMessage(connected);
       if (user && user.Roles === 1000) {
+        const connected = {
+          email: user ? user.Email : '',
+        };
+        sendMessage(connected);
         navigate('/LobbyDasboard');
       }
       if (user && user.Roles === 4800) {
+        const connected = {
+          email: user ? String(user.FloorNumber) : '',
+        };
+        sendMessage(connected);
         navigate('/FloorDashboard');
       }
       if (user && user.Roles == 7706) {
+        const connected = {
+          email: user ? user.Email : '',
+        };
+        sendMessage(connected);
         navigate('/AdminDashboard');
       }
     }

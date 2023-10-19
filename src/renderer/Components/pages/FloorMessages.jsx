@@ -6,14 +6,15 @@ import FloorSideBar from '../items/FloorSidebar';
 import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
 import { ws } from 'renderer/webSocket';
-
+import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 const FloorMessages = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
-
+  const [floorCustomers, setFloorCustomers] = useState([]);
   const { user } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.customer);
 
   function trimMessage(message) {
     return message.length > 32 ? message.substring(0, 32) + '...' : message;
@@ -25,6 +26,16 @@ const FloorMessages = ({ online }) => {
   }, [user]);
 
   useEffect(() => {
+    if (message) {
+      setFloorCustomers(message[0]);
+      console.log(
+        ' IIIIIIIIIIIIIIIIIIIIII haveeeeeee got the customers',
+        message[0]
+      );
+    }
+  }, [message]);
+
+  useEffect(() => {
     console.log('this is step 1', reload);
     if (reload) {
       console.log('this is step 2', reload);
@@ -33,6 +44,7 @@ const FloorMessages = ({ online }) => {
         password: user.Password,
       };
       dispatch(login(userData));
+      dispatch(getFloorCustomers(user.FloorNumber));
       console.log('this is step 3', reload);
     }
     console.log('this is step 4', reload);
@@ -60,6 +72,7 @@ const FloorMessages = ({ online }) => {
         password: user ? user.Password : '',
       };
       dispatch(login(userData));
+      dispatch(getFloorCustomers(user.FloorNumber));
     }
     setIncomingMessage(false);
   }, [incomingMessage]);
@@ -78,15 +91,31 @@ const FloorMessages = ({ online }) => {
             <h3 className="ReceptionistName">Lobby Receptionist</h3>
 
             <p className="messageContent">
-              {user && user.LatestMessage
-                ? trimMessage(user.LatestMessage)
-                : 'Sorry. Nothing to show!'}
+              {floorCustomers && floorCustomers.Booking
+                ? ` ${trimMessage(
+                    `${floorCustomers.FirstName} has been booked`
+                  )}`
+                : floorCustomers.Status && floorCustomers.Status.postpone
+                ? `${trimMessage(
+                    `${floorCustomers.FirstName} has been scheduled`
+                  )}`
+                : floorCustomers.Arrived
+                ? `${trimMessage(`${floorCustomers.FirstName} has Arrived`)}`
+                : floorCustomers.Sent
+                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName}`
+                : floorCustomers.Accepted
+                ? ` Let ${floorCustomers.FirstName} come`
+                : floorCustomers.Waiting
+                ? `${trimMessage(`${floorCustomers.FirstName} Wants to come
+                to ${floorCustomers.Department}`)}
+                `
+                : 'Sorry. Nothing to Show.'}
             </p>
             <div className="img-9">L</div>
 
             <p className="TimeandDate">
               {' '}
-              {formatDate(user ? user.updatedAt : '')}
+              {formatDate(floorCustomers ? floorCustomers.updatedAt : '')}
             </p>
           </div>
         </div>

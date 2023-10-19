@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { FaUsers } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
 import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
-import { IoMdAnalytics, IoIosNotifications } from 'react-icons/io';
+import { IoMdAnalytics } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { FiRefreshCw } from 'react-icons/fi';
+
 const AdminSideBar = ({ index }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
@@ -23,6 +25,12 @@ const AdminSideBar = ({ index }) => {
   };
   const toLogin = () => {
     dispatch(logout());
+  };
+  const toAdminView = () => {
+    navigate('/AdminView');
+  };
+  const toSettings = () => {
+    navigate('/Settings', { state: 3 });
   };
   useEffect(() => {
     if (!user) {
@@ -57,12 +65,18 @@ const AdminSideBar = ({ index }) => {
             </div>
             <div className="navigation-elements-3">
               {' '}
-              <div className="navigation-elements-4">
-                <FiSettings
-                  className="iconSetting"
-                  style={{ color: 'black' }}
-                />
-                <div className="text-wrapper-2">Main Settings</div>
+              <div
+                className="navigation-elements-4"
+                onClick={toSettings}
+                style={{ backgroundColor: SideBarIndex === 5 ? 'gold' : '' }}
+              >
+                <div className="overlap-group">
+                  <FiSettings
+                    className="icon-action"
+                    style={{ color: 'black' }}
+                  />
+                  <div className="text-wrapper-4">Main Settings</div>
+                </div>
               </div>
               <div className="text-wrapper-3">Settings</div>
             </div>
@@ -107,16 +121,19 @@ const AdminSideBar = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="navigation-elements-7">
-            <FaUsers className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Clients</div>
+          <div
+            className="navigation-elements-7"
+            onClick={toAdminView}
+            style={{ backgroundColor: SideBarIndex === 4 ? 'gold' : '' }}
+          >
+            <div className="overlap-group">
+              <FaEye className="icon-action" style={{ color: 'black' }} />
+              <div className="text-wrapper-4">View</div>
+            </div>
           </div>
           <div className="navigation-elements-8">
-            <IoIosNotifications
-              className="iconSetting"
-              style={{ color: 'black' }}
-            />
-            <div className="text-wrapper-2">Notifications</div>
+            <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
+            <div className="text-wrapper-2">Update</div>
           </div>
         </div>
         <div className="divider-3" />

@@ -8,7 +8,7 @@ const ChangePassowrd = () => {
   const dispatch = useDispatch();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, sestConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [Error, setError] = useState(false);
   const [Success, setSuccess] = useState(false);
   const [displayMessage, setDiplayMessage] = useState('');
@@ -29,18 +29,21 @@ const ChangePassowrd = () => {
     setSuccess(false);
   };
   useEffect(() => {
-    if (!newPassword) {
+    if (!newPassword || !confirmPassword) {
       setEmptyField(true);
     } else {
       setEmptyField(false);
     }
-  }, [newPassword]);
+  }, [newPassword, confirmPassword]);
   useEffect(() => {
     if (isError) {
       setError(true);
       setDiplayMessage(message);
     }
     if (isSuccess) {
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
       setSuccess(true);
       setDiplayMessage(message);
     }
@@ -51,10 +54,15 @@ const ChangePassowrd = () => {
       setPasswordMatch(false);
       setError(true);
       setDiplayMessage('Passwords Must Match!');
+      setSuccess(false);
     } else {
-      setPasswordMatch(true);
-      setError(false);
-      setDiplayMessage('');
+      if (!Success) {
+        setPasswordMatch(true);
+        setError(false);
+        setDiplayMessage('');
+      } else {
+        console.log('I dont konw what to do here');
+      }
     }
   }, [newPassword, confirmPassword]);
   return (
@@ -64,7 +72,7 @@ const ChangePassowrd = () => {
       <input
         type="password"
         className="EmailID"
-        style={{ marginTop: '6em' }}
+        style={{ marginTop: '6em', color: 'black' }}
         placeholder="Current Password"
         value={currentPassword}
         onChange={(e) => {
@@ -74,14 +82,11 @@ const ChangePassowrd = () => {
       <input
         type="password"
         className="EmailID"
-        style={{ marginTop: '2em' }}
+        style={{ marginTop: '2em', color: 'black' }}
         placeholder="New Password"
         value={newPassword}
         onChange={(e) => {
           setNewPassword(e.target.value);
-        }}
-        onFocus={() => {
-          setConfirmFocus(true);
         }}
       />
       <input
@@ -90,6 +95,7 @@ const ChangePassowrd = () => {
         style={{
           marginTop: '2em',
           borderBottomColor: passwordMatch ? '' : 'red',
+          color: 'black',
         }}
         placeholder="Confirm Password"
         value={confirmPassword}
@@ -97,7 +103,7 @@ const ChangePassowrd = () => {
           setConfirmFocus(true);
         }}
         onChange={(e) => {
-          sestConfirmPassword(e.target.value);
+          setConfirmPassword(e.target.value);
         }}
       />
       <button
@@ -112,7 +118,7 @@ const ChangePassowrd = () => {
         {' '}
         Submit
       </button>
-      <p style={{ color: Error ? 'red' : Success ? 'green' : 'white' }}>
+      <p style={{ color: Error ? 'red' : Success ? 'green' : 'yellow' }}>
         {' '}
         {displayMessage}
       </p>

@@ -1,13 +1,5 @@
-.registration-form {
-  position: absolute;
-  top: 25px;
-  left: 118px;
-  font-size: 20px;
-  color: var(--color-white);
+.formHeaderLobby {
   text-align: center;
-  display: inline-block;
-  width: 435px;
-  height: 33px;
 }
 
 .first-name1 {

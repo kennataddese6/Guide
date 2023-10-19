@@ -1,12 +1,16 @@
 import SideBar from '../items/SideBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomers } from 'renderer/features/customers/customerSlice';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
 import { reset } from 'renderer/features/customers/customerSlice';
+import { ModuleRegistry } from '@ag-grid-community/core';
+import { CsvExportModule } from '@ag-grid-community/csv-export';
+ModuleRegistry.registerModules([CsvExportModule]);
+
 const Clients = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,7 +18,6 @@ const Clients = ({ online }) => {
   const { message, isSuccess } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const [allClients, setAllClients] = useState([]);
-
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -41,6 +44,10 @@ const Clients = ({ online }) => {
       filter: true,
     },
     {
+      field: 'Gender',
+      filter: true,
+    },
+    {
       field: 'Woreda',
       filter: true,
     },
@@ -62,6 +69,9 @@ const Clients = ({ online }) => {
   const popupParent = useMemo(() => {
     return document.body;
   }, []);
+  const Export = useCallback(() => {
+    ClientTableRef.current.api.exportDataAsCsv();
+  }, []);
   return (
     <>
       {' '}
@@ -78,17 +88,27 @@ const Clients = ({ online }) => {
             LastName: client.LastName,
             Woreda: client.Woreda,
             SubCity: client.SubCity,
-            PhoneNumber: client.PhoneNumber,
+            PhoneNumber: `'${client.PhoneNumber}'`,
             Department: client.Department,
             FloorNumber: client.FloorNumber,
+            Gender: client.Gender,
           }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           suppressExcelExport={true}
           popupParent={popupParent}
-          // pagination={true}
-          //paginationPageSize={true}
+          suppressExcelExport={true}
         ></AgGridReact>
+        <div
+          className="submitBut"
+          style={{ marginTop: '20px' }}
+          onClick={() => {
+            Export();
+          }}
+        >
+          {' '}
+          Download{' '}
+        </div>
       </div>
     </>
   );

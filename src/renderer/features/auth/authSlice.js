@@ -59,6 +59,23 @@ export const getFloorReceptionists = createAsyncThunk(
     }
   }
 );
+// Get Users
+export const getUsers = createAsyncThunk(
+  'auth/getUsers',
+  async (_, thunkAPI) => {
+    try {
+      return await authService.getUsers();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 // update latest message
 export const updateLatestMessage = createAsyncThunk(
   'auth/updateLatestMessage',
@@ -82,6 +99,23 @@ export const ChangePassword = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       return await authService.ChangePassword(user);
+    } catch (error) {
+      let message;
+      if (error.response && error.response.status === 401) {
+        message = 'Incorrect Password!';
+      } else {
+        message = error.message || error.toString();
+      }
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// To Reset Password
+export const ResetPassword = createAsyncThunk(
+  'auth/ResetPassword',
+  async (user, thunkAPI) => {
+    try {
+      return await authService.ResetPassword(user);
     } catch (error) {
       let message;
       if (error.response && error.response.status === 401) {
@@ -174,6 +208,20 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      // to Get Users
+      .addCase(getUsers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccessgetFloorReceptionists = true;
+        state.message = action.payload;
+      })
+      .addCase(getUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
       })
@@ -187,6 +235,20 @@ export const authSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(ChangePassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // to Reset password
+      .addCase(ResetPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(ResetPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(ResetPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

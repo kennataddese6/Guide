@@ -1,21 +1,22 @@
 import AdminSideBar from '../items/AdminSidebar';
-import RegisterLobby from '../items/RegisterLobby';
-import RegisterFloors from '../items/RegisterFloors';
-import '../styles/AdminNavbar.css';
-import { FaUser, FaBuilding } from 'react-icons/fa';
+import { FaUsers, FaBuilding } from 'react-icons/fa';
 import { useState } from 'react';
-const Register = () => {
+import Floors from '../items/Floors';
+import Users from '../items/Users';
+
+const AdminView = () => {
   const [selected, setSelected] = useState(1);
   return (
     <>
+      <AdminSideBar index={4} />
       <div
         className={selected === 1 ? 'headerOneSelected' : 'headerOne'}
         onClick={() => {
           setSelected(1);
         }}
       >
-        <FaUser />
-        <p className="headerTtile">Employee</p>
+        <FaUsers fontSize={'20px'} />
+        <p className="headerTtile"> Users</p>
       </div>
       <div
         className="headerTwo"
@@ -27,9 +28,8 @@ const Register = () => {
         <FaBuilding />
         <p className="headerTtile"> Floors</p>
       </div>
-      <AdminSideBar index={3} />
-      {selected === 1 ? <RegisterLobby /> : <RegisterFloors />}
+      {selected === 1 ? <Users /> : <Floors />}
     </>
   );
 };
-export default Register;
+export default AdminView;

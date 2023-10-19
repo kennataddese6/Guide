@@ -35,7 +35,13 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     }
   }, [message]);
 
-  const customerAccepted = (id, firstName, lastName, floorNumber) => {
+  const customerAccepted = (
+    id,
+    firstName,
+    lastName,
+    floorNumber,
+    RegisteredBy
+  ) => {
     const updateData = {
       Accepted: true,
       ID: id,
@@ -47,15 +53,21 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     };
     dispatch(updateLatestMessage(composedMessage));
     const InstantMessage = {
-      email: user.FloorNumber,
+      email: String(user.FloorNumber),
       content: `Yes. Let ${firstName} ${lastName} come`,
-      address: 0,
+      address: RegisteredBy,
     };
     sendMessage(InstantMessage);
     setReload(true);
   };
 
-  const customerArrived = (id, firstName, lastName, floorNumber) => {
+  const customerArrived = (
+    id,
+    firstName,
+    lastName,
+    floorNumber,
+    RegisteredBy
+  ) => {
     const updateData = {
       Arrived: true,
       ID: id,
@@ -67,9 +79,9 @@ const FloorConversations = ({ floorNumber, setReload }) => {
       to: floorNumber,
     };
     const InstantMessage = {
-      email: user.FloorNumber,
+      email: String(user.FloorNumber),
       content: `Customer  ${firstName} ${lastName} has Arrived`,
-      address: 0,
+      address: RegisteredBy,
     };
     sendMessage(InstantMessage);
     dispatch(updateLatestMessage(composedMessage));
@@ -136,7 +148,13 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     );
     return () => {};
   }, []);
-  const ScheduleClient = (id, firstName, lastName, floorNumber) => {
+  const ScheduleClient = (
+    id,
+    firstName,
+    lastName,
+    floorNumber,
+    RegisteredBy
+  ) => {
     const updateData = {
       ID: id,
       Postpone: true,
@@ -149,9 +167,9 @@ const FloorConversations = ({ floorNumber, setReload }) => {
       to: floorNumber,
     };
     const InstantMessage = {
-      email: user.FloorNumber,
+      email: String(user.FloorNumber),
       content: ` ${firstName} ${lastName} is Scheduled`,
-      address: 0,
+      address: RegisteredBy,
     };
     sendMessage(InstantMessage);
     dispatch(updateLatestMessage(composedMessage));
@@ -217,7 +235,8 @@ const FloorConversations = ({ floorNumber, setReload }) => {
                       FloorCustomer._id,
                       FloorCustomer.FirstName,
                       FloorCustomer.LastName,
-                      FloorCustomer.FloorNumber
+                      FloorCustomer.FloorNumber,
+                      FloorCustomer.RegisteredBy
                     );
                   }}
                 >
@@ -246,7 +265,8 @@ const FloorConversations = ({ floorNumber, setReload }) => {
                       FloorCustomer._id,
                       FloorCustomer.FirstName,
                       FloorCustomer.LastName,
-                      FloorCustomer.FloorNumber
+                      FloorCustomer.FloorNumber,
+                      FloorCustomer.RegisteredBy
                     );
                   }}
                 >
@@ -296,7 +316,8 @@ const FloorConversations = ({ floorNumber, setReload }) => {
                     FloorCustomer._id,
                     FloorCustomer.FirstName,
                     FloorCustomer.LastName,
-                    FloorCustomer.FloorNumber
+                    FloorCustomer.FloorNumber,
+                    FloorCustomer.RegisteredBy
                   );
                 }}
               >

@@ -27,6 +27,7 @@ const BookCustomer = () => {
     (state) => state.customer
   );
   const [floorNumber, setFloorNumber] = useState(user ? user.FloorNumber : '');
+  const [gender, setGender] = useState();
 
   const resetInputs = () => {
     setFirstName('');
@@ -36,6 +37,7 @@ const BookCustomer = () => {
     setSubCity('');
     setDepartment('');
     setOfficeNumber('');
+    setGender('');
     setErrorMessage(false);
     setSuccessMessage(false);
   };
@@ -60,6 +62,7 @@ const BookCustomer = () => {
       subcity: subcity,
       department: department,
       officeNumber: officeNumber,
+      gender: gender,
       booking: true,
     };
     dispatch(registerCustomer(userData));
@@ -89,7 +92,6 @@ const BookCustomer = () => {
           >
             {isLoading && <Spinner />}
             <div className="register-employee">Book a Customer</div>
-
             <input
               className="firstNameInput"
               type="text"
@@ -176,6 +178,38 @@ const BookCustomer = () => {
               }}
             />
             <div
+              className="text-wrapper-5"
+              style={{ position: 'absolute', top: '470px', left: '279px' }}
+            >
+              Gender
+            </div>
+            <div
+              className="genderSelection"
+              style={{ position: 'absolute', top: '510px', left: '279px' }}
+            >
+              {' '}
+              <label htmlFor="female"> Male</label>
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                checked={gender === 'male' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              />
+              <label htmlFor="female"> Female</label>
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                checked={gender === 'female' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              />
+            </div>
+            <div
               className="submitButton"
               style={{ position: 'absolute', top: '600px' }}
               onClick={handleSubmit}
@@ -198,7 +232,6 @@ const BookCustomer = () => {
             ) : (
               ''
             )}
-
             {ErrorMessage ? (
               <div
                 style={{

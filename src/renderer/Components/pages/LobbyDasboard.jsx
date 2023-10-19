@@ -36,6 +36,7 @@ const LobbyDashboard = ({ online }) => {
     ScheduledCustomers,
   } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
+  const [UserEmail] = useState(user ? user.Email : '');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -178,7 +179,11 @@ const LobbyDashboard = ({ online }) => {
         <RegisterCustomer role="Customer" />
       </div>
       {!toggleBookedClients ? (
-        <div className="overlap-2">
+        <div
+          className="overlap-2"
+          onDragOver={(event) => handleDragOver(event)}
+          onDrop={(event) => handleDropOnWaitingClients(event)}
+        >
           <div className="text-wrapper-13">
             <div style={{ alignSelf: 'center' }}>
               <FiSearch />
@@ -220,13 +225,13 @@ const LobbyDashboard = ({ online }) => {
                       client.Booking === false
                     : true
                 )
+                .filter((client) => client.RegisteredBy === UserEmail)
                 .map((client) => (
                   <Client
                     key={client.id}
                     client={client}
-                    handleDragStart={handleDragStart}
                     handleDragOver={handleDragOver}
-                    handleDropOnWaitingClients={handleDropOnWaitingClients}
+                    handleDragStart={handleDragStart}
                   />
                 ))
             : ''}
@@ -303,13 +308,15 @@ const LobbyDashboard = ({ online }) => {
             </div>
           </div>
           {sentClients
-            ? sentClients.map((client) => (
-                <Client
-                  key={client.id}
-                  client={client}
-                  handleDragOver={handleDragOver}
-                />
-              ))
+            ? sentClients
+                .filter((client) => client.RegisteredBy === UserEmail)
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragOver={handleDragOver}
+                  />
+                ))
             : ''}
         </div>
       ) : (
@@ -334,13 +341,15 @@ const LobbyDashboard = ({ online }) => {
             </div>
           </div>
           {scheduledClients
-            ? scheduledClients.map((client) => (
-                <Client
-                  key={client.id}
-                  client={client}
-                  handleDragStart={handleDragStart}
-                />
-              ))
+            ? scheduledClients
+                .filter((client) => client.RegisteredBy === UserEmail)
+                .map((client) => (
+                  <Client
+                    key={client.id}
+                    client={client}
+                    handleDragStart={handleDragStart}
+                  />
+                ))
             : ''}
         </div>
       )}

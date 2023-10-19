@@ -11,6 +11,7 @@ import AdminDashboard from './Components/pages/AdminDashboard';
 import Clients from './Components/pages/Clients';
 import Floors from './Components/pages/Floors';
 import Booking from './Components/pages/Booking';
+import AdminView from './Components/pages/AdminView';
 import FormProvider from './features/hook/FormProvider';
 import FloorClients from './Components/pages/FloorClients';
 import { useWebSocket } from './features/hook/useWebSocket';
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route path="/Clients" element={<Clients online={online} />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/AdminView" element={<AdminView />} />
         <Route path="/Settings" element={<Settings online={online} />} />
         <Route
           path="/FloorClients"

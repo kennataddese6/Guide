@@ -2,13 +2,14 @@ import '../styles/RegisterCusomer.css';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
-import { MdCheckCircle } from 'react-icons/md';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage } from '../../webSocket';
 import FormContext from 'renderer/features/hook/FormContext';
+import NotificationModal from 'renderer/features/hook/NotificationModal';
+
 const RegisterCustomer = () => {
   const { form, setForm } = useContext(FormContext);
   const [firstName, setFirstName] = useState(form.firstName);
@@ -96,6 +97,7 @@ const RegisterCustomer = () => {
       floorNumber: floorNumber,
       elevatorNumber: elevatorNumber,
       gender: gender,
+      regiseterdBy: user.Email,
       booking: false,
     };
     dispatch(registerCustomer(customerData));
@@ -113,7 +115,7 @@ const RegisterCustomer = () => {
     // Send the message feature
 
     const composeMessage = {
-      email: user.FloorNumber,
+      email: String(user.FloorNumber),
       content: `${firstName} ${lastName} wants to come to ${department}. Shall I send him?`,
       address: floorNumber,
     };
@@ -155,7 +157,7 @@ const RegisterCustomer = () => {
         <div className="div">
           <div className="container">
             {isLoading && <Spinner />}
-            <div className="registration-form"> Register Customer</div>
+            <h3 className="formHeaderLobby"> Register Customer </h3>
             <p className="first-name1">First Name</p>
             <p className="last-name">Last Name</p>
             <input
@@ -267,7 +269,7 @@ const RegisterCustomer = () => {
               className="first-name1"
               style={{ position: 'absolute', top: '380px' }}
             >
-              Departemnt
+              Work Unit
             </p>
             <input
               className="CusotmerfirstInput"
@@ -357,23 +359,7 @@ const RegisterCustomer = () => {
                 Submit
               </div>
             )}
-            {SuccessMessage ? (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: '93%',
-                  left: '51%',
-                  color: 'green',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <MdCheckCircle color="green" />
-                <h4> Success</h4>
-              </div>
-            ) : (
-              ''
-            )}
+            {SuccessMessage ? <NotificationModal /> : ''}
             {ErrorMessage ? (
               <div
                 style={{
