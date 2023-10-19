@@ -269,7 +269,7 @@ const RegisterCustomer = () => {
               className="first-name1"
               style={{ position: 'absolute', top: '380px' }}
             >
-              Departemnt
+              Work Unit
             </p>
             <input
               className="CusotmerfirstInput"
