@@ -1,6 +1,6 @@
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 import { FiMoreVertical } from 'react-icons/fi';
-
+import { FaCheckCircle } from 'react-icons/fa';
 const Client = ({
   client,
   handleDragStart,
@@ -39,8 +39,10 @@ const Client = ({
       </div>
       <div className="overlap-3">
         <p>
-          {client.FirstName + ' '} {client.LastName}
+          {client.FirstName + ' '} {client.LastName + ' '}
+          {client.corporate ? <FaCheckCircle color="green" size={12} /> : ''}
         </p>
+
         <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
           {trimString(client.Department)}
         </p>
