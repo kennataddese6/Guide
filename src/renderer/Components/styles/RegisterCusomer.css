@@ -4,17 +4,17 @@
 
 .first-name1 {
   position: absolute;
-  top: 80px;
+  top: 50px;
   left: 130px;
 }
 .last-name {
   position: absolute;
-  top: 80px;
+  top: 50px;
   left: 460px;
 }
 .CusotmerfirstInput {
   position: absolute;
-  top: 140px;
+  top: 100px;
   left: 130px;
   border: none;
   border-bottom: 2px solid #9e9e9e;
@@ -25,7 +25,7 @@
 }
 .CusotmersecondInput {
   position: absolute;
-  top: 140px;
+  top: 100px;
   left: 460px;
   border: none;
   border-bottom: 2px solid #9e9e9e;
@@ -83,8 +83,18 @@
 }
 .genderSelection {
   position: absolute;
-  top: 240px;
+  top: 180px;
   left: 130px;
+}
+.CorporateSelection {
+  position: absolute;
+  top: 540px;
+  left: 130px;
+}
+.SpecialSelection {
+  position: absolute;
+  top: 540px;
+  left: 460px;
 }
 .noNumberSpin::-webkit-inner-spin-button,
 .noNumberSpin::-webkit-outer-spin-button {

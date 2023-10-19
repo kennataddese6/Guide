@@ -205,13 +205,16 @@ const RegisterCustomer = () => {
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '180px' }}
+              style={{ position: 'absolute', top: '130px' }}
             >
               Gender
             </p>
             <div className="genderSelection">
               {' '}
-              <label htmlFor="female"> Male</label>
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Male
+              </label>
               <input
                 type="radio"
                 value="male"
@@ -221,7 +224,10 @@ const RegisterCustomer = () => {
                   setGender(e.target.value);
                 }}
               />
-              <label htmlFor="female"> Female</label>
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Female
+              </label>
               <input
                 type="radio"
                 value="female"
@@ -234,7 +240,7 @@ const RegisterCustomer = () => {
             </div>
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '180px' }}
+              style={{ position: 'absolute', top: '130px' }}
             >
               Phone Number
             </p>
@@ -249,14 +255,14 @@ const RegisterCustomer = () => {
               }}
               style={{
                 position: 'absolute',
-                top: '240px',
+                top: '180px',
                 WebkitAppearance: 'none',
                 MozAppearance: 'textfield',
               }}
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '280px' }}
+              style={{ position: 'absolute', top: '220px' }}
             >
               Woreda
             </p>
@@ -269,11 +275,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setWoreda(e.target.value);
               }}
-              style={{ position: 'absolute', top: '340px' }}
+              style={{ position: 'absolute', top: '270px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '280px' }}
+              style={{ position: 'absolute', top: '220px' }}
             >
               Subcity
             </p>
@@ -286,11 +292,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setSubCity(e.target.value);
               }}
-              style={{ position: 'absolute', top: '340px' }}
+              style={{ position: 'absolute', top: '270px' }}
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '380px' }}
+              style={{ position: 'absolute', top: '310px' }}
             >
               Work Unit
             </p>
@@ -305,11 +311,11 @@ const RegisterCustomer = () => {
               }}
               ref={inputRef}
               onContextMenu={handleContextMenu}
-              style={{ position: 'absolute', top: '440px' }}
+              style={{ position: 'absolute', top: '360px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '380px' }}
+              style={{ position: 'absolute', top: '310px' }}
             >
               Floor Number
             </p>
@@ -322,11 +328,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setFloorNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '440px' }}
+              style={{ position: 'absolute', top: '360px' }}
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '480px' }}
+              style={{ position: 'absolute', top: '400px' }}
             >
               Office Number
             </p>
@@ -339,11 +345,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setOfficeNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '540px' }}
+              style={{ position: 'absolute', top: '450px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '480px' }}
+              style={{ position: 'absolute', top: '400px' }}
             >
               Elevator Number
             </p>
@@ -356,8 +362,76 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setEleveatorNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '540px' }}
+              style={{ position: 'absolute', top: '450px' }}
             />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '490px' }}
+            >
+              Corporate Customer
+            </p>
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '490px' }}
+            >
+              Special Case
+            </p>
+            <div className="CorporateSelection">
+              {' '}
+              <label htmlFor="Yes" style={{ fontStyle: 'italic' }}>
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                /*     checked={gender === 'male' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }} */
+              />
+              <label htmlFor="No" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                checked={true}
+                /*       onChange={(e) => {
+                  setGender(e.target.value);
+                }} */
+              />
+            </div>
+            <div className="SpecialSelection ">
+              {' '}
+              <label htmlFor="Yes" style={{ fontStyle: 'italic' }}>
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="male"
+                name="gender"
+                /*     checked={gender === 'male' ? true : null}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }} */
+              />
+              <label htmlFor="No" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="female"
+                name="gender"
+                checked={true}
+                /*       onChange={(e) => {
+                  setGender(e.target.value);
+                }} */
+              />
+            </div>
             <p className="intention">Intention of visit</p>
             <input
               className="intentionVisit"
