@@ -110,6 +110,8 @@ const RegisterCustomer = () => {
       gender: gender,
       regiseterdBy: user.Email,
       booking: false,
+      corporate,
+      special,
     };
     dispatch(registerCustomer(customerData));
     const composedMessage = {
@@ -392,7 +394,7 @@ const RegisterCustomer = () => {
                 value="corporate"
                 name="corporate"
                 checked={corporate ? true : null}
-                onChange={(e) => {
+                onChange={() => {
                   setCorporate(true);
                 }}
               />
@@ -405,7 +407,7 @@ const RegisterCustomer = () => {
                 value="corporate"
                 name="corporate"
                 checked={!corporate ? true : null}
-                onChange={(e) => {
+                onChange={() => {
                   setCorporate(false);
                 }}
               />
@@ -420,7 +422,7 @@ const RegisterCustomer = () => {
                 value="Special"
                 name="Special"
                 checked={special ? true : null}
-                onChange={(e) => {
+                onChange={() => {
                   setSpecial(true);
                 }}
               />
@@ -433,8 +435,8 @@ const RegisterCustomer = () => {
                 value="Special"
                 name="Special"
                 checked={!special ? true : null}
-                onChange={(e) => {
-                  setGender(false);
+                onChange={() => {
+                  setSpecial(false);
                 }}
               />
             </div>
