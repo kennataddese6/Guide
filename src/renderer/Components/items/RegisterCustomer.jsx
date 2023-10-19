@@ -2,6 +2,7 @@ import '../styles/RegisterCusomer.css';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
+import { getFloors } from 'renderer/features/Floors/floorSlice';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
@@ -22,6 +23,7 @@ const RegisterCustomer = () => {
   const [floorNumber, setFloorNumber] = useState(form.floorNumber);
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [gender, setGender] = useState(form.gender);
+  const [floors, setFloors] = useState([]);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   const [inactive, setInactive] = useState(true);
@@ -32,6 +34,9 @@ const RegisterCustomer = () => {
     (state) => state.customer
   );
   const { user } = useSelector((state) => state.auth);
+  const floorState = useSelector((state) => state.floor);
+  const floorIsSuccess = floorState.isSuccess;
+  const buildingfloors = floorState.message;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -151,6 +156,24 @@ const RegisterCustomer = () => {
     officeNumber,
     elevatorNumber,
   ]);
+  useEffect(() => {
+    dispatch(getFloors());
+  }, []);
+  useEffect(() => {
+    if (floorIsSuccess) {
+      setFloors(buildingfloors);
+    }
+  }, [floorIsSuccess]);
+  useEffect(() => {
+    const filteredFloor = floors.filter(
+      (floor) => floor.WorkUnit === department
+    );
+    if (filteredFloor.length) {
+      console.log('This is the floor that is filtered', filteredFloor);
+      setFloorNumber(filteredFloor[0].FloorNumber);
+      setOfficeNumber(filteredFloor[0].OfficeNumber);
+    }
+  }, [department]);
   return (
     <>
       <div className="dashboard">
