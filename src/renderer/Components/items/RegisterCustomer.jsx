@@ -23,6 +23,8 @@ const RegisterCustomer = () => {
   const [floorNumber, setFloorNumber] = useState(form.floorNumber);
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [gender, setGender] = useState(form.gender);
+  const [corporate, setCorporate] = useState(form.corporate);
+  const [special, setSpecial] = useState(form.special);
   const [floors, setFloors] = useState([]);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
@@ -63,6 +65,8 @@ const RegisterCustomer = () => {
       floorNumber,
       elevatorNumber,
       gender,
+      corporate,
+      special,
     });
   }, [
     firstName,
@@ -75,6 +79,8 @@ const RegisterCustomer = () => {
     floorNumber,
     elevatorNumber,
     gender,
+    corporate,
+    special,
   ]);
   const resetInputs = () => {
     setFirstName('');
@@ -383,12 +389,12 @@ const RegisterCustomer = () => {
               </label>
               <input
                 type="radio"
-                value="male"
-                name="gender"
-                /*     checked={gender === 'male' ? true : null}
+                value="corporate"
+                name="corporate"
+                checked={corporate ? true : null}
                 onChange={(e) => {
-                  setGender(e.target.value);
-                }} */
+                  setCorporate(true);
+                }}
               />
               <label htmlFor="No" style={{ fontStyle: 'italic' }}>
                 {' '}
@@ -396,12 +402,12 @@ const RegisterCustomer = () => {
               </label>
               <input
                 type="radio"
-                value="female"
-                name="gender"
-                checked={true}
-                /*       onChange={(e) => {
-                  setGender(e.target.value);
-                }} */
+                value="corporate"
+                name="corporate"
+                checked={!corporate ? true : null}
+                onChange={(e) => {
+                  setCorporate(false);
+                }}
               />
             </div>
             <div className="SpecialSelection ">
@@ -411,12 +417,12 @@ const RegisterCustomer = () => {
               </label>
               <input
                 type="radio"
-                value="male"
-                name="gender"
-                /*     checked={gender === 'male' ? true : null}
+                value="Special"
+                name="Special"
+                checked={special ? true : null}
                 onChange={(e) => {
-                  setGender(e.target.value);
-                }} */
+                  setSpecial(true);
+                }}
               />
               <label htmlFor="No" style={{ fontStyle: 'italic' }}>
                 {' '}
@@ -424,12 +430,12 @@ const RegisterCustomer = () => {
               </label>
               <input
                 type="radio"
-                value="female"
-                name="gender"
-                checked={true}
-                /*       onChange={(e) => {
-                  setGender(e.target.value);
-                }} */
+                value="Special"
+                name="Special"
+                checked={!special ? true : null}
+                onChange={(e) => {
+                  setGender(false);
+                }}
               />
             </div>
             <p className="intention">Intention of visit</p>
