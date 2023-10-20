@@ -68,3 +68,12 @@
   display: flex;
   justify-content: center;
 }
+.ContactInfo {
+  background-color: #90ee90;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 45px;
+}
