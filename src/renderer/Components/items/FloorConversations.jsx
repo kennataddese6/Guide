@@ -9,6 +9,7 @@ import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 import { DateTimePicker } from 'react-rainbow-components';
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaHandHoldingHeart } from 'react-icons/fa';
 
 const FloorConversations = ({ floorNumber, setReload }) => {
   const dispatch = useDispatch();
@@ -311,6 +312,11 @@ const FloorConversations = ({ floorNumber, setReload }) => {
                 I have sent {FloorCustomer.FirstName + ' '}{' '}
                 {FloorCustomer.LastName} on Elevator{' '}
                 {FloorCustomer.ElevatorNumber}
+                {FloorCustomer.special ? (
+                  <FaHandHoldingHeart size={20} color="green" />
+                ) : (
+                  ''
+                )}
               </p>
             ) : (
               ''

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
 import { ws } from 'renderer/webSocket';
 import { FaCheckCircle } from 'react-icons/fa';
-
+import { FaHandHoldingHeart } from 'react-icons/fa';
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -131,6 +131,11 @@ const Conversations = ({ floorNumber }) => {
                   I have sent {FloorCustomer.FirstName + ' '}{' '}
                   {FloorCustomer.LastName} on Elevator{' '}
                   {FloorCustomer.ElevatorNumber}
+                  {FloorCustomer.special ? (
+                    <FaHandHoldingHeart size={20} color="green" />
+                  ) : (
+                    ''
+                  )}
                 </p>
               ) : (
                 ''
