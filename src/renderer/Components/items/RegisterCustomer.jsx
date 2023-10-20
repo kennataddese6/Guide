@@ -291,9 +291,8 @@ const RegisterCustomer = () => {
             >
               Subcity
             </p>
-            <input
+            <select
               className="CusotmersecondInput"
-              type="number"
               required
               id="subcity"
               value={subcity}
@@ -301,7 +300,20 @@ const RegisterCustomer = () => {
                 setSubCity(e.target.value);
               }}
               style={{ position: 'absolute', top: '270px' }}
-            />
+            >
+              <option value="">Select a subcity</option>
+              <option value="Arada">Arada</option>
+              <option value="Bole">Bole</option>
+              <option value="Yeka">Yeka</option>
+              <option value="Addis Ketema">Addis Ketema</option>
+              <option value="Kirkos">Kirkos</option>
+              <option value="Lideta">Lideta</option>
+              <option value="Gulele">Gulele</option>
+              <option value="Kolfe Keraniyo">Kolfe Keraniyo</option>
+              <option value="Nefas Silk">Nefas Silk</option>
+              <option value="other">other</option>
+              {/* Add more options as needed */}
+            </select>
             <p
               className="first-name1"
               style={{ position: 'absolute', top: '310px' }}

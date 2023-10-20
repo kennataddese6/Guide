@@ -127,14 +127,28 @@ const BookCustomer = () => {
                 setWoreda(e.target.value);
               }}
             />
-            <input
+            <select
               className="subcityInput"
-              type="text"
+              required
+              id="subcity"
               value={subcity}
               onChange={(e) => {
                 setSubCity(e.target.value);
               }}
-            />
+            >
+              <option value="">Select a subcity</option>
+              <option value="Arada">Arada</option>
+              <option value="Bole">Bole</option>
+              <option value="Yeka">Yeka</option>
+              <option value="Addis Ketema">Addis Ketema</option>
+              <option value="Kirkos">Kirkos</option>
+              <option value="Lideta">Lideta</option>
+              <option value="Gulele">Gulele</option>
+              <option value="Kolfe Keraniyo">Kolfe Keraniyo</option>
+              <option value="Nefas Silk">Nefas Silk</option>
+              <option value="other">other</option>
+              {/* Add more options as needed */}
+            </select>
             <input
               className="phoneInput"
               type="number"
