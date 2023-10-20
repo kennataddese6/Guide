@@ -8,6 +8,8 @@ import { reset } from 'renderer/features/customers/customerSlice';
 import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 import { DateTimePicker } from 'react-rainbow-components';
+import { FaCheckCircle } from 'react-icons/fa';
+
 const FloorConversations = ({ floorNumber, setReload }) => {
   const dispatch = useDispatch();
   const FloorNumber = floorNumber;
@@ -198,6 +200,11 @@ const FloorConversations = ({ floorNumber, setReload }) => {
             <h3 className="customerName">
               {' '}
               {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
+              {FloorCustomer.corporate ? (
+                <FaCheckCircle color="green" size={12} />
+              ) : (
+                ''
+              )}
             </h3>
             {FloorCustomer.Booking ? (
               <p className="customerContent">

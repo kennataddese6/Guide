@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
 import { ws } from 'renderer/webSocket';
+import { FaCheckCircle } from 'react-icons/fa';
+
 const Conversations = ({ floorNumber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
@@ -99,7 +101,12 @@ const Conversations = ({ floorNumber }) => {
           return userEmail === FloorCustomer.RegisteredBy ? (
             <div className="conversationCard">
               <p className="customerName">
-                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
+                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + '  '}{' '}
+                {FloorCustomer.corporate ? (
+                  <FaCheckCircle color="green" size={12} />
+                ) : (
+                  ''
+                )}
               </p>
               {FloorCustomer.Booking ? (
                 <p className="customerContent">
