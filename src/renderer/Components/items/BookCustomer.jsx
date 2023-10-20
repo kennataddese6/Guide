@@ -170,7 +170,7 @@ const BookCustomer = () => {
               className="text-wrapper-2"
               style={{ position: 'absolute', top: '382px' }}
             >
-              Department
+              Work Unit
             </div>
             <div
               className="text-wrapper-2"
