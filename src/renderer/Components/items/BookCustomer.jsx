@@ -20,6 +20,8 @@ const BookCustomer = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [department, setDepartment] = useState('');
   const [officeNumber, setOfficeNumber] = useState('');
+  const [corporate, setCorporate] = useState(false);
+  const [special, setSpecial] = useState(false);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   const { user } = useSelector((state) => state.auth);
@@ -40,7 +42,12 @@ const BookCustomer = () => {
     setGender('');
     setErrorMessage(false);
     setSuccessMessage(false);
+    setCorporate(false);
+    setSpecial(false);
   };
+  useEffect(() => {
+    console.log(corporate, special);
+  }, [corporate, special]);
   useEffect(() => {
     if (isSuccess) {
       setErrorMessage(false);
@@ -64,6 +71,8 @@ const BookCustomer = () => {
       officeNumber: officeNumber,
       gender: gender,
       booking: true,
+      corporate,
+      special,
     };
     dispatch(registerCustomer(userData));
     const composedMessage = {
@@ -210,8 +219,84 @@ const BookCustomer = () => {
               />
             </div>
             <div
+              className="text-wrapper-2"
+              style={{ position: 'absolute', top: '558px' }}
+            >
+              Corporate
+            </div>
+            <div
+              className="genderSelection"
+              style={{ position: 'absolute', top: '590px', left: '70px' }}
+            >
+              {' '}
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="corporate"
+                name="corporate"
+                checked={corporate ? true : null}
+                onChange={() => {
+                  setCorporate(true);
+                }}
+              />
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="corporate"
+                name="corporate"
+                checked={!corporate ? true : null}
+                onChange={() => {
+                  setCorporate(false);
+                }}
+              />
+            </div>
+            <div
+              className="text-wrapper-5"
+              style={{ position: 'absolute', top: '558px' }}
+            >
+              Special
+            </div>
+            <div
+              className="genderSelection"
+              style={{ position: 'absolute', top: '590px', left: '279px' }}
+            >
+              {' '}
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="special"
+                name="special"
+                checked={special ? true : null}
+                onChange={() => {
+                  setSpecial(true);
+                }}
+              />
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="special"
+                name="special"
+                checked={!special ? true : null}
+                onChange={() => {
+                  setSpecial(false);
+                }}
+              />
+            </div>
+            <div
               className="submitButton"
-              style={{ position: 'absolute', top: '600px' }}
+              style={{ position: 'absolute', top: '640px' }}
               onClick={handleSubmit}
             >
               <div className="text-wrapper-6">Submit</div>
@@ -220,7 +305,7 @@ const BookCustomer = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '91%',
+                  top: '94%',
                   color: 'green',
                   display: 'flex',
                   alignItems: 'center',
@@ -236,7 +321,7 @@ const BookCustomer = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: '91%',
+                  top: '94%',
                   color: 'red',
                   display: 'flex',
                   alignItems: 'center',
