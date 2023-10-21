@@ -34,7 +34,13 @@ const Floors = () => {
     }
     dispatch(reset());
   }, [isSuccess, isError]);
-
+  const updateFloors = ({ params }) => {
+    if (params.colDef.field === 'FloorNumber') {
+      console.log('This is floor number');
+    } else {
+      console.log('This is office Number');
+    }
+  };
   const [columnDefs] = useState([
     {
       field: 'WorkUnit',
@@ -49,9 +55,23 @@ const Floors = () => {
       field: 'Department',
       filter: true,
     },
-    { field: 'FloorNumber', filter: true },
+    {
+      field: 'FloorNumber',
+      filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateFloors({ params });
+      },
+    },
 
-    { field: 'OfficeNumber', filter: true },
+    {
+      field: 'OfficeNumber',
+      filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateFloors({ params });
+      },
+    },
   ]);
   const defaultColDef = useMemo(() => {
     return {
