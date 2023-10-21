@@ -8,6 +8,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import CustomModal from 'renderer/features/hook/CustomModal';
 import { ResetPassword } from 'renderer/features/auth/authSlice';
 import NotificationModal from 'renderer/features/hook/NotificationModal';
+import { updateUser } from 'renderer/features/auth/authSlice';
 const Users = () => {
   const dispatch = useDispatch();
   const UserTableRef = useRef();
@@ -78,7 +79,7 @@ const Users = () => {
         FloorNumber: params.data.FloorNumber,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
     if (params.colDef.field === 'LastName') {
       const userData = {
@@ -90,7 +91,7 @@ const Users = () => {
         FloorNumber: params.data.FloorNumber,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
     if (params.colDef.field === 'Role') {
       const userData = {
@@ -102,7 +103,7 @@ const Users = () => {
         FloorNumber: params.data.FloorNumber,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
     if (params.colDef.field === 'PhoneNumber') {
       const userData = {
@@ -114,7 +115,7 @@ const Users = () => {
         FloorNumber: params.data.FloorNumber,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
     if (params.colDef.field === 'Email') {
       const userData = {
@@ -126,7 +127,7 @@ const Users = () => {
         FloorNumber: params.data.FloorNumber,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
     if (params.colDef.field === 'FloorNumber') {
       const userData = {
@@ -138,7 +139,7 @@ const Users = () => {
         Email: params.data.Email,
         id: params.data.IdNumber,
       };
-      console.log('Here is the updateData', userData);
+      dispatch(updateUser(userData));
     }
   };
   const [columnDefs] = useState([
