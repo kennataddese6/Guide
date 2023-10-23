@@ -40,14 +40,14 @@ const Floors = () => {
       const floorData = {
         floorNumber: params.newValue,
         officeNumber: params.data.OfficeNumber,
-        id: params.data._id,
+        id: params.data.FloorId,
       };
       dispatch(updateFloor(floorData));
     } else {
       const floorData = {
         officeNumber: params.newValue,
         floorNumber: params.data.FloorNumber,
-        id: params.data._id,
+        id: params.data.FloorId,
       };
       dispatch(updateFloor(floorData));
     }

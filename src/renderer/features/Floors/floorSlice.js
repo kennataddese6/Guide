@@ -86,6 +86,18 @@ export const FloorSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
       })
+      .addCase(updateFloor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateFloor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(updateFloor.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
       .addCase(getFloors.pending, (state) => {
         state.isLoading = true;
       })
