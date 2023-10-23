@@ -26,6 +26,23 @@ export const registerFloor = createAsyncThunk(
     }
   }
 );
+// Update Floors
+export const updateFloor = createAsyncThunk(
+  'floor/updateFloor',
+  async (floor, thunkAPI) => {
+    try {
+      return await FloorService.UpdateFloors(floor);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 export const getFloors = createAsyncThunk(
   'floor/getFloors',
   async (_, thunkAPI) => {
