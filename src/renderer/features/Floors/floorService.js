@@ -22,8 +22,17 @@ const GetFloors = async () => {
     throw error;
   }
 };
+const UpdateFloors = async (floor) => {
+  try {
+    const response = await axios.put(API_URL, floor);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 const FloorService = {
   RegisterFloor,
   GetFloors,
+  UpdateFloors,
 };
 export default FloorService;
