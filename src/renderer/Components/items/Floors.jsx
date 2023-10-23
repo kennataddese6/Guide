@@ -6,6 +6,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
+import { updateFloor } from 'renderer/features/Floors/floorSlice';
 const Floors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,9 +37,19 @@ const Floors = () => {
   }, [isSuccess, isError]);
   const updateFloors = ({ params }) => {
     if (params.colDef.field === 'FloorNumber') {
-      console.log('This is floor number');
+      const floorData = {
+        floorNumber: params.newValue,
+        officeNumber: params.data.OfficeNumber,
+        id: params.data._id,
+      };
+      dispatch(updateFloor(floorData));
     } else {
-      console.log('This is office Number');
+      const floorData = {
+        officeNumber: params.newValue,
+        floorNumber: params.data.FloorNumber,
+        id: params.data._id,
+      };
+      dispatch(updateFloor(floorData));
     }
   };
   const [columnDefs] = useState([
@@ -54,6 +65,11 @@ const Floors = () => {
     {
       field: 'Department',
       filter: true,
+    },
+    {
+      field: 'FloorId',
+      filter: true,
+      hide: true,
     },
     {
       field: 'FloorNumber',
@@ -101,6 +117,7 @@ const Floors = () => {
             Department: floor.Department,
             OfficeNumber: floor.OfficeNumber,
             FloorNumber: floor.FloorNumber,
+            FloorId: floor._id,
           }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
