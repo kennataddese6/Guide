@@ -16,18 +16,68 @@ import {
   ipcMain,
   Notification,
   Menu,
+  dialog,
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { resolveHtmlPath } from './util';
+
+const server = 'http://127.0.0.1:8080';
+const url = `${server}/update/${process.platform}/${app.getVersion()}`;
+autoUpdater.setFeedURL(url);
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.checkForUpdates();
   }
 }
+autoUpdater.on('update-available', () => {
+  dialog.showMessageBox(
+    {
+      type: 'info',
+      title: 'Update available',
+      message:
+        'A new version of the app is available. Do you want to update now?',
+      buttons: ['Update', 'Later'],
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 0) {
+        autoUpdater.downloadUpdate();
+      }
+    }
+  );
+});
+autoUpdater.on('update-not-available', () => {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'No Updates',
+    message: 'Your application is up to date.',
+  });
+});
 
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox(
+    {
+      type: 'info',
+      title: 'Update ready',
+      message: 'Install and restart now?',
+      buttons: ['Yes', 'Later'],
+    },
+    (buttonIndex) => {
+      if (buttonIndex === 0) {
+        autoUpdater.quitAndInstall(false, true);
+      }
+    }
+  );
+});
+autoUpdater.on('error', (error) => {
+  dialog.showMessageBox({
+    type: 'error',
+    title: 'Error in auto-updater',
+    message: error == null ? 'unknown' : (error.stack || error).toString(),
+  });
+});
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -156,6 +206,7 @@ app
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
+    autoUpdater.checkForUpdates();
   })
   .catch(console.log);
 app.setAppUserModelId('Guide');
