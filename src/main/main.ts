@@ -23,7 +23,7 @@ import log from 'electron-log';
 import { resolveHtmlPath } from './util';
 
 const server = 'http://127.0.0.1:8080';
-const url = `${server}/update/${process.platform}/${app.getVersion()}`;
+const url = `${server}/update`;
 autoUpdater.setFeedURL(url);
 class AppUpdater {
   constructor() {
