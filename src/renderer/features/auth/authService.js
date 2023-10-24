@@ -15,6 +15,14 @@ const register = async (userData) => {
     throw error;
   }
 };
+const updateUser = async (userData) => {
+  try {
+    const response = await axios.put(API_URL, userData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 // To login users
 const login = async (userData) => {
   try {
@@ -106,5 +114,6 @@ const authService = {
   ChangePassword,
   getUsers,
   ResetPassword,
+  updateUser,
 };
 export default authService;

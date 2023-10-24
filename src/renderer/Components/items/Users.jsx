@@ -8,6 +8,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import CustomModal from 'renderer/features/hook/CustomModal';
 import { ResetPassword } from 'renderer/features/auth/authSlice';
 import NotificationModal from 'renderer/features/hook/NotificationModal';
+import { updateUser } from 'renderer/features/auth/authSlice';
 const Users = () => {
   const dispatch = useDispatch();
   const UserTableRef = useRef();
@@ -66,26 +67,132 @@ const Users = () => {
     }
     dispatch(reset());
   }, [isSuccess]);
-
+  const updateUserDetail = ({ params }) => {
+    console.log('this is the params', params);
+    if (params.colDef.field === 'FirstName') {
+      const userData = {
+        FirstName: params.newValue,
+        LastName: params.data.LastName,
+        Role: params.data.Role,
+        PhoneNumber: params.data.PhoneNumber,
+        Email: params.data.Email,
+        FloorNumber: params.data.FloorNumber,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+    if (params.colDef.field === 'LastName') {
+      const userData = {
+        LastName: params.newValue,
+        FirstName: params.data.FirstName,
+        Role: params.data.Role,
+        PhoneNumber: params.data.PhoneNumber,
+        Email: params.data.Email,
+        FloorNumber: params.data.FloorNumber,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+    if (params.colDef.field === 'Role') {
+      const userData = {
+        Role: params.newValue,
+        LastName: params.data.LastName,
+        FirstName: params.data.FirstName,
+        PhoneNumber: params.data.PhoneNumber,
+        Email: params.data.Email,
+        FloorNumber: params.data.FloorNumber,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+    if (params.colDef.field === 'PhoneNumber') {
+      const userData = {
+        PhoneNumber: params.newValue,
+        LastName: params.data.LastName,
+        FirstName: params.data.FirstName,
+        Role: params.data.Role,
+        Email: params.data.Email,
+        FloorNumber: params.data.FloorNumber,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+    if (params.colDef.field === 'Email') {
+      const userData = {
+        Email: params.newValue,
+        LastName: params.data.LastName,
+        FirstName: params.data.FirstName,
+        Role: params.data.Role,
+        PhoneNumber: params.data.PhoneNumber,
+        FloorNumber: params.data.FloorNumber,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+    if (params.colDef.field === 'FloorNumber') {
+      const userData = {
+        FloorNumber: params.newValue,
+        LastName: params.data.LastName,
+        FirstName: params.data.FirstName,
+        Role: params.data.Role,
+        PhoneNumber: params.data.PhoneNumber,
+        Email: params.data.Email,
+        id: params.data.IdNumber,
+      };
+      dispatch(updateUser(userData));
+    }
+  };
   const [columnDefs] = useState([
     {
       field: 'FirstName',
       filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
     },
 
     {
       field: 'LastName',
       filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
     },
     {
       field: 'Role',
       filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
     },
 
-    { field: 'PhoneNumber' },
-    { field: 'Email' },
+    {
+      field: 'PhoneNumber',
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
+    },
+    {
+      field: 'Email',
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
+    },
 
-    { field: 'FloorNumber', filter: true },
+    {
+      field: 'FloorNumber',
+      filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateUserDetail({ params });
+      },
+    },
+    { field: 'IdNumber', filter: true, hide: true },
     {
       field: 'ResetPassword',
       cellRenderer: BtnCellRenderer,
@@ -132,6 +239,7 @@ const Users = () => {
                     : '',
                 PhoneNumber: user.PhoneNumber,
                 Email: user.Email,
+                IdNumber: user._id,
               }))
             : []
         }

@@ -6,6 +6,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
+import { updateFloor } from 'renderer/features/Floors/floorSlice';
 const Floors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,7 +35,23 @@ const Floors = () => {
     }
     dispatch(reset());
   }, [isSuccess, isError]);
-
+  const updateFloors = ({ params }) => {
+    if (params.colDef.field === 'FloorNumber') {
+      const floorData = {
+        floorNumber: params.newValue,
+        officeNumber: params.data.OfficeNumber,
+        id: params.data.FloorId,
+      };
+      dispatch(updateFloor(floorData));
+    } else {
+      const floorData = {
+        officeNumber: params.newValue,
+        floorNumber: params.data.FloorNumber,
+        id: params.data.FloorId,
+      };
+      dispatch(updateFloor(floorData));
+    }
+  };
   const [columnDefs] = useState([
     {
       field: 'WorkUnit',
@@ -49,9 +66,28 @@ const Floors = () => {
       field: 'Department',
       filter: true,
     },
-    { field: 'FloorNumber', filter: true },
+    {
+      field: 'FloorId',
+      filter: true,
+      hide: true,
+    },
+    {
+      field: 'FloorNumber',
+      filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateFloors({ params });
+      },
+    },
 
-    { field: 'OfficeNumber', filter: true },
+    {
+      field: 'OfficeNumber',
+      filter: true,
+      editable: true,
+      valueParser: (params) => {
+        updateFloors({ params });
+      },
+    },
   ]);
   const defaultColDef = useMemo(() => {
     return {
@@ -81,6 +117,7 @@ const Floors = () => {
             Department: floor.Department,
             OfficeNumber: floor.OfficeNumber,
             FloorNumber: floor.FloorNumber,
+            FloorId: floor._id,
           }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}

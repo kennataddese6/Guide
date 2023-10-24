@@ -26,6 +26,23 @@ export const registerFloor = createAsyncThunk(
     }
   }
 );
+// Update Floors
+export const updateFloor = createAsyncThunk(
+  'floor/updateFloor',
+  async (floor, thunkAPI) => {
+    try {
+      return await FloorService.UpdateFloors(floor);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 export const getFloors = createAsyncThunk(
   'floor/getFloors',
   async (_, thunkAPI) => {
@@ -66,6 +83,18 @@ export const FloorSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(registerFloor.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(updateFloor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateFloor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(updateFloor.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })

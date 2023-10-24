@@ -68,13 +68,13 @@ const Floors = ({ online }) => {
       field: 'WorkUnit',
       filter: true,
     },
+    {
+      field: 'Department',
+      filter: true,
+    },
 
     {
       field: 'Divison',
-      filter: true,
-    },
-    {
-      field: 'Department',
       filter: true,
     },
     { field: 'FloorNumber', filter: true },
@@ -106,8 +106,8 @@ const Floors = ({ online }) => {
           ref={FloorTableRef}
           rowData={Floors.map((floor) => ({
             WorkUnit: floor.WorkUnit,
-            Divison: floor.Divison,
-            Department: floor.Department,
+            Department: floor.Divison,
+            Divison: floor.Department,
             OfficeNumber: floor.OfficeNumber,
             FloorNumber: floor.FloorNumber,
           }))}

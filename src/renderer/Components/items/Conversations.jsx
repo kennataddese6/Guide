@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Spinner from '../Utilities/Spinner';
 import { ws } from 'renderer/webSocket';
-const Conversations = ({ floorNumber }) => {
+import { FaCheckCircle, FaPhone } from 'react-icons/fa';
+import { FaHandHoldingHeart } from 'react-icons/fa';
+const Conversations = ({ floorNumber, phoneNmber }) => {
   const FloorNumber = floorNumber;
   const [FloorCustomers, setFloorCustomers] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
@@ -99,7 +101,12 @@ const Conversations = ({ floorNumber }) => {
           return userEmail === FloorCustomer.RegisteredBy ? (
             <div className="conversationCard">
               <p className="customerName">
-                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName}
+                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + '  '}{' '}
+                {FloorCustomer.corporate ? (
+                  <FaCheckCircle color="green" size={12} />
+                ) : (
+                  ''
+                )}
               </p>
               {FloorCustomer.Booking ? (
                 <p className="customerContent">
@@ -124,6 +131,11 @@ const Conversations = ({ floorNumber }) => {
                   I have sent {FloorCustomer.FirstName + ' '}{' '}
                   {FloorCustomer.LastName} on Elevator{' '}
                   {FloorCustomer.ElevatorNumber}
+                  {FloorCustomer.special ? (
+                    <FaHandHoldingHeart size={20} color="green" />
+                  ) : (
+                    ''
+                  )}
                 </p>
               ) : (
                 ''
@@ -159,6 +171,12 @@ const Conversations = ({ floorNumber }) => {
           </div>
         </>
       )}
+      <div className="ContactInfo">
+        <h4>
+          <FaPhone size={20} color="green" />
+          {phoneNmber}
+        </h4>
+      </div>
     </>
   );
 };

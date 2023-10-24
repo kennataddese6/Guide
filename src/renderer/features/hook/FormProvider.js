@@ -12,6 +12,8 @@ const FormProvider = ({ children }) => {
     floorNumber: '',
     elevatorNumber: '',
     gender: '',
+    corporate: false,
+    special: false,
   });
 
   return (

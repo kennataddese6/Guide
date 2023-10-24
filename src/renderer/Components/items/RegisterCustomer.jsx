@@ -2,6 +2,7 @@ import '../styles/RegisterCusomer.css';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
+import { getFloors } from 'renderer/features/Floors/floorSlice';
 import { reset } from '../../features/customers/customerSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
@@ -22,6 +23,9 @@ const RegisterCustomer = () => {
   const [floorNumber, setFloorNumber] = useState(form.floorNumber);
   const [elevatorNumber, setEleveatorNumber] = useState(form.elevatorNumber);
   const [gender, setGender] = useState(form.gender);
+  const [corporate, setCorporate] = useState(form.corporate);
+  const [special, setSpecial] = useState(form.special);
+  const [floors, setFloors] = useState([]);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
   const [inactive, setInactive] = useState(true);
@@ -32,6 +36,9 @@ const RegisterCustomer = () => {
     (state) => state.customer
   );
   const { user } = useSelector((state) => state.auth);
+  const floorState = useSelector((state) => state.floor);
+  const floorIsSuccess = floorState.isSuccess;
+  const buildingfloors = floorState.message;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,6 +65,8 @@ const RegisterCustomer = () => {
       floorNumber,
       elevatorNumber,
       gender,
+      corporate,
+      special,
     });
   }, [
     firstName,
@@ -70,6 +79,8 @@ const RegisterCustomer = () => {
     floorNumber,
     elevatorNumber,
     gender,
+    corporate,
+    special,
   ]);
   const resetInputs = () => {
     setFirstName('');
@@ -99,6 +110,8 @@ const RegisterCustomer = () => {
       gender: gender,
       regiseterdBy: user.Email,
       booking: false,
+      corporate,
+      special,
     };
     dispatch(registerCustomer(customerData));
     const composedMessage = {
@@ -151,6 +164,24 @@ const RegisterCustomer = () => {
     officeNumber,
     elevatorNumber,
   ]);
+  useEffect(() => {
+    dispatch(getFloors());
+  }, []);
+  useEffect(() => {
+    if (floorIsSuccess) {
+      setFloors(buildingfloors);
+    }
+  }, [floorIsSuccess]);
+  useEffect(() => {
+    const filteredFloor = floors.filter(
+      (floor) => floor.WorkUnit === department
+    );
+    if (filteredFloor.length) {
+      console.log('This is the floor that is filtered', filteredFloor);
+      setFloorNumber(filteredFloor[0].FloorNumber);
+      setOfficeNumber(filteredFloor[0].OfficeNumber);
+    }
+  }, [department]);
   return (
     <>
       <div className="dashboard">
@@ -182,13 +213,16 @@ const RegisterCustomer = () => {
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '180px' }}
+              style={{ position: 'absolute', top: '130px' }}
             >
               Gender
             </p>
             <div className="genderSelection">
               {' '}
-              <label htmlFor="female"> Male</label>
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Male
+              </label>
               <input
                 type="radio"
                 value="male"
@@ -198,7 +232,10 @@ const RegisterCustomer = () => {
                   setGender(e.target.value);
                 }}
               />
-              <label htmlFor="female"> Female</label>
+              <label htmlFor="female" style={{ fontStyle: 'italic' }}>
+                {' '}
+                Female
+              </label>
               <input
                 type="radio"
                 value="female"
@@ -211,7 +248,7 @@ const RegisterCustomer = () => {
             </div>
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '180px' }}
+              style={{ position: 'absolute', top: '130px' }}
             >
               Phone Number
             </p>
@@ -226,14 +263,14 @@ const RegisterCustomer = () => {
               }}
               style={{
                 position: 'absolute',
-                top: '240px',
+                top: '180px',
                 WebkitAppearance: 'none',
                 MozAppearance: 'textfield',
               }}
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '280px' }}
+              style={{ position: 'absolute', top: '220px' }}
             >
               Woreda
             </p>
@@ -246,28 +283,40 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setWoreda(e.target.value);
               }}
-              style={{ position: 'absolute', top: '340px' }}
+              style={{ position: 'absolute', top: '270px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '280px' }}
+              style={{ position: 'absolute', top: '220px' }}
             >
               Subcity
             </p>
-            <input
+            <select
               className="CusotmersecondInput"
-              type="number"
               required
               id="subcity"
               value={subcity}
               onChange={(e) => {
                 setSubCity(e.target.value);
               }}
-              style={{ position: 'absolute', top: '340px' }}
-            />
+              style={{ position: 'absolute', top: '270px' }}
+            >
+              <option value="">Select a subcity</option>
+              <option value="Arada">Arada</option>
+              <option value="Bole">Bole</option>
+              <option value="Yeka">Yeka</option>
+              <option value="Addis Ketema">Addis Ketema</option>
+              <option value="Kirkos">Kirkos</option>
+              <option value="Lideta">Lideta</option>
+              <option value="Gulele">Gulele</option>
+              <option value="Kolfe Keraniyo">Kolfe Keraniyo</option>
+              <option value="Nefas Silk">Nefas Silk</option>
+              <option value="other">other</option>
+              {/* Add more options as needed */}
+            </select>
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '380px' }}
+              style={{ position: 'absolute', top: '310px' }}
             >
               Work Unit
             </p>
@@ -282,11 +331,11 @@ const RegisterCustomer = () => {
               }}
               ref={inputRef}
               onContextMenu={handleContextMenu}
-              style={{ position: 'absolute', top: '440px' }}
+              style={{ position: 'absolute', top: '360px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '380px' }}
+              style={{ position: 'absolute', top: '310px' }}
             >
               Floor Number
             </p>
@@ -299,11 +348,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setFloorNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '440px' }}
+              style={{ position: 'absolute', top: '360px' }}
             />
             <p
               className="first-name1"
-              style={{ position: 'absolute', top: '480px' }}
+              style={{ position: 'absolute', top: '400px' }}
             >
               Office Number
             </p>
@@ -316,11 +365,11 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setOfficeNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '540px' }}
+              style={{ position: 'absolute', top: '450px' }}
             />
             <p
               className="last-name"
-              style={{ position: 'absolute', top: '480px' }}
+              style={{ position: 'absolute', top: '400px' }}
             >
               Elevator Number
             </p>
@@ -333,8 +382,76 @@ const RegisterCustomer = () => {
               onChange={(e) => {
                 setEleveatorNumber(e.target.value);
               }}
-              style={{ position: 'absolute', top: '540px' }}
+              style={{ position: 'absolute', top: '450px' }}
             />
+            <p
+              className="first-name1"
+              style={{ position: 'absolute', top: '490px' }}
+            >
+              Corporate Customer
+            </p>
+            <p
+              className="last-name"
+              style={{ position: 'absolute', top: '490px' }}
+            >
+              Special Case
+            </p>
+            <div className="CorporateSelection">
+              {' '}
+              <label htmlFor="Yes" style={{ fontStyle: 'italic' }}>
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="corporate"
+                name="corporate"
+                checked={corporate ? true : null}
+                onChange={() => {
+                  setCorporate(true);
+                }}
+              />
+              <label htmlFor="No" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="corporate"
+                name="corporate"
+                checked={!corporate ? true : null}
+                onChange={() => {
+                  setCorporate(false);
+                }}
+              />
+            </div>
+            <div className="SpecialSelection ">
+              {' '}
+              <label htmlFor="Yes" style={{ fontStyle: 'italic' }}>
+                Yes
+              </label>
+              <input
+                type="radio"
+                value="Special"
+                name="Special"
+                checked={special ? true : null}
+                onChange={() => {
+                  setSpecial(true);
+                }}
+              />
+              <label htmlFor="No" style={{ fontStyle: 'italic' }}>
+                {' '}
+                No
+              </label>
+              <input
+                type="radio"
+                value="Special"
+                name="Special"
+                checked={!special ? true : null}
+                onChange={() => {
+                  setSpecial(false);
+                }}
+              />
+            </div>
             <p className="intention">Intention of visit</p>
             <input
               className="intentionVisit"

@@ -7,6 +7,7 @@ import '../styles/floorDashboard.css';
 import Switch from 'react-switch';
 import { FiSearch } from 'react-icons/fi';
 import { ws } from 'renderer/webSocket';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const FloorDashboard = ({ online }) => {
   const navigate = useNavigate();
@@ -105,6 +106,11 @@ const FloorDashboard = ({ online }) => {
                       <p>
                         {' '}
                         {client.FirstName} {client.LastName}
+                        {client.corporate ? (
+                          <FaCheckCircle color="green" size={12} />
+                        ) : (
+                          ''
+                        )}
                       </p>
                       <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
                         {' '}
@@ -162,6 +168,11 @@ const FloorDashboard = ({ online }) => {
                       <p>
                         {' '}
                         {client.FirstName} {client.LastName}
+                        {client.corporate ? (
+                          <FaCheckCircle color="green" size={12} />
+                        ) : (
+                          ''
+                        )}
                       </p>
                       <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
                         {' '}
@@ -216,6 +227,11 @@ const FloorDashboard = ({ online }) => {
                       <p>
                         {' '}
                         {client.FirstName} {client.LastName}
+                        {client.corporate ? (
+                          <FaCheckCircle color="green" size={12} />
+                        ) : (
+                          ''
+                        )}
                       </p>
                       <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
                         {' '}
@@ -271,6 +287,11 @@ const FloorDashboard = ({ online }) => {
                       <p>
                         {' '}
                         {client.FirstName} {client.LastName}
+                        {client.corporate ? (
+                          <FaCheckCircle color="green" size={12} />
+                        ) : (
+                          ''
+                        )}
                       </p>
                       <p style={{ marginTop: '-10px', fontStyle: 'italic' }}>
                         {' '}

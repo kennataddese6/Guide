@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const Messages = ({ online }) => {
   const [selectedFloor, setSelectedFloor] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState('');
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -24,10 +25,12 @@ const Messages = ({ online }) => {
         <FloorReceptionists
           selectedFloor={selectedFloor}
           setSelectedFloor={setSelectedFloor}
+          setPhoneNumber={setPhoneNumber}
+          PhoneNumber={phoneNumber}
         />
       </div>
       <div className="ConversationsBoard">
-        <Conversations floorNumber={selectedFloor} />
+        <Conversations floorNumber={selectedFloor} phoneNmber={phoneNumber} />
       </div>
     </div>
   );

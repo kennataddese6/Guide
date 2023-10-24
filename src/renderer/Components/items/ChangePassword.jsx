@@ -15,6 +15,7 @@ const ChangePassowrd = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [confirmFoucus, setConfirmFocus] = useState(false);
   const [emptyField, setEmptyField] = useState(false);
+  const [validPassword, setValidPassword] = useState(true);
   const { user, isSuccess, isError, isLoading, message } = useSelector(
     (state) => state.auth
   );
@@ -65,6 +66,23 @@ const ChangePassowrd = () => {
       }
     }
   }, [newPassword, confirmPassword]);
+  useEffect(() => {
+    if (newPassword) {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const isPasswordValid = passwordRegex.test(newPassword);
+
+      if (!isPasswordValid) {
+        setValidPassword(false);
+        setError(true);
+        setDiplayMessage('Weak Password!');
+      } else {
+        setValidPassword(true);
+        setError(false);
+        setDiplayMessage('');
+      }
+    }
+  }, [newPassword]);
   return (
     <div className="changePassowrdContainer">
       {isLoading && <Spinner />}
@@ -82,7 +100,11 @@ const ChangePassowrd = () => {
       <input
         type="password"
         className="EmailID"
-        style={{ marginTop: '2em', color: 'black' }}
+        style={{
+          marginTop: '2em',
+          color: 'black',
+          borderBottomColor: validPassword ? '' : 'red',
+        }}
         placeholder="New Password"
         value={newPassword}
         onChange={(e) => {
@@ -108,12 +130,12 @@ const ChangePassowrd = () => {
       />
       <button
         className={
-          !passwordMatch || emptyField
+          !passwordMatch || emptyField || !validPassword
             ? 'CHangePaaswordButtonInactive'
             : 'CHangePaaswordButton'
         }
         onClick={handleSubmit}
-        disabled={!passwordMatch || !!emptyField}
+        disabled={!passwordMatch || !!emptyField || !validPassword}
       >
         {' '}
         Submit

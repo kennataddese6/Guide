@@ -52,10 +52,10 @@ const Clients = ({ online }) => {
       filter: true,
     },
     { field: 'SubCity', filter: true },
-
     { field: 'PhoneNumber' },
-    { field: 'Department' },
+    { field: 'WorkUnit' },
     { field: 'FloorNumber' },
+    { field: 'Date', filter: true },
   ]);
   const defaultColDef = useMemo(() => {
     return {
@@ -72,6 +72,12 @@ const Clients = ({ online }) => {
   const Export = useCallback(() => {
     ClientTableRef.current.api.exportDataAsCsv();
   }, []);
+  const formatDateandTime = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate()}-${
+      date.getMonth() + 1
+    }-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  };
   return (
     <>
       {' '}
@@ -89,9 +95,10 @@ const Clients = ({ online }) => {
             Woreda: client.Woreda,
             SubCity: client.SubCity,
             PhoneNumber: `'${client.PhoneNumber}'`,
-            Department: client.Department,
+            WorkUnit: client.Department,
             FloorNumber: client.FloorNumber,
             Gender: client.Gender,
+            Date: formatDateandTime(client.createdAt),
           }))}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}

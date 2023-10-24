@@ -8,7 +8,12 @@ import { reset } from 'renderer/features/auth/authSlice';
 import { reset as resetCustomer } from 'renderer/features/customers/customerSlice';
 import { ws } from 'renderer/webSocket';
 
-const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
+const FloorReceptionists = ({
+  selectedFloor,
+  setSelectedFloor,
+  setPhoneNumber,
+  PhoneNumber,
+}) => {
   const dispatch = useDispatch();
   const [floorReceptionists, setFloorReceptionists] = useState([]);
   const [incomingMessage, setIncomingMessage] = useState(false);
@@ -24,8 +29,9 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
     (state) => state.customer
   );
 
-  const passFloorNumber = (number) => {
+  const passFloorNumber = (number, phoneNumber) => {
     setSelectedFloor(number);
+    setPhoneNumber(phoneNumber);
   };
   useEffect(() => {
     dispatch(getFloorReceptionists());
@@ -40,13 +46,6 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
   }, [isSuccessgetFloorReceptionists]);
   useEffect(() => {
     if (isSuccess) {
-      console.log('I am going to set the new floor messages', customerMessage);
-      console.log(
-        'here is the last client',
-        customerMessage
-          .filter((customers) => customers.FloorNumber === selectedFloor)
-          .filter((customer) => customer.RegisteredBy === systemUser.Email)[0]
-      );
       setClient(customerMessage);
     }
     dispatch(resetCustomer());
@@ -84,6 +83,7 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
       {floorReceptionists ? (
         floorReceptionists.map((floorReceptionist) => {
           !selectedFloor && setSelectedFloor(floorReceptionists[0].FloorNumber);
+          !PhoneNumber && setPhoneNumber(floorReceptionists[0].PhoneNumber);
           return (
             <div
               className="ReceptionistContainer"
@@ -94,7 +94,10 @@ const FloorReceptionists = ({ selectedFloor, setSelectedFloor }) => {
                     : 'white',
               }}
               onClick={() => {
-                passFloorNumber(floorReceptionist.FloorNumber);
+                passFloorNumber(
+                  floorReceptionist.FloorNumber,
+                  floorReceptionist.PhoneNumber
+                );
               }}
             >
               <p className="ReceptionistName">
