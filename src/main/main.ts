@@ -25,6 +25,7 @@ import { resolveHtmlPath } from './util';
 const server = 'http://127.0.0.1:8080';
 const url = `${server}/update`;
 autoUpdater.setFeedURL(url);
+autoUpdater.autoDownload = false;
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -32,28 +33,23 @@ class AppUpdater {
     autoUpdater.checkForUpdates();
   }
 }
+const sendUpdateAvailable = () => {
+  console.log('I am called and I am doing my job');
+  mainWindow!.webContents.send('update-available');
+};
+const UpdateUnavailable = () => {
+  console.log('I am called and  I am  also doing my funcing job doing my job');
+  mainWindow!.webContents.send('update-not-available');
+};
 autoUpdater.on('update-available', () => {
-  dialog.showMessageBox(
-    {
-      type: 'info',
-      title: 'Update available',
-      message:
-        'A new version of the app is available. Do you want to update now?',
-      buttons: ['Update', 'Later'],
-    },
-    (buttonIndex) => {
-      if (buttonIndex === 0) {
-        autoUpdater.downloadUpdate();
-      }
-    }
-  );
+  // Send IPC message to the renderer process
+  mainWindow!.webContents.send('update-available');
+  sendUpdateAvailable();
+  console.log('there is an update that is available ');
 });
 autoUpdater.on('update-not-available', () => {
-  dialog.showMessageBox({
-    type: 'info',
-    title: 'No Updates',
-    message: 'Your application is up to date.',
-  });
+  mainWindow!.webContents.send('update-not-available');
+  UpdateUnavailable();
 });
 
 autoUpdater.on('update-downloaded', () => {

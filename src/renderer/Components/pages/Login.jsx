@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
 import Spinner from '../Utilities/Spinner';
 import { sendMessage } from '../../webSocket';
-const Login = () => {
+const Login = ({ setUpdateAvailable }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -72,6 +72,15 @@ const Login = () => {
       'notification-clicked',
       handleNotificationClick
     );
+    return () => {};
+  }, []);
+  useEffect(() => {
+    window.electron.ipcRenderer.on('update-available', () => {
+      setUpdateAvailable(true);
+    });
+    window.electron.ipcRenderer.on('update-not-available', () => {
+      setUpdateAvailable(false);
+    });
     return () => {};
   }, []);
   return (

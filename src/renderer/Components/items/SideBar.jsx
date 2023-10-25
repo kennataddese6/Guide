@@ -6,7 +6,8 @@ import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 import { FiRefreshCw } from 'react-icons/fi';
-const SideBar = ({ index, online }) => {
+
+const SideBar = ({ index, online, updateAvailable }) => {
   const SideBarIndex = index;
   const onLine = online;
   const navigate = useNavigate();
@@ -33,7 +34,6 @@ const SideBar = ({ index, online }) => {
   const toLogin = () => {
     dispatch(logout());
   };
-
   return (
     <div className="dashboard">
       <div className="div">
@@ -135,7 +135,13 @@ const SideBar = ({ index, online }) => {
           </div>
           <div className="navigation-elements-8">
             <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Update</div>
+            <div
+              className="text-wrapper-2"
+              style={{ display: 'flex', flexDirection: 'row' }}
+            >
+              Update{' '}
+              {updateAvailable ? <div className="update-circle">1</div> : ''}
+            </div>
           </div>
         </div>
         <div className="divider-3" />

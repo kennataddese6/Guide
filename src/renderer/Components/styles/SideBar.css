@@ -58,6 +58,18 @@
   left: 46px;
   position: absolute;
 }
+.update-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid lightgreen;
+  background-color: lightgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+  font-size: small;
+}
 
 .dashboard .divider-2 {
   background-color: var(--gray-divider);

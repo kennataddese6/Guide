@@ -16,18 +16,25 @@ import FormProvider from './features/hook/FormProvider';
 import FloorClients from './Components/pages/FloorClients';
 import { useWebSocket } from './features/hook/useWebSocket';
 import Settings from './Components/pages/Settings';
+import { useState } from 'react';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
-
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route
+          path="/"
+          element={<Login setUpdateAvailable={setUpdateAvailable} />}
+        />
         <Route
           path="/LobbyDasboard"
           element={
             <FormProvider>
-              <LobbyDashboard online={online} />
+              <LobbyDashboard
+                online={online}
+                updateAvailable={updateAvailable}
+              />
             </FormProvider>
           }
         />
