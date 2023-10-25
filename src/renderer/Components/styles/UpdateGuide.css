@@ -1,0 +1,42 @@
+.UpdateGuideContainer {
+  position: fixed;
+  z-index: 4;
+  width: 20vw;
+  height: 11vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 16px;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+.updateHeader {
+  text-align: center;
+}
+.UpdateCancelIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.UpdateButtonHolder {
+  margin-left: 95px;
+  margin-top: 50px;
+}
+.UpdateButton {
+  background-color: lightgreen;
+  font-size: 14px;
+}
+.UpdateCancelButton {
+  background-color: lightcoral;
+  font-size: 14px;
+  margin-left: 20px;
+}

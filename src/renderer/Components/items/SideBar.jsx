@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 import { FiRefreshCw } from 'react-icons/fi';
 
-const SideBar = ({ index, online, updateAvailable }) => {
+const SideBar = ({ index, online, updateAvailable, setShowUpdatePopup }) => {
   const SideBarIndex = index;
   const onLine = online;
   const navigate = useNavigate();
@@ -33,6 +33,10 @@ const SideBar = ({ index, online, updateAvailable }) => {
   };
   const toLogin = () => {
     dispatch(logout());
+  };
+  const showUpdatePopup = () => {
+    setShowUpdatePopup(true);
+    console.log('Update is available');
   };
   return (
     <div className="dashboard">
@@ -138,6 +142,10 @@ const SideBar = ({ index, online, updateAvailable }) => {
             <div
               className="text-wrapper-2"
               style={{ display: 'flex', flexDirection: 'row' }}
+              onClick={showUpdatePopup}
+              /*          onClick={() => {
+                updateAvailable ? showUpdatePopup() : null;
+              }} */
             >
               Update{' '}
               {updateAvailable ? <div className="update-circle">1</div> : ''}

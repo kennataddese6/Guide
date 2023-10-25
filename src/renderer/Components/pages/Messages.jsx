@@ -5,9 +5,11 @@ import Conversations from '../items/Conversations';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import UpdateGuide from '../items/UpdateGuide';
 const Messages = ({ online }) => {
   const [selectedFloor, setSelectedFloor] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   useEffect(() => {
@@ -17,7 +19,14 @@ const Messages = ({ online }) => {
   }, [user]);
   return (
     <div className="MessageDashboard">
-      <SideBar index={2} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+      <SideBar
+        index={2}
+        online={online}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div className="userHeader">
         <h3>Conversations</h3>
       </div>

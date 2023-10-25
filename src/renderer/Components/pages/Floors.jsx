@@ -7,10 +7,13 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
+import UpdateGuide from '../items/UpdateGuide';
+
 const Floors = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const FloorTableRef = useRef();
   const { user } = useSelector((state) => state.auth);
 
@@ -95,7 +98,14 @@ const Floors = ({ online }) => {
   }, []);
   return (
     <>
-      <SideBar index={3} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+      <SideBar
+        index={3}
+        online={online}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div
         id="myGrid"
         className="ag-theme-alpine"

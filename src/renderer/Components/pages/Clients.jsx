@@ -9,12 +9,15 @@ import { useNavigate } from 'react-router-dom';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
+import UpdateGuide from '../items/UpdateGuide';
+
 ModuleRegistry.registerModules([CsvExportModule]);
 
 const Clients = ({ online }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const { message, isSuccess } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const [allClients, setAllClients] = useState([]);
@@ -80,8 +83,14 @@ const Clients = ({ online }) => {
   };
   return (
     <>
-      {' '}
-      <SideBar index={4} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}{' '}
+      <SideBar
+        index={4}
+        online={online}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div
         id="myGrid"
         className="ag-theme-alpine"

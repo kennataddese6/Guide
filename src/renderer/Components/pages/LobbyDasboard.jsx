@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import Client from '../items/Client';
+import UpdateGuide from '../items/UpdateGuide';
 import {
   reset,
   updateCustomer,
@@ -26,6 +27,7 @@ const LobbyDashboard = ({ online, updateAvailable }) => {
   const [checked, setChecked] = useState(false);
   const [toggleBookedClients, setToggleBookedClients] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
 
   const {
     isSuccess,
@@ -170,11 +172,20 @@ const LobbyDashboard = ({ online, updateAvailable }) => {
 
   return (
     <div className="dashboard">
+      {showUpdatePopup && <UpdateGuide
+      setShowUpdatePopup={setShowUpdatePopup}
+      />}
+
       <Navbar
         TotalClients={clients.length}
         SentClients={SentCustomers.length}
       />
-      <SideBar index={1} online={online} updateAvailable={updateAvailable} />
+      <SideBar
+        index={1}
+        online={online}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div className="div-wrapper">
         <RegisterCustomer role="Customer" />
       </div>
