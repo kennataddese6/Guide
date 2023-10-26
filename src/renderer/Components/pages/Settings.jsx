@@ -8,7 +8,7 @@ import ChangePassowrd from '../items/ChangePassword';
 import AdminSideBar from '../items/AdminSidebar';
 import UpdateGuide from '../items/UpdateGuide';
 
-const Settings = ({ online }) => {
+const Settings = ({ online, updateAvailable }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -29,6 +29,7 @@ const Settings = ({ online }) => {
           index={5}
           online={online}
           setShowUpdatePopup={setShowUpdatePopup}
+          updateAvailable={updateAvailable}
         />
       ) : location.state === 2 ? (
         <FloorSideBar index={5} online={online} />

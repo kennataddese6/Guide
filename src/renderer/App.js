@@ -45,7 +45,12 @@ export default function App() {
             </FormProvider>
           }
         />
-        <Route path="/Messages" element={<Messages online={online} />} />
+        <Route
+          path="/Messages"
+          element={
+            <Messages online={online} updateAvailable={updateAvailable} />
+          }
+        />
         <Route
           path="/FloorDashboard"
           element={<FloorDashboard online={online} />}
@@ -55,10 +60,20 @@ export default function App() {
           element={<FloorMessages online={online} />}
         />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/Clients" element={<Clients online={online} />} />
+        <Route
+          path="/Clients"
+          element={
+            <Clients online={online} updateAvailable={updateAvailable} />
+          }
+        />
         <Route path="/Register" element={<Register />} />
         <Route path="/AdminView" element={<AdminView />} />
-        <Route path="/Settings" element={<Settings online={online} />} />
+        <Route
+          path="/Settings"
+          element={
+            <Settings online={online} updateAvailable={updateAvailable} />
+          }
+        />
         <Route
           path="/FloorClients"
           element={<FloorClients online={online} />}
@@ -68,7 +83,7 @@ export default function App() {
           path="/Floors"
           element={
             <FormProvider>
-              <Floors online={online} />
+              <Floors online={online} updateAvailable={updateAvailable} />
             </FormProvider>
           }
         />

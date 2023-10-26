@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UpdateGuide from '../items/UpdateGuide';
-const Messages = ({ online }) => {
+const Messages = ({ online, updateAvailable }) => {
   const [selectedFloor, setSelectedFloor] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
@@ -26,6 +26,7 @@ const Messages = ({ online }) => {
         index={2}
         online={online}
         setShowUpdatePopup={setShowUpdatePopup}
+        updateAvailable={updateAvailable}
       />
       <div className="userHeader">
         <h3>Conversations</h3>

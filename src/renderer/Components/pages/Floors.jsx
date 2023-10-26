@@ -9,7 +9,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import Spinner from '../Utilities/Spinner';
 import UpdateGuide from '../items/UpdateGuide';
 
-const Floors = ({ online }) => {
+const Floors = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Floors, setFloors] = useState([]);
@@ -105,6 +105,7 @@ const Floors = ({ online }) => {
         index={3}
         online={online}
         setShowUpdatePopup={setShowUpdatePopup}
+        updateAvailable={updateAvailable}
       />
       <div
         id="myGrid"

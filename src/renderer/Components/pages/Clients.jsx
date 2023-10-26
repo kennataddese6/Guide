@@ -13,7 +13,7 @@ import UpdateGuide from '../items/UpdateGuide';
 
 ModuleRegistry.registerModules([CsvExportModule]);
 
-const Clients = ({ online }) => {
+const Clients = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
@@ -90,6 +90,7 @@ const Clients = ({ online }) => {
         index={4}
         online={online}
         setShowUpdatePopup={setShowUpdatePopup}
+        updateAvailable={updateAvailable}
       />
       <div
         id="myGrid"
