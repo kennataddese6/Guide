@@ -4,11 +4,11 @@ import { useState } from 'react';
 import Floors from '../items/Floors';
 import Users from '../items/Users';
 
-const AdminView = () => {
+const AdminView = ({ updateAvailable }) => {
   const [selected, setSelected] = useState(1);
   return (
     <>
-      <AdminSideBar index={4} />
+      <AdminSideBar index={4} updateAvailable={updateAvailable} />
       <div
         className={selected === 1 ? 'headerOneSelected' : 'headerOne'}
         onClick={() => {

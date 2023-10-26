@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FaChartBar, FaChartLine, FaTrafficLight } from 'react-icons/fa';
 import LineChart from '../items/LineChart';
 import PieChart from '../items/PieChart';
-const AdminDashboard = () => {
+const AdminDashboard = ({ updateAvailable }) => {
   const [selected, setSelected] = useState(1);
 
   return (
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
         <FaTrafficLight />
         <p className="headerTtile"> Traffic</p>
       </div>
-      <AdminSidebar index={1} />
+      <AdminSidebar index={1} updateAvailable={updateAvailable} />
       {selected === 1 ? (
         <Report />
       ) : selected === 2 ? (

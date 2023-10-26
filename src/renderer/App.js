@@ -19,7 +19,7 @@ import Settings from './Components/pages/Settings';
 import { useState, useEffect } from 'react';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useState(true);
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage('check-update');
   }, []);
@@ -63,15 +63,24 @@ export default function App() {
             <FloorMessages online={online} updateAvailable={updateAvailable} />
           }
         />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
+        <Route
+          path="/AdminDashboard"
+          element={<AdminDashboard updateAvailable={updateAvailable} />}
+        />
         <Route
           path="/Clients"
           element={
             <Clients online={online} updateAvailable={updateAvailable} />
           }
         />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/AdminView" element={<AdminView />} />
+        <Route
+          path="/Register"
+          element={<Register updateAvailable={updateAvailable} />}
+        />
+        <Route
+          path="/AdminView"
+          element={<AdminView updateAvailable={updateAvailable} />}
+        />
         <Route
           path="/Settings"
           element={

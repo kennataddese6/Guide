@@ -5,13 +5,14 @@ import { IoMdAnalytics } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 
-const AdminSideBar = ({ index }) => {
+const AdminSideBar = ({ index, updateAvailable }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [shwoLogout, setShowLogout] = useState(true);
   const { user } = useSelector((state) => state.auth);
   const toRegister = () => {
     navigate('/Register');
@@ -37,6 +38,9 @@ const AdminSideBar = ({ index }) => {
       toLoginPage();
     }
   }, [user]);
+  const showUpdatePopup = () => {
+    setShowUpdatePopup(true);
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -133,7 +137,16 @@ const AdminSideBar = ({ index }) => {
           </div>
           <div className="navigation-elements-8">
             <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Update</div>
+            <div
+              className="text-wrapper-2"
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onClick={() => {
+                updateAvailable ? showUpdatePopup() : null;
+              }}
+            >
+              Update{' '}
+              {updateAvailable ? <div className="update-circle">1</div> : ''}
+            </div>
           </div>
         </div>
         <div className="divider-3" />
