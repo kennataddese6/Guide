@@ -249,3 +249,20 @@
   top: 352px;
   width: 255px;
 }
+@keyframes slideDown {
+  0% {
+    transform: translateY(-55%);
+  }
+  100% {
+    transform: translateY(25%);
+  }
+}
+
+.logoutButton {
+  position: relative;
+  background-color: #dc143c;
+  z-index: 5;
+  font-size: small;
+  margin-left: -42px;
+  animation: slideDown 0.5s forwards;
+}
