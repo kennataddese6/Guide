@@ -261,6 +261,7 @@
 .logoutButton {
   position: relative;
   background-color: #dc143c;
+  color: white;
   z-index: 5;
   font-size: small;
   margin-left: -42px;
