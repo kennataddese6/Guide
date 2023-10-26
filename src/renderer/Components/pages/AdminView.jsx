@@ -3,12 +3,22 @@ import { FaUsers, FaBuilding } from 'react-icons/fa';
 import { useState } from 'react';
 import Floors from '../items/Floors';
 import Users from '../items/Users';
+import UpdateGuide from '../items/UpdateGuide';
 
 const AdminView = ({ updateAvailable }) => {
   const [selected, setSelected] = useState(1);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
   return (
     <>
-      <AdminSideBar index={4} updateAvailable={updateAvailable} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+      <AdminSideBar
+        index={4}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div
         className={selected === 1 ? 'headerOneSelected' : 'headerOne'}
         onClick={() => {

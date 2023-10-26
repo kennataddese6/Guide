@@ -4,11 +4,16 @@ import { useState } from 'react';
 import { FaChartBar, FaChartLine, FaTrafficLight } from 'react-icons/fa';
 import LineChart from '../items/LineChart';
 import PieChart from '../items/PieChart';
+import UpdateGuide from '../items/UpdateGuide';
 const AdminDashboard = ({ updateAvailable }) => {
   const [selected, setSelected] = useState(1);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
 
   return (
     <>
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
       <div
         className={selected === 1 ? 'headerOneSelected' : 'headerOne'}
         onClick={() => {
@@ -39,7 +44,11 @@ const AdminDashboard = ({ updateAvailable }) => {
         <FaTrafficLight />
         <p className="headerTtile"> Traffic</p>
       </div>
-      <AdminSidebar index={1} updateAvailable={updateAvailable} />
+      <AdminSidebar
+        index={1}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       {selected === 1 ? (
         <Report />
       ) : selected === 2 ? (

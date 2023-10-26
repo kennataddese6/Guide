@@ -39,7 +39,11 @@ const Settings = ({ online, updateAvailable }) => {
           setShowUpdatePopup={setShowUpdatePopup}
         />
       ) : location.state === 3 ? (
-        <AdminSideBar index={5} updateAvailable={updateAvailable} />
+        <AdminSideBar
+          index={5}
+          updateAvailable={updateAvailable}
+          setShowUpdatePopup={setShowUpdatePopup}
+        />
       ) : null}
       <ChangePassowrd />
     </>

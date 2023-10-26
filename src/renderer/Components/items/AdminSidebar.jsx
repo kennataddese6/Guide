@@ -5,14 +5,13 @@ import { IoMdAnalytics } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 
-const AdminSideBar = ({ index, updateAvailable }) => {
+const AdminSideBar = ({ index, updateAvailable, setShowUpdatePopup }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [shwoLogout, setShowLogout] = useState(true);
   const { user } = useSelector((state) => state.auth);
   const toRegister = () => {
     navigate('/Register');
