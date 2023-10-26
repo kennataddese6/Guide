@@ -36,6 +36,7 @@ const Settings = ({ online, updateAvailable }) => {
           index={5}
           online={online}
           updateAvailable={updateAvailable}
+          setShowUpdatePopup={setShowUpdatePopup}
         />
       ) : location.state === 3 ? (
         <AdminSideBar index={5} />

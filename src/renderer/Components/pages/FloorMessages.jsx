@@ -7,11 +7,15 @@ import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
 import { ws } from 'renderer/webSocket';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
+import UpdateGuide from '../items/UpdateGuide';
+
 const FloorMessages = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
   const [floorCustomers, setFloorCustomers] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
@@ -79,10 +83,14 @@ const FloorMessages = ({ online, updateAvailable }) => {
   return (
     <>
       <div className="MessageDashboard">
+        {showUpdatePopup && (
+          <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+        )}
         <FloorSideBar
           index={2}
           online={online}
           updateAvailable={updateAvailable}
+          setShowUpdatePopup={setShowUpdatePopup}
         />{' '}
         <div className="userHeader">
           <h3>Conversations</h3>
