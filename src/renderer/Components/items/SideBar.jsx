@@ -36,7 +36,6 @@ const SideBar = ({ index, online, updateAvailable, setShowUpdatePopup }) => {
   };
   const showUpdatePopup = () => {
     setShowUpdatePopup(true);
-    console.log('Update is available');
   };
   return (
     <div className="dashboard">
@@ -142,10 +141,9 @@ const SideBar = ({ index, online, updateAvailable, setShowUpdatePopup }) => {
             <div
               className="text-wrapper-2"
               style={{ display: 'flex', flexDirection: 'row' }}
-              onClick={showUpdatePopup}
-              /*          onClick={() => {
+              onClick={() => {
                 updateAvailable ? showUpdatePopup() : null;
-              }} */
+              }}
             >
               Update{' '}
               {updateAvailable ? <div className="update-circle">1</div> : ''}

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset } from 'renderer/features/auth/authSlice';
 import Spinner from '../Utilities/Spinner';
 import { sendMessage } from '../../webSocket';
-const Login = ({ setUpdateAvailable }) => {
+const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -74,15 +74,7 @@ const Login = ({ setUpdateAvailable }) => {
     );
     return () => {};
   }, []);
-  useEffect(() => {
-    window.electron.ipcRenderer.on('update-available', () => {
-      setUpdateAvailable(true);
-    });
-    window.electron.ipcRenderer.on('update-not-available', () => {
-      setUpdateAvailable(false);
-    });
-    return () => {};
-  }, []);
+
   return (
     <div className="mainContainer">
       {' '}
@@ -96,7 +88,7 @@ const Login = ({ setUpdateAvailable }) => {
           <input
             type="text"
             className="EmailID"
-            placeholder="Email ID"
+            placeholder={`Email ID`}
             onChange={(e) => {
               setEmail(e.target.value);
             }}

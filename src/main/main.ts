@@ -33,39 +33,25 @@ class AppUpdater {
     autoUpdater.checkForUpdates();
   }
 }
-const sendUpdateAvailable = () => {
-  console.log('I am called and I am doing my job');
-  mainWindow!.webContents.send('update-available');
-};
-const UpdateUnavailable = () => {
-  console.log('I am called and  I am  also doing my funcing job doing my job');
-  mainWindow!.webContents.send('update-not-available');
-};
+
 autoUpdater.on('update-available', () => {
-  // Send IPC message to the renderer process
   mainWindow!.webContents.send('update-available');
-  sendUpdateAvailable();
   console.log('there is an update that is available ');
 });
 autoUpdater.on('update-not-available', () => {
   mainWindow!.webContents.send('update-not-available');
-  UpdateUnavailable();
 });
-
+ipcMain.on('check-update', async () => {
+  const updateAvailable = await autoUpdater.checkForUpdates();
+  console.log('This is the update information', updateAvailable?.versionInfo);
+});
+ipcMain.on('Update-Guide', async () => {
+  console.log('I am going to downlaod the update');
+  await autoUpdater.downloadUpdate();
+});
 autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox(
-    {
-      type: 'info',
-      title: 'Update ready',
-      message: 'Install and restart now?',
-      buttons: ['Yes', 'Later'],
-    },
-    (buttonIndex) => {
-      if (buttonIndex === 0) {
-        autoUpdater.quitAndInstall(false, true);
-      }
-    }
-  );
+  console.log('I have downloaded the update');
+  autoUpdater.quitAndInstall(false, true);
 });
 autoUpdater.on('error', (error) => {
   dialog.showMessageBox({

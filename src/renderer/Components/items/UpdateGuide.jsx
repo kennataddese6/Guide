@@ -1,6 +1,10 @@
 import '../styles/UpdateGuide.css';
 import { FaTimes } from 'react-icons/fa';
 const UpdateGuide = ({ setShowUpdatePopup }) => {
+  const DownloadUpdate = () => {
+    window.electron.ipcRenderer.sendMessage('Update-Guide');
+    setShowUpdatePopup(false);
+  };
   return (
     <div className="backdrop">
       <div className="UpdateGuideContainer">
@@ -14,7 +18,9 @@ const UpdateGuide = ({ setShowUpdatePopup }) => {
           <FaTimes />
         </div>
         <div className="UpdateButtonHolder">
-          <button className="UpdateButton">Update</button>
+          <button className="UpdateButton" onClick={DownloadUpdate}>
+            Update
+          </button>
           <button
             className="UpdateCancelButton"
             onClick={() => {
