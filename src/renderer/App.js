@@ -19,7 +19,7 @@ import Settings from './Components/pages/Settings';
 import { useState, useEffect } from 'react';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
-  const [updateAvailable, setUpdateAvailable] = useState(true);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage('check-update');
   }, []);

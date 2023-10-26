@@ -1,8 +1,8 @@
 .UpdateGuideContainer {
   position: fixed;
   z-index: 4;
-  width: 20vw;
-  height: 11vw;
+  width: 360px;
+  height: 150px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   top: 46%;
   left: 50%;
@@ -29,7 +29,7 @@
 }
 .UpdateButtonHolder {
   margin-left: 95px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .UpdateButton {
   background-color: lightgreen;
