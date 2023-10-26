@@ -32,7 +32,11 @@ const Settings = ({ online, updateAvailable }) => {
           updateAvailable={updateAvailable}
         />
       ) : location.state === 2 ? (
-        <FloorSideBar index={5} online={online} />
+        <FloorSideBar
+          index={5}
+          online={online}
+          updateAvailable={updateAvailable}
+        />
       ) : location.state === 3 ? (
         <AdminSideBar index={5} />
       ) : null}

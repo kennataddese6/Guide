@@ -6,7 +6,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
-const FloorClients = ({ online }) => {
+const FloorClients = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { message } = useSelector((state) => state.customer);
@@ -60,7 +60,11 @@ const FloorClients = ({ online }) => {
   }, []);
   return (
     <>
-      <FloorSideBar index={4} online={online} />
+      <FloorSideBar
+        index={4}
+        online={online}
+        updateAvailable={updateAvailable}
+      />
       <div
         id="myGrid"
         className="ag-theme-alpine"

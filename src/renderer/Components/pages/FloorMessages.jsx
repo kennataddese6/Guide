@@ -7,7 +7,7 @@ import FloorConversations from '../items/FloorConversations';
 import { login } from 'renderer/features/auth/authSlice';
 import { ws } from 'renderer/webSocket';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
-const FloorMessages = ({ online }) => {
+const FloorMessages = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
@@ -79,7 +79,11 @@ const FloorMessages = ({ online }) => {
   return (
     <>
       <div className="MessageDashboard">
-        <FloorSideBar index={2} online={online} />{' '}
+        <FloorSideBar
+          index={2}
+          online={online}
+          updateAvailable={updateAvailable}
+        />{' '}
         <div className="userHeader">
           <h3>Conversations</h3>
         </div>

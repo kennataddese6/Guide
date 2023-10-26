@@ -19,7 +19,7 @@ import Settings from './Components/pages/Settings';
 import { useState, useEffect } from 'react';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
-  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useState(true);
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage('check-update');
   }, []);
@@ -53,11 +53,15 @@ export default function App() {
         />
         <Route
           path="/FloorDashboard"
-          element={<FloorDashboard online={online} />}
+          element={
+            <FloorDashboard online={online} updateAvailable={updateAvailable} />
+          }
         />
         <Route
           path="/FloorMessages"
-          element={<FloorMessages online={online} />}
+          element={
+            <FloorMessages online={online} updateAvailable={updateAvailable} />
+          }
         />
         <Route path="/AdminDashboard" element={<AdminDashboard />} />
         <Route
@@ -76,7 +80,9 @@ export default function App() {
         />
         <Route
           path="/FloorClients"
-          element={<FloorClients online={online} />}
+          element={
+            <FloorClients online={online} updateAvailable={updateAvailable} />
+          }
         />
 
         <Route
@@ -87,7 +93,12 @@ export default function App() {
             </FormProvider>
           }
         />
-        <Route path="/Booking" element={<Booking online={online} />} />
+        <Route
+          path="/Booking"
+          element={
+            <Booking online={online} updateAvailable={updateAvailable} />
+          }
+        />
       </Routes>
     </Router>
   );

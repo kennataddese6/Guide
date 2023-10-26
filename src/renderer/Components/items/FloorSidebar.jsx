@@ -8,7 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 import { FiRefreshCw } from 'react-icons/fi';
 
-const FloorSideBar = ({ index, online }) => {
+const FloorSideBar = ({
+  index,
+  online,
+  updateAvailable,
+  setShowUpdatePopup,
+}) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,6 +38,9 @@ const FloorSideBar = ({ index, online }) => {
   };
   const toSettings = () => {
     navigate('/Settings', { state: 2 });
+  };
+  const showUpdatePopup = () => {
+    setShowUpdatePopup(true);
   };
   return (
     <div className="dashboard">
@@ -143,7 +151,16 @@ const FloorSideBar = ({ index, online }) => {
           </div>
           <div className="navigation-elements-8">
             <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Update</div>
+            <div
+              className="text-wrapper-2"
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onClick={() => {
+                updateAvailable ? showUpdatePopup() : null;
+              }}
+            >
+              Update{' '}
+              {updateAvailable ? <div className="update-circle">1</div> : ''}
+            </div>
           </div>
         </div>
         <div className="divider-3" />

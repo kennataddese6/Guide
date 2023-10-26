@@ -8,13 +8,14 @@ import Switch from 'react-switch';
 import { FiSearch } from 'react-icons/fi';
 import { ws } from 'renderer/webSocket';
 import { FaCheckCircle } from 'react-icons/fa';
-
-const FloorDashboard = ({ online }) => {
+import UpdateGuide from '../items/UpdateGuide';
+const FloorDashboard = ({ online, updateAvailable }) => {
   const navigate = useNavigate();
   const dipatch = useDispatch();
   const [clients, setClients] = useState([]);
   const [checked, setChecked] = useState(false);
   const [toggled, setToggled] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
@@ -62,7 +63,15 @@ const FloorDashboard = ({ online }) => {
   });
   return (
     <>
-      <FloorSideBar index={1} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+      <FloorSideBar
+        index={1}
+        online={online}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       {checked ? (
         <div className="firstFrame">
           <div className="frameHeader">
