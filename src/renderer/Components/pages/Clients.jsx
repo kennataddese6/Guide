@@ -13,7 +13,7 @@ import UpdateGuide from '../items/UpdateGuide';
 
 ModuleRegistry.registerModules([CsvExportModule]);
 
-const Clients = ({ online, updateAvailable }) => {
+const Clients = ({ online, updateAvailable, setAllMyClients }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
@@ -32,6 +32,7 @@ const Clients = ({ online, updateAvailable }) => {
   useEffect(() => {
     if (isSuccess) {
       setAllClients(message);
+      setAllMyClients(message.length);
     }
     dispatch(reset());
   }, [isSuccess]);
