@@ -13,7 +13,12 @@ import UpdateGuide from '../items/UpdateGuide';
 
 ModuleRegistry.registerModules([CsvExportModule]);
 
-const Clients = ({ online, updateAvailable, setAllMyClients }) => {
+const Clients = ({
+  online,
+  updateAvailable,
+  setAllMyClients,
+  setMissingClients,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
@@ -33,6 +38,10 @@ const Clients = ({ online, updateAvailable, setAllMyClients }) => {
     if (isSuccess) {
       setAllClients(message);
       setAllMyClients(message.length);
+      const filteredClients = message.filter(
+        (client) => client.Sent && !client.Arrived
+      );
+      setMissingClients(filteredClients.length);
     }
     dispatch(reset());
   }, [isSuccess]);

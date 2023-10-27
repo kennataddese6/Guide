@@ -21,6 +21,7 @@ export default function App() {
   const online = useWebSocket('ws://localhost:5000');
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [allClients, setAllClients] = useState(0);
+  const [missingClients, setMissingClients] = useState(0);
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage('check-update');
   }, []);
@@ -43,6 +44,7 @@ export default function App() {
                 online={online}
                 updateAvailable={updateAvailable}
                 allClients={allClients}
+                missingClients={missingClients}
               />
             </FormProvider>
           }
@@ -76,6 +78,7 @@ export default function App() {
               online={online}
               updateAvailable={updateAvailable}
               setAllMyClients={setAllClients}
+              setMissingClients={setMissingClients}
             />
           }
         />

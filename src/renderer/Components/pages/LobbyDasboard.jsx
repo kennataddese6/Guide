@@ -20,7 +20,12 @@ import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 
-const LobbyDashboard = ({ online, updateAvailable, allClients }) => {
+const LobbyDashboard = ({
+  online,
+  updateAvailable,
+  allClients,
+  missingClients,
+}) => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
   const [scheduledClients, setScheduledClients] = useState([]);
@@ -184,7 +189,11 @@ const LobbyDashboard = ({ online, updateAvailable, allClients }) => {
         <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
       )}
 
-      <Navbar TotalClients={allClients} SentClients={SentCustomers.length} />
+      <Navbar
+        TotalClients={allClients}
+        SentClients={SentCustomers.length}
+        missingClients={missingClients}
+      />
       <SideBar
         index={1}
         online={online}
