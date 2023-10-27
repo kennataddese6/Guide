@@ -116,7 +116,7 @@ const FloorReceptionists = ({
                     (customer) => customer.RegisteredBy === systemUser.Email
                   )[0]?.Booking
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
@@ -134,13 +134,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Status.postpone
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } has been Scheduled`
                     )}`
                   : client
@@ -152,13 +159,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Arrived
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } has arrived`
                     )}`
                   : client
@@ -177,7 +191,15 @@ const FloorReceptionists = ({
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
-                      }`
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
+                      } on Elevator
+                      `
                     )}`
                   : client
                       .filter(
@@ -195,6 +217,13 @@ const FloorReceptionists = ({
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } come`
                     )}`
                   : client
@@ -206,13 +235,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Waiting
                   ? `${trimMessage(
-                      `Mr ${
+                      `${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } wants to come to ${
                         client.find(
                           (customer) =>

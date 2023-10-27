@@ -110,19 +110,25 @@ const Conversations = ({ floorNumber, phoneNmber }) => {
               </p>
               {FloorCustomer.Booking ? (
                 <p className="customerContent">
-                  Mr {FloorCustomer.FirstName + ' '}{' '}
-                  {FloorCustomer.LastName + ' '} will be visiting{' '}
-                  {FloorCustomer.Department}. Please let him in when he arrives.
+                  {FloorCustomer.Gender === 'male' ? 'Mr ' : 'Ms '}
+                  {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}{' '}
+                  will be visiting {FloorCustomer.Department}. Please let{' '}
+                  {FloorCustomer.Gender === 'male' ? 'him ' : 'her '} in when he
+                  arrives.
                 </p>
               ) : (
                 <p className="customerContent">
-                  Mr {FloorCustomer.FirstName + ' '}{' '}
-                  {FloorCustomer.LastName + ' '}
-                  wants to come to {FloorCustomer.Department}. Shall I send him?
+                  {FloorCustomer.Gender === 'male' ? 'Mr ' : 'Ms '}
+                  {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
+                  wants to come to {FloorCustomer.Department}. Shall I send{' '}
+                  {FloorCustomer.Gender === 'male' ? ' him ' : ' her '}?
                 </p>
               )}
               {FloorCustomer.Accepted ? (
-                <p className="ArcustomerContent">Yes. Let him come</p>
+                <p className="ArcustomerContent">
+                  Yes. Let{FloorCustomer.Gender === 'male' ? ' him ' : ' her '}
+                  come
+                </p>
               ) : (
                 ''
               )}

@@ -123,12 +123,20 @@ const LobbyDashboard = ({ online, updateAvailable }) => {
     dispatch(updateCustomer(updateData));
     const InstantMessage = {
       email: user.FloorNumber,
-      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      content: `${clientData.FirstName} ${
+        clientData.LastName
+      } wants to come to ${clientData.Department}. Shall I send ${
+        clientData.Gender === 'male' ? 'him' : 'her'
+      }?`,
       address: clientData.FloorNumber,
     };
     sendMessage(InstantMessage);
     const composedMessage = {
-      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      content: `${clientData.FirstName} ${
+        clientData.LastName
+      } wants to come to ${clientData.Department}. Shall I send ${
+        clientData.Gender === 'male' ? 'him' : 'her'
+      }?`,
 
       to: clientData.FloorNumber,
     };
@@ -172,9 +180,9 @@ const LobbyDashboard = ({ online, updateAvailable }) => {
 
   return (
     <div className="dashboard">
-      {showUpdatePopup && <UpdateGuide
-      setShowUpdatePopup={setShowUpdatePopup}
-      />}
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
 
       <Navbar
         TotalClients={clients.length}

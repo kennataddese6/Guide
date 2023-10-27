@@ -121,7 +121,7 @@ const RegisterCustomer = () => {
         lastName +
         ' wants to come to ' +
         department +
-        ' shall I send him? ',
+        ` shall I send ${gender === 'male' ? 'him' : 'her'} ? `,
       to: floorNumber,
     };
     dispatch(updateLatestMessage(composedMessage));
@@ -129,7 +129,9 @@ const RegisterCustomer = () => {
 
     const composeMessage = {
       email: String(user.FloorNumber),
-      content: `${firstName} ${lastName} wants to come to ${department}. Shall I send him?`,
+      content: `${firstName} ${lastName} wants to come to ${department}. Shall I send ${
+        gender === 'male' ? 'him' : 'her'
+      }?`,
       address: floorNumber,
     };
     sendMessage(composeMessage);

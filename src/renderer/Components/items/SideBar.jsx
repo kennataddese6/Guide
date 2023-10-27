@@ -61,7 +61,7 @@ const SideBar = ({ index, online, updateAvailable, setShowUpdatePopup }) => {
                   color: isLightColor ? 'black' : 'white',
                 }}
               >
-                {user ? user.FirstName[0] : ''}
+                {user ? user.FirstName[0].toUpperCase() : ''}
               </div>
               <div
                 className="status-circle"

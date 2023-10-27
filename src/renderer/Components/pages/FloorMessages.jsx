@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import FloorConversations from '../items/FloorConversations';
-import { login } from 'renderer/features/auth/authSlice';
 import { ws } from 'renderer/webSocket';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import UpdateGuide from '../items/UpdateGuide';
@@ -42,12 +41,13 @@ const FloorMessages = ({ online, updateAvailable }) => {
   useEffect(() => {
     console.log('this is step 1', reload);
     if (reload) {
-      console.log('this is step 2', reload);
+      // Commented out because latest messages is replaced by getFloorcustoemrs
+      /*       console.log('this is step 2', reload);
       const userData = {
         email: user.Email,
         password: user.Password,
       };
-      dispatch(login(userData));
+      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
       console.log('this is step 3', reload);
     }
@@ -71,11 +71,12 @@ const FloorMessages = ({ online, updateAvailable }) => {
   useEffect(() => {
     console.log('here is the incoming message', incomingMessage);
     if (incomingMessage) {
-      const userData = {
+      // Replaced be the get custoemers to get the latest messges
+      /*       const userData = {
         email: user ? user.Email : '',
         password: user ? user.Password : '',
       };
-      dispatch(login(userData));
+      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
     }
     setIncomingMessage(false);
@@ -105,20 +106,24 @@ const FloorMessages = ({ online, updateAvailable }) => {
             <p className="messageContent">
               {floorCustomers && floorCustomers.Booking
                 ? ` ${trimMessage(
-                    `${floorCustomers.FirstName} has been booked`
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName} has been booked`
                   )}`
                 : floorCustomers.Status && floorCustomers.Status.postpone
                 ? `${trimMessage(
-                    `${floorCustomers.FirstName} has been scheduled`
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName} has been scheduled`
                   )}`
                 : floorCustomers.Arrived
-                ? `${trimMessage(`${floorCustomers.FirstName} has Arrived`)}`
+                ? `${trimMessage(
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName}  has Arrived`
+                  )}`
                 : floorCustomers.Sent
-                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName}`
+                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName} ${
+                    floorCustomers.LastName
+                  } `
                 : floorCustomers.Accepted
-                ? ` Let ${floorCustomers.FirstName} come`
+                ? `Yes. Let ${floorCustomers.FirstName} ${floorCustomers.LastName} come.`
                 : floorCustomers.Waiting
-                ? `${trimMessage(`${floorCustomers.FirstName} Wants to come
+                ? `${trimMessage(`${floorCustomers.FirstName} ${floorCustomers.LastName}  Wants to come
                 to ${floorCustomers.Department}`)}
                 `
                 : 'Sorry. Nothing to Show.'}
