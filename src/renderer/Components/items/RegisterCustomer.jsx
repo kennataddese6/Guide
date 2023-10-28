@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { getFloors } from 'renderer/features/Floors/floorSlice';
 import { reset } from '../../features/customers/customerSlice';
+import { reset as resetFloors } from 'renderer/features/Floors/floorSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
@@ -173,6 +174,7 @@ const RegisterCustomer = () => {
     if (floorIsSuccess) {
       setFloors(buildingfloors);
     }
+    dispatch(resetFloors());
   }, [floorIsSuccess]);
   useEffect(() => {
     const filteredFloor = floors.filter(
