@@ -465,7 +465,11 @@ const RegisterCustomer = () => {
             {inactive ? (
               <div
                 className="submitButInactive"
-                style={{ position: 'absolute', top: '690px' }}
+                style={{
+                  position: 'absolute',
+                  top: '690px',
+                  cursor: 'not-allowed',
+                }}
               >
                 Submit
               </div>

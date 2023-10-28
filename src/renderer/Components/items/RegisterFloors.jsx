@@ -15,6 +15,7 @@ const RegisterFloors = () => {
   const [officeNumber, setOfficeNumber] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const { isLoading, isSuccess, isError } = useSelector((state) => state.floor);
   const resetInputs = () => {
     setWorkUnit('');
@@ -46,6 +47,19 @@ const RegisterFloors = () => {
     dispatch(registerFloor(Floor));
     resetInputs();
   };
+  useEffect(() => {
+    if (
+      workUnit === '' ||
+      divison === '' ||
+      department === '' ||
+      floorNumber === '' ||
+      officeNumber === ''
+    ) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+  }, [workUnit, divison, department, floorNumber, officeNumber]);
   return (
     <>
       <div className="LobbyContainer">
@@ -107,8 +121,8 @@ const RegisterFloors = () => {
               }}
             />
             <div className="text-wrapper-4">Work Unit</div>
-            <div className="text-wrapper">Division</div>
-            <div className="text-wrapper-2">Department</div>
+            <div className="text-wrapper">Department</div>
+            <div className="text-wrapper-2">Divison</div>
             <div
               className="text-wrapper-2"
               style={{ position: 'absolute', top: '396px' }}
@@ -121,13 +135,28 @@ const RegisterFloors = () => {
             >
               Office Number
             </div>
-            <div
-              className="submitButton"
-              onClick={handleSubmit}
-              style={{ position: 'absolute', top: '502px' }}
-            >
-              <div className="text-wrapper-6">Submit</div>
-            </div>
+            {disableButton ? (
+              <div
+                className="submitButton"
+                style={{
+                  position: 'absolute',
+                  top: '502px',
+                  backgroundColor: 'grey',
+                  cursor: 'not-allowed',
+                }}
+              >
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            ) : (
+              <div
+                className="submitButton"
+                onClick={handleSubmit}
+                style={{ position: 'absolute', top: '502px' }}
+              >
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            )}
+
             {SuccessMessage ? (
               <div
                 style={{

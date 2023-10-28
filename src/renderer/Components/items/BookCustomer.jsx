@@ -344,6 +344,7 @@ const BookCustomer = () => {
                   position: 'absolute',
                   top: '640px',
                   backgroundColor: 'grey',
+                  cursor: 'not-allowed',
                 }}
               >
                 <div className="text-wrapper-6">Submit</div>
