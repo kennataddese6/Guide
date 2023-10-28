@@ -18,6 +18,7 @@ const Clients = ({
   updateAvailable,
   setAllMyClients,
   setMissingClients,
+  setAcceptedClients,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,9 +40,15 @@ const Clients = ({
       setAllClients(message);
       setAllMyClients(message.length);
       const filteredClients = message.filter(
-        (client) => client.Sent && !client.Arrived
+        (client) =>
+          client.Sent && !client.Arrived && client.RegisteredBy === user.Email
+      );
+      const AccpetedClients = message.filter(
+        (client) =>
+          client.Accepted && !client.Sent && client.RegisteredBy === user.Email
       );
       setMissingClients(filteredClients.length);
+      setAcceptedClients(AccpetedClients.length);
     }
     dispatch(reset());
   }, [isSuccess]);

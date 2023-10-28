@@ -25,6 +25,7 @@ const LobbyDashboard = ({
   updateAvailable,
   allClients,
   missingClients,
+  acceptedClients,
 }) => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
@@ -193,6 +194,7 @@ const LobbyDashboard = ({
         TotalClients={allClients}
         SentClients={SentCustomers.length}
         missingClients={missingClients}
+        acceptedClients={acceptedClients}
       />
       <SideBar
         index={1}

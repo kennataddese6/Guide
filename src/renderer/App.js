@@ -22,6 +22,7 @@ export default function App() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [allClients, setAllClients] = useState(0);
   const [missingClients, setMissingClients] = useState(0);
+  const [acceptedClients, setAcceptedClients] = useState(0);
   useEffect(() => {
     window.electron.ipcRenderer.sendMessage('check-update');
   }, []);
@@ -45,6 +46,7 @@ export default function App() {
                 updateAvailable={updateAvailable}
                 allClients={allClients}
                 missingClients={missingClients}
+                acceptedClients={acceptedClients}
               />
             </FormProvider>
           }
@@ -79,6 +81,7 @@ export default function App() {
               updateAvailable={updateAvailable}
               setAllMyClients={setAllClients}
               setMissingClients={setMissingClients}
+              setAcceptedClients={setAcceptedClients}
             />
           }
         />
