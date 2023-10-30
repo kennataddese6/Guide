@@ -108,21 +108,23 @@ const FloorMessages = ({ online, updateAvailable }) => {
                 ? ` ${trimMessage(
                     `${floorCustomers.FirstName} ${floorCustomers.LastName} has been booked`
                   )}`
-                : floorCustomers.Status && floorCustomers.Status.postpone
+                : floorCustomers &&
+                  floorCustomers.Status &&
+                  floorCustomers.Status.postpone
                 ? `${trimMessage(
                     `${floorCustomers.FirstName} ${floorCustomers.LastName} has been scheduled`
                   )}`
-                : floorCustomers.Arrived
+                : floorCustomers && floorCustomers.Arrived
                 ? `${trimMessage(
                     `${floorCustomers.FirstName} ${floorCustomers.LastName}  has Arrived`
                   )}`
-                : floorCustomers.Sent
+                : floorCustomers && floorCustomers.Sent
                 ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName} ${
                     floorCustomers.LastName
                   } `
-                : floorCustomers.Accepted
+                : floorCustomers && floorCustomers.Accepted
                 ? `Yes. Let ${floorCustomers.FirstName} ${floorCustomers.LastName} come.`
-                : floorCustomers.Waiting
+                : floorCustomers && floorCustomers.Waiting
                 ? `${trimMessage(`${floorCustomers.FirstName} ${floorCustomers.LastName}  Wants to come
                 to ${floorCustomers.Department}`)}
                 `
@@ -132,7 +134,11 @@ const FloorMessages = ({ online, updateAvailable }) => {
 
             <p className="TimeandDate">
               {' '}
-              {formatDate(floorCustomers ? floorCustomers.updatedAt : '')}
+              {formatDate(
+                floorCustomers && floorCustomers.updatedAt
+                  ? floorCustomers.updatedAt
+                  : user.createdAt
+              )}
             </p>
           </div>
         </div>
