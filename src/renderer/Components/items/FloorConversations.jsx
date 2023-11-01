@@ -210,15 +210,19 @@ const FloorConversations = ({ floorNumber, setReload }) => {
             {FloorCustomer.Booking ? (
               <p className="customerContent">
                 {' '}
-                Mr {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName + ' '} will be visiting{' '}
-                {FloorCustomer.Department}. Please Let him in when here arrives.
+                {FloorCustomer.Gender === 'male' ? 'Mr ' : 'Ms '}
+                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}{' '}
+                will be visiting {FloorCustomer.Department}. Please Let{' '}
+                {FloorCustomer.Gender === 'male' ? 'him?' : 'her?'} in when{' '}
+                {FloorCustomer.Gender === 'male' ? 'he?' : 'she?'}
+                arrives.
               </p>
             ) : (
               <p className="customerContent">
-                Mr {FloorCustomer.FirstName + ' '}{' '}
-                {FloorCustomer.LastName + ' '}
-                wants to come to {FloorCustomer.Department}. Shall I send him?
+                {FloorCustomer.Gender === 'male' ? 'Mr ' : 'Ms '}{' '}
+                {FloorCustomer.FirstName + ' '} {FloorCustomer.LastName + ' '}
+                wants to come to {FloorCustomer.Department}. Shall I send{' '}
+                {FloorCustomer.Gender === 'male' ? 'him?' : 'her?'}
               </p>
             )}
 
@@ -334,7 +338,7 @@ const FloorConversations = ({ floorNumber, setReload }) => {
                   );
                 }}
               >
-                He has arrived
+                {FloorCustomer.Gender === 'male' ? 'He ' : 'She '}has arrived
               </p>
             ) : FloorCustomer.Sent && FloorCustomer.Arrived ? (
               <p className="ArcustomerContent"> Arrived</p>

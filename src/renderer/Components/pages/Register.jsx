@@ -4,10 +4,17 @@ import RegisterFloors from '../items/RegisterFloors';
 import '../styles/AdminNavbar.css';
 import { FaUser, FaBuilding } from 'react-icons/fa';
 import { useState } from 'react';
-const Register = () => {
+import UpdateGuide from '../items/UpdateGuide';
+
+const Register = ({ updateAvailable }) => {
   const [selected, setSelected] = useState(1);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
   return (
     <>
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
       <div
         className={selected === 1 ? 'headerOneSelected' : 'headerOne'}
         onClick={() => {
@@ -27,7 +34,11 @@ const Register = () => {
         <FaBuilding />
         <p className="headerTtile"> Floors</p>
       </div>
-      <AdminSideBar index={3} />
+      <AdminSideBar
+        index={3}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       {selected === 1 ? <RegisterLobby /> : <RegisterFloors />}
     </>
   );

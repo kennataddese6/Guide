@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FloorSideBar from '../items/FloorSidebar';
 import FloorConversations from '../items/FloorConversations';
-import { login } from 'renderer/features/auth/authSlice';
 import { ws } from 'renderer/webSocket';
 import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
-const FloorMessages = ({ online }) => {
+import UpdateGuide from '../items/UpdateGuide';
+
+const FloorMessages = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [reload, setReload] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
   const [floorCustomers, setFloorCustomers] = useState([]);
   const { user } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.customer);
@@ -38,12 +41,13 @@ const FloorMessages = ({ online }) => {
   useEffect(() => {
     console.log('this is step 1', reload);
     if (reload) {
-      console.log('this is step 2', reload);
+      // Commented out because latest messages is replaced by getFloorcustoemrs
+      /*       console.log('this is step 2', reload);
       const userData = {
         email: user.Email,
         password: user.Password,
       };
-      dispatch(login(userData));
+      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
       console.log('this is step 3', reload);
     }
@@ -67,11 +71,12 @@ const FloorMessages = ({ online }) => {
   useEffect(() => {
     console.log('here is the incoming message', incomingMessage);
     if (incomingMessage) {
-      const userData = {
+      // Replaced be the get custoemers to get the latest messges
+      /*       const userData = {
         email: user ? user.Email : '',
         password: user ? user.Password : '',
       };
-      dispatch(login(userData));
+      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
     }
     setIncomingMessage(false);
@@ -79,7 +84,15 @@ const FloorMessages = ({ online }) => {
   return (
     <>
       <div className="MessageDashboard">
-        <FloorSideBar index={2} online={online} />{' '}
+        {showUpdatePopup && (
+          <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+        )}
+        <FloorSideBar
+          index={2}
+          online={online}
+          updateAvailable={updateAvailable}
+          setShowUpdatePopup={setShowUpdatePopup}
+        />{' '}
         <div className="userHeader">
           <h3>Conversations</h3>
         </div>
@@ -93,20 +106,26 @@ const FloorMessages = ({ online }) => {
             <p className="messageContent">
               {floorCustomers && floorCustomers.Booking
                 ? ` ${trimMessage(
-                    `${floorCustomers.FirstName} has been booked`
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName} has been booked`
                   )}`
-                : floorCustomers.Status && floorCustomers.Status.postpone
+                : floorCustomers &&
+                  floorCustomers.Status &&
+                  floorCustomers.Status.postpone
                 ? `${trimMessage(
-                    `${floorCustomers.FirstName} has been scheduled`
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName} has been scheduled`
                   )}`
-                : floorCustomers.Arrived
-                ? `${trimMessage(`${floorCustomers.FirstName} has Arrived`)}`
-                : floorCustomers.Sent
-                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName}`
-                : floorCustomers.Accepted
-                ? ` Let ${floorCustomers.FirstName} come`
-                : floorCustomers.Waiting
-                ? `${trimMessage(`${floorCustomers.FirstName} Wants to come
+                : floorCustomers && floorCustomers.Arrived
+                ? `${trimMessage(
+                    `${floorCustomers.FirstName} ${floorCustomers.LastName}  has Arrived`
+                  )}`
+                : floorCustomers && floorCustomers.Sent
+                ? `${trimMessage(``)} I have sent ${floorCustomers.FirstName} ${
+                    floorCustomers.LastName
+                  } `
+                : floorCustomers && floorCustomers.Accepted
+                ? `Yes. Let ${floorCustomers.FirstName} ${floorCustomers.LastName} come.`
+                : floorCustomers && floorCustomers.Waiting
+                ? `${trimMessage(`${floorCustomers.FirstName} ${floorCustomers.LastName}  Wants to come
                 to ${floorCustomers.Department}`)}
                 `
                 : 'Sorry. Nothing to Show.'}
@@ -115,7 +134,11 @@ const FloorMessages = ({ online }) => {
 
             <p className="TimeandDate">
               {' '}
-              {formatDate(floorCustomers ? floorCustomers.updatedAt : '')}
+              {formatDate(
+                floorCustomers && floorCustomers.updatedAt
+                  ? floorCustomers.updatedAt
+                  : user.createdAt
+              )}
             </p>
           </div>
         </div>

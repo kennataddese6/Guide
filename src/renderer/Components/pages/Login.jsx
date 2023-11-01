@@ -2,7 +2,7 @@ import '../styles/login.css';
 import { useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import { FiLock } from 'react-icons/fi';
+import { FiLock, FiUnlock } from 'react-icons/fi';
 import { useState, useEffect } from 'react';
 import { login } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isErrorLogin, setIsErrorLogin] = useState(false);
+  const [lock, setLock] = useState(true);
   const [errMsg, seterrMsg] = useState('');
   const { isSuccess, isLoading, user, message, isError } = useSelector(
     (state) => state.auth
@@ -74,6 +75,7 @@ const Login = () => {
     );
     return () => {};
   }, []);
+
   return (
     <div className="mainContainer">
       {' '}
@@ -87,16 +89,33 @@ const Login = () => {
           <input
             type="text"
             className="EmailID"
-            placeholder="Email ID"
+            placeholder={`Email ID`}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
           />
         </div>
         <div className="passwordContainer">
-          <FiLock className="passwordIcon" />
+          {lock ? (
+            <div
+              onClick={() => {
+                setLock(false);
+              }}
+            >
+              <FiLock className="passwordIcon" />
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                setLock(true);
+              }}
+            >
+              <FiUnlock className="passwordIcon" />
+            </div>
+          )}
+
           <input
-            type="password"
+            type={lock ? 'password' : 'text'}
             className="passwordID"
             placeholder="Password"
             onChange={(e) => {

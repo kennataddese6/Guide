@@ -16,9 +16,23 @@ import FormProvider from './features/hook/FormProvider';
 import FloorClients from './Components/pages/FloorClients';
 import { useWebSocket } from './features/hook/useWebSocket';
 import Settings from './Components/pages/Settings';
+import { useState, useEffect } from 'react';
 export default function App() {
   const online = useWebSocket('ws://localhost:5000');
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [allClients, setAllClients] = useState(0);
+  const [missingClients, setMissingClients] = useState(0);
+  const [acceptedClients, setAcceptedClients] = useState(0);
+  useEffect(() => {
+    window.electron.ipcRenderer.sendMessage('check-update');
+  }, []);
 
+  window.electron.ipcRenderer.on('update-available', () => {
+    setUpdateAvailable(true);
+  });
+  window.electron.ipcRenderer.on('update-not-available', () => {
+    setUpdateAvailable(false);
+  });
   return (
     <Router>
       <Routes>
@@ -27,38 +41,85 @@ export default function App() {
           path="/LobbyDasboard"
           element={
             <FormProvider>
-              <LobbyDashboard online={online} />
+              <LobbyDashboard
+                online={online}
+                updateAvailable={updateAvailable}
+                allClients={allClients}
+                missingClients={missingClients}
+                acceptedClients={acceptedClients}
+              />
             </FormProvider>
           }
         />
-        <Route path="/Messages" element={<Messages online={online} />} />
+        <Route
+          path="/Messages"
+          element={
+            <Messages online={online} updateAvailable={updateAvailable} />
+          }
+        />
         <Route
           path="/FloorDashboard"
-          element={<FloorDashboard online={online} />}
+          element={
+            <FloorDashboard online={online} updateAvailable={updateAvailable} />
+          }
         />
         <Route
           path="/FloorMessages"
-          element={<FloorMessages online={online} />}
+          element={
+            <FloorMessages online={online} updateAvailable={updateAvailable} />
+          }
         />
-        <Route path="/AdminDashboard" element={<AdminDashboard />} />
-        <Route path="/Clients" element={<Clients online={online} />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/AdminView" element={<AdminView />} />
-        <Route path="/Settings" element={<Settings online={online} />} />
+        <Route
+          path="/AdminDashboard"
+          element={<AdminDashboard updateAvailable={updateAvailable} />}
+        />
+        <Route
+          path="/Clients"
+          element={
+            <Clients
+              online={online}
+              updateAvailable={updateAvailable}
+              setAllMyClients={setAllClients}
+              setMissingClients={setMissingClients}
+              setAcceptedClients={setAcceptedClients}
+            />
+          }
+        />
+        <Route
+          path="/Register"
+          element={<Register updateAvailable={updateAvailable} />}
+        />
+        <Route
+          path="/AdminView"
+          element={<AdminView updateAvailable={updateAvailable} />}
+        />
+        <Route
+          path="/Settings"
+          element={
+            <Settings online={online} updateAvailable={updateAvailable} />
+          }
+        />
         <Route
           path="/FloorClients"
-          element={<FloorClients online={online} />}
+          element={
+            <FloorClients online={online} updateAvailable={updateAvailable} />
+          }
         />
 
         <Route
           path="/Floors"
           element={
             <FormProvider>
-              <Floors online={online} />
+              <Floors online={online} updateAvailable={updateAvailable} />
             </FormProvider>
           }
         />
-        <Route path="/Booking" element={<Booking online={online} />} />
+        <Route
+          path="/Booking"
+          element={
+            <Booking online={online} updateAvailable={updateAvailable} />
+          }
+        />
       </Routes>
     </Router>
   );

@@ -6,13 +6,17 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { useNavigate } from 'react-router-dom';
-const FloorClients = ({ online }) => {
+import UpdateGuide from '../items/UpdateGuide';
+
+const FloorClients = ({ online, updateAvailable }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { message } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const ClientTableRef = useRef();
   const [floorCustomers, setFloorCustomers] = useState([]);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+
   useEffect(() => {
     dispatch(getFloorCustomers(user ? user.FloorNumber : ''));
   }, []);
@@ -60,7 +64,15 @@ const FloorClients = ({ online }) => {
   }, []);
   return (
     <>
-      <FloorSideBar index={4} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+      <FloorSideBar
+        index={4}
+        online={online}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div
         id="myGrid"
         className="ag-theme-alpine"

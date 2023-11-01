@@ -24,6 +24,7 @@ const BookCustomer = () => {
   const [special, setSpecial] = useState(false);
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const { user } = useSelector((state) => state.auth);
   const { isSuccess, isLoading, isError } = useSelector(
     (state) => state.customer
@@ -89,6 +90,34 @@ const BookCustomer = () => {
       navigate('/');
     }
   }, [user]);
+  useEffect(() => {
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      phoneNumber === '' ||
+      floorNumber === '' ||
+      woreda === '' ||
+      subcity === '' ||
+      department === '' ||
+      officeNumber === '' ||
+      gender === undefined
+    ) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+      console.log('THis is the gender: ', gender);
+    }
+  }, [
+    firstName,
+    lastName,
+    phoneNumber,
+    floorNumber,
+    woreda,
+    subcity,
+    department,
+    officeNumber,
+    gender,
+  ]);
   return (
     <>
       <div className="LobbyContainer">
@@ -308,13 +337,28 @@ const BookCustomer = () => {
                 }}
               />
             </div>
-            <div
-              className="submitButton"
-              style={{ position: 'absolute', top: '640px' }}
-              onClick={handleSubmit}
-            >
-              <div className="text-wrapper-6">Submit</div>
-            </div>
+            {disableButton ? (
+              <div
+                className="submitButton"
+                style={{
+                  position: 'absolute',
+                  top: '640px',
+                  backgroundColor: 'grey',
+                  cursor: 'not-allowed',
+                }}
+              >
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            ) : (
+              <div
+                className="submitButton"
+                style={{ position: 'absolute', top: '640px' }}
+                onClick={handleSubmit}
+              >
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            )}
+
             {SuccessMessage ? (
               <div
                 style={{

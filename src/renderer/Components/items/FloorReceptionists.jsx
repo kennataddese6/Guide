@@ -34,22 +34,24 @@ const FloorReceptionists = ({
     setPhoneNumber(phoneNumber);
   };
   useEffect(() => {
-    dispatch(getFloorReceptionists());
     dispatch(getCustomers());
+    dispatch(getFloorReceptionists());
     setSystemUser(user ? user : '');
   }, []);
   useEffect(() => {
-    if (isSuccessgetFloorReceptionists) {
-      setFloorReceptionists(authMessage);
-    }
-    dispatch(reset());
-  }, [isSuccessgetFloorReceptionists]);
-  useEffect(() => {
     if (isSuccess) {
+      console.log('The Clienttttttttttttttttttt  got here first');
       setClient(customerMessage);
     }
     dispatch(resetCustomer());
   }, [isSuccess]);
+  useEffect(() => {
+    if (isSuccessgetFloorReceptionists) {
+      console.log('The floorrrrrrrrrrrrrrrrrr receptionist got here first');
+      setFloorReceptionists(authMessage);
+    }
+    dispatch(reset());
+  }, [isSuccessgetFloorReceptionists]);
 
   function trimMessage(message) {
     return message.length > 32 ? message.substring(0, 32) + '...' : message;
@@ -78,12 +80,42 @@ const FloorReceptionists = ({
     }
     setIncomingMessage(false);
   }, [incomingMessage]);
+
+  const sortedFloorReceptionists = [...floorReceptionists].sort((a, b) => {
+    const aTimestamp = client.find(
+      (customer) =>
+        customer.FloorNumber === a.FloorNumber &&
+        customer.RegisteredBy === systemUser.Email
+    )?.FirstName
+      ? client.find(
+          (customer) =>
+            customer.FloorNumber === a.FloorNumber &&
+            customer.RegisteredBy === systemUser.Email
+        )?.updatedAt
+      : a.createdAt;
+
+    const bTimestamp = client.find(
+      (customer) =>
+        customer.FloorNumber === b.FloorNumber &&
+        customer.RegisteredBy === systemUser.Email
+    )?.FirstName
+      ? client.find(
+          (customer) =>
+            customer.FloorNumber === b.FloorNumber &&
+            customer.RegisteredBy === systemUser.Email
+        )?.updatedAt
+      : b.createdAt;
+
+    return new Date(bTimestamp) - new Date(aTimestamp);
+  });
   return (
     <>
-      {floorReceptionists ? (
-        floorReceptionists.map((floorReceptionist) => {
-          !selectedFloor && setSelectedFloor(floorReceptionists[0].FloorNumber);
-          !PhoneNumber && setPhoneNumber(floorReceptionists[0].PhoneNumber);
+      {sortedFloorReceptionists ? (
+        sortedFloorReceptionists.map((floorReceptionist) => {
+          !selectedFloor &&
+            setSelectedFloor(sortedFloorReceptionists[0].FloorNumber);
+          !PhoneNumber &&
+            setPhoneNumber(sortedFloorReceptionists[0].PhoneNumber);
           return (
             <div
               className="ReceptionistContainer"
@@ -116,7 +148,7 @@ const FloorReceptionists = ({
                     (customer) => customer.RegisteredBy === systemUser.Email
                   )[0]?.Booking
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
@@ -134,13 +166,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Status.postpone
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } has been Scheduled`
                     )}`
                   : client
@@ -152,13 +191,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Arrived
                   ? `${trimMessage(
-                      `Mr ${
+                      ` ${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } has arrived`
                     )}`
                   : client
@@ -177,7 +223,15 @@ const FloorReceptionists = ({
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
-                      }`
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
+                      } on Elevator
+                      `
                     )}`
                   : client
                       .filter(
@@ -195,6 +249,13 @@ const FloorReceptionists = ({
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } come`
                     )}`
                   : client
@@ -206,13 +267,20 @@ const FloorReceptionists = ({
                         (customer) => customer.RegisteredBy === systemUser.Email
                       )[0]?.Waiting
                   ? `${trimMessage(
-                      `Mr ${
+                      `${
                         client.find(
                           (customer) =>
                             customer.FloorNumber ===
                               floorReceptionist.FloorNumber &&
                             customer.RegisteredBy === systemUser.Email
                         )?.FirstName
+                      } ${
+                        client.find(
+                          (customer) =>
+                            customer.FloorNumber ===
+                              floorReceptionist.FloorNumber &&
+                            customer.RegisteredBy === systemUser.Email
+                        )?.LastName
                       } wants to come to ${
                         client.find(
                           (customer) =>
@@ -224,11 +292,26 @@ const FloorReceptionists = ({
                     )}`
                   : `Sorry, Nothing to show.`}{' '}
               </p>
-              <div className="img-9">{floorReceptionist.FirstName[0]}</div>
+              <div className="img-9">
+                {floorReceptionist.FirstName[0].toUpperCase()}
+              </div>
 
               <p className="TimeandDate">
                 {' '}
-                {formatDate(floorReceptionist.updatedAt)}
+                {client.find(
+                  (customer) =>
+                    customer.FloorNumber === floorReceptionist.FloorNumber &&
+                    customer.RegisteredBy === systemUser.Email
+                )?.FirstName
+                  ? formatDate(
+                      client.find(
+                        (customer) =>
+                          customer.FloorNumber ===
+                            floorReceptionist.FloorNumber &&
+                          customer.RegisteredBy === systemUser.Email
+                      )?.updatedAt
+                    )
+                  : formatDate(floorReceptionist.createdAt)}
               </p>
             </div>
           );

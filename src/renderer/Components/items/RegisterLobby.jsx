@@ -16,6 +16,7 @@ const RegisterLobby = () => {
   const [selectedRole, setSelectedRole] = useState('');
   const [SuccessMessage, setSuccessMessage] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const { isLoading, isError, isSuccess } = useSelector((state) => state.auth);
   const resetInputs = () => {
     setFirstName('');
@@ -53,6 +54,20 @@ const RegisterLobby = () => {
     dispatch(register(userData));
     resetInputs();
   };
+  useEffect(() => {
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      email === '' ||
+      phoneNumber === '' ||
+      floorNumber === '' ||
+      selectedRole === ''
+    ) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+  }, [firstName, lastName, email, phoneNumber, floorNumber, selectedRole]);
 
   return (
     <>
@@ -128,9 +143,19 @@ const RegisterLobby = () => {
                 setFloorNumber(e.target.value);
               }}
             />
-            <div className="submitButton" onClick={handleSubmit}>
-              <div className="text-wrapper-6">Submit</div>
-            </div>
+            {disableButton ? (
+              <div
+                className="submitButton"
+                style={{ backgroundColor: 'grey', cursor: 'not-allowed' }}
+              >
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            ) : (
+              <div className="submitButton" onClick={handleSubmit}>
+                <div className="text-wrapper-6">Submit</div>
+              </div>
+            )}
+
             {SuccessMessage ? (
               <div
                 style={{

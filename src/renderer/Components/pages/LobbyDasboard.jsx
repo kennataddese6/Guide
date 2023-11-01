@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi';
 import '../styles/LobbyDasboard.css';
 import RegisterCustomer from '../items/RegisterCustomer';
 import Client from '../items/Client';
+import UpdateGuide from '../items/UpdateGuide';
 import {
   reset,
   updateCustomer,
@@ -19,13 +20,20 @@ import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 
-const LobbyDashboard = ({ online }) => {
+const LobbyDashboard = ({
+  online,
+  updateAvailable,
+  allClients,
+  missingClients,
+  acceptedClients,
+}) => {
   const [clients, setClients] = useState([]);
   const [sentClients, setSentClients] = useState([]);
   const [scheduledClients, setScheduledClients] = useState([]);
   const [checked, setChecked] = useState(false);
   const [toggleBookedClients, setToggleBookedClients] = useState(false);
   const [incomingMessage, setIncomingMessage] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
 
   const {
     isSuccess,
@@ -121,12 +129,20 @@ const LobbyDashboard = ({ online }) => {
     dispatch(updateCustomer(updateData));
     const InstantMessage = {
       email: user.FloorNumber,
-      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      content: `${clientData.FirstName} ${
+        clientData.LastName
+      } wants to come to ${clientData.Department}. Shall I send ${
+        clientData.Gender === 'male' ? 'him' : 'her'
+      }?`,
       address: clientData.FloorNumber,
     };
     sendMessage(InstantMessage);
     const composedMessage = {
-      content: `${clientData.FirstName} ${clientData.LastName} wants to come to ${clientData.Department}. Shall I send him?`,
+      content: `${clientData.FirstName} ${
+        clientData.LastName
+      } wants to come to ${clientData.Department}. Shall I send ${
+        clientData.Gender === 'male' ? 'him' : 'her'
+      }?`,
 
       to: clientData.FloorNumber,
     };
@@ -170,11 +186,22 @@ const LobbyDashboard = ({ online }) => {
 
   return (
     <div className="dashboard">
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}
+
       <Navbar
-        TotalClients={clients.length}
+        TotalClients={allClients}
         SentClients={SentCustomers.length}
+        missingClients={missingClients}
+        acceptedClients={acceptedClients}
       />
-      <SideBar index={1} online={online} />
+      <SideBar
+        index={1}
+        online={online}
+        updateAvailable={updateAvailable}
+        setShowUpdatePopup={setShowUpdatePopup}
+      />
       <div className="div-wrapper">
         <RegisterCustomer role="Customer" />
       </div>

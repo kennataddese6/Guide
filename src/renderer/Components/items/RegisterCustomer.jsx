@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerCustomer } from 'renderer/features/customers/customerSlice';
 import { getFloors } from 'renderer/features/Floors/floorSlice';
 import { reset } from '../../features/customers/customerSlice';
+import { reset as resetFloors } from 'renderer/features/Floors/floorSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
 import { updateLatestMessage } from '../../features/auth/authSlice';
@@ -121,7 +122,7 @@ const RegisterCustomer = () => {
         lastName +
         ' wants to come to ' +
         department +
-        ' shall I send him? ',
+        ` shall I send ${gender === 'male' ? 'him' : 'her'} ? `,
       to: floorNumber,
     };
     dispatch(updateLatestMessage(composedMessage));
@@ -129,7 +130,9 @@ const RegisterCustomer = () => {
 
     const composeMessage = {
       email: String(user.FloorNumber),
-      content: `${firstName} ${lastName} wants to come to ${department}. Shall I send him?`,
+      content: `${firstName} ${lastName} wants to come to ${department}. Shall I send ${
+        gender === 'male' ? 'him' : 'her'
+      }?`,
       address: floorNumber,
     };
     sendMessage(composeMessage);
@@ -171,6 +174,7 @@ const RegisterCustomer = () => {
     if (floorIsSuccess) {
       setFloors(buildingfloors);
     }
+    dispatch(resetFloors());
   }, [floorIsSuccess]);
   useEffect(() => {
     const filteredFloor = floors.filter(
@@ -463,7 +467,11 @@ const RegisterCustomer = () => {
             {inactive ? (
               <div
                 className="submitButInactive"
-                style={{ position: 'absolute', top: '690px' }}
+                style={{
+                  position: 'absolute',
+                  top: '690px',
+                  cursor: 'not-allowed',
+                }}
               >
                 Submit
               </div>

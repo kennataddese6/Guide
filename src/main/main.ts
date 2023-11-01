@@ -16,18 +16,50 @@ import {
   ipcMain,
   Notification,
   Menu,
+  dialog,
 } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { resolveHtmlPath } from './util';
+
+const server = 'http://127.0.0.1:8080';
+const url = `${server}/update`;
+autoUpdater.setFeedURL(url);
+autoUpdater.autoDownload = false;
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.checkForUpdates();
   }
 }
 
+autoUpdater.on('update-available', () => {
+  mainWindow!.webContents.send('update-available');
+  console.log('there is an update that is available ');
+});
+autoUpdater.on('update-not-available', () => {
+  mainWindow!.webContents.send('update-not-available');
+});
+ipcMain.on('check-update', async () => {
+  const updateAvailable = await autoUpdater.checkForUpdates();
+  console.log('This is the update information', updateAvailable?.versionInfo);
+});
+ipcMain.on('Update-Guide', async () => {
+  console.log('I am going to downlaod the update');
+  await autoUpdater.downloadUpdate();
+});
+autoUpdater.on('update-downloaded', () => {
+  console.log('I have downloaded the update');
+  autoUpdater.quitAndInstall(false, true);
+});
+autoUpdater.on('error', (error) => {
+  dialog.showMessageBox({
+    type: 'error',
+    title: 'Error in auto-updater',
+    message: error == null ? 'unknown' : (error.stack || error).toString(),
+  });
+});
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
@@ -156,6 +188,7 @@ app
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
     });
+    autoUpdater.checkForUpdates();
   })
   .catch(console.log);
 app.setAppUserModelId('Guide');

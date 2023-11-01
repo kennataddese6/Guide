@@ -3,7 +3,12 @@ import { IoIosNotifications } from 'react-icons/io';
 import { FiAlertCircle } from 'react-icons/fi';
 import { BiTask } from 'react-icons/bi';
 import '../styles/Navbar.css';
-const Navbar = ({TotalClients, SentClients}) => {
+const Navbar = ({
+  TotalClients,
+  SentClients,
+  missingClients,
+  acceptedClients,
+}) => {
   return (
     <>
       <div className="overlap-4">
@@ -13,12 +18,12 @@ const Navbar = ({TotalClients, SentClients}) => {
       </div>
       <div className="overlap-5">
         <IoIosNotifications className="img-3" style={{ color: 'black' }} />
-        <div className="text-wrapper-14">0</div>
+        <div className="text-wrapper-14">{acceptedClients}</div>
         <div className="text-wrapper-15">Notifications</div>
       </div>
       <div className="overlap-6">
         <FiAlertCircle className="img-3" style={{ color: 'black' }} />
-        <div className="text-wrapper-14">0</div>
+        <div className="text-wrapper-14">{missingClients}</div>
         <div className="text-wrapper-15">Reports</div>
       </div>
       <div className="overlap-7">

@@ -1,17 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import { FaUsers, FaBuilding } from 'react-icons/fa';
-import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
+import {
+  FiChevronDown,
+  FiSettings,
+  FiMessageSquare,
+  FiChevronUp,
+} from 'react-icons/fi';
 import { IoMdAnalytics } from 'react-icons/io';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useColorAndBrightness from 'renderer/features/hook/useColorAndBrightness';
 import { FiRefreshCw } from 'react-icons/fi';
-const SideBar = ({ index, online }) => {
+import { useState } from 'react';
+const SideBar = ({ index, online, updateAvailable, setShowUpdatePopup }) => {
   const SideBarIndex = index;
   const onLine = online;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const [shwoLogout, setShowLogout] = useState(true);
   const { color, isLightColor } = useColorAndBrightness(
     user ? user.FirstName + user.LastName : ''
   );
@@ -33,7 +40,9 @@ const SideBar = ({ index, online }) => {
   const toLogin = () => {
     dispatch(logout());
   };
-
+  const showUpdatePopup = () => {
+    setShowUpdatePopup(true);
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -52,16 +61,36 @@ const SideBar = ({ index, online }) => {
                   color: isLightColor ? 'black' : 'white',
                 }}
               >
-                {user ? user.FirstName[0] : ''}
+                {user ? user.FirstName[0].toUpperCase() : ''}
               </div>
               <div
                 className="status-circle"
                 style={{ backgroundColor: onLine ? 'green' : 'grey' }}
               ></div>
               <div className="divider-2" />
-              <div className="icon-navigation" onClick={toLogin}>
-                <FiChevronDown style={{ color: 'white ' }} />
-              </div>
+              {shwoLogout ? (
+                <div
+                  className="icon-navigation"
+                  onClick={() => {
+                    setShowLogout(false);
+                  }}
+                >
+                  <FiChevronDown style={{ color: 'white ' }} />
+                </div>
+              ) : (
+                <div
+                  className="icon-navigation"
+                  onClick={() => {
+                    setShowLogout(true);
+                  }}
+                >
+                  <FiChevronUp style={{ color: 'white ' }} />
+                  <button className="logoutButton" onClick={toLogin}>
+                    {' '}
+                    Logout
+                  </button>
+                </div>
+              )}
               <div className="text-wrapper">Lobby Receptionist</div>
             </div>
             <div className="navigation-elements-3">
@@ -135,7 +164,16 @@ const SideBar = ({ index, online }) => {
           </div>
           <div className="navigation-elements-8">
             <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Update</div>
+            <div
+              className="text-wrapper-2"
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onClick={() => {
+                updateAvailable ? showUpdatePopup() : null;
+              }}
+            >
+              Update{' '}
+              {updateAvailable ? <div className="update-circle">1</div> : ''}
+            </div>
           </div>
         </div>
         <div className="divider-3" />

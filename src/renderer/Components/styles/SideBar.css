@@ -58,6 +58,18 @@
   left: 46px;
   position: absolute;
 }
+.update-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid lightgreen;
+  background-color: lightgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+  font-size: small;
+}
 
 .dashboard .divider-2 {
   background-color: var(--gray-divider);
@@ -236,4 +248,22 @@
   position: absolute;
   top: 352px;
   width: 255px;
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-55%);
+  }
+  100% {
+    transform: translateY(25%);
+  }
+}
+
+.logoutButton {
+  position: relative;
+  background-color: #dc143c;
+  color: white;
+  z-index: 5;
+  font-size: small;
+  margin-left: -42px;
+  animation: slideDown 0.5s forwards;
 }

@@ -1,18 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
-import { FiChevronDown, FiSettings, FiMessageSquare } from 'react-icons/fi';
+import {
+  FiChevronDown,
+  FiSettings,
+  FiMessageSquare,
+  FiChevronUp,
+} from 'react-icons/fi';
 import { IoMdAnalytics } from 'react-icons/io';
 import { MdAssignment } from 'react-icons/md';
 import { logout } from 'renderer/features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FiRefreshCw } from 'react-icons/fi';
 
-const AdminSideBar = ({ index }) => {
+const AdminSideBar = ({ index, updateAvailable, setShowUpdatePopup }) => {
   const SideBarIndex = index;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const [shwoLogout, setShowLogout] = useState(true);
+
   const toRegister = () => {
     navigate('/Register');
   };
@@ -37,6 +44,9 @@ const AdminSideBar = ({ index }) => {
       toLoginPage();
     }
   }, [user]);
+  const showUpdatePopup = () => {
+    setShowUpdatePopup(true);
+  };
   return (
     <div className="dashboard">
       <div className="div">
@@ -58,9 +68,29 @@ const AdminSideBar = ({ index }) => {
                 {user ? user.FirstName[0] : ''}
               </div>
               <div className="divider-2" />
-              <div className="icon-navigation" onClick={toLogin}>
-                <FiChevronDown style={{ color: 'white ' }} />
-              </div>
+              {shwoLogout ? (
+                <div
+                  className="icon-navigation"
+                  onClick={() => {
+                    setShowLogout(false);
+                  }}
+                >
+                  <FiChevronDown style={{ color: 'white ' }} />
+                </div>
+              ) : (
+                <div
+                  className="icon-navigation"
+                  onClick={() => {
+                    setShowLogout(true);
+                  }}
+                >
+                  <FiChevronUp style={{ color: 'white ' }} />
+                  <button className="logoutButton" onClick={toLogin}>
+                    {' '}
+                    Logout
+                  </button>
+                </div>
+              )}
               <div className="text-wrapper">Admin</div>
             </div>
             <div className="navigation-elements-3">
@@ -133,7 +163,16 @@ const AdminSideBar = ({ index }) => {
           </div>
           <div className="navigation-elements-8">
             <FiRefreshCw className="iconSetting" style={{ color: 'black' }} />
-            <div className="text-wrapper-2">Update</div>
+            <div
+              className="text-wrapper-2"
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onClick={() => {
+                updateAvailable ? showUpdatePopup() : null;
+              }}
+            >
+              Update{' '}
+              {updateAvailable ? <div className="update-circle">1</div> : ''}
+            </div>
           </div>
         </div>
         <div className="divider-3" />

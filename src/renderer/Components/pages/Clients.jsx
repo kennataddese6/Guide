@@ -9,12 +9,21 @@ import { useNavigate } from 'react-router-dom';
 import { reset } from 'renderer/features/customers/customerSlice';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
+import UpdateGuide from '../items/UpdateGuide';
+
 ModuleRegistry.registerModules([CsvExportModule]);
 
-const Clients = ({ online }) => {
+const Clients = ({
+  online,
+  updateAvailable,
+  setAllMyClients,
+  setMissingClients,
+  setAcceptedClients,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ClientTableRef = useRef();
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const { message, isSuccess } = useSelector((state) => state.customer);
   const { user } = useSelector((state) => state.auth);
   const [allClients, setAllClients] = useState([]);
@@ -29,6 +38,17 @@ const Clients = ({ online }) => {
   useEffect(() => {
     if (isSuccess) {
       setAllClients(message);
+      setAllMyClients(message.length);
+      const filteredClients = message.filter(
+        (client) =>
+          client.Sent && !client.Arrived && client.RegisteredBy === user.Email
+      );
+      const AccpetedClients = message.filter(
+        (client) =>
+          client.Accepted && !client.Sent && client.RegisteredBy === user.Email
+      );
+      setMissingClients(filteredClients.length);
+      setAcceptedClients(AccpetedClients.length);
     }
     dispatch(reset());
   }, [isSuccess]);
@@ -80,8 +100,15 @@ const Clients = ({ online }) => {
   };
   return (
     <>
-      {' '}
-      <SideBar index={4} online={online} />
+      {showUpdatePopup && (
+        <UpdateGuide setShowUpdatePopup={setShowUpdatePopup} />
+      )}{' '}
+      <SideBar
+        index={4}
+        online={online}
+        setShowUpdatePopup={setShowUpdatePopup}
+        updateAvailable={updateAvailable}
+      />
       <div
         id="myGrid"
         className="ag-theme-alpine"
