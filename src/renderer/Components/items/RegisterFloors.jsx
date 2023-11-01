@@ -43,7 +43,6 @@ const RegisterFloors = () => {
       floorNumber: floorNumber,
       officeNumber: officeNumber,
     };
-    console.log('This is the floor to be dispacted', Floor);
     dispatch(registerFloor(Floor));
     resetInputs();
   };

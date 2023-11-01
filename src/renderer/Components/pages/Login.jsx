@@ -55,7 +55,6 @@ const Login = () => {
       message === 'Network Error'
         ? seterrMsg('Network Error!')
         : seterrMsg('Invalid Email or Password');
-      console.log('here is the error', message);
       setIsErrorLogin(true);
     }
     dispatch(reset());

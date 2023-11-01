@@ -24,7 +24,6 @@ const Conversations = ({ floorNumber, phoneNmber }) => {
 
   useEffect(() => {
     if (message && !isErrorGetCusomers) {
-      console.log('this is the message that is setted', message);
       setFloorCustomers(message);
     }
   }, [message]);
@@ -42,7 +41,6 @@ const Conversations = ({ floorNumber, phoneNmber }) => {
   });
 
   useEffect(() => {
-    console.log('here is the incoming message', incomingMessage);
     if (incomingMessage) {
       dispatch(getFloorCustomers(FloorNumber));
     }

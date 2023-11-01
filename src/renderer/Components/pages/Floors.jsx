@@ -24,7 +24,6 @@ const Floors = ({ online, updateAvailable }) => {
   const Copy = (params) => {
     // check if the browser supports the Clipboard API
     if (!navigator.clipboard) {
-      console.log('Clipboard API not supported');
       return;
     }
 
@@ -32,8 +31,6 @@ const Floors = ({ online, updateAvailable }) => {
     navigator.clipboard
       .writeText(params.value)
       .then(function () {
-        console.log('Copied to clipboard');
-
         // add the 'copied' CSS class to the cell
         params.node.setDataValue(params.column, params.value + ' (Copied)');
         params.api.refreshCells({ force: true });

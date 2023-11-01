@@ -31,7 +31,6 @@ const RegisterCustomer = () => {
   const [inactive, setInactive] = useState(true);
   const inputRef = useRef(null);
 
-  //console.log('this is the registered person', role);
   const { isLoading, isError, isSuccess } = useSelector(
     (state) => state.customer
   );
@@ -170,7 +169,6 @@ const RegisterCustomer = () => {
       (floor) => floor.WorkUnit === department
     );
     if (filteredFloor.length) {
-      console.log('This is the floor that is filtered', filteredFloor);
       setFloorNumber(filteredFloor[0].FloorNumber);
       setOfficeNumber(filteredFloor[0].OfficeNumber);
     }

@@ -5,16 +5,14 @@ ws.addEventListener('message', function (event) {
     title: 'New Message',
     body: event.data,
   });
-  console.log('Received message:', event.data);
 });
 
 const sendMessage = (message) => {
   try {
     ws.send(JSON.stringify(message));
-    console.log('I have sent the message');
   } catch (error) {
-    console.log('An error has occured.server Disconnected');
+    return error;
   }
 };
 
-export { sendMessage,ws };
+export { sendMessage, ws };

@@ -45,9 +45,7 @@ const BookCustomer = () => {
     setCorporate(false);
     setSpecial(false);
   };
-  useEffect(() => {
-    console.log(corporate, special);
-  }, [corporate, special]);
+
   useEffect(() => {
     if (isSuccess) {
       setErrorMessage(false);
@@ -99,7 +97,6 @@ const BookCustomer = () => {
       setDisableButton(true);
     } else {
       setDisableButton(false);
-      console.log('THis is the gender: ', gender);
     }
   }, [
     firstName,

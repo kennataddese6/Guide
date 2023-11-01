@@ -68,7 +68,6 @@ const Users = () => {
     dispatch(reset());
   }, [isSuccess]);
   const updateUserDetail = ({ params }) => {
-    console.log('this is the params', params);
     if (params.colDef.field === 'FirstName') {
       const userData = {
         FirstName: params.newValue,

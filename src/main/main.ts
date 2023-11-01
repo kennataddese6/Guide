@@ -36,7 +36,6 @@ class AppUpdater {
 
 autoUpdater.on('update-available', () => {
   mainWindow!.webContents.send('update-available');
-  console.log('there is an update that is available ');
 });
 autoUpdater.on('update-not-available', () => {
   mainWindow!.webContents.send('update-not-available');
@@ -46,7 +45,6 @@ ipcMain.on('check-update', async () => {
   console.log('This is the update information', updateAvailable?.versionInfo);
 });
 ipcMain.on('Update-Guide', async () => {
-  console.log('I am going to downlaod the update');
   await autoUpdater.downloadUpdate();
 });
 autoUpdater.on('update-downloaded', () => {

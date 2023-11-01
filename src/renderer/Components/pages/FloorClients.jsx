@@ -28,7 +28,6 @@ const FloorClients = ({ online, updateAvailable }) => {
   }, [user]);
   useEffect(() => {
     setFloorCustomers(message);
-    console.log(floorCustomers);
   }, [message]);
   const [columnDefs] = useState([
     {

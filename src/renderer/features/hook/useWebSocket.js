@@ -7,7 +7,6 @@ export const useWebSocket = (url) => {
 
   const handleClose = () => {
     setOnline(false);
-    console.log('Sorry, I am disconnected');
     const delay = Math.min(1000 * 2 ** retryCount, 30000);
     setTimeout(() => {
       reconnect();
@@ -17,7 +16,6 @@ export const useWebSocket = (url) => {
 
   const handleOpen = () => {
     setOnline(true);
-    console.log('Hello, I am connected');
     setRetryCount(0);
   };
 

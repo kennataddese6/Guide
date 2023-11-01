@@ -61,8 +61,6 @@ const ChangePassowrd = () => {
         setPasswordMatch(true);
         setError(false);
         setDiplayMessage('');
-      } else {
-        console.log('I dont konw what to do here');
       }
     }
   }, [newPassword, confirmPassword]);

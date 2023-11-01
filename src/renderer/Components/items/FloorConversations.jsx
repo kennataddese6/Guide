@@ -32,7 +32,6 @@ const FloorConversations = ({ floorNumber, setReload }) => {
   }, [isSuccess]);
   useEffect(() => {
     if (message && !isErrorGetCusomers) {
-      console.log('this is the message that is setted', message);
       setFloorCustomers(message);
     }
   }, [message]);
@@ -153,7 +152,6 @@ const FloorConversations = ({ floorNumber, setReload }) => {
       Postpone: true,
       date: postPoneDate,
     };
-    console.log('here is hte user data', updateData);
     dispatch(updateCustomer(updateData));
     const InstantMessage = {
       email: String(user.FloorNumber),

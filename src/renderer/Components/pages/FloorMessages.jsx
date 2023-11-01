@@ -31,30 +31,15 @@ const FloorMessages = ({ online, updateAvailable }) => {
   useEffect(() => {
     if (message) {
       setFloorCustomers(message[0]);
-      console.log(
-        ' IIIIIIIIIIIIIIIIIIIIII haveeeeeee got the customers',
-        message[0]
-      );
     }
   }, [message]);
 
   useEffect(() => {
-    console.log('this is step 1', reload);
     if (reload) {
-      // Commented out because latest messages is replaced by getFloorcustoemrs
-      /*       console.log('this is step 2', reload);
-      const userData = {
-        email: user.Email,
-        password: user.Password,
-      };
-      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
-      console.log('this is step 3', reload);
     }
-    console.log('this is step 4', reload);
 
     setReload(false);
-    console.log('this is step 5', reload);
   }, [reload]);
   function formatDate(dateString) {
     const date = moment(dateString);
@@ -69,14 +54,7 @@ const FloorMessages = ({ online, updateAvailable }) => {
     setIncomingMessage(true);
   });
   useEffect(() => {
-    console.log('here is the incoming message', incomingMessage);
     if (incomingMessage) {
-      // Replaced be the get custoemers to get the latest messges
-      /*       const userData = {
-        email: user ? user.Email : '',
-        password: user ? user.Password : '',
-      };
-      dispatch(login(userData)); */
       dispatch(getFloorCustomers(user.FloorNumber));
     }
     setIncomingMessage(false);

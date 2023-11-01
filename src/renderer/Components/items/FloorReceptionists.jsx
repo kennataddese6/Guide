@@ -40,14 +40,12 @@ const FloorReceptionists = ({
   }, []);
   useEffect(() => {
     if (isSuccess) {
-      console.log('The Clienttttttttttttttttttt  got here first');
       setClient(customerMessage);
     }
     dispatch(resetCustomer());
   }, [isSuccess]);
   useEffect(() => {
     if (isSuccessgetFloorReceptionists) {
-      console.log('The floorrrrrrrrrrrrrrrrrr receptionist got here first');
       setFloorReceptionists(authMessage);
     }
     dispatch(reset());
@@ -70,11 +68,6 @@ const FloorReceptionists = ({
   });
   useEffect(() => {
     if (incomingMessage) {
-      console.log(
-        'I am going to dispatch get floor recpetionist',
-        incomingMessage
-      );
-
       dispatch(getFloorReceptionists());
       dispatch(getCustomers());
     }
