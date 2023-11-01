@@ -7,7 +7,6 @@ import { reset } from '../../features/customers/customerSlice';
 import { reset as resetFloors } from 'renderer/features/Floors/floorSlice';
 import { MdCancel } from 'react-icons/md';
 import Spinner from '../Utilities/Spinner';
-import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage } from '../../webSocket';
 import FormContext from 'renderer/features/hook/FormContext';
 import NotificationModal from 'renderer/features/hook/NotificationModal';
@@ -115,17 +114,7 @@ const RegisterCustomer = () => {
       special,
     };
     dispatch(registerCustomer(customerData));
-    const composedMessage = {
-      content:
-        firstName +
-        ' ' +
-        lastName +
-        ' wants to come to ' +
-        department +
-        ` shall I send ${gender === 'male' ? 'him' : 'her'} ? `,
-      to: floorNumber,
-    };
-    dispatch(updateLatestMessage(composedMessage));
+
     // Send the message feature
 
     const composeMessage = {

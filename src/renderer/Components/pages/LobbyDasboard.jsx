@@ -17,7 +17,6 @@ import {
 } from 'renderer/features/customers/customerSlice';
 import Switch from 'react-switch';
 import Spinner from '../Utilities/Spinner';
-import { updateLatestMessage } from '../../features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 
 const LobbyDashboard = ({
@@ -98,11 +97,7 @@ const LobbyDashboard = ({
     event.preventDefault();
     const clientData = JSON.parse(event.dataTransfer.getData('text/plain'));
     // Update your application state with clientData
-    const composedMessage = {
-      content:
-        'I have sent ' + clientData.FirstName + ' ' + clientData.LastName,
-      to: clientData.FloorNumber,
-    };
+
     const updateData = {
       Sent: true,
       ID: clientData._id,
@@ -114,7 +109,6 @@ const LobbyDashboard = ({
       address: clientData.FloorNumber,
     };
     sendMessage(InstantMessage);
-    dispatch(updateLatestMessage(composedMessage));
     dispatch(updateCustomer(updateData));
   }
 
@@ -137,16 +131,6 @@ const LobbyDashboard = ({
       address: clientData.FloorNumber,
     };
     sendMessage(InstantMessage);
-    const composedMessage = {
-      content: `${clientData.FirstName} ${
-        clientData.LastName
-      } wants to come to ${clientData.Department}. Shall I send ${
-        clientData.Gender === 'male' ? 'him' : 'her'
-      }?`,
-
-      to: clientData.FloorNumber,
-    };
-    dispatch(updateLatestMessage(composedMessage));
   }
 
   useEffect(() => {

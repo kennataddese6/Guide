@@ -93,23 +93,7 @@ export const getUsers = createAsyncThunk(
     }
   }
 );
-// update latest message
-export const updateLatestMessage = createAsyncThunk(
-  'auth/updateLatestMessage',
-  async (latestMessage, thunkAPI) => {
-    try {
-      return await authService.updateLatestMessage(latestMessage);
-    } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
+
 // To Change Password
 export const ChangePassword = createAsyncThunk(
   'auth/ChangePassword',
@@ -208,19 +192,6 @@ export const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.message = action.payload;
-      })
-      // to update latest messages
-      .addCase(updateLatestMessage.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(updateLatestMessage.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-      })
-      .addCase(updateLatestMessage.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

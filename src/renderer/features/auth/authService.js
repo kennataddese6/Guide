@@ -60,17 +60,7 @@ const getUsers = async () => {
     throw error;
   }
 };
-// To update the latest message of of receptionists
-const updateLatestMessage = async (latestMessage) => {
-  try {
-    const response = await axios.put(API_URL + 'latestMessage', latestMessage);
-    if (response.data) {
-      return response.data;
-    }
-  } catch (error) {
-    throw error;
-  }
-};
+
 // To Change Password
 const ChangePassword = async (userData) => {
   try {
@@ -108,7 +98,6 @@ const logout = async () => {
 const authService = {
   register,
   getFloorReceptionists,
-  updateLatestMessage,
   login,
   logout,
   ChangePassword,

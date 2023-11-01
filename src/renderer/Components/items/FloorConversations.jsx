@@ -5,7 +5,6 @@ import { getFloorCustomers } from 'renderer/features/customers/customerSlice';
 import Spinner from '../Utilities/Spinner';
 import { updateCustomer } from 'renderer/features/customers/customerSlice';
 import { reset } from 'renderer/features/customers/customerSlice';
-import { updateLatestMessage } from 'renderer/features/auth/authSlice';
 import { sendMessage, ws } from 'renderer/webSocket';
 import { DateTimePicker } from 'react-rainbow-components';
 import { FaCheckCircle } from 'react-icons/fa';
@@ -50,11 +49,7 @@ const FloorConversations = ({ floorNumber, setReload }) => {
       ID: id,
     };
     dispatch(updateCustomer(updateData));
-    const composedMessage = {
-      content: `Yes. Let ${firstName} ${lastName} come`,
-      to: floorNumber,
-    };
-    dispatch(updateLatestMessage(composedMessage));
+
     const InstantMessage = {
       email: String(user.FloorNumber),
       content: `Yes. Let ${firstName} ${lastName} come`,
@@ -77,17 +72,12 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     };
     dispatch(updateCustomer(updateData));
 
-    const composedMessage = {
-      content: `Customer  ${firstName} ${lastName} has Arrived`,
-      to: floorNumber,
-    };
     const InstantMessage = {
       email: String(user.FloorNumber),
       content: `Customer  ${firstName} ${lastName} has Arrived`,
       address: RegisteredBy,
     };
     sendMessage(InstantMessage);
-    dispatch(updateLatestMessage(composedMessage));
     setReload(true);
   };
   function formatDate(dateString) {
@@ -165,17 +155,12 @@ const FloorConversations = ({ floorNumber, setReload }) => {
     };
     console.log('here is hte user data', updateData);
     dispatch(updateCustomer(updateData));
-    const composedMessage = {
-      content: ` ${firstName} ${lastName} is Scheduled`,
-      to: floorNumber,
-    };
     const InstantMessage = {
       email: String(user.FloorNumber),
       content: ` ${firstName} ${lastName} is Scheduled`,
       address: RegisteredBy,
     };
     sendMessage(InstantMessage);
-    dispatch(updateLatestMessage(composedMessage));
     setPostPoneClient(false);
     setPostPoneDate(new Date());
     setReload(true);
